@@ -1,0 +1,171 @@
+%% The following template is sourced from Kevin McGrath on 6 Oct. 2017 located:
+%%http://web.engr.oregonstate.edu/cgi-bin/cgiwrap/dmcgrath/classes/17F/cs444/index.cgi?examples=examples/template.tex
+
+\documentclass[letterpaper,10pt,titlepage]{article}
+
+\usepackage{graphicx}                                        
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                         
+\usepackage{amsthm}                                          
+
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{balance}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+
+\usepackage{geometry}
+\geometry{textheight=8.5in, textwidth=6in}
+
+%random comment
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\def\name{David Baugh}
+
+%pull in the necessary preamble matter for pygments output
+\input{pygments.tex}
+
+%% The following metadata will show up in the PDF properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = blue,
+  pdfauthor = {\name},
+  pdfkeywords = {CS460 capstone ``computer science'' problem statement},
+  pdftitle = {Social Media Joural App Problem Statement},
+  pdfsubject = {Problem Statement},
+  pdfpagemode = UseNone
+}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\vspace*{3cm}
+\huge{\textbf{Social Media Journal App}}\par
+\vspace{1cm}
+\large{Project Sponsored By:}\par
+\vspace{3mm}
+\normalsize{David Vasquez}\par
+\vspace{1cm}
+\huge{\textbf{Problem Statement}}\par
+\vspace{1cm}
+\large{Written by:}\par
+\vspace{3mm}
+\normalsize{David Baugh}\par
+\vspace{25mm}
+\large{\textbf{Abstract:}}\par 
+\vspace{4mm}
+\normalsize{The Social Media Journal App project seeks to develop a social media 
+app not unlike Facebook, Instagram, and Twitter. Our group will develop fill the 
+niche that exists today where social media can only capture a snippet of your day. 
+The Social Media Journal App will allow consumers to express their everyday life 
+in the form of journals that will allow for extended word counts and embedded photos.
+
+This project will develop from the ground up starting with the database and ending
+ with the graphic design and UI development for the app. The Social Media Journal App
+  will be a project that by the end of the year we will have a finished project or a 
+  project that we will hopefully continue outside of class.}
+\end{center}
+\end{titlepage}
+
+\setlength\parindent{4mm}
+\section*{Problem Definition}\par
+\hspace{4ex}In the world filled with social media and entertainment, lives are 
+posted online 140 characters and a picture at a time. No one social media is 
+a complete solution for every person and thus leaves some without a way to 
+express themselves online.
+
+\section*{Problem Description}\par
+\hspace{4ex}Other than a Facebook post, there is no way to express
+ yourself online in an elongated way. Instagram only allows for short captions 
+ with each photo. Every popular social media app has its perks but they do not 
+ fill the niche for every person. The challenge of this project is to create a
+ full social media network that will fill one of those niches and allow another 
+ avenue for the online community to express themselves. This social media app 
+ has to look and feel like a welcome place that people can come and feel comfortable
+telling their stories and entries. The next problem is that the Social Media Journal
+App group will have to make sure the back end is up to specs for the front UI to be
+able to encourage open sharing about people's lives and adventures. To do this, the 
+ project will need to develop from the ground up from the database and networking
+ and all the way through security and up to the UI. The app will need to be 
+innovative and fresh as to garner attention from the public and local communities.
+Security and connectivity will be essential with the app as it will contain users'
+personal information and person stories. The database and network will need to be
+airtight because without a solid foundation, the house will fall and the app will 
+fail.  
+
+\section*{Proposed Solution}\par
+\hspace{4ex}The Social Media Journal App project will explore new and innovative 
+ways of expressing one's self online. The project will focus on the niche of 
+journaling in which users will be able to write extended thoughts with embedded 
+photos and potentially more. The project wants to combine the ideas of social
+media and journalism and form a collection of community's and personal journals 
+that allow people to see into other's lives and really understand and enjoy 
+other's high points in life journal entry by journal entry. These journal entries
+could be described as Twitter posts with the robustness of Facebook and the 
+suave simplicity of Instagram. 
+
+On a user's profile, they would have the ability to look through their life within 
+their journal entries. For some this would work as a diary; others it would be a 
+public journal of their adventures. Users would have access to the communities 
+they follow. They would be able to create a new post which would include photos, 
+text, and whatever else they want embedded.
+
+Initially the app will consists of individual profiles that allow a person to share 
+their own journal entries on but hopefully the idea will be expanded into the thought 
+of communities. These communities will allow groups of people or organizations to have 
+a place that they can communally place journal entries. Users will be able to follow these 
+communities and have the ability to get a glimpse into another's life. Imagine an OSU community where
+ students come on and post journal entries about their day at OSU. They could then come 
+ back to that community later and see the lives of students along with their own story 
+ every day according to the OSU community.  
+
+From the technical side, this project will consist of a full stack development. 
+The project will consist of modular but robust code that will be easily edited 
+and changed as the project evolves over the project's life time. The database will
+be situated on OSU's student databases up to the point when the project extends past
+the grasp of capstone. From there, it will up to the group members who stay on the
+project where to situate the database from there on. React Native will be used
+as it will allow for both Android and IOS development concurrently. Networking and
+Security will be developed with professional standards as they are essential to the
+projects stability and survival. The UI of the app will be innovative in that it will
+be attractive to new users and is comfortable for the consistent users.
+
+
+\section*{Performance Metrics}\par
+\hspace{4ex}Project completion will be judged by the following metrics:
+\begin{enumerate}
+\item Database:
+\begin{itemize}
+\item Can the database capable of 10s or 100s of user's information?
+\item Will the database be able to be transfer at end of term?
+\item Is the database capable of being edited and viewed?
+\end{itemize}
+\item Networking and Security:
+\begin{itemize}
+\item Does the network maintain a consistent connection between apps and database?
+\item Does the network maintain a secure connection to and from the database?
+\item Is there secure account registration?
+\item Is there secure log in and log out?
+\end{itemize}
+
+\item UI:
+\begin{itemize}
+\item Can the user create a profile for themselves or a community?
+\item Can the user view and follow other profiles?
+\item Can the user make journal posts?
+\item Can the user make journal posts that contain both text and text-wrapped images?
+\end{itemize} 
+\end{enumerate}
+\end{document}
+
+
+
+
