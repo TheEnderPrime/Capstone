@@ -1,43 +1,32 @@
-LATEX	= latex -shell-escape
-BIBTEX	= bibtex
-DVIPS	= dvips
-DVIPDF  = dvipdft
-XDVI	= xdvi -gamma 4
-GH		= gv
+TEX = pdflatex
+TEX_TARGET = SawyerProblemStatement
+TEX_SOURCE = ${TEX_TARGET}.tex
 
-SRC	:= $(shell egrep -l '^[^%]*\\begin\{document\}' SawyerKokeshWriting1.tex)
-TRG	= $(SRC:%.tex=%.dvi)
-PSF	= $(SRC:%.tex=%.ps)
-PDF	= $(SRC:%.tex=%.pdf)
 
-all: pdf SawyerKokeshWriting1.pdf
+default:	pdf
 
-pdf: $(PDF)
+pdf:		ps
+		ps2pdf ${TEX_TARGET}.ps
+		rm -f ${TEX_TARGET}.aux
+		rm -f ${TEX_TARGET}.toc
+		rm -f ${TEX_TARGET}.log
+		rm -f ${TEX_TARGET}.dvi
+		rm -f ${TEX_TARGET}.ps
 
-ps: $(PSF)
+ps: 		dvi
+		dvips -R -Poutline -t letter ${TEX_TARGET}.dvi -o ${TEX_TARGET}.ps
 
-$(TRG): %.dvi: %.tex *.bib 
-	$(LATEX) $<
-	$(BIBTEX) $(<:%.tex=%)
-	$(LATEX) $<
-	$(LATEX) $<
+dvi:		${TEX_TARGET}.tex 
+		# run latex twice to get references correct
+		latex ${TEX_TARGET}.tex
+		latex $(TEX_TARGET).tex
 
-$(PSF):%.ps: %.dvi
-	$(DVIPS) -R -Poutline -t letter $< -o $@
+tarball: 	pdf
+		tar -cvjf CS444_group4.tar.bz2 ${TEX_SOURCE} ${TEX_TARGET}.pdf makefile
 
-$(PDF): %.pdf: %.ps
-#	$(DVIPDF) -o $@ $<
-	ps2pdf $<
-
-show: $(TRG)
-	@for i in $(TRG) ; do $(XDVI) $$i & done
-
-showps: $(PSF)
-	@for i in $(PSF) ; do $(GH) $$i & done
-
+.PHONY: clean
 
 clean:
-	rm -f *.pdf *.ps *.dvi *.out *.log *.aux *.bbl *.blg *.pyg *.o
-
-.PHONY: all show clean ps pdf showps
-
+		rm -f ${TEX_TARGET}.{aux,toc,log,dvi,ps,pdf,out}
+		rm -f ${PTARGET}
+		rm -f ${FTARGET}
