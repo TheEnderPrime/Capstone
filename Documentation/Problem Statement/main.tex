@@ -1,0 +1,216 @@
+%% The following template is sourced from Kevin McGrath on 6 Oct. 2017 located:
+%%http://web.engr.oregonstate.edu/cgi-bin/cgiwrap/dmcgrath/classes/17F/cs444/index.cgi?examples=examples/template.tex
+
+\documentclass[letterpaper, 10, draftclsnofoot, onecolumn]{IEEEtran}
+
+
+\usepackage{graphicx}                                        
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                           
+\usepackage{amsthm}
+\usepackage{indentfirst}
+
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{balance}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+%random comment
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\def\name{David Baugh}
+\def\name{Sawyer Kokesh}
+\def\name{Andrew Bowers}
+
+%pull in the necessary preamble matter for pygments output
+%\input{pygments.tex}
+
+%% The following metadata will show up in the PDF properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = blue,
+  pdfauthor = {\name},
+  pdfkeywords = {CS460 capstone ``computer science'' problem statement},
+  pdftitle = {Social Media Joural App Problem Statement},
+  pdfsubject = {Problem Statement},
+  pdfpagemode = UseNone
+}
+
+\title{Social Media Journal App}
+\author{ %not author the sponsor
+	Project Sponsored By: \\
+    David Vasquez
+}
+
+\begin{document}
+
+
+\null  % Empty line
+\nointerlineskip  % No skip for prev line
+\vfill
+\let\snewpage \newpage
+\let\newpage \relax
+\maketitle
+\begin{center}
+\huge{Problem Statement:}\par
+\vspace{2mm}
+\large{Written by:}\par
+\normalsize{David Baugh}\par
+\normalsize{Sawyer Kokesh}\par
+\normalsize{Andrew Bowers}\par
+\vspace{8mm}
+\large{\textbf{Abstract:}}\par 
+\vspace{2mm}
+\normalsize{The Social Media Journal App project seeks to develop a social media 
+app not unlike Facebook, Instagram, and Twitter. Our group will develop and fill the 
+niche that exists today where social media can only capture a snippet of your day. 
+The Social Media Journal App will allow users to tell more of a story by allowing for extended posts with embedded photos and other multimedia. 
+This project will develop from the ground up starting with the database and ending
+ with the graphic design and UI development. By the end of the year, we'll have a working prototype of the mobile application.}
+\end{center}
+\let \newpage \snewpage
+\vfill 
+\break % page break
+
+\setlength\parindent{4mm}
+\section*{Problem Definition}\par
+\hspace{4ex}In the world filled with social media and entertainment, lives are 
+posted online 255 characters and a picture at a time. No one social media is 
+a complete solution for every person and thus leaves some without a way to 
+express themselves online. This application aims to solve this by providing 
+a more in-depth story driven posting experience.
+
+\section*{Problem Description}\par
+\hspace{4ex}Other than a Facebook post, there is no way to express
+ yourself in-depth online. Other social media applications, such as Instagram and Twitter,
+ only allow for short captions with each post. Every popular social media app has its perks, 
+ but they do not fill the niche for every person. The challenge of this project is to create a
+ functional social media network that will fill one of those niches and allow another 
+ avenue for the online community to express themselves. Some of these problems the group will run into within the development of this 
+application will be the database design, secure networking, an attractive user interface, and the actual mobile platform. While these are the more technical problems, the group's bigger issue will be the implementation of these in such a way that it creates an inviting atmosphere in which users will feel comfortable and invited to share their stories and adventures.
+
+\section*{Proposed Solution}\par
+\hspace{4ex} 
+The project will focus on the niche of journaling in which users will be able to write extended thoughts with embedded photos and other media. The project wants to combine the ideas of social
+media and journalism and form a collection of communities and personal journals. 
+This will allow people to see into the live's of others and really understand and enjoy 
+their high points, journal entry by journal entry. One could describe these journal entries
+as a Twitter post with the robustness of Facebook and the suave simplicity of Instagram. 
+
+On a user's profile, they would have the ability to look through their life within 
+their journal entries. For some, this would work as a diary; others it would be a 
+public journal of their adventures. Users would have access to the communities 
+they follow. They would be able to create a new post which would include photos, 
+text, and other multimedia sources. 
+
+Initially the app will consist of individual profiles that allow a person to share 
+their own journal entries. Hopefully, the idea will be expanded into communities.
+These communities will allow groups of people or organizations to have 
+a place that they can communally place journal entries. Users will be able to follow these 
+communities and be able to view the community's posts on their timeline. Imagine a OSU community where
+ students come together and post journal entries about their day at OSU. They could then come 
+ back to that community later and see the lives of students along with their own story.   
+ 
+The app will also contain a calender which will provide the user with another way to view journal entries. When a date is viewed, all journal entries that the user has created on that day will be displayed. 
+This gives users a better way to search for past journal entries that have been created. The user will also have the ability to create events that span multiple days. The event will contain all journal entries that relate to the event, and will be viewable within the calender.   
+
+ From the technical side, this project will consist of a full stack development. 
+The project will consist of modular but robust code that will be easily edited 
+and changed as the project evolves. The database will
+be designed and implemented on the OSU's student database. React Native will be used
+as it will allow for both Android and IOS development concurrently. Networking and
+security will be developed with professional standards as they are essential to the
+projects stability and survival. The user interface of the app will be innovative in that it will
+be attractive to new users and is comfortable for returning users.
+
+
+\section*{Performance Metrics}\par
+\hspace{4ex}Project completion will be judged by the following metrics:
+\begin{enumerate}
+\item Database:
+\begin{itemize}
+\item Does the database contain the following tables: 
+	\begin{itemize} 
+        \item Users
+		\item Following (followers and friends)
+        \item Posts (grouping mechanisms)
+        \item Notifications
+        \item Settings (create, delete)
+        \item Profile (personal info)
+	\end{itemize}
+\item Is the database capable of being viewed and edited?
+\end{itemize}
+\item Networking and Security:
+\begin{itemize}
+\item Does the network maintain a consistent connection between the app and database?
+\item Does the network maintain a secure connection to and from the database?
+\item Is there secure account registration?
+\item Is there secure log in and log out?
+\item Is the user's username and password securely authorized?
+\item Does the server protect against sql injection?
+\end{itemize}
+
+\item App Design:
+\begin{itemize}
+\item Is the app available on the iOS and Android platforms?
+\item Is the code modular and able to be built upon?
+\end{itemize}
+
+\item User Interface:
+\begin{itemize}
+\item Can the user create a profile for themselves or a community?
+\item Can the user view and follow other profiles?
+\item Can the user make journal posts?
+\item Can the user make journal posts that contain both text and text-wrapped images?
+\item Can the user scroll through a timeline, either their's or another's?
+\item Can the user pull images from their phone and/or open the camera app?
+\item Is there a calendar feature?
+\item Is there a notification feature?
+\item Is there a search feature with filtering and recent searches?
+\item Is there a settings tab?
+\end{itemize} 
+\end{enumerate}
+% * <bowerand@oregonstate.edu> 2017-10-19T00:52:08.004Z:
+%
+% ^.
+\clearpage
+\section*{Stretch Goal Metrics}\par
+\hspace{4ex}Upon completion of the base requirements, these are the next set of goals for the project:
+\begin{enumerate}
+\item Database:
+\begin{itemize}
+\item Is there a database backup system?
+\end{itemize}
+\item App Design:
+\begin{itemize}
+\item Is there an Instant Messaging feature?
+\item Does the timeline have a finite amount of loaded posts (add \# more at a time)?
+\item Is there personalized layout configuration options for users?
+\item Are there public Communities where users can go to see other's posts based on a certain topic or location?
+\item Are there Moderator and Admin user privileges for Communities?
+\item Can searches be based on location?
+\end{itemize}
+\item User Interface:
+\begin{itemize}
+\item Are there filter options for uploaded photos?
+\item Is there a Discover page to find other pages based on likes and interests?
+\item Is there video integration (Live feeds, videos in journals)?
+\end{itemize} 
+\end{enumerate}
+\end{document}
+
+
+
+
