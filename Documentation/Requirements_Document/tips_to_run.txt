@@ -1,4 +1,0 @@
-The gantt chart might break the makefile 
-so the file "without_gantt.tex" has it 
-commented off. Just change the makefile 
-and it should be fine.
