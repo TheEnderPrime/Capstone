@@ -1,0 +1,167 @@
+\documentclass[compsoc, 10, draftclsnofoot, onecolumn]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage[english]{babel}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{fullpage}
+
+
+\hypersetup{
+    %bookmarks=false,    % show bookmarks bar?
+    pdftitle={Kite Technology Review },    % title
+    pdfauthor={Sawyer Kokesh},% author
+    pdfkeywords={Technology, Review, Capstone, Kite}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=blue,        % color of external links
+    linktoc=page            % only page is linked
+}%
+\urlstyle{same}
+\def\myversion{ 1.0 }
+\date{}
+
+\usepackage{hyperref}
+\title{Kite}
+\author{ %not author the sponsor
+	Project Sponsored By: \\
+    David Vasquez
+}
+
+\begin{document}
+\null  % Empty line
+\nointerlineskip  % No skip for prev line
+\vfill
+\let\snewpage \newpage
+\let\newpage \relax
+\maketitle
+\begin{center}
+\huge{Technology Review}\par
+\vspace{2mm}
+\large{Written by:}\par
+\normalsize{Sawyer Kokesh}\par
+\vspace{2mm}
+\normalsize{Fall 2017 - CS 461}\par
+\vspace{4mm}
+\large{Group 21}\par
+\vspace{8mm}
+\large{\textbf{Abstract:}}\par 
+\vspace{2mm}
+\normalsize{This Technology Review is to show different technologies that our project will need to use to implement. Each of theses technologies have many different options that could work, and this review is to provide pros and cons to each of these different options, weigh them and choose the best option that fits our criteria.}
+\end{center}
+\let \newpage \snewpage
+\vfill 
+\break % page break
+\section*{\textbf{Personal Role and Goal}} The main role I have in the project is to help write the documentation for the Kite App. I also will be working on the User Interface which is a large majority of this Social Mobile App. What I want to accomplish is to create a fast, fun, and interactive App that allows people to read and post journals about themselves and others.  
+\section{\textbf{Mobile Operating System}}
+\subsection{Overview} A Mobile Operating system is software that gives smartphones the ability to run applications and programs. Apple iOS, Google Android, and Windows Phone are three main mobile operating systems. 
+\subsection{Criteria} There are four different Criteria that we will be looking into for these three Mobile Operating Systems. The first is usability which will be measured by how easy the software is to use. The second criteria is Flexibility is measured by how much you are able to do with the software. The third is Popularity which is going to look at how many people use this software compared to other options. The last one is Profitability which will measure how most of the apps on the platform make profit.
+\subsection{Potential Choices}
+\subsubsection{Apple IOS}
+ Apple iOS is the second most popular mobile operating system in the market, accounting for 19.99 \% \cite{r1} all the market shares. There are many pros to using this operating system, such as superior third-party app support. This operating system also allows for desktop syncing and seamless integration between software and hardware. The integration between software and hardware does come at a cost for iOS. It does not allow the user much flexibility when developing an app, for example iOS still includes updates to its apps like Mail, Maps, Safari, Notes, and many more which make these apps exclusive to iOS. iOS is closed source, which means that the operating system is created, only by Apple developers rather than collaboratively. This makes the  iOS apps exclusive which means that they can not be downloaded onto a android phone for instance, but Android apps like google maps can be downloaded on an Apple phone \cite{r2}.
+\newline
+Usability: High
+\newline
+Flexibility: Medium
+\newline
+Popularity: Medium
+\newline
+Profitability: App Revenue
+\newline
+\newline
+\subsubsection{Google Android}
+\indent Google Android is the most popular mobile operating system in the market, accounting for 73\% \cite{r1} of all the market shares. There are many pros to using this operating system such as home screen customizability and real time, in-app updates which gives a developer more flexibility when creating an app. This operating system also has good notification system which apps are able to use. Furthermore Android has consistent API’s across its platforms, and because Android is open source you have many people adding to and contributing to the improvement of this operating system. One con of this operating system is the fact that it is open source and can leave your phone vulnerable to security issues. Also android has a hard time syncing to desktops, as well as needing every user to have a google account \cite{r2, r3}.
+\newline
+Usability: High
+\newline
+Flexibility: High
+\newline
+Popularity: High
+\newline
+Profitability: Ad Revenue
+\newline
+\newline
+\subsubsection{Windows Phone} 
+\indent  Windows Phone is not a very popular mobile operating system in the market, accounting for only 0.75\% \cite{r1}of all the market shares. The main use of the Windows Phone operating system is for businesses to businesses industries, less user friendly for social media apps and games. A pro for this operating system is they have a very committed and active user base. The con to this operating system is that the amount of users is extremely minimal \cite{r2, r3}.    
+\newline
+Usability: Medium
+\newline
+Flexibility: Medium
+\newline
+Popularity: Low
+\newline
+Profitability: Business to Business
+\newline
+\newline
+\subsection{Discussion} The main operating system is Google’s Android which has the highest market share of 73\% compared to Apple’s iOS at 19.99\% and Window’s Phone at 0.75\%\cite{r1}. The Android operating system is open source which is in contrast with the other two being closed source. When looking at revenue from apps that run on these operating systems, iOS returns the most profit from selling apps, where Android apps get their revenue from ads, and Windows makes its profit mostly by selling to business which use the app to do more business with others.  
+\subsection{Conclusion} We choose to support both Apple iOS and Google Android, with the knowledge that writing the app in react native which can be supported on both operating systems. This provides a our app with the ability to be accessed by a very large amount of users. This also gives our app a high chance to make money if we chose to sell ad space. The main reason for choosing to use both Apple iOS and Google Android is to get our social media app into as many hands as possible. 
+\section{\textbf{UI Design Pattern}}
+\subsection{Overview}  The Design Pattern of the user Interface is critical when developing an app, it provides a structure of how the application will be thought and reasoned about. There are many different patterns that are useful in different ways and at different times. Model-View-Controller, ViewGroup View, and Components are three different ways of thinking about an application. 
+\subsection{Criteria} There are three different criteria that we will be looking into for each of these design pattern. The first is Popularity which is a measure of how many people use this form of design pattern. The second is Usability which is a measure of how easy it the design pattern is to understand and implement. the last criteria is Usage which is what each of the design pattern is mostly used for.
+\subsection{Potential Choices}
+\subsubsection{MVC}
+Model-View-Controller or MVC allows for the separation of the logic from the user interface. It does this by separating an application into three parts, the first part is Model. The Model is the fundamental behavior of the data. The View is the User Interface that only renders the Models data to the screen. The Controller is the part that receives user input and changes the model and the view \cite{r6}.
+\newline
+Popularity: High
+\newline
+Usability: High
+\newline
+Usage: Web Applications
+\newline
+\newline
+\subsubsection{ViewGroup View}
+\indent ViewGroup View is the way that Android applications are layout when developing in android studio. In this case a ViewGroup is an object that holds views. For instance, the ViewGroup can be the page the app is on. A view in this context is a object that displays something on the screen that the user can interact with. The view can be something like a textbox or a button \cite{r4}. 
+\newline
+Popularity: Medium
+\newline
+Usability: Medium
+\newline
+Usage: Android Apps
+\newline
+\newline
+\subsubsection{Components}
+\indent Components is how React Native divides up individual parts of a screen. In a React Native application there are many components and each component renders a different thing to the page. In this design pattern the application is divided up into individual pages and within each page there will be may pieces. Each one of the pages will be a component and may contain more components depending on what the screen needs to render \cite{r5}.	 
+\newline
+Popularity: Medium
+\newline
+Usability: Medium
+\newline
+Usage: React Native Apps
+\newline
+\newline
+\subsection{Discussion} The Model-View-Controller is the most popular type of design pattern compared to ViewGroup View and Components. The usability is also high for MVC but it is mostly used on Web Applications and not mobile apps in contrast to the other two which are only used on mobile apps. The Components design pattern and ViewGroup View are very similar compared to MVC, which is different because it separates the data away from the UI as well as the actions of the UI.
+\subsection{Conclusion}We choose choose to use the Components design pattern because we are using React Native to wright our app and almost all of the documentation and examples and tutorials are all written in terms of Components MORE. Moreover the reason not to choose MVC is that will be a mobile app and MVC is most commonly used and for Web Applications. 
+\section{\textbf{Data Manipulation}}
+\subsection{Overview} Data Manipulation is how data gets added or changed in a database. There are many ways to go about changing data in a database. PHP, AJAX, and ASP.NET Forms are three different ways of manipulating data in a database.
+\subsection{Criteria} We are going to be looking into two different criteria for Data Manipulation. The first is Usability which is going to be the measurement by how easy the data manipulation method is. The other criteria is Popularity which is the measurement of how many people use this form of Data Manipulation.
+\subsection{Potential Choices}
+\subsubsection{PHP}PHP provides the user with many different advantages, the first of which is that PHP is open source which means there are many people working and updating it giving PHP a vast extension library. PHP is also fast because it uses many system resources. The usability is also high for PHP because it is similar syntactically to C, which is very popular. PHP also allows you to connect to databases very easily \cite{r7}.
+\newline
+Usability: High
+\newline
+Popularity: High
+\newline
+\newline
+\subsubsection{AJAX} AJAX has many advantages, the main one is better interactivity. AJAX allows faster interaction between user and website because the web page does not have to reload for content to be updated or displayed. One of the main cons of AJAX the fact that it is dynamic so there is not back or refresh button because everything is updated automatically \cite{r8}.
+\newline
+Usability: High
+\newline
+Popularity: High
+\newline
+\newline
+\subsubsection{ASP.NET Forms} ASP.NET Forms is how ASP.NET web pages interact with database data. The Forms allows for easy and simple interaction with the database. Forms create fast and ordered web pages, but they lack the ability to be used for mobile development. For Forms to be used we would need a container for a app than runs on a phone, which means it would not be a native app. A non native app adds many more subtle issues and changes if we were to go this route \cite{r9}.   
+\newline
+Usability: High
+\newline
+Popularity: High
+\newline
+\newline
+\subsection{Discussion} All three of these forms of data manipulation are highly popular in their own way. AJAX allows for dynamic web pages which will allow for better interactivity with the user compared to the other two. PHP and Forms are not dynamic and need to reload after each update. The project that we are making is a mobile native mobile app so this rules out Forms as a option which compared to AJAX and PHP which both can be used in a React Native App. 
+\subsection{Conclusion} We have chosen to go with PHP as our main way to implement changes to the database. This app is mostly about posting whole journal entries and submitting it all at once, it makes sense to do that with PHP instead of AJAX. Other aspects of the app also just gather a large array of data and then print it to a screen which is best done by a PHP call to the database. Furthermore there may be some cases where a dynamic section of are app is need in this case we will use a AJAX call, but for the most part PHP will be the main form of communication between our app and the database.   
+\clearpage
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}
