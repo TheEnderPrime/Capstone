@@ -1,0 +1,114 @@
+\documentclass[compsoc, 10, draftclsnofoot, onecolumn]{IEEEtran}
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{calc}
+
+\definecolor{barblue}{RGB}{153,204,254}
+\definecolor{groupblue}{RGB}{51,102,254}
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}}
+
+\urlstyle{same}
+\def\myversion{ 1.0 }
+\date{}
+
+\usepackage{hyperref}
+\title{Kite : A Social Media Journal App}
+\author{ %not author the sponsor
+	Project Sponsored By: \\
+    David Vasquez
+}
+
+\begin{document}
+\null  % Empty line
+\nointerlineskip  % No skip for prev line
+\vfill
+\let\snewpage \newpage
+\let\newpage \relax
+\maketitle
+\begin{center}
+\huge{Fall Term Progress Report}\par
+\vspace{2mm}
+\large{Written by:}\par
+\normalsize{David Baugh}\par
+\normalsize{Sawyer Kokesh}\par
+\normalsize{Andrew Bowers}\par
+\vspace{8mm}
+\large{\textbf{Abstract:} This document provides a brief recap the project's purpose and goals for the future. Included also is a description of the current state of the project with any problems that have impeded our progress and the solutions if solved. The final section of this progress report will contain a retrospective look back of the past 10 weeks.}\par 
+\vspace{2mm}
+\end{center}
+\let \newpage \snewpage
+\vfill 
+\break % page break
+
+\tableofcontents
+\clearpage
+
+\section{Project Purposes and Goals}
+The Kite project aims to fill the void in the current social media market in which detailed, story-driven entries do not exist. Twitter allows for short quick messages, Instagram is more of a collage of pictures with brief descriptions, and Facebook allows for larger posts, but it is not as supported by the Facebook community. Kite strives to solve this by encouraging its users to tell more of a story in their entries. The goals for this project is to allow users to create entries, also known as posts, that can have embedded pictures or videos. Each of these entries can be categorized by an Event title, so the user can better organize their post. Beyond entries, a user has control over their own profile, they can follow or unfollow other users, create or join communities, and like, comment and share posts they find, as well as search for users and communities. Some of the stretch goals for the Kite project are: instant messaging between users, web-based platform, discover page, photo filters, location-based queries, individual UI layout configuration (profile theme editing), and a database backup system.  
+
+\section{Current State of the Project}
+At the present time, the end of Fall term, the project is solidly within the design phase with implementation on the horizon. The initial planning for the project has been completed and we have an initial on-paper mock-up of the UI that contains all of the design decisions that have been made at the weekly client meetings and group discussions. Throughout the term, discussion has been constant between group mates and the client about numerous issues, large and small including the layout of the UI and how comments will work within events and entries. These different issues have been incorporated into the design and as a group we have set goals for Winter break that, by January, the project should be much on the way to Version 1.0. 
+
+\section{Problems and Impediments}
+Throughout this term's planning stages for the Kite project, we have had some design impediments that we had to work through before moving onto another idea to discuss and make decisions on. Discussions about how comments will be displayed within events was a multi-week discussion that went back and forth many times. In addition to problems concerning design topics, we have also had trouble with understanding the concepts we need to develop a proper social media journaling app. 
+
+\section{Weekly Summary}
+\subsection{Week 1} Each of the members thought about their desired projects, submitted their preferences, wrote their professional biography, and well as submitted their resumes. 
+
+\subsection{Week 2} Group met up, traded contact information and met with the client. We talked about the Social Mobile App Journal that allow users to make more in-depth posts and gain followers. Users can like, comment, and even share other users journal entries. The motivation behind this project is to allow users to tell more of a story rather than just make short-generic posts. During this first meeting we talked about what our clients primary deliverables are, as well as what our client has envisioned for the look and style of the app. This first meeting was also were we talked about what language we will be writing the app in. We also talked about if we were going to implement the app on iOS or Android or both.  
+
+\subsection{Week 3} Each member of the group started and finished the individual problem statement. 
+
+\subsection{Week 4} The group met up and combined and edited the problem statement documents, emailed the client the final product for verification, and submitted the final, approved, document.     
+
+\subsection{Week 5} The group had their normal Client and TA meetings, discussing the project and its progress as well as the upcoming requirements document. The requirements document rough draft was started and Kite was decided to be the name of the app.
+
+\subsection{Week 6} Group met with Client and TA to discuss React Native, the mobile platform language. Andrew started working on the database relational model as well as the attributes for each table. The requirements document was finished and sent to our client for verification, which was approved. Sawyer started looking at react native and got a android emulator functioning.  
+
+\subsection{Week 7} Andrew worked more on database, started normalizing tables and correcting some relationships. Group discussed Requirements document grade and evaluated it with TA and found areas that need improvement and correction.  
+
+\subsection{Week 8} Each member of the group started and finished their Rough draft Tech documents. We had our client and TA meeting as usual and discussed user interface design in more depth and created some paper mock ups. Group members started revising their respective tech documents for the final draft.  
+
+\subsection{Week 9} Tech final draft was completed and submitted. TA meeting this week was canceled due to holidays.  
+
+\subsection{Week 10} Group met up and started and finished the Design document as well as the Progress report. Had the final meeting with Client and TA to discuss our plans on working on the Kite application over winter break. Each member plans on doing more research and practice with React Native as well as work on the the database model. 
+\clearpage
+\section{Retrospective}
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{p{0.3\textwidth}p{0.3\textwidth}p{0.3\textwidth}}
+  \hline
+  \textbf{Positives} & \textbf{Deltas} & \textbf{Actions} \\ 
+  \hline
+\begin{itemize}
+\item Communication between group members has been has been critical for the completion of each of the assignments. The communication between us and the client has also been one of the positives.   
+\item Each group member has participated and worked on each of the group assignments making each of the assignments easier to complete and finish.
+\item Attendance at client meetings and TA meetings has been very good though out this term, which helps keep the team on track. 
+\item For group assignments we would meet in person to get the framework drawn out and to start the document. this provided us with a good starting place and direction for each of the documents. 
+\item When choosing the topics that we would each focus on for the project each group member easily choose different topics that did not overlap. 
+\item Each member is very different in that each brings very different ideas to the table for the project which helps create a very diverse and interesting project.
+\end{itemize}  & 
+\begin{itemize}
+\item Updating our personal OneNote pages with the meeting summaries, was not taken as seriously as it probably should have. For the future terms, a agreed upon deadline for each of us to have the meeting summaries inputed into the OneNote will be a helpful. 
+\item Procrastination is one of the places that our team can improve, having the assignments done before the due data will help the team create cleaner documentation. 
+\end{itemize}& 
+\begin{itemize}
+\item We will be setting a group deadline where we need to have the OneNote information uploaded and to keep each other accountable for it. We will also be uploading our notes from the client and TA meetings into our group OneNote rather than our separate OneNotes to make sure they are uploaded on time each week.
+\item Setting consistent days and times to meet every single week to work on the project rather than just on the weeks when something is due.
+\end{itemize}\\ 
+
+\end{tabular}}
+\end{table} 
+
+\end{document}
