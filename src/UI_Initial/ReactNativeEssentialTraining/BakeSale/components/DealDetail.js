@@ -87,39 +87,42 @@ class DealDetail extends React.Component {
         const { deal } = this.state;
         return (
             <View style={styles.deal}>
-            <TouchableOpacity onPress={this.props.onBack}>
-                <Text style={styles.backLink}>Back</Text>
-            </TouchableOpacity>
-            <Animated.Image
-                {...this.imagePanResponder.panHandlers}
-                source={{ uri: deal.media[this.state.imageIndex] }}
-                style={[{ left: this.imageXPos }, styles.image]}
-            />
-            <View>
-                <Text style={styles.title}>{deal.title}</Text>
-            </View>
-            <ScrollView style={styles.detail}>
-                <View style={styles.footer}>
-                    <View style={styles.info}>
-                        <Text style={styles.price}>{priceDisplay(deal.price)}</Text>
-                        <Text style={styles.cause}>{deal.cause.name}</Text>
-                    </View>
-                    {deal.user && (
-                        <View style={styles.user}>
-                            <Image
-                            source={{ uri: deal.user.avatar }}
-                            style={styles.avatar}
-                            />
-                            <Text>{deal.user.name}</Text>
-                        </View>
-                    )}
-                    </View>
-                <View style={styles.description}>
-                    <Text>{deal.description}</Text>
+                <TouchableOpacity onPress={this.props.onBack}>
+                    <Text style={styles.backLink}>Back</Text>
+                </TouchableOpacity>
+                
+                <Animated.Image
+                    {...this.imagePanResponder.panHandlers}
+                    source={{ uri: deal.media[this.state.imageIndex] }}
+                    style={[{ left: this.imageXPos }, styles.image]}
+                />
+                
+                <View>
+                    <Text style={styles.title}>{deal.title}</Text>
                 </View>
-                <Button title="Buy this deal!" onPress={this.openDealUrl} />
-            </ScrollView>
-        </View>
+                
+                <ScrollView style={styles.detail}>
+                    <View style={styles.footer}>
+                        <View style={styles.info}>
+                            <Text style={styles.price}>{priceDisplay(deal.price)}</Text>
+                            <Text style={styles.cause}>{deal.cause.name}</Text>
+                        </View>
+                        {deal.user && (
+                            <View style={styles.user}>
+                                <Image
+                                source={{ uri: deal.user.avatar }}
+                                style={styles.avatar}
+                                />
+                                <Text>{deal.user.name}</Text>
+                            </View>
+                        )}
+                        </View>
+                    <View style={styles.description}>
+                        <Text>{deal.description}</Text>
+                    </View>
+                    <Button title="Buy this deal!" onPress={this.openDealUrl} />
+                </ScrollView>
+            </View>
         );
     }
 }

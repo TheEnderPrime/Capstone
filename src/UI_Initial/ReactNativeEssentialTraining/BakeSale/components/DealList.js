@@ -10,6 +10,7 @@ class DealList extends React.Component {
     deals: PropTypes.array.isRequired,
     onItemPress: PropTypes.func.isRequired,
   };
+  
   render() {
     return (
       <View style={styles.list}>

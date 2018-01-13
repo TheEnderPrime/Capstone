@@ -15,12 +15,14 @@ import SearchBar from './components/SearchBar';
 
 export default class App extends React.Component {
   titleXPos = new Animated.Value(0);
-    state = {
+    
+  state = {
     deals: [],
     dealsFromSearch: [],
     currentDealId: null,
     activeSearchTerm: '',
   };
+
   animateTitle = (direction = 1) => {
     const width = Dimensions.get('window').width -160;
     Animated.timing( this.titleXPos, {  //.spring jerks it from side to side
@@ -33,11 +35,13 @@ export default class App extends React.Component {
         }
       });
   }
+
   async componentDidMount() {
     this.animateTitle();
     const deals = await ajax.fetchInitialDeals();
     this.setState({ deals });
   }
+
   searchDeals = async (searchTerm) => {
     let dealsFromSearch = [];
     if (searchTerm) {
@@ -45,19 +49,23 @@ export default class App extends React.Component {
     }
     this.setState({ dealsFromSearch, activeSearchTerm: searchTerm });
   };
+
   setCurrentDeal = (dealId) => {
     this.setState({
       currentDealId: dealId,
     });
   };
+
   unsetCurrentDeal = () => {
     this.setState({
       currentDealId: null,
     });
   };
+
   currentDeal = () => {
     return this.state.deals.find((deal) => deal.key === this.state.currentDealId);
   };
+
   render() {
     if (this.state.currentDealId) {
       return (
