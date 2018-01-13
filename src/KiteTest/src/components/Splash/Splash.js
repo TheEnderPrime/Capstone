@@ -10,7 +10,7 @@ import {
   TextInput,
 } from 'react-native';
 
-class Login extends React.Component {
+class Signup extends React.Component {
 
 	static propTypes = {
         //: PropTypes.object.isRequired,
@@ -18,10 +18,10 @@ class Login extends React.Component {
     };
 
     state = {
-        usernameText: 'Username/Email',
-        passwordText: 'Password',
-        //deal: this.props.initialDealData,
-        //imageIndex: 0,
+       //usernameText: 'Username/Email',
+       // passwordText: 'Password',
+       //deal: this.props.initialDealData,
+       //imageIndex: 0,
     };
 
   render() {
@@ -29,27 +29,6 @@ class Login extends React.Component {
     	<View style={styles.container}>
 	  		<View style={styles.logo}>
 				<Text style={styles.logoText}>Kite</Text>
-			</View>
-			<View style={styles.welcome}>
-				<Text style={styles.welcomeWords}>Welcome Back!</Text>
-				<TextInput
-                    style={styles.textInputBox}
-                    onChangeText={(text) => this.setState({usernameText})}
-                    value={this.state.usernameText}
-                    
-                />
-                <TextInput
-                    style={styles.textInputBox}
-                    onChangeText={(text) => this.setState({passwordText})}
-                    value={this.state.passwordText}
-                />
-				<View style={styles.button}>
-					<Button title="Login" onPress={() => {}} />
-				</View>
-				<TouchableOpacity onPress={() => {}}> 
-        			<Text style={styles.password}> Forgot Password?</Text>
-          		</TouchableOpacity>
-				
 			</View>
     	</View>
     );
@@ -99,4 +78,4 @@ const styles = StyleSheet.create({
 
 
 
-  export default Login;
+  export default Signup;

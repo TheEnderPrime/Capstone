@@ -10,7 +10,7 @@ import {
   TextInput,
 } from 'react-native';
 
-class Login extends React.Component {
+class Signup extends React.Component {
 
 	static propTypes = {
         //: PropTypes.object.isRequired,
@@ -31,7 +31,7 @@ class Login extends React.Component {
 				<Text style={styles.logoText}>Kite</Text>
 			</View>
 			<View style={styles.welcome}>
-				<Text style={styles.welcomeWords}>Welcome Back!</Text>
+				<Text style={styles.welcomeWords}>Welcome to Kite!</Text>
 				<TextInput
                     style={styles.textInputBox}
                     onChangeText={(text) => this.setState({usernameText})}
@@ -44,11 +44,8 @@ class Login extends React.Component {
                     value={this.state.passwordText}
                 />
 				<View style={styles.button}>
-					<Button title="Login" onPress={() => {}} />
+					<Button title="Sign Up" onPress={() => {}} />
 				</View>
-				<TouchableOpacity onPress={() => {}}> 
-        			<Text style={styles.password}> Forgot Password?</Text>
-          		</TouchableOpacity>
 				
 			</View>
     	</View>
@@ -99,4 +96,4 @@ const styles = StyleSheet.create({
 
 
 
-  export default Login;
+  export default Signup;
