@@ -5,10 +5,11 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView
 } from 'react-native';
+import SignupForm from './SignupForm';
 
 class Signup extends React.Component {
 
@@ -32,21 +33,7 @@ class Signup extends React.Component {
 			</View>
 			<View style={styles.welcome}>
 				<Text style={styles.welcomeWords}>Welcome to Kite!</Text>
-				<TextInput
-                    style={styles.textInputBox}
-                    onChangeText={(text) => this.setState({usernameText})}
-                    value={this.state.usernameText}
-                    
-                />
-                <TextInput
-                    style={styles.textInputBox}
-                    onChangeText={(text) => this.setState({passwordText})}
-                    value={this.state.passwordText}
-                />
-				<View style={styles.button}>
-					<Button title="Sign Up" onPress={() => {}} />
-				</View>
-				
+				<SignupForm/>
 			</View>
     	</View>
     );
@@ -59,7 +46,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection)
     	alignContent: 'center', // cross axis (opposite of the flexDirection)
-    	backgroundColor: '#0848af',
+    	backgroundColor: 'darkgray',
   	},
   	logo: {
 		
