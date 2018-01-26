@@ -6,7 +6,7 @@ import {
     Alert, 
     TouchableOpacity, 
     Text,
-    Button} from 'react-native';
+    Button } from 'react-native';
 
 class SignupForm extends React.Component{
     constructor(props) {
@@ -45,7 +45,7 @@ class SignupForm extends React.Component{
         return(
             <View>
                 <TextInput
-                    placeholder="Username"
+                    placeholder="UserName"
                     placeholderTextColor='black'
                     onSubmitEditing={() => this.emailInput.focus()}
                     autoCapitalize ="none"
