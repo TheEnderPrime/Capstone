@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
             <View>
                 <TextInput
                     placeholder="UserName or Email"
-                    placeholderTextColor='black'
+                    placeholderTextColor='#277552'
                     onSubmitEditing={()=> this.passwordInput.focus()}
                     autoCapitalize = "none"
                     autoCorrect={false}
@@ -62,7 +62,7 @@ class LoginForm extends React.Component {
                 />
                 <TextInput
                     placeholder="Password"
-                    placeholderTextColor='black'
+                    placeholderTextColor='#277552'
                     secureTextEntry
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -71,7 +71,7 @@ class LoginForm extends React.Component {
                     ref={(input) => this.passwordInput = input}
                 />
                 <View style={styles.button}>
-                    <Button title="Login" onPress={this.UserLoginFuction} />
+                    <Button style={buttonColor='#78B494'}title="Login" onPress={this.UserLoginFuction} />
                 </View>
                 <TouchableOpacity onPress={() => { }}>
                     <Text style={styles.password}> Forgot Password?</Text>
@@ -91,15 +91,16 @@ const styles = StyleSheet.create({
     password: {
         marginTop: 5,
         textAlign: 'center',
+        color:'#277552'
     },
     textInputBox: {
         marginBottom: 10,
         marginRight: 10,
         marginLeft: 10,
         height: 45,
-        borderColor: 'grey',
-        backgroundColor: 'grey',
-        color: 'black',
+        borderColor: '#78B494',
+        backgroundColor: '#78B494',
+        color: '#277552',
         borderWidth: 1,
         fontSize: 20,
     },

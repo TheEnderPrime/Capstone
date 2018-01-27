@@ -46,7 +46,7 @@ class SignupForm extends React.Component{
             <View>
                 <TextInput
                     placeholder="UserName"
-                    placeholderTextColor='black'
+                    placeholderTextColor='#277552'
                     onSubmitEditing={() => this.emailInput.focus()}
                     autoCapitalize ="none"
                     autoCorrect={false}
@@ -57,7 +57,7 @@ class SignupForm extends React.Component{
                 />
                 <TextInput
                     placeholder="Email"
-                    placeholderTextColor='black'
+                    placeholderTextColor='#277552'
                     onSubmitEditing={() => this.passwordInput.focus()}
                     keyboardType="email-address"
                     autoCapitalize="none"
@@ -69,7 +69,7 @@ class SignupForm extends React.Component{
                 />
                 <TextInput
                     placeholder="Password"
-                    placeholderTextColor='black'
+                    placeholderTextColor='#277552'
                     secureTextEntry
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -95,15 +95,16 @@ const styles = StyleSheet.create({
   	password: {
    	 	marginTop: 5,
     	textAlign: 'center',
+        color:'#277552'
     },
     textInputBox: {
         marginBottom: 10,
         marginRight: 10,
         marginLeft: 10,
         height: 45, 
-        borderColor: 'grey',
-        backgroundColor: 'grey',
-        color:'black',
+        borderColor: '#78B494',
+        backgroundColor: '#78B494',
+        color:'#277552',
         borderWidth: 1,
         fontSize: 20,
     }, 

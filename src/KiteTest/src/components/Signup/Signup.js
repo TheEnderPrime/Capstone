@@ -9,23 +9,24 @@ import {
 	TextInput,
 	KeyboardAvoidingView,
 	AppRegistry,
+
+
 } from 'react-native';
 import SignupForm from './SignupForm';
 
 export default class Signup extends React.Component {
 	static navigationOptions ={
 		title: 'Signup',
-	};
-	static propTypes = {
-		//: PropTypes.object.isRequired,
-		//: PropTypes.func.isRequired,
-	};
-
-	state = {
-		usernameText: 'Username/Email',
-		passwordText: 'Password',
-		//deal: this.props.initialDealData,
-		//imageIndex: 0,
+		headerStyle: {
+            backgroundColor: '#78B494',
+        },
+        headerTitleStyle: {
+            color: '#D5EAE0',
+        },
+        headerBackTitleStyle: {
+            color: '#D5EAE0',
+        },
+        headerTintColor: '#D5EAE0',
 	};
 
 	render() {
@@ -35,7 +36,7 @@ export default class Signup extends React.Component {
 					<Text style={styles.logoText}>Kite</Text>
 				</View>
 				<View style={styles.welcome}>
-					<Text style={styles.welcomeWords}>Welcome to Kite!</Text>
+					<Text style={styles.welcomeWords}>Sign up for Kite!</Text>
 					<SignupForm />
 				</View>
 			</View>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection)
 		alignContent: 'center', // cross axis (opposite of the flexDirection)
-		backgroundColor: 'darkgray',
+		backgroundColor: '#A6CFBD',
 	},
 	logo: {
 
@@ -59,14 +60,16 @@ const styles = StyleSheet.create({
 		marginBottom: 15,
 		fontSize: 40,
 		textAlign: 'center',
+		color: '#277552'
 	},
 	welcome: {
 	},
 	welcomeWords: {
 		textAlign: 'center',
 		marginTop: 10,
-		marginBottom: 50,
+		marginBottom: 20,
 		fontSize: 30,
+		color: '#277552'
 	},
 	button: {
 		marginTop: 20,
@@ -78,8 +81,6 @@ const styles = StyleSheet.create({
 	},
 	textInputBox: {
 		height: 40,
-		borderColor: 'gray',
-		borderWidth: 1
 	},
 });
 AppRegistry.registerComponent('Signup', () => Signup);

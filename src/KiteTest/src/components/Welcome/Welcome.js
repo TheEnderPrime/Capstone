@@ -8,50 +8,58 @@ import {
   Button,
   TouchableOpacity,
   AppRegistry,
+  BackHandler,
 } from 'react-native';
 export default class Welcome extends Component {
 	static navigationOptions = {
 		title: 'Welcome',
+		headerLeft: null,
+		headerStyle: {
+            backgroundColor: '#78B494',
+        },
+        headerTitleStyle: {
+			alignSelf: 'center',
+            color: '#D5EAE0',
+        },
+        headerBackTitleStyle: {
+            color: '#D5EAE0',
+        },
+        headerTintColor: '#D5EAE0',
 	};
-	static propTypes = {
-        //: PropTypes.object.isRequired,
-        //: PropTypes.func.isRequired,
-    };
+	componentDidMount() {
+		BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressed);
+	}
 
-    state = {
-        //deal: this.props.initialDealData,
-        //imageIndex: 0,
-    };
+	componentWillUnmount() {
+		BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressed);
+	}
 
-  render() {
-	  const{ navigate } = this.props.navigation;
-    return (
-    	<View style={styles.container}>
-	  		<View style={styles.logo}>
-				<Text style={styles.logoText}>Kite</Text>
-			</View>
-			<View style={styles.welcome}>
-				<Text style={styles.welcomeWords}>Welcome to the Kite App!</Text>
-			</View>
-			<View style={styles.selectionBox}>
-				<Text style={styles.selections}>Sign In</Text>
-				<Text style={styles.selections}>Sign Up</Text>
-			</View>
-			<View style={styles.loginBox}>
-				<View style={styles.button}>
-					<Button title="Log In" onPress={() => navigate('Login')} />
+	onBackButtonPressed() {
+		return true;
+	}
+	render() {
+		const{ navigate } = this.props.navigation;
+		return (
+			<View style={styles.container}>
+				<View style={styles.logo}>
+					<Text style={styles.logoText}>Kite</Text>
 				</View>
-				<View style={styles.button}>
-					<Button title="Sign Up" onPress={() => navigate('Signup')} />
+				<View style={styles.welcome}>
+					<Text style={styles.welcomeWords}>Welcome to the Kite App!</Text>
 				</View>
-				<TouchableOpacity onPress={() => {}}> 
-        			<Text style={styles.forgotPassword}> Forgot Password?</Text>
-          		</TouchableOpacity>
-				
+				<View style={styles.selectionBox}>
+					<Text style={styles.selections} onPress={() => navigate('Login')}>Sign In</Text>
+					<Text style={styles.selections} onPress={() => navigate('Signup')}>Sign Up</Text>
+				</View>
+				<View style={styles.loginBox}>
+					<TouchableOpacity onPress={() => {}}> 
+						<Text style={styles.forgotPassword}> Forgot Password?</Text>
+					</TouchableOpacity>
+
+				</View>
 			</View>
-    	</View>
-    );
-  }
+		);
+	}
 }
 
 const styles = StyleSheet.create({	
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column', //column or row
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	alignContent: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#0848af',
+    	backgroundColor: '#A6CFBD',
   	},
   	logo: {
 		// this will contain the logo and welcome words
@@ -73,15 +81,18 @@ const styles = StyleSheet.create({
 		marginBottom: 15,
     	fontSize: 40,
     	textAlign: 'center',
+		color: '#277552'
   	}, 
   	welcome: {
 		flex: 1,
+		marginBottom: 100,
   	},
   	welcomeWords: {
     	textAlign: 'center',
 		marginTop: 10,
-		marginBottom: 50,
-		fontSize: 20,
+		
+		fontSize: 30,
+		color: '#277552',
 	},
 	selectionBox: { // this will contain both of the signin and signup selections containers 
 		flex: 1,
@@ -93,7 +104,8 @@ const styles = StyleSheet.create({
 	},
 	selections: {
 		// this wil contain each of the signin and signup texts and might change the text to be dark if needed
-		
+		fontSize: 20,
+		color: '#277552'
 	},
 	loginBox: {
 		flex: 2,

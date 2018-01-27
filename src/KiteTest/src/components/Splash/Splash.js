@@ -10,20 +10,21 @@ import {
   TextInput,
 } from 'react-native';
 
-class Signup extends React.Component {
-
-	static propTypes = {
-        //: PropTypes.object.isRequired,
-        //: PropTypes.func.isRequired,
-    };
-
-    state = {
-       //usernameText: 'Username/Email',
-       // passwordText: 'Password',
-       //deal: this.props.initialDealData,
-       //imageIndex: 0,
-    };
-
+export default class Splash extends React.Component {
+	static navigationOptions = {
+		header:null
+	};
+	constructor(){
+		super()
+		this.state={
+			showMe:true
+		}
+	}
+	componentWillMount(){
+		setTimeout(() => {
+			this.props.navigation.navigate('Welcome')
+		},750)
+	}
   render() {
     return (
     	<View style={styles.container}>
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection)
     	alignContent: 'center', // cross axis (opposite of the flexDirection)
-    	backgroundColor: '#0848af',
+    	backgroundColor: '#78B494',
   	},
   	logo: {
 		
@@ -49,8 +50,9 @@ const styles = StyleSheet.create({
   	logoText: {
 		marginTop: 15,
 		marginBottom: 15,
-    	fontSize: 40,
+    	fontSize: 60,
     	textAlign: 'center',
+		color: '#D5EAE0'
   	}, 
   	welcome: {
   	},
@@ -60,22 +62,4 @@ const styles = StyleSheet.create({
 		marginBottom: 50,
 		fontSize: 20,
   	},
-  	button: {
-    	marginTop: 20,
-    	marginBottom: 20,
-  	},
-  	password: {
-   	 	marginTop: 5,
-    	textAlign: 'center',
-    },
-    textInputBox: {
-        height: 40, 
-        borderColor: 'gray', 
-        borderWidth: 1
-    },  
 });
-
-
-
-
-  export default Signup;
