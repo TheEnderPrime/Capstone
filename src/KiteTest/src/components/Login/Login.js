@@ -8,11 +8,14 @@ import {
 	Button,
 	TouchableOpacity,
 	TextInput,
+	AppRegistry,
 } from 'react-native';
 import LoginForm from './LoginForm'
 
-class Login extends React.Component {
-
+export default class Login extends Component {
+	static navigationOptions = {
+		title: 'Login',
+	};
 	static propTypes = {
 		//: PropTypes.object.isRequired,
 		//: PropTypes.func.isRequired,
@@ -80,7 +83,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-
-
-
-export default Login;
+AppRegistry.registerComponent('Login', () => Login);

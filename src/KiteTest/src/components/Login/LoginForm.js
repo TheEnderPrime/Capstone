@@ -30,7 +30,7 @@ class LoginForm extends React.Component {
             },
             body: JSON.stringify({
 
-                email: UserNameOrEmail,
+                userNameOrEmail: UserNameOrEmail,
                 password: UserPassword
             })
         }).then((response) => response.json()).then((responseJson) =>{
@@ -59,7 +59,6 @@ class LoginForm extends React.Component {
                     style={styles.textInputBox}
                     onChangeText={(UserNameOrEmail) => this.setState({ UserNameOrEmail })}
                     value={this.state.UserNameOrEmail}
-
                 />
                 <TextInput
                     placeholder="Password"

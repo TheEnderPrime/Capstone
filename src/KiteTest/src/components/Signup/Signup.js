@@ -7,12 +7,15 @@ import {
 	View,
 	TouchableOpacity,
 	TextInput,
-	KeyboardAvoidingView
+	KeyboardAvoidingView,
+	AppRegistry,
 } from 'react-native';
 import SignupForm from './SignupForm';
 
-class Signup extends React.Component {
-
+export default class Signup extends React.Component {
+	static navigationOptions ={
+		title: 'Signup',
+	};
 	static propTypes = {
 		//: PropTypes.object.isRequired,
 		//: PropTypes.func.isRequired,
@@ -79,4 +82,4 @@ const styles = StyleSheet.create({
 		borderWidth: 1
 	},
 });
-export default Signup;
+AppRegistry.registerComponent('Signup', () => Signup);

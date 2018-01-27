@@ -7,12 +7,12 @@ import {
   View,
   Button,
   TouchableOpacity,
+  AppRegistry,
 } from 'react-native';
-
-import Login from '../Login/Login';
-
-class Welcome extends React.Component {
-
+export default class Welcome extends Component {
+	static navigationOptions = {
+		title: 'Welcome',
+	};
 	static propTypes = {
         //: PropTypes.object.isRequired,
         //: PropTypes.func.isRequired,
@@ -24,6 +24,7 @@ class Welcome extends React.Component {
     };
 
   render() {
+	  const{ navigate } = this.props.navigation;
     return (
     	<View style={styles.container}>
 	  		<View style={styles.logo}>
@@ -38,10 +39,10 @@ class Welcome extends React.Component {
 			</View>
 			<View style={styles.loginBox}>
 				<View style={styles.button}>
-					<Button title="Log In" onPress={() => {}} />
+					<Button title="Log In" onPress={() => navigate('Login')} />
 				</View>
 				<View style={styles.button}>
-					<Button title="Sign Up" onPress={() => {}} />
+					<Button title="Sign Up" onPress={() => navigate('Signup')} />
 				</View>
 				<TouchableOpacity onPress={() => {}}> 
         			<Text style={styles.forgotPassword}> Forgot Password?</Text>
@@ -107,9 +108,5 @@ const styles = StyleSheet.create({
    	 	marginTop: 5,
     	textAlign: 'center',
   	},
-});
-
-
-
-
-  export default Welcome;
+})
+AppRegistry.registerComponent('Welcome', () => Welcome);
