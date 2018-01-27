@@ -10,6 +10,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import styles from './styles';
+
 export default class Splash extends React.Component {
 	static navigationOptions = {
 		header:null
@@ -22,7 +24,7 @@ export default class Splash extends React.Component {
 	}
 	componentWillMount(){
 		setTimeout(() => {
-			this.props.navigation.navigate('Login') // - Change me to see a new page right after the Splash screen -
+			this.props.navigation.navigate('Welcome') // - Change me to see a new page right after the Splash screen -
 		},750)
 	}
   render() {
@@ -36,30 +38,3 @@ export default class Splash extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({	
-	container: {
-		flex: 3,
-		flexDirection: 'column',
-		justifyContent: 'space-around', //main axis (the flexDirection)
-    	alignContent: 'center', // cross axis (opposite of the flexDirection)
-    	backgroundColor: '#78B494',
-  	},
-  	logo: {
-		
- 	},
-  	logoText: {
-		marginTop: 15,
-		marginBottom: 15,
-    	fontSize: 60,
-    	textAlign: 'center',
-		color: '#D5EAE0'
-  	}, 
-  	welcome: {
-  	},
-  	welcomeWords: {
-    	textAlign: 'center',
-		marginTop: 10,
-		marginBottom: 50,
-		fontSize: 20,
-  	},
-});

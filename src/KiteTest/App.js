@@ -13,7 +13,7 @@ import Welcome  from './src/components/Welcome/Welcome';
 import Login    from './src/components/Login/Login';
 import Signup   from './src/components/Signup/Signup';
 import Timeline from './src/components/Timeline/Timeline';
-import Profile from './src/components/Profile/Profile';
+import Profile  from './src/components/Profile/Profile';
 
 const App = StackNavigator({
   Splash: {screen: Splash},

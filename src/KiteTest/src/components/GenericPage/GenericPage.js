@@ -11,10 +11,10 @@ import {
 
 import styles from './styles';
 
-class TimeLine extends React.Component {
+class GenericPage extends React.Component {
 
 	static navigationOptions = {
-		title: 'Profile',
+		title: 'GenericPage',
 		headerStyle: {
             backgroundColor: '#78B494',
         },
@@ -114,28 +114,4 @@ class TimeLine extends React.Component {
 
 
 
-  export default TimeLine;
-
-  /*<View style={styles.logo}>
-				<Text style={styles.logoText}>Kite</Text>
-			</View>
-			<View style={styles.welcome}>
-				<Text style={styles.welcomeWords}>Welcome to the Kite App!</Text>
-			</View>
-			<View style={styles.selectionBox}>
-				<Text style={styles.selections}>Sign In</Text>
-				<Text style={styles.selections}>Sign Up</Text>
-			</View>
-			<View style={styles.loginBox}>
-				<View style={styles.button}>
-					<Button title="Log In" onPress={() => {}} />
-				</View>
-				<View style={styles.button}>
-					<Button title="Sign Up" onPress={() => {}} />
-				</View>
-				<TouchableOpacity onPress={() => {}}> 
-        			<Text style={styles.forgotPassword}> Forgot Password?</Text>
-          		</TouchableOpacity>
-				
-			</View>
-	*/
+  export default GenericPage;
