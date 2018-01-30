@@ -11,7 +11,7 @@ import {
 
 import styles from './styles';
 
-class Timeline extends React.Component {
+class Posts extends React.Component {
 
 	static propTypes = {
         //: PropTypes.object.isRequired,
@@ -40,20 +40,15 @@ class Timeline extends React.Component {
 			
 			<View style={styles.middleBar}>
 				
+
+				
 			</View>
     	</View>
 
-		/* This is how to add a different function like a search bar with code in a different file into here.
-		<View style={styles.main}>
-          <SearchBar 
-            searchDeals={this.searchDeals} 
-            initialSearchTerm={this.state.activeSearchTerm}
-          />
-          <DealList deals={dealsToDisplay} onItemPress={this.setCurrentDeal} />
-        </View>
-		*/
     );
   }
 }
 
-  export default Timeline;
+
+
+  export default Posts;

@@ -14,21 +14,7 @@ import {
 import styles from './styles';
 
 export default class Welcome extends Component {
-	static navigationOptions = {
-		title: 'Welcome',
-		headerLeft: null,
-		headerStyle: {
-            backgroundColor: '#78B494',
-        },
-        headerTitleStyle: {
-			alignSelf: 'center',
-            color: '#D5EAE0',
-        },
-        headerBackTitleStyle: {
-            color: '#D5EAE0',
-        },
-        headerTintColor: '#D5EAE0',
-	};
+	
 	componentDidMount() {
 		BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressed);
 	}

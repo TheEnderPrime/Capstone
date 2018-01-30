@@ -15,19 +15,6 @@ import LoginForm from './LoginForm';
 import styles from './styles';
 
 export default class Login extends Component {
-	static navigationOptions = {
-		title: 'Login',
-		headerStyle: {
-            backgroundColor: '#78B494',
-        },
-        headerTitleStyle: {
-            color: '#D5EAE0',
-        },
-        headerBackTitleStyle: {
-            color: '#D5EAE0',
-        },
-        headerTintColor: '#D5EAE0',
-	};
 
 	render() {
 		return (

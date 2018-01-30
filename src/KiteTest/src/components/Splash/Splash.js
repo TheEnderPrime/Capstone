@@ -13,9 +13,6 @@ import {
 import styles from './styles';
 
 export default class Splash extends React.Component {
-	static navigationOptions = {
-		header:null
-	};
 	constructor(){
 		super()
 		this.state={
@@ -24,7 +21,7 @@ export default class Splash extends React.Component {
 	}
 	componentWillMount(){
 		setTimeout(() => {
-			this.props.navigation.navigate('Welcome') // - Change me to see a new page right after the Splash screen -
+			this.props.navigation.navigate('Profile') // - Change me to see a new page right after the Splash screen -
 		},750)
 	}
   render() {

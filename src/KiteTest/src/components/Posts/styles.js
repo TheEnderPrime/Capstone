@@ -1,12 +1,12 @@
 import {StyleSheet} from 'react-native';
 
-module.exports =  styles = StyleSheet.create({	
+module.exports = styles = StyleSheet.create({	
 	container: {
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#78B494',
+    	backgroundColor: '#A6CFBD',
   	},
   	topBar: {
 		// Contains the dropdown menu, logo, and search functionality

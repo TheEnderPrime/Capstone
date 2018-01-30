@@ -17,19 +17,7 @@ import SignupForm from './SignupForm';
 import styles from './styles';
 
 export default class Signup extends React.Component {
-	static navigationOptions ={
-		title: 'Signup',
-		headerStyle: {
-            backgroundColor: '#78B494',
-        },
-        headerTitleStyle: {
-            color: '#D5EAE0',
-        },
-        headerBackTitleStyle: {
-            color: '#D5EAE0',
-        },
-        headerTintColor: '#D5EAE0',
-	};
+	
 
 	render() {
 		return (

@@ -11,21 +11,7 @@ import {
 
 import styles from './styles';
 
-class TimeLine extends React.Component {
-
-	static navigationOptions = {
-		title: 'Profile',
-		headerStyle: {
-            backgroundColor: '#78B494',
-        },
-        headerTitleStyle: {
-            color: '#D5EAE0',
-        },
-        headerBackTitleStyle: {
-            color: '#D5EAE0',
-        },
-        headerTintColor: '#D5EAE0',
-	};
+class Profile extends React.Component {
 
 	static propTypes = {
         //: PropTypes.object.isRequired,
@@ -114,7 +100,7 @@ class TimeLine extends React.Component {
 
 
 
-  export default TimeLine;
+  export default Profile;
 
   /*<View style={styles.logo}>
 				<Text style={styles.logoText}>Kite</Text>
