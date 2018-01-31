@@ -10,11 +10,11 @@ import Profile  from '../components/Profile/Profile';
 import Events   from '../components/Events/Events';
 import Posts   from '../components/Posts/Posts';
 
-export const WelcomeStack = StackNavigator({
+export const OpeningStack = StackNavigator({
     Splash: {
         screen: Splash,
         navigationOptions: {
-            title: null,
+            header: null,
         },
     },
     Welcome: { 
@@ -129,6 +129,9 @@ export const Tabs = TabNavigator({
 });
 
 export const Root = StackNavigator({
+    OpeningStack : {
+        screen: OpeningStack,
+    },
     Tabs: {
       screen: Tabs,
     },
