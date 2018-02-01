@@ -1,5 +1,5 @@
 import React from 'react';
-import {TabNavigator, StackNavigator, DrawerNavigator } from 'react-navigation';
+import {TabNavigator, StackNavigator, DrawerNavigator, Button } from 'react-navigation';
 
 import Splash   from '../components/Splash/Splash';
 import Welcome  from '../components/Welcome/Welcome';
@@ -39,6 +39,7 @@ export const OpeningStack = StackNavigator({
         screen: Login,
         navigationOptions: {
             title: 'Login',
+            //headerLeft: <Button title="Menu" onPress={(navigation)=>{ navigation.navigate('DrawerOpen'); }} />,
             headerStyle: {
                 backgroundColor: '#78B494',
             },
