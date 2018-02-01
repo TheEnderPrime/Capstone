@@ -1,7 +1,7 @@
 const Colors = {
 	kite_green: '#30B75E',
-    kite_greenLight: '#84DFA3',
-    kite_greenMediumLight: '#52C97A',
+    kite_greenLight: '#DCF1DC',
+    kite_greenMediumLight: '#B3EOB3',
     kite_greenMediumDark: '#0BAA41',
     kite_greenDark: '#047F2E',
 

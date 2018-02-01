@@ -1,5 +1,5 @@
 import React from 'react';
-import {TabNavigator, StackNavigator } from 'react-navigation';
+import {TabNavigator, StackNavigator, DrawerNavigator } from 'react-navigation';
 
 import Splash   from '../components/Splash/Splash';
 import Welcome  from '../components/Welcome/Welcome';
@@ -128,17 +128,23 @@ export const Tabs = TabNavigator({
     },
 });
 
+export const MainScreen = DrawerNavigator({
+    Profile: {
+        screen: Profile,
+    },
+});
+
 export const Root = StackNavigator({
     OpeningStack : {
         screen: OpeningStack,
     },
-    Tabs: {
-      screen: Tabs,
+    Tabs : {
+        screen: Tabs,
     },
-   // Settings: {
-   //   screen: SettingsStack,
-   // },
-  }, {
-    mode: 'modal',
-    headerMode: 'none',
-  });
+    MainScreen : {
+        screen: Profile,
+    },
+},  {
+        mode: 'modal',
+        headerMode: 'none',
+});
