@@ -6,7 +6,7 @@ module.exports = styles = StyleSheet.create({
 		flexDirection: 'column', //column or row
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	alignContent: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: Colors.kite_greenLight,
+    	backgroundColor: Colors.kite_greenMediumLight,
   	},
   	logo: {
 		// this will contain the logo and welcome words

@@ -9,6 +9,7 @@ import {
     Text,
     Button
 } from 'react-native';
+import Colors from '../../Colors/Colors';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -51,9 +52,10 @@ class LoginForm extends React.Component {
         return (
             <View>
                 <TextInput
-                    placeholder="UserName or Email"
-                    placeholderTextColor='#277552'
+                    placeholder="Email"
+                    placeholderTextColor={Colors.kite_greenMediumDark}
                     onSubmitEditing={()=> this.passwordInput.focus()}
+                    keyboardType="email-address"
                     autoCapitalize = "none"
                     autoCorrect={false}
                     style={styles.textInputBox}
@@ -62,7 +64,7 @@ class LoginForm extends React.Component {
                 />
                 <TextInput
                     placeholder="Password"
-                    placeholderTextColor='#277552'
+                    placeholderTextColor={Colors.kite_greenMediumDark}
                     secureTextEntry
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -91,16 +93,16 @@ const styles = StyleSheet.create({
     password: {
         marginTop: 5,
         textAlign: 'center',
-        color:'#277552'
+        color:Colors.kite_greenMediumDark
     },
     textInputBox: {
         marginBottom: 10,
         marginRight: 10,
         marginLeft: 10,
         height: 45,
-        borderColor: '#78B494',
-        backgroundColor: '#78B494',
-        color: '#277552',
+        borderColor: Colors.kite_greenMediumLight,
+        backgroundColor: Colors.kite_greenMediumLight,
+        color: Colors.kite_greenMediumDark,
         borderWidth: 1,
         fontSize: 20,
     },

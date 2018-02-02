@@ -14,11 +14,11 @@ include 'DBConfig.php';
 
  $check = null;
  
-// Populate User userNameOrEmail from JSON $obj array and store into $email.
-$userNameOrEmail = $obj['userNameOrEmail'];
+// Populate User Email from JSON $obj array and store into $email.
+$Email = $obj['Email'];
  
 //Applying User Login query with email and password match.
-$Sql_Query1 = "select password from UserRegistrationTable where (email = '$userNameOrEmail') or (name = '$userNameOrEmail')";
+$Sql_Query1 = "select password from Users where email = '$Email'";
  
 // Executing SQL Query.
 $HashPass = mysqli_fetch_array(mysqli_query($con,$Sql_Query1));
@@ -28,10 +28,10 @@ $password = $obj['password'];
 if(password_verify($password, $HashPass[0])){
     
     //Applying User Login query with email and password match.
-    $Sql_Query = "select * from UserRegistrationTable where email = '$userNameOrEmail' or name = '$userNameOrEmail'";
+    $Sql_Query2 = "select * from Users where email = '$Email'";
  
     // Executing SQL Query.
-    $check = mysqli_fetch_array(mysqli_query($con,$Sql_Query));
+    $check = mysqli_fetch_array(mysqli_query($con,$Sql_Query2));
 
 }
 

@@ -7,20 +7,25 @@ import {
     TouchableOpacity, 
     Text,
     Button } from 'react-native';
+import Colors from '../../Colors/Colors';
 
 class SignupForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            UserName: "",
+            UserFirstName: "",
+            UserLastName: "",
             UserEmail: "",
-            UserPassword: ""
+            UserPassword: "",
+            UserDateBirth: Date,
         };
     }
     UserSignUpFunction = () =>{
-        const { UserName } = this.state;
+        const { UserFirstName } = this.state;
+        const { UserLastName } = this.state;
         const { UserEmail } = this.state;
         const { UserPassword } = this.state;
+        const { UserDateBirth} = this.state;
 
         fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/user_registration.php', {
             method: 'POST',
@@ -29,9 +34,11 @@ class SignupForm extends React.Component{
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                name: UserName,
+                firstName: UserFirstName,
+                lastName: UserLastName,
                 email: UserEmail,
-                password: UserPassword
+                password: UserPassword,
+                dateBirth: UserDateBirth,
             })
         }).then((response) => response.json())
         .then((responseJson) => {
@@ -45,19 +52,30 @@ class SignupForm extends React.Component{
         return(
             <View>
                 <TextInput
-                    placeholder="UserName"
-                    placeholderTextColor='#277552'
-                    onSubmitEditing={() => this.emailInput.focus()}
+                    placeholder="First Name"
+                    placeholderTextColor={Colors.kite_greenMediumDark}
+                    onSubmitEditing={() => this.lastNameInput.focus()}
                     autoCapitalize ="none"
                     autoCorrect={false}
                     style={styles.textInputBox}
-                    onChangeText={(UserName) => this.setState({UserName})}
-                    value={this.state.UserName}
+                    onChangeText={(UserFirstName) => this.setState({UserFirstName})}
+                    value={this.state.UserFirstName}
                     
                 />
                 <TextInput
+                    placeholder="Last Name"
+                    placeholderTextColor={Colors.kite_greenMediumDark}
+                    onSubmitEditing={() => this.emailInput.focus()}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    style={styles.textInputBox}
+                    onChangeText={(UserLastName) => this.setState({UserLastName})}
+                    value={this.state.UserEmail}
+                    ref={(input) => this.lastNameInput = input}
+                />
+                <TextInput
                     placeholder="Email"
-                    placeholderTextColor='#277552'
+                    placeholderTextColor={Colors.kite_greenMediumDark}
                     onSubmitEditing={() => this.passwordInput.focus()}
                     keyboardType="email-address"
                     autoCapitalize="none"
@@ -69,7 +87,7 @@ class SignupForm extends React.Component{
                 />
                 <TextInput
                     placeholder="Password"
-                    placeholderTextColor='#277552'
+                    placeholderTextColor={Colors.kite_greenMediumDark}
                     secureTextEntry
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -95,16 +113,16 @@ const styles = StyleSheet.create({
   	password: {
    	 	marginTop: 5,
     	textAlign: 'center',
-        color:'#277552'
+        color: Colors.kite_greenMediumDark
     },
     textInputBox: {
         marginBottom: 10,
         marginRight: 10,
         marginLeft: 10,
         height: 45, 
-        borderColor: '#78B494',
-        backgroundColor: '#78B494',
-        color:'#277552',
+        borderColor: Colors.kite_greenMediumLight,
+        backgroundColor: Colors.kite_greenMediumLight,
+        color: Colors.kite_greenMediumDark,
         borderWidth: 1,
         fontSize: 20,
     }, 

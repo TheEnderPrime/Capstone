@@ -1,12 +1,13 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import Colors from '../../Colors/Colors';
 
-module.exports =  styles = StyleSheet.create({
+module.exports = styles = StyleSheet.create({
 	container: {
 		flex: 3,
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection)
 		alignContent: 'center', // cross axis (opposite of the flexDirection)
-		backgroundColor: '#A6CFBD',
+		backgroundColor: Colors.kite_greenMediumLight,
 	},
 	logo: {
 
@@ -16,7 +17,7 @@ module.exports =  styles = StyleSheet.create({
 		marginBottom: 15,
 		fontSize: 40,
 		textAlign: 'center',
-		color: '#277552'
+		color: Colors.kite_greenDark
 	},
 	welcome: {
 	},
@@ -25,7 +26,7 @@ module.exports =  styles = StyleSheet.create({
 		marginTop: 10,
 		marginBottom: 20,
 		fontSize: 30,
-		color: '#277552'
+		color: Colors.kite_greenDark
 	},
 	button: {
 		marginTop: 20,

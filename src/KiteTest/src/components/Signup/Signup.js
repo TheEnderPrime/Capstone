@@ -34,4 +34,4 @@ export default class Signup extends React.Component {
 	}
 }
 
-AppRegistry.registerComponent('Signup', () => Signup);
+AppRegistry.registerComponent('Sign Up', () => Signup);

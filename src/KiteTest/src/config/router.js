@@ -1,5 +1,6 @@
 import React from 'react';
 import {TabNavigator, StackNavigator } from 'react-navigation';
+import Colors from '../Colors/Colors';
 
 import Splash   from '../components/Splash/Splash';
 import Welcome  from '../components/Welcome/Welcome';
@@ -23,16 +24,16 @@ export const OpeningStack = StackNavigator({
             title: 'Welcome',
             headerLeft: null,
             headerStyle: {
-                backgroundColor: '#78B494',
+                backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
                 alignSelf: 'center',
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
             headerBackTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
-            headerTintColor: '#D5EAE0',
+            headerTintColor: Colors.kite_greenLight,
         },
     },
     Login: {
@@ -40,15 +41,15 @@ export const OpeningStack = StackNavigator({
         navigationOptions: {
             title: 'Login',
             headerStyle: {
-                backgroundColor: '#78B494',
+                backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
             headerBackTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
-            headerTintColor: '#D5EAE0',
+            headerTintColor: Colors.kite_greenLight,
         },
     },
     Signup: {
@@ -56,15 +57,15 @@ export const OpeningStack = StackNavigator({
         navigationOptions: {
             title: 'Signup',
             headerStyle: {
-                backgroundColor: '#78B494',
+                backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
             headerBackTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
-            headerTintColor: '#D5EAE0',
+            headerTintColor: Colors.kite_greenLight,
         },
     },
     Timeline: {
@@ -72,15 +73,15 @@ export const OpeningStack = StackNavigator({
         navigationOptions: {
             title: 'Timeline',
             headerStyle: {
-                backgroundColor: '#78B494',
+                backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
             headerBackTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
-            headerTintColor: '#D5EAE0',
+            headerTintColor: Colors.kite_greenLight,
         },
     },
     Profile: {
@@ -88,15 +89,15 @@ export const OpeningStack = StackNavigator({
         navigationOptions: {
             title: 'Profile',
             headerStyle: {
-                backgroundColor: '#78B494',
+                backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
             headerBackTitleStyle: {
-                color: '#D5EAE0',
+                color: Colors.kite_greenLight,
             },
-            headerTintColor: '#D5EAE0',
+            headerTintColor: Colors.kite_greenLight,
         },
     },
   });
