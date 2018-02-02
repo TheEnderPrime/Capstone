@@ -24,6 +24,7 @@ export default class Splash extends React.Component {
 			this.props.navigation.navigate('Welcome') // - Change me to see a new page right after the Splash screen -
 		},750)
 	}
+	
   render() {
     return (
     	<View style={styles.container}>

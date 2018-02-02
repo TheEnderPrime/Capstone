@@ -46,6 +46,5 @@ const Colors = {
     kite_orangeMediumLight: '#FFE3CC',
     kite_orangeMediumDark: '#D79E6E',
     kite_orangeDark: '#AA6C39',
-
 };
 module.exports = Colors;

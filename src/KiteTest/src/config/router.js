@@ -1,6 +1,6 @@
 import React from 'react';
-import {TabNavigator, StackNavigator } from 'react-navigation';
 import Colors from '../Colors/Colors';
+import {TabNavigator, StackNavigator, DrawerNavigator, Button } from 'react-navigation';
 
 import Splash   from '../components/Splash/Splash';
 import Welcome  from '../components/Welcome/Welcome';
@@ -40,6 +40,7 @@ export const OpeningStack = StackNavigator({
         screen: Login,
         navigationOptions: {
             title: 'Login',
+            //headerLeft: <Button title="Menu" onPress={(navigation)=>{ navigation.navigate('DrawerOpen'); }} />,
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -129,17 +130,23 @@ export const Tabs = TabNavigator({
     },
 });
 
+export const MainScreen = DrawerNavigator({
+    Profile: {
+        screen: Profile,
+    },
+});
+
 export const Root = StackNavigator({
     OpeningStack : {
         screen: OpeningStack,
     },
-    Tabs: {
-      screen: Tabs,
+    Tabs : {
+        screen: Tabs,
     },
-   // Settings: {
-   //   screen: SettingsStack,
-   // },
-  }, {
-    mode: 'modal',
-    headerMode: 'none',
-  });
+    MainScreen : {
+        screen: Profile,
+    },
+},  {
+        mode: 'modal',
+        headerMode: 'none',
+});
