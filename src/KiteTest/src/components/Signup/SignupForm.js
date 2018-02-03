@@ -70,7 +70,7 @@ class SignupForm extends React.Component{
                     autoCorrect={false}
                     style={styles.textInputBox}
                     onChangeText={(UserLastName) => this.setState({UserLastName})}
-                    value={this.state.UserEmail}
+                    value={this.state.UserLastName}
                     ref={(input) => this.lastNameInput = input}
                 />
                 <TextInput
