@@ -8,7 +8,7 @@ import {
     Text,
     Button } from 'react-native';
 import Colors from '../../Colors/Colors';
-
+import DatePicker from 'react-native-datepicker'
 class SignupForm extends React.Component{
     constructor(props) {
         super(props);
@@ -17,7 +17,7 @@ class SignupForm extends React.Component{
             UserLastName: "",
             UserEmail: "",
             UserPassword: "",
-            UserDateBirth: Date,
+            date: "2017-05-15",
         };
     }
     UserSignUpFunction = () =>{
@@ -38,7 +38,7 @@ class SignupForm extends React.Component{
                 lastName: UserLastName,
                 email: UserEmail,
                 password: UserPassword,
-                dateBirth: UserDateBirth,
+                dateBirth: date,
             })
         }).then((response) => response.json())
         .then((responseJson) => {
@@ -95,7 +95,19 @@ class SignupForm extends React.Component{
                     onChangeText={(UserPassword) => this.setState({UserPassword})}
                     ref={(input) => this.passwordInput = input}
                 />
-                
+                <DatePicker
+                    style={{ width: 200 }}
+                    date={this.state.date}
+                    mode="date"
+                    placeholder="select date"
+                    format="YYYY-MM-DD"
+                    minDate="2000-01-01"
+                    maxDate="2018-07-02"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    androidMode = "spinner"
+                    onDateChange={(date) => { this.setState({ date: date }) }}
+                />
                 <View style={styles.button}>
                     <Button title="Sign Up" onPress={this.UserSignUpFunction} />
                 </View>
