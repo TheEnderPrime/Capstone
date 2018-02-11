@@ -10,19 +10,21 @@ import Timeline from '../components/Timeline/Timeline';
 import Profile  from '../components/Profile/Profile';
 import Events   from '../components/Events/Events';
 import Posts   from '../components/Posts/Posts';
+import { STATUS_CODES } from 'http';
 
-export const OpeningStack = StackNavigator({
-    Splash: {
-        screen: Splash,
-        navigationOptions: {
-            header: null,
-        },
-    },
+//Create navigator for each page that contains the tab navigation
+//create overarching stack navigator that contains the different pages?
+//add drawer to stack navigator
+
+//headerLeft: <Button title="Menu" onPress={(navigation)=>{ navigation.navigate('DrawerOpen'); }} />,
+
+// opening stack navigator for Login/Signup pages - Called from Splash.js
+// needs to navigate('Tabs'); to navigate to the main pages of the app
+export const WelcomeStack = StackNavigator({
     Welcome: { 
         screen: Welcome,
         navigationOptions: {
             title: 'Welcome',
-            headerLeft: null,
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -40,7 +42,6 @@ export const OpeningStack = StackNavigator({
         screen: Login,
         navigationOptions: {
             title: 'Login',
-            //headerLeft: <Button title="Menu" onPress={(navigation)=>{ navigation.navigate('DrawerOpen'); }} />,
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -69,39 +70,50 @@ export const OpeningStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+  });
+
+export const TimelineStack = StackNavigator({
     Timeline: {
         screen: Timeline,
-        navigationOptions: {
-            title: 'Timeline',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
     },
-    Profile: {
-        screen: Profile,
-        navigationOptions: {
-            title: 'Profile',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
+});
+
+export const CommunitiyStack = StackNavigator({
+    Timeline: {
+        screen: Timeline,
     },
-  });
+});
+
+export const ProfileStack = StackNavigator({
+    Timeline: {
+        screen: Timeline,
+    },
+});
+
+export const PostStack = StackNavigator({
+    Timeline: {
+        screen: Timeline,
+    },
+});
+
+export const NotificationStack = StackNavigator({
+    Timeline: {
+        screen: Timeline,
+    },
+});
+
+export const SettingsStack = StackNavigator({
+    Timeline: {
+        screen: Timeline,
+    },
+});
+
+export const EventsStack = StackNavigator({
+    Timeline: {
+        screen: Timeline,
+    },
+});
+
 
 export const Tabs = TabNavigator({
     Timeline: {
@@ -127,25 +139,31 @@ export const Tabs = TabNavigator({
         navigationOptions: {
           tabBarLabel: 'Profile',
         },
+    //Communities?
     },
 });
 
-export const MainScreen = DrawerNavigator({
+// navigator for the drawer navigation
+export const Drawer = DrawerNavigator({
     Profile: {
         screen: Profile,
     },
 });
 
-export const Root = StackNavigator({
-    OpeningStack : {
-        screen: OpeningStack,
+// main navigator that moves between all the major navigators
+export const Root = StackNavigator({ 
+    Splash : {
+        screen: Splash,
+    },
+    WelcomeStack : {
+        screen: WelcomeStack,
     },
     Tabs : {
         screen: Tabs,
     },
-    MainScreen : {
-        screen: Profile,
-    },
+    Drawer: {
+        screen: Drawer,
+    }
 },  {
         mode: 'modal',
         headerMode: 'none',

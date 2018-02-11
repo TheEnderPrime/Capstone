@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import styles from './styles';
+import{ Root, Tabs, WelcomeStack } from '../../config/router'; //eventually should call WelcomeStack
 
 export default class Splash extends React.Component {
 	constructor(){
@@ -21,7 +22,7 @@ export default class Splash extends React.Component {
 	}
 	componentWillMount(){
 		setTimeout(() => {
-			this.props.navigation.navigate('Welcome') // - Change me to see a new page right after the Splash screen -
+			this.props.navigation.navigate('WelcomeStack') // - Change me to see a new page right after the Splash screen -
 		},750)
 	}
 	

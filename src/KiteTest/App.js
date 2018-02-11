@@ -11,7 +11,8 @@ import Profile  from './src/components/Profile/Profile';
 
 class App extends Component {
   render() {
-    return <Root />;
+    return <Root />;  //eventuall call Splash which will call WelcomeStack to
+                      // fix the back button problem
   }
 }
 
