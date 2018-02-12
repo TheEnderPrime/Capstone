@@ -15,38 +15,49 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            UserNameOrEmail: "",
+            UserEmail: "",
             UserPassword: ""
         };
     }
-    UserLoginFuction = () => {
-        const { UserNameOrEmail } = this.state;
+
+    UserLoginFunction = () => {
+
+        const { UserEmail } = this.state;
         const { UserPassword } = this.state;
+
 
         fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/user_login.php', {
             method: 'POST',
-            headers:{
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
 
-                userNameOrEmail: UserNameOrEmail,
+                email: UserEmail,
+
                 password: UserPassword
+
             })
-        }).then((response) => response.json()).then((responseJson) =>{
-            // if server response message same as Data Matched
-            if(responseJson == 'Data Matched'){
-                //then open Profile activity and send user email to profile activity
-                //this.props.navigation.navigate('Second', {Email: UserEmail });
-                Alert.alert(responseJson);
-            }
-            else{
-                Alert.alert(responseJson);
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson === 'Data Matched') {
+
+                    //Then open Profile activity and send user email to profile activity.
+                    //this.props.navigation.navigate('Second', { Email: UserEmail });
+                    Alert.alert(responseJson);
+                }
+                else {
+
+                    Alert.alert(responseJson);
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
     }
     render() {
         return (
@@ -54,13 +65,12 @@ class LoginForm extends React.Component {
                 <TextInput
                     placeholder="Email"
                     placeholderTextColor={Colors.kite_greenMediumDark}
-                    onSubmitEditing={()=> this.passwordInput.focus()}
+                    onSubmitEditing={() => this.passwordInput.focus()}
                     keyboardType="email-address"
-                    autoCapitalize = "none"
+                    autoCapitalize="none"
                     autoCorrect={false}
                     style={styles.textInputBox}
-                    onChangeText={(UserNameOrEmail) => this.setState({ UserNameOrEmail })}
-                    value={this.state.UserNameOrEmail}
+                    onChangeText={(UserEmail) => this.setState({ UserEmail })}
                 />
                 <TextInput
                     placeholder="Password"
@@ -73,7 +83,7 @@ class LoginForm extends React.Component {
                     ref={(input) => this.passwordInput = input}
                 />
                 <View style={styles.button}>
-                    <Button style={buttonColor='#78B494'}title="Login" onPress={this.UserLoginFuction} />
+                    <Button style={buttonColor = '#78B494'} title="Login" onPress={this.UserLoginFunction} />
                 </View>
                 <TouchableOpacity onPress={() => { }}>
                     <Text style={styles.password}> Forgot Password?</Text>
@@ -93,7 +103,7 @@ const styles = StyleSheet.create({
     password: {
         marginTop: 5,
         textAlign: 'center',
-        color:Colors.kite_greenMediumDark
+        color: Colors.kite_greenMediumDark
     },
     textInputBox: {
         marginBottom: 10,

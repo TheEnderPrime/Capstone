@@ -25,7 +25,7 @@ class SignupForm extends React.Component{
         const { UserLastName } = this.state;
         const { UserEmail } = this.state;
         const { UserPassword } = this.state;
-        const { UserDateBirth} = this.state;
+        const { date } = this.state;
 
         fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/user_registration.php', {
             method: 'POST',
@@ -38,7 +38,7 @@ class SignupForm extends React.Component{
                 lastName: UserLastName,
                 email: UserEmail,
                 password: UserPassword,
-                dateBirth: date,
+                date: date,
             })
         }).then((response) => response.json())
         .then((responseJson) => {
@@ -82,7 +82,6 @@ class SignupForm extends React.Component{
                     autoCorrect={false}
                     style={styles.textInputBox}
                     onChangeText={(UserEmail) => this.setState({UserEmail})}
-                    value={this.state.UserEmail}
                     ref={(input) => this.emailInput = input}
                 />
                 <TextInput
