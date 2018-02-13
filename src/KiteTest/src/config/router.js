@@ -76,42 +76,140 @@ export const WelcomeStack = StackNavigator({
 export const TimelineStack = StackNavigator({
     Timeline: {
         screen: Timeline,
+        navigationOptions: {
+            title: 'Timeline',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     },
 });
 
 export const CommunitiyStack = StackNavigator({
     Community: {
         screen: Community,
+        navigationOptions: {
+            title: 'Community',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     },
 });
 
 export const ProfileStack = StackNavigator({
     Profile: {
         screen: Profile,
+        navigationOptions: {
+            title: 'Profile',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     },
 });
 
 export const PostStack = StackNavigator({
     Posts: {
         screen: Posts,
+        navigationOptions: {
+            title: 'Posts',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     },
 });
 
 export const NotificationStack = StackNavigator({
     Notifications: {
         screen: Timeline,
+        navigationOptions: {
+            title: 'Notifications',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     },
 });
 
 export const SettingsStack = StackNavigator({
     Settings: {
         screen: Timeline,
+        navigationOptions: {
+            title: 'Settings',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     },
 });
 
 export const EventsStack = StackNavigator({
     Events: {
         screen: Events,
+        navigationOptions: {
+            title: 'Events',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     },
 });
 
