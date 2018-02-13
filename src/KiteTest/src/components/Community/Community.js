@@ -11,7 +11,7 @@ import {
 
 import styles from './styles';
 
-class Events extends React.Component {
+class Community extends React.Component {
 
 	static propTypes = {
         //: PropTypes.object.isRequired,
@@ -28,7 +28,7 @@ class Events extends React.Component {
     	<View style={styles.container}>
 			
 			<View style={styles.middleBar}>
-				<Text>Events</Text>
+				<Text>Community</Text>
 			</View>
     	</View>
 
@@ -38,4 +38,4 @@ class Events extends React.Component {
 
 
 
-  export default Events;
+  export default Community;

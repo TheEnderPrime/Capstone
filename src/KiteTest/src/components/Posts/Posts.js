@@ -26,24 +26,10 @@ class Posts extends React.Component {
   render() {
     return (
     	<View style={styles.container}>
-	  		<View style={styles.topBar}>
-				<View style={styles.hamburgerMenu}>
-					<Text>Hamburger Menu</Text>
-				</View>
-				<View style={styles.logo}>
-					<Text>Kite Logo</Text>
-				</View>
-				<View style={styles.searchBar}>
-					<Text>Search Bar</Text>
-				</View>
-			</View>
-			
 			<View style={styles.middleBar}>
-				
-
-				
+				<Text>Posts</Text>
 			</View>
-    	</View>
+		</View>
 
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Colors from '../Colors/Colors';
-import {TabNavigator, StackNavigator, DrawerNavigator, Button } from 'react-navigation';
+import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom } from 'react-navigation';
 
 import Splash   from '../components/Splash/Splash';
 import Welcome  from '../components/Welcome/Welcome';
@@ -10,7 +10,8 @@ import Timeline from '../components/Timeline/Timeline';
 import Profile  from '../components/Profile/Profile';
 import Events   from '../components/Events/Events';
 import Posts    from '../components/Posts/Posts';
-import { STATUS_CODES } from 'http';
+import Community from '../components/Community/Community';
+
 
 //Create navigator for each page that contains the tab navigation
 //create overarching stack navigator that contains the different pages?
@@ -79,69 +80,75 @@ export const TimelineStack = StackNavigator({
 });
 
 export const CommunitiyStack = StackNavigator({
-    Timeline: {
-        screen: Timeline,
+    Community: {
+        screen: Community,
     },
 });
 
 export const ProfileStack = StackNavigator({
-    Timeline: {
-        screen: Timeline,
+    Profile: {
+        screen: Profile,
     },
 });
 
 export const PostStack = StackNavigator({
-    Timeline: {
-        screen: Timeline,
+    Posts: {
+        screen: Posts,
     },
 });
 
 export const NotificationStack = StackNavigator({
-    Timeline: {
+    Notifications: {
         screen: Timeline,
     },
 });
 
 export const SettingsStack = StackNavigator({
-    Timeline: {
+    Settings: {
         screen: Timeline,
     },
 });
 
 export const EventsStack = StackNavigator({
-    Timeline: {
-        screen: Timeline,
+    Events: {
+        screen: Events,
     },
 });
 
 
 export const Tabs = TabNavigator({
     Timeline: {
-        screen: Timeline,
+        screen: TimelineStack,
         navigationOptions: {
           tabBarLabel: 'Timeline',
         },
     },
     Events: {
-        screen: Events,
+        screen: EventsStack,
         navigationOptions: {
           tabBarLabel: 'Events',
         },
     },
-    Posts: {
-        screen: Posts,
+    Community: {
+        screen: CommunitiyStack,
         navigationOptions: {
-          tabBarLabel: 'Posts',
+            tabBarLabel: 'Community',
         },
-    },
+    }, 
     Profile: {
-        screen: Profile,
+        screen: ProfileStack,
         navigationOptions: {
           tabBarLabel: 'Profile',
         },
-    //Communities?
     },
-});
+},
+{
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: 'bottom',
+    animationEnabled: false,
+    swipeEnabled: false,
+}
+);
 
 // navigator for the drawer navigation
 export const Drawer = DrawerNavigator({
@@ -152,12 +159,12 @@ export const Drawer = DrawerNavigator({
 
 // main navigator that moves between all the major navigators
 export const Root = StackNavigator({ 
-    Splash : {
-        screen: Splash,
-    },
-    WelcomeStack : {
-        screen: WelcomeStack,
-    },
+    // Splash : {
+    //     screen: Splash,
+    // },
+    // WelcomeStack : {
+    //     screen: WelcomeStack,
+    // },
     Tabs : {
         screen: Tabs,
     },
