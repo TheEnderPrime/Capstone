@@ -9,42 +9,34 @@ module.exports = styles = StyleSheet.create({
     	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
     	backgroundColor: '#A6CFBD',
   	},
-  	topBar: {
-		// Contains the dropdown menu, logo, and search functionality
+  	profileDesc: { 
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
-		padding: 26,
+		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
+    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+    	backgroundColor: '#A6CFBD',
+	}, 
+	profilePicture: {
+		flex: 1,
+		fontSize: 20,
+		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
+    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+    	backgroundColor: '#A6CFBD',
 	},
-	hamburgerMenu: {
-		//eventually will be styled in its own function file
+	profileWords: {
 		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-around',
+		fontSize: 10, 
+		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
+    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+    	backgroundColor: '#A6CFBD',
 	},
-	logo: {
-		//eventually will be styled in its own function file
+	buttonsContainer: {
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-around',
+		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
+    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+    	backgroundColor: '#A6CFBD',
 	},
-	searchBar: {
-		//eventually style this in the SearchBar.js file where its code will be located  
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-around',
-	},
-  	middleBar: { 
-		//will contain the timeline with all of its thingimabobs
-  	}, 
-  	bottomBar: { 
-		//will contain the menu to change the page contained in the middleBar
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'flex-end',
-		padding: 26,
-  	},
   	buttonUnselected: {
 		//will be a bit LIGHTER to show that it IS NOT selected at that time
 		flex: 1,
@@ -58,5 +50,12 @@ module.exports = styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		fontSize: 10,
+	},
+	postsContainer:{
+		flex: 1,
+		fontSize: 10, 
+		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
+    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+    	backgroundColor: '#A6CFBD',
 	},
 });

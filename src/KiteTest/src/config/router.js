@@ -1,5 +1,6 @@
 import React from 'react';
 import Colors from '../Colors/Colors';
+import Text from 'react-native';
 import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom } from 'react-navigation';
 
 import Splash   from '../components/Splash/Splash';
@@ -11,6 +12,7 @@ import Profile  from '../components/Profile/Profile';
 import Events   from '../components/Events/Events';
 import Posts    from '../components/Posts/Posts';
 import Community from '../components/Community/Community';
+import DrawerContainer from './DrawerContainer';
 
 
 //Create navigator for each page that contains the tab navigation
@@ -77,8 +79,9 @@ export const TimelineStack = StackNavigator({
     Timeline: {
         screen: Timeline,
         navigationOptions: {
-            title: 'Timeline',
-            headerStyle: {
+			title: 'Timeline',
+			//headerLeft: drawerButton(this.props.navigation),
+			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
@@ -213,12 +216,12 @@ export const EventsStack = StackNavigator({
     },
 });
 
-
+// - - - - - - - TABS NAVIGATION - - - - - - - - - -
 export const Tabs = TabNavigator({
     Timeline: {
         screen: TimelineStack,
         navigationOptions: {
-          tabBarLabel: 'Timeline',
+		  tabBarLabel: 'Timeline',
         },
     },
     Events: {
@@ -248,28 +251,57 @@ export const Tabs = TabNavigator({
 }
 );
 
-// navigator for the drawer navigation
-export const Drawer = DrawerNavigator({
-    Profile: {
-        screen: Profile,
-    },
+// - - - - - - - - - - - DRAWER NAVIAGTION - - - - - - - - - -
+//navigator for the drawer navigation
+export const DrawerStack = DrawerNavigator({
+	Notifications: {
+		screen: NotificationStack,
+	},
+	Profile: {
+        screen: ProfileStack,
+	},
+	Settings: {
+		screen: SettingsStack,
+	},
+}, {
 });
 
-// main navigator that moves between all the major navigators
+const drawerButton = (navigation) =>
+  <Text
+    style={{padding: 5, color: 'white'}}
+    onPress={() => {
+      navigation.navigate('DrawerToggle')
+    }
+  }>Menu</Text>
+
+const DrawerNavigation = StackNavigator({
+	DrawerStack: { screen: DrawerStack }
+  }, {
+	headerMode: 'float',
+	navigationOptions: ({navigation}) => ({
+	  headerStyle: {backgroundColor: 'green'},
+	  title: 'Logged In to your app!',
+	  headerLeft: drawerButton(navigation)
+	})
+  })
+
+// - - - - - - - - - - - - - - MAIN NAVIGATOR - - - - - - - - - - - - -
+//main navigator that moves between all the major navigators
 export const Root = StackNavigator({ 
-    // Splash : {
-    //     screen: Splash,
-    // },
-    // WelcomeStack : {
-    //     screen: WelcomeStack,
-    // },
+    Splash : {
+        screen: Splash,
+    },
+    WelcomeStack : {
+        screen: WelcomeStack,
+     },
     Tabs : {
         screen: Tabs,
     },
-    Drawer: {
-        screen: Drawer,
+    DrawerStack: {
+        screen: DrawerStack,
     }
 },  {
-        mode: 'modal',
-        headerMode: 'none',
+		headerMode: 'none',
+		title: 'Main',
+		initialRouteName: 'Tabs'
 });
