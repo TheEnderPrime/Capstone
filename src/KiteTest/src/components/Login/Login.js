@@ -13,10 +13,12 @@ import {
 
 import LoginForm from './LoginForm';
 import styles from './styles';
+import{ Root, Tabs, WelcomeStack } from '../../config/router';
 
 export default class Login extends Component {
 
 	render() {
+		const { navigation } = this.props;
 		return (
 			<View style={styles.container}>
 				<View style={styles.logo}>
@@ -24,7 +26,7 @@ export default class Login extends Component {
 				</View>
 				<View style={styles.welcome}>
 					<Text style={styles.welcomeWords}>Welcome Back!</Text>
-					<LoginForm />
+					<LoginForm navigation={navigation} />
 				</View>
 			</View>
 		);

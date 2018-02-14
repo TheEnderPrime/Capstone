@@ -22,7 +22,7 @@ export default class Splash extends React.Component {
 	}
 	componentWillMount(){
 		setTimeout(() => {
-			this.props.navigation.navigate('WelcomeStack') // - Change me to see a new page right after the Splash screen -
+			this.props.navigation.navigate('WelcomeStack')
 		},750)
 	}
 	

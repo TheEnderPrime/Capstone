@@ -303,5 +303,5 @@ export const Root = StackNavigator({
 },  {
 		headerMode: 'none',
 		title: 'Main',
-		initialRouteName: 'Tabs'
+		initialRouteName: 'Splash'
 });
