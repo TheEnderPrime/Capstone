@@ -14,46 +14,64 @@ module.exports = styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
+		backgroundColor: '#A6CFBD',
+		padding: 15,
 	}, 
 	profilePicture: {
 		flex: 1,
-		fontSize: 20,
-		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
-	},
-	profileWords: {
-		flex: 1,
-		fontSize: 10, 
-		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
-	},
-	buttonsContainer: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
-	},
-  	buttonUnselected: {
-		//will be a bit LIGHTER to show that it IS NOT selected at that time
-		flex: 1,
-		flexDirection: 'row',
+		width: 100,
+		height: 160,
 		justifyContent: 'space-around',
-		fontSize: 10,
+    	alignItems: 'center',
+    	backgroundColor: '#A6CFBD',
 	},
-	buttonSelected: {
-		//will be a bit DARKER to show that it IS selected at that time
+	profileText: {
+		flex: 1,
+		flexDirection: 'column', 
+		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
+    	//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+		backgroundColor: '#A6CFBD',
+		padding: 15,
+	},
+	text: {
+		flex: 1,
+		fontSize: 15,
+		flexDirection: 'column', 
+		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
+    	alignItems: 'center',
+    	backgroundColor: '#A6CFBD',
+	},
+	statBoxesContainer: {
 		flex: 1,
 		flexDirection: 'row',
+		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
+    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+    	backgroundColor: '#A6CFBD',
+	},
+	statBox: {
+		flex: 1,
+		flexDirection: 'column',
 		justifyContent: 'space-around',
-		fontSize: 10,
+		padding: 15,
+	},
+  	statNumberCount: {
+		//number for the stats in the row in the middle of the screen
+		//flex: 1,
+		//flexDirection: 'row',
+		//justifyContent: 'space-around',
+		//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+		fontSize: 30,
+	},
+	statCountTitles: {
+		//the titles of the stats in row in the middle of the screen
+		flex: 1,
+		//flexDirection: 'row',
+		//justifyContent: 'space-around',
+		//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+		fontSize: 11,
 	},
 	postsContainer:{
 		flex: 1,
-		fontSize: 10, 
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
     	backgroundColor: '#A6CFBD',
