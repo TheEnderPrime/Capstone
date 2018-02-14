@@ -10,7 +10,7 @@ import {
     Button
 } from 'react-native';
 import Colors from '../../Colors/Colors';
-import{ Root, Tabs, WelcomeStack } from '../../config/router';
+import{ Root, Tabs, WelcomeStack, Drawers } from '../../config/router';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -47,7 +47,7 @@ class LoginForm extends React.Component {
                 // If server response message same as Data Matched
                 if (responseJson === 'Data Matched') {
                     
-                    this.props.navigation.navigate('Tabs')
+                    this.props.navigation.navigate('Drawers')
 
                     //Then open Profile activity and send user email to profile activity.
                     //this.props.navigation.navigate('Second', { Email: UserEmail });
