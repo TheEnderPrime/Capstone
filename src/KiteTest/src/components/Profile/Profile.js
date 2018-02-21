@@ -9,7 +9,9 @@ import {
 	TouchableOpacity,
 	Image,
 } from 'react-native';
+
 import Timeline from 'react-native-timeline-listview'
+
 import styles from './styles';
 
 class Profile extends React.Component {

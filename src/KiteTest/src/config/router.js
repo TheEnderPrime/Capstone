@@ -4,15 +4,8 @@ import { Text, } from 'react-native';
 import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom, } from 'react-navigation';
 
 import Splash   from '../components/Splash/Splash';
-import Welcome  from '../components/Welcome/Welcome';
-import Login    from '../components/Login/Login';
-import Signup   from '../components/Signup/Signup';
-import Timeline from '../components/Timeline/Timeline';
-import Profile  from '../components/Profile/Profile';
-import Events   from '../components/Events/Events';
-import Posts    from '../components/Posts/Posts';
-import Community from '../components/Community/Community';
-import {WelcomeStack, TimelineStack, CommunityStack, ProfileStack, SettingsStack, EventsStack, PostStack, NotificationStack, } from './stackNavigators';
+
+import { WelcomeStack, TimelineStack, CommunityStack, ProfileStack, SettingsStack, EventsStack, PostStack, NotificationStack, } from './stackNavigators';
 
 
 //Create navigator for each page that contains the tab navigation

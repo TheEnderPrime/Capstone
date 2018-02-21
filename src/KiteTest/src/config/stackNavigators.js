@@ -3,15 +3,15 @@ import Colors from '../Colors/Colors';
 import { Text, } from 'react-native';
 import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom, } from 'react-navigation';
 
-import Splash   from '../components/Splash/Splash';
-import Welcome  from '../components/Welcome/Welcome';
-import Login    from '../components/Login/Login';
-import Signup   from '../components/Signup/Signup';
-import Timeline from '../components/Timeline/Timeline';
-import Profile  from '../components/Profile/Profile';
-import Events   from '../components/Events/Events';
-import Posts    from '../components/Posts/Posts';
-import Community from '../components/Community/Community';
+import Splash       from '../components/Splash/Splash';
+import Welcome      from '../components/Welcome/Welcome';
+import Login        from '../components/Login/Login';
+import Signup       from '../components/Signup/Signup';
+import KiteTimeline from '../components/Timeline/KiteTimeline';
+import Profile      from '../components/Profile/Profile';
+import Events       from '../components/Events/Events';
+import Posts        from '../components/Posts/Posts';
+import Community    from '../components/Community/Community';
 
 // opening stack navigator for Login/Signup pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
@@ -69,7 +69,7 @@ export const WelcomeStack = StackNavigator({
 
 export const TimelineStack = StackNavigator({
     Timeline: {
-        screen: Timeline,
+        screen: KiteTimeline,
         navigationOptions: {
             title: 'Timeline',
             drawerLabel: 'Home', //doesn't work yet
@@ -151,7 +151,7 @@ export const PostStack = StackNavigator({
 
 export const NotificationStack = StackNavigator({
     Notifications: {
-        screen: Timeline,
+        screen: KiteTimeline, ////////////////////////CHANGE ME
         navigationOptions: {
             title: 'Notifications',
             headerStyle: {
@@ -171,7 +171,7 @@ export const NotificationStack = StackNavigator({
 
 export const SettingsStack = StackNavigator({
     Settings: {
-        screen: Timeline,
+        screen: KiteTimeline, //////////////////CHANGE ME
         navigationOptions: {
             title: 'Settings',
             headerStyle: {
