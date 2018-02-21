@@ -6,11 +6,11 @@ module.exports = styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+    	//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
     	backgroundColor: '#A6CFBD',
   	},
   	profileDesc: { 
-		flex: 1,
+		flex: 2,
 		flexDirection: 'row',
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
@@ -56,24 +56,22 @@ module.exports = styles = StyleSheet.create({
 	},
   	statNumberCount: {
 		//number for the stats in the row in the middle of the screen
-		//flex: 1,
-		//flexDirection: 'row',
-		//justifyContent: 'space-around',
-		//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
 		fontSize: 30,
 	},
 	statCountTitles: {
 		//the titles of the stats in row in the middle of the screen
 		flex: 1,
-		//flexDirection: 'row',
-		//justifyContent: 'space-around',
-		//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
 		fontSize: 11,
 	},
-	postsContainer:{
-		flex: 1,
-		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
+	timelineContainer:{
+		flex: 2,
+		padding: 20, 
+		paddingTop: 65,
+		backgroundColor: '#A6CFBD',
 	},
+	timelineList: {
+		flex: 1,
+		marginTop: 20,
+	}
+
 });

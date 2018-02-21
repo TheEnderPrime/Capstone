@@ -51,7 +51,7 @@ class LoginForm extends React.Component {
 
                     //Then open Profile activity and send user email to profile activity.
                     //this.props.navigation.navigate('Second', { Email: UserEmail });
-                    Alert.alert(responseJson);
+                    //Alert.alert(responseJson);
                 }
                 else {
 
