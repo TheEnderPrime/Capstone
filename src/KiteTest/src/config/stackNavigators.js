@@ -10,6 +10,7 @@ import Signup       from '../components/Signup/Signup';
 import KiteTimeline from '../components/Timeline/KiteTimeline';
 import Profile      from '../components/Profile/Profile';
 import Events       from '../components/Events/Events';
+import EventCreator from '../components/Events/EventCreator';
 import Posts        from '../components/Posts/Posts';
 import Community    from '../components/Community/Community';
 
@@ -207,4 +208,21 @@ export const EventsStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    EventCreator: {
+        screen: EventCreator,
+        navigationOptions: {
+            title: 'Event Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
 });

@@ -25,7 +25,7 @@ class Profile extends React.Component {
 			//deal: this.props.initialDealData,
 			//imageIndex: 0,
 			userName: "David Baugh",
-			userAge: 12,
+			userAge: 21,
 			gender: "Sexy",
 			achievement: "Forbes 30 under 30",
 			profilePic: '../../images/placeholderProfilePicture.jpg',
@@ -90,6 +90,14 @@ class Profile extends React.Component {
 					<Timeline
 						style={styles.timelineList}
 						data={this.data}
+						circleSize={20}
+						circleColor='rgb(45,156,219)'
+						lineColor='rgb(45,156,219)'
+						timeContainerStyle={{minWidth:52, marginTop: -5}}
+						timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
+						descriptionStyle={{color:'gray'}}
+						timeContainerStyle={{minWidth:72}}
+						circleSize={-100}
 					/>
 				</View>
 

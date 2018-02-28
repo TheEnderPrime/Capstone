@@ -60,13 +60,11 @@ module.exports = styles = StyleSheet.create({
 	},
 	statCountTitles: {
 		//the titles of the stats in row in the middle of the screen
-		flex: 1,
 		fontSize: 11,
 	},
 	timelineContainer:{
-		flex: 2,
-		padding: 20, 
-		paddingTop: 65,
+		flex: 3,
+		padding: 10, 
 		backgroundColor: '#A6CFBD',
 	},
 	timelineList: {

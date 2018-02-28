@@ -41,10 +41,9 @@ export default class Welcome extends Component {
 					<Text style={styles.selections} onPress={() => navigate('Signup')}>Sign Up</Text>
 				</View>
 				<View style={styles.loginBox}>
-					<TouchableOpacity onPress={() => {}}> 
+					<TouchableOpacity onPress={() => navigate('Drawers')}>
 						<Text style={styles.forgotPassword}> Forgot Password?</Text>
 					</TouchableOpacity>
-
 				</View>
 			</View>
 		);

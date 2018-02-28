@@ -42,6 +42,11 @@ export const Tabs = TabNavigator({
     },
 },
 {
+    tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+    
+},
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
     animationEnabled: false,

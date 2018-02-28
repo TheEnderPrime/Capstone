@@ -63,6 +63,7 @@ class LoginForm extends React.Component {
             });
     }
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View>
                 <TextInput
@@ -88,7 +89,7 @@ class LoginForm extends React.Component {
                 <View style={styles.button}>
                     <Button style={buttonColor = '#78B494'} title="Login" onPress={this.UserLoginFunction} />
                 </View>
-                <TouchableOpacity onPress={() => { }}>
+                <TouchableOpacity onPress={() => navigate('Drawers')}>
                     <Text style={styles.password}> Forgot Password?</Text>
                 </TouchableOpacity>
             </View>
