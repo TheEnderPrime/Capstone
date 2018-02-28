@@ -63,9 +63,6 @@ export const Drawers = DrawerNavigator({
 	Notifications: {
 		screen: NotificationStack,
 	},
-	Profile: {
-        screen: ProfileStack,
-	},
 	Settings: {
 		screen: SettingsStack,
 	},
