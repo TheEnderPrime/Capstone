@@ -15,16 +15,14 @@ import styles from './styles';
 
 class Events extends React.Component {
 
-	static propTypes = {
-        //: PropTypes.object.isRequired,
-        //: PropTypes.func.isRequired,
-    };
-
-    state = {
-		EventTitle: "",
-		EventDesc: "",
-		EventTags: "",
-    };
+	constructor(props) {
+		super(props);
+		state = {
+			EventTitle: "",
+			EventDesc: "",
+			EventTags: "",
+		};
+	}
 
   render() {
 	const {navigate} = this.props.navigation;
@@ -84,11 +82,11 @@ class Events extends React.Component {
 			<View style={styles.button}>
 				<Button 
 					title="Continue"
-					onPress = {() => navigate('EventCreator')}
+					onPress = {() => 
+						navigate('EventCreator', {	EventTitle: "EventTitle", EventDesc: "EventDesc", EventTags: "Why Me!"})
+					}
 				/>
 			</View>
-			
-			
     	</View>
 
     );

@@ -48,6 +48,7 @@ class LoginForm extends React.Component {
                 if (responseJson === 'Data Matched') {
                     
                     this.props.navigation.navigate('Drawers')
+                    //this.setState(userName: responseJson.User);
 
                     //Then open Profile activity and send user email to profile activity.
                     //this.props.navigation.navigate('Second', { Email: UserEmail });

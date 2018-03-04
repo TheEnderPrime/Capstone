@@ -15,23 +15,25 @@ import styles from './styles';
 
 class EventCreator extends React.Component {
 
-	static propTypes = {
-				//: PropTypes.object.isRequired,
-				//: PropTypes.func.isRequired,
-		};
-
+	constructor(props) {
+		super(props);
 		state = {
-		EventTitle: "",
-		EventDesc: "",
-		EventTags: "",
+			EventTitle: "",
+			EventDesc: "",
+			EventTags: "",
 		};
+	}
+
+	componentWillMount(){
+		this.state(EventTitle).setState(EventTitle);
+	}
 
 	render() {
 		return (
 			<View style={styles.container}>
 			
 			<Text style={styles.titleText}>
-				Now, tell your Story!
+				Now, tell your Story! {EventTitle}
 			</Text>
 			
 			<View style={styles.textInput}>
