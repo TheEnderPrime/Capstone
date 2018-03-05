@@ -27,7 +27,7 @@ class SignupForm extends React.Component{
         const { UserPassword } = this.state;
         const { date } = this.state;
 
-        fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/user_registration.php', {
+        fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions.userRegister.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
