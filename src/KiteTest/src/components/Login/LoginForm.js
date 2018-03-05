@@ -27,7 +27,7 @@ class LoginForm extends React.Component {
         const { UserPassword } = this.state;
 
 
-        fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions.Login.php', {
+        fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/userLogin.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
