@@ -24,16 +24,21 @@ class EventCreator extends React.Component {
 		};
 	}
 
-	componentWillMount(){
-		this.state(EventTitle).setState(EventTitle);
-	}
+	// componentWillMount(){
+	// 	this.state.EventTitle.setState(EventTitle);
+	// }
 
 	render() {
+
+		const {params} = this.props.navigation.state;
+		const EventTitle = params ? params.EventTitle : null;
+		const EventTags = params ? params.EventTags : null;
+
 		return (
 			<View style={styles.container}>
 			
 			<Text style={styles.titleText}>
-				Now, tell your Story! {EventTitle}
+				Now, tell your Story! {EventTitle} {EventTags}
 			</Text>
 			
 			<View style={styles.textInput}>

@@ -6,7 +6,8 @@ import {
   Text,
   View,
   Button,
-  TouchableOpacity,
+	TouchableOpacity,
+	AsyncStorage,
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview';
@@ -57,6 +58,9 @@ class KiteTimeline extends React.Component {
   render() {
     return (
     	<View style={styles.container}>
+			<TouchableOpacity onPress={this.displayData}>
+				<Text>This sucks</Text>
+			</TouchableOpacity>
 			<View style={styles.timelineContainer}>
 				<Timeline
 					style={styles.timelineList}
@@ -76,6 +80,14 @@ class KiteTimeline extends React.Component {
 
     );
   }
+  displayData = async () => {  
+	try {
+		let value = await AsyncStorage.getItem('userID');
+		alert(value);
+	} catch (error) {
+		alert(error);
+	}
+}
 }
 
 

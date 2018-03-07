@@ -17,10 +17,10 @@ class Events extends React.Component {
 
 	constructor(props) {
 		super(props);
-		state = {
-			EventTitle: "",
+		this.state = {
+			EventTitle: "No",
 			EventDesc: "",
-			EventTags: "",
+			EventTags: 89,
 		};
 	}
 
@@ -42,7 +42,6 @@ class Events extends React.Component {
 						style={styles.textBox}
 						placeholder="Event Title"
 						placeholderTextColor={Colors.kite_greenMediumDark}
-						keyboardType="email-address"
 						autoCapitalize="none"
 						autoCorrect={false}
 						onChangeText={(EventTitle) => this.setState({ EventTitle })}
@@ -77,13 +76,18 @@ class Events extends React.Component {
 						onChangeText={(EventTags) => this.setState({ EventTags })}
 					/>
 				</View>
+				<Text>{this.state.EventTitle}</Text>
 			</View>
 			
 			<View style={styles.button}>
 				<Button 
 					title="Continue"
 					onPress = {() => 
-						navigate('EventCreator', {	EventTitle: "EventTitle", EventDesc: "EventDesc", EventTags: "Why Me!"})
+						navigate('EventCreator', {	
+							EventTitle: this.state.EventTitle, 
+							EventDesc: 	this.state.EventDesc,
+							EventTags: 	this.state.EventTags
+						})
 					}
 				/>
 			</View>

@@ -7,7 +7,8 @@ import {
     Alert,
     TouchableOpacity,
     Text,
-    Button
+    Button,
+    AsyncStorage,
 } from 'react-native';
 import Colors from '../../Colors/Colors';
 import{ Root, Tabs, WelcomeStack, Drawers } from '../../config/router';
@@ -45,9 +46,12 @@ class LoginForm extends React.Component {
             .then((responseJson) => {
 
                 // If server response message same as Data Matched
-                if (responseJson === 'Data Matched') {
-                    
-                    this.props.navigation.navigate('Drawers')
+                if (responseJson.isValid === 'Data Matched') {
+                    //this.state.setState(responseJson.id)
+                    let userID = responseJson.id.toString();
+
+                    AsyncStorage.setItem('userID', userID);
+                    this.props.navigation.navigate('Drawers', {userID: responseJson.id})
                     //this.setState(userName: responseJson.User);
 
                     //Then open Profile activity and send user email to profile activity.
