@@ -72,7 +72,7 @@ export const WelcomeStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
-  });
+});
 
 export const TimelineStack = StackNavigator({
     Timeline: {
@@ -94,6 +94,25 @@ export const TimelineStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    Posts: {
+        screen: Posts,
+        navigationOptions: {
+            title: 'Event Timeline',
+            drawerLabel: 'Home', //doesn't work yet
+			//headerLeft: drawerButton(this.props.navigation),
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
 });
 
 export const CommunityStack = StackNavigator({
