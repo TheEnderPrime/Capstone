@@ -8,6 +8,7 @@ import {
 	Button,
 	TouchableOpacity,
 	TextInput,
+	Alert,
 } from 'react-native';
 
 import Colors from '../../Colors/Colors';
@@ -17,28 +18,70 @@ class EventCreator extends React.Component {
 
 	constructor(props) {
 		super(props);
-		state = {
+		this.state = {
 			EventTitle: "",
 			EventDesc: "",
 			EventTags: "",
+			EventStory: "",
 		};
 	}
 
-	// componentWillMount(){
-	// 	this.state.EventTitle.setState(EventTitle);
-	// }
+	UserCreatePost = (Title, Desc, Tags) => {
+
+        const { finalTitle }	= Title;
+		const { finalDesc } 	= Desc;
+		const { finalTags } 	= Tags;
+		const { finalStory } 	= this.state;
+
+
+        fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/userLogin.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+
+                title: finalTitle,
+
+				desc: finalDesc,
+				
+				tags: finalTags,
+
+				story: finalStory,				
+
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'Data Matched') {
+
+                    this.props.navigation.navigate('Drawers')
+                }
+                else {
+
+                    Alert.alert(responseJson);
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
+    }
 
 	render() {
 
 		const {params} = this.props.navigation.state;
-		const EventTitle = params ? params.EventTitle : null;
-		const EventTags = params ? params.EventTags : null;
+		const Title = params ? params.EventTitle : null
+		const Tags =  params ? params.EventTags : null;
+		const Desc =  params ? params.EventDesc : null;
 
 		return (
 			<View style={styles.container}>
 			
 			<Text style={styles.titleText}>
-				Now, tell your Story! {EventTitle} {EventTags}
+				Now, tell your Story! {Title} {Tags} {Desc}
 			</Text>
 			
 			<View style={styles.textInput}>
@@ -55,15 +98,16 @@ class EventCreator extends React.Component {
 						multiline={true}
 						maxHeight={350}
 						autoCorrect={true}
-						onChangeText={(EventTitle) => this.setState({ EventTitle })}
+						onChangeText={(EventStory) => this.setState({ EventStory })}
 					/>
 				</View>
 			</View>
 			
 			<View style={styles.button}>
-				<Button 
-					title="Create!"
-					onPress = {() => {}}
+			<Button 
+                    style={buttonColor = '#78B494'} 
+                    title="Login" 
+                	onPress = {() => this.UserCreatePost(Title, Desc, Tags)}
 				/>
 			</View>
 			

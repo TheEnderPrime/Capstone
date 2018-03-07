@@ -42,6 +42,7 @@ class Events extends React.Component {
 						style={styles.textBox}
 						placeholder="Event Title"
 						placeholderTextColor={Colors.kite_greenMediumDark}
+						onSubmitEditing={() => this.descriptionInput.focus()}
 						autoCapitalize="none"
 						autoCorrect={false}
 						onChangeText={(EventTitle) => this.setState({ EventTitle })}
@@ -56,9 +57,11 @@ class Events extends React.Component {
 						style={styles.textBox}
 						placeholder="Event Description"
 						placeholderTextColor={Colors.kite_greenMediumDark}
+						onSubmitEditing={() => this.tagsInput.focus()}
 						autoCapitalize="none"
 						autoCorrect={false}
 						onChangeText={(EventDesc) => this.setState({ EventDesc })}
+						ref={(input) => this.descriptionInput = input}
 					/>
 				</View>
 
@@ -74,9 +77,9 @@ class Events extends React.Component {
 						autoCapitalize="none"
 						autoCorrect={false}
 						onChangeText={(EventTags) => this.setState({ EventTags })}
+						ref={(input) => this.tagsInput = input}
 					/>
 				</View>
-				<Text>{this.state.EventTitle}</Text>
 			</View>
 			
 			<View style={styles.button}>
