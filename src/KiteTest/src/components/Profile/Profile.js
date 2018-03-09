@@ -27,6 +27,14 @@ class Profile extends React.Component {
 			dateOfBirth: "",
 			achievement: "",
 			profilePic: '../../images/placeholderProfilePicture.jpg',
+			employerName: "",
+			aboutMe: "",
+			currentCity: "",
+			currentStateOrProvence: "",
+			currentCountr: "",
+			cellPhone: 0,
+			homePhone: 0,
+			dateAdded: 0,
 			numOfPosts: 0,
 			numOfFollowers: 0,
 			numOfFollowing: 0,
@@ -77,6 +85,14 @@ class Profile extends React.Component {
 					this.setState({"lastName": responseJson.lastName});
 					this.setState({"email": responseJson.email});
 					this.setState({"dateOfBirth": responseJson.dateOfBirth});
+					this.setState({"employerName": responseJson.employerName});
+					this.setState({"aboutMe": responseJson.aboutMe});
+					this.setState({"currentCity": responseJson.currentCity});
+					this.setState({"currentStateOrProvence": responseJson.currentStateOrProvence});
+					this.setState({"currentCountry": responseJson.currentCountry});
+					this.setState({"cellPhone": responseJson.cellPhone});
+					this.setState({"homePhone": responseJson.homePhone});
+					this.setState({"dateAdded": responseJson.dateAdded});
 			}
 				else {
 					Alert.alert(responseJson);
@@ -116,10 +132,14 @@ class Profile extends React.Component {
           				source={require('../../images/placeholderProfilePicture.jpg')}
 					/>
 					<View style={styles.profileText}>
-						<Text style={styles.text}>{this.state.firstName}</Text>
-						<Text style={styles.text}>{this.state.lastName}</Text>
+						<Text style={styles.text}>{this.state.firstName} {this.state.lastName}</Text>
 						<Text style={styles.text}>{this.state.email}</Text>
-						<Text style={styles.text}>{this.state.dateOfBirth}</Text>
+						<Text style={styles.text}>{this.state.employerName}</Text>
+						<Text style={styles.text}>{this.state.aboutMe}</Text>
+						<Text style={styles.text}>{this.state.currentCity} {this.state.currentStateOrProvence} {this.state.currentCountry}</Text>
+						<Text style={styles.text}>{this.state.cellPhone}</Text>
+						<Text style={styles.text}>{this.state.homePhone}</Text>
+						<Text style={styles.text}>{this.state.dateAdded}</Text>
 					</View>
 				</View>
 
