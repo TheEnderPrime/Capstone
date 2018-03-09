@@ -8,6 +8,7 @@ import {
 	Button,
 	TouchableOpacity,
 	Image,
+	AsyncStorage,
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview'
@@ -16,27 +17,24 @@ import styles from './styles';
 
 class Profile extends React.Component {
 
-	static propTypes = {
-				//: PropTypes.object.isRequired,
-				//: PropTypes.func.isRequired,
-		};
-
-	state = {
-			//deal: this.props.initialDealData,
-			//imageIndex: 0,
-			userName: "David Baugh",
-			userAge: 21,
-			gender: "Sexy",
-			achievement: "Forbes 30 under 30",
+	constructor(){
+		super();       
+		this.state = {
+			userId: 0,
+			firstName: "",
+			lastName: "",
+			email: "",
+			dateOfBirth: "",
+			achievement: "",
 			profilePic: '../../images/placeholderProfilePicture.jpg',
 			numOfPosts: 0,
 			numOfFollowers: 0,
 			numOfFollowing: 0,
 			numOfCommunities: 0,
-	};
-	
-	constructor(){
-		super()
+       	};
+		
+		//let userId = await AsyncStorage.getItem('userID');
+		//this.GatherUserInformation();
 		this.data = [
 			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
 		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
@@ -46,6 +44,69 @@ class Profile extends React.Component {
 		]
 	}
 
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+	async componentDidMount(){
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userId: user});
+		if(this.state.userId != null){
+			this.GatherUserInformation(this.state.userId);
+		}
+	}
+
+	 GatherUserInformation = () => {
+		const {userId} = this.state;
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				UserID: userId,
+			})
+		}).then((response) => response.json())
+			.then((responseJson) => {
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
+					this.setState({"firstName": responseJson.firstName});
+					this.setState({"lastName": responseJson.lastName});
+					this.setState({"email": responseJson.email});
+					this.setState({"dateOfBirth": responseJson.dateOfBirth});
+			}
+				else {
+					Alert.alert(responseJson);
+				}
+			}).catch((error) => {
+				console.error(error);
+			});
+	}
+
+	// UpdateUserInformation = () =>{
+		// fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Accept': 'application/json',
+		// 		'Content-Type': 'application/json',w
+		// 	},
+		// 	body: JSON.stringify({
+		// 		UserID: this.state.userid,
+			// 		firstName: "David",
+			// lastName: "Baugh",
+			// userid: null,
+			// gender: "Sexy",
+			// achievement: "Forbes 30 under 30",
+			// profilePic: '../../images/placeholderProfilePicture.jpg',
+			// numOfPosts: 0,
+			// numOfFollowers: 0,
+			// numOfFollowing: 0,
+			// numOfCommunities: 0,
+		// 	})
+	// }
 	render() {
 		return (
 			<View style={styles.container}>
@@ -55,10 +116,10 @@ class Profile extends React.Component {
           				source={require('../../images/placeholderProfilePicture.jpg')}
 					/>
 					<View style={styles.profileText}>
-						<Text style={styles.text}>{this.state.userName}</Text>
-						<Text style={styles.text}>{this.state.userAge}</Text>
-						<Text style={styles.text}>{this.state.gender}</Text>
-						<Text style={styles.text}>{this.state.achievement}</Text>
+						<Text style={styles.text}>{this.state.firstName}</Text>
+						<Text style={styles.text}>{this.state.lastName}</Text>
+						<Text style={styles.text}>{this.state.email}</Text>
+						<Text style={styles.text}>{this.state.dateOfBirth}</Text>
 					</View>
 				</View>
 
@@ -106,7 +167,4 @@ class Profile extends React.Component {
 		);
 	}
 }
-
-
-
-	export default Profile;
+export default Profile;

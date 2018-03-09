@@ -23,49 +23,37 @@ class LoginForm extends React.Component {
     }
 
     UserLoginFunction = () => {
+    const { UserEmail } = this.state;
+    const { UserPassword } = this.state;
 
-        const { UserEmail } = this.state;
-        const { UserPassword } = this.state;
+    fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/userLogin.php', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
 
+            email: UserEmail,
 
-        fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/userLogin.php', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+            password: UserPassword
 
-                email: UserEmail,
+        })
+    }).then((response) => response.json())
+        .then((responseJson) => {
+            // If server response message same as Data Matched
+            if (responseJson.isValid === 'Data Matched') {
+                let userID = responseJson.id.toString();
 
-                password: UserPassword
-
-            })
-
-        }).then((response) => response.json())
-            .then((responseJson) => {
-
-                // If server response message same as Data Matched
-                if (responseJson.isValid === 'Data Matched') {
-                    //this.state.setState(responseJson.id)
-                    let userID = responseJson.id.toString();
-
-                    AsyncStorage.setItem('userID', userID);
-                    this.props.navigation.navigate('Drawers', {userID: responseJson.id})
-                    //this.setState(userName: responseJson.User);
-
-                    //Then open Profile activity and send user email to profile activity.
-                    //this.props.navigation.navigate('Second', { Email: UserEmail });
-                    //Alert.alert(responseJson);
-                }
-                else {
-
-                    Alert.alert(responseJson);
-                }
-
-            }).catch((error) => {
-                console.error(error);
-            });
+                AsyncStorage.setItem('userID', userID);
+                this.props.navigation.navigate('Drawers');
+            }
+            else {
+                Alert.alert(responseJson);
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
     }
     render() {
         const { navigate } = this.props.navigation;
