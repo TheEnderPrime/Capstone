@@ -16,4 +16,25 @@ module.exports = styles = StyleSheet.create({
 	header: {
 		fontSize: 20,
 	},
+	titleText: {
+		//flex: 1,
+		textAlign: 'center',
+		fontSize: 30,
+		padding: 20,
+	},
+	textInput: { 
+		//flex: 2,
+		//flexDirection: 'column',
+		//justifyContent: 'space-around',
+	},
+	button: {
+//		flex: 1,
+		padding: 20,
+	},
+	text: {
+		fontSize: 15,
+	},
+  	textBox: { 
+		padding: 10,
+  	}, 
 });

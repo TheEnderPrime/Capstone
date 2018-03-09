@@ -133,6 +133,7 @@ class Profile extends React.Component {
 					/>
 					<View style={styles.profileText}>
 						<Text style={styles.text}>{this.state.firstName} {this.state.lastName}</Text>
+					
 						<Text style={styles.text}>{this.state.email}</Text>
 						<Text style={styles.text}>{this.state.employerName}</Text>
 						<Text style={styles.text}>{this.state.aboutMe}</Text>
