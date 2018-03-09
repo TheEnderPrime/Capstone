@@ -9,6 +9,7 @@ import {
 	TouchableOpacity,
 	TextInput,
 	Alert,
+	AsyncStorage,
 } from 'react-native';
 
 import Colors from '../../Colors/Colors';
@@ -19,6 +20,7 @@ class EventCreator extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			userId: 0,
 			EventTitle: "",
 			EventDesc: "",
 			EventTags: "",
@@ -26,8 +28,22 @@ class EventCreator extends React.Component {
 		};
 	}
 
-	UserCreatePost = (Title, Desc, Tags) => {
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
 
+	async componentDidMount(){
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userId: user});
+		if(this.state.userId != null){
+			this.GatherUserInformation(this.state.userId);
+		}
+	}
+
+	UserCreatePost = (Title, Desc, Tags) => {
+		const { userId } 			= this.state;
         const { finalTitle }	= Title;
 		const { finalDesc } 	= Desc;
 		const { finalTags } 	= Tags;
@@ -48,7 +64,9 @@ class EventCreator extends React.Component {
 				
 				tags: finalTags,
 
-				story: finalStory,				
+				story: finalStory,	
+				
+				UserID: userID,
 
             })
 
