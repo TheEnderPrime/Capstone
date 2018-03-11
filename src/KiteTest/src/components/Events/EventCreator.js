@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-	Platform,
-	StyleSheet,
-	Text,
-	View,
-	Button,
-	TouchableOpacity,
-	TextInput,
-	Alert,
-	AsyncStorage,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  TextInput,
+  AsyncStorage,
+  Alert,
 } from 'react-native';
 
 import Colors from '../../Colors/Colors';
@@ -20,11 +20,10 @@ class EventCreator extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userId: 0,
-			EventTitle: "",
-			EventDesc: "",
-			EventTags: "",
-			EventStory: "",
+			EventTitle: "a",
+			EventDesc: "a",
+			userID: 0,
+			eventID: 0,
 		};
 	}
 
@@ -36,51 +35,51 @@ class EventCreator extends React.Component {
 
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userId: user});
-		if(this.state.userId != null){
-			this.GatherUserInformation(this.state.userId);
-		}
+		await this.setUserIdAsync({userID: user});
+		// const {params} = this.props.navigation.state;
+		// const Title = params ? params.EventTitle : null;
+		// const Desc =  params ? params.EventDesc : null;
+		// this.setState({EventTitle: Title});
+		// this.setState({EventDesc: Desc});
+		//if(this.state.userId != null){
+		//	this.GatherUserInformation(this.state.userId);
+		//}
 	}
 
-	UserCreatePost = (Title, Desc, Tags) => {
-		const { userId } 			= this.state;
-        const { finalTitle }	= Title;
-		const { finalDesc } 	= Desc;
-		const { finalTags } 	= Tags;
-		const { finalStory } 	= this.state;
+	UserCreateEvent = () => {
+		const { eventID } = this.state;
+		const { userID } = this.state;
+		const { EventTitle} = this.state;
+		const { EventDesc } = this.state;
 
 
-        fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/userLogin.php', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=createEvent', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-
-                title: finalTitle,
-
-				desc: finalDesc,
-				
-				tags: finalTags,
-
-				story: finalStory,	
 				
 				UserID: userID,
 
+                title: EventTitle,
+
+				desc: EventDesc,
+				
             })
 
         }).then((response) => response.json())
             .then((responseJson) => {
 
                 // If server response message same as Data Matched
-                if (responseJson.isValid === 'Data Matched') {
-
-                    this.props.navigation.navigate('Drawers')
+                if (responseJson.isValid === 'valid') {
+					// setState eventID
+					//navigate eventID, title, desc
+                    this.props.navigation.navigate('Event')
                 }
                 else {
-
-                    Alert.alert(responseJson);
+                    Alert.alert(responseJson.error);
                 }
 
             }).catch((error) => {
@@ -88,54 +87,66 @@ class EventCreator extends React.Component {
             });
     }
 
-	render() {
+  render() {
 
-		const {params} = this.props.navigation.state;
-		const Title = params ? params.EventTitle : null
-		const Tags =  params ? params.EventTags : null;
-		const Desc =  params ? params.EventDesc : null;
+	const {navigate} = this.props.navigation;
 
-		return (
-			<View style={styles.container}>
+    return (
+
+    	
+		<View style={styles.container}>
 			
 			<Text style={styles.titleText}>
-				Now, tell your Story! {Title} {Tags} {Desc}
+				What story are you going to tell?
 			</Text>
 			
 			<View style={styles.textInput}>
 				<View style={styles.textBox}>
 					<Text style={styles.text}>
-						
+						What is the title of your Event?
 					</Text>
 					<TextInput
 						style={styles.textBox}
-						placeholder="Tell your story!"
+						placeholder="Event Title"
 						placeholderTextColor={Colors.kite_greenMediumDark}
-						keyboardType="default"
-						autogrow={true}
-						multiline={true}
-						maxHeight={350}
-						autoCorrect={true}
-						onChangeText={(EventStory) => this.setState({ EventStory })}
+						onSubmitEditing={() => this.descriptionInput.focus()}
+						autoCapitalize="none"
+						autoCorrect={false}
+						onChangeText={(EventTitle) => this.setState({ EventTitle })}
 					/>
 				</View>
+
+				<View style={styles.textBox}>
+					<Text style={styles.text}>
+						Tells us briefly what your event is about.
+					</Text>
+					<TextInput
+						style={styles.textBox}
+						placeholder="Event Description"
+						placeholderTextColor={Colors.kite_greenMediumDark}
+						//onSubmitEditing={() => this.tagsInput.focus()}
+						autoCapitalize="none"
+						autoCorrect={false}
+						onChangeText={(EventDesc) => this.setState({ EventDesc })}
+						ref={(input) => this.descriptionInput = input}
+					/>
+				</View>
+
 			</View>
 			
 			<View style={styles.button}>
 			<Button 
-                    style={buttonColor = '#78B494'} 
-                    title="Login" 
-                	onPress = {() => this.UserCreatePost(Title, Desc, Tags)}
-				/>
+				style={buttonColor = '#78B494'} 
+				title="Create Event" 
+				onPress = {() => this.UserCreateEvent()}
+					/>
 			</View>
-			
-			
-			</View>
+    	</View>
 
-		);
-	}
+    );
+  }
 }
 
 
 
-	export default EventCreator;
+  export default EventCreator;

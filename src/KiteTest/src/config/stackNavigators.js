@@ -9,8 +9,9 @@ import Login        from '../components/Login/Login';
 import Signup       from '../components/Signup/Signup';
 import KiteTimeline from '../components/Timeline/KiteTimeline';
 import Profile      from '../components/Profile/Profile';
-import Events       from '../components/Events/Events';
+import PostCreator  from '../components/Events/PostCreator';
 import EventCreator from '../components/Events/EventCreator';
+import Event        from '../components/Events/Event';
 import Posts        from '../components/Posts/Posts';
 import Community    from '../components/Community/Community';
 import Settings    from '../components/Settings/Settings';
@@ -301,10 +302,10 @@ export const SettingsStack = StackNavigator({
 });
 
 export const EventsStack = StackNavigator({
-    Events: {
-        screen: Events,
+    EventCreator: {
+        screen: EventCreator,
         navigationOptions: {
-            title: 'Events',
+            title: 'Event Creator',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -318,10 +319,27 @@ export const EventsStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
-    EventCreator: {
-        screen: EventCreator,
+    Event: {
+        screen: Event,
         navigationOptions: {
-            title: 'Event Creator',
+            title: 'Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostCreator: {
+        screen: PostCreator,
+        navigationOptions: {
+            title: 'Post Creator',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
