@@ -20,6 +20,7 @@ class KiteTimeline extends React.Component {
 	constructor(){
 		super()
 		this.onEventPress = this.onEventPress.bind(this)
+		this.renderSelected = this.renderSelected.bind(this)
 		this.data = [
 			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
 		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
@@ -28,7 +29,9 @@ class KiteTimeline extends React.Component {
 			{time: '16:30', title: 'Event 5', description: 'Event 5 Description'},
 			{time: '14:00', title: 'Event 6', description: 'Event 6 Description'},
 		]
-		this.state = {selected: null}
+		this.state = {
+			selected: null
+		}
 	}
 
 	onRefresh(){
@@ -40,26 +43,38 @@ class KiteTimeline extends React.Component {
 	}
 	
 	renderFooter() {
-			//show loading indicator
-			if (this.state.waiting) {
-					return <ActivityIndicator />;
-			} else {
-					return <Text>~</Text>;
-			}
+		//show loading indicator
+		if (this.state.waiting) {
+				return <ActivityIndicator />;
+		} else {
+				return <Text>~</Text>;
+		}
 	}
 
 	onEventPress(data){
-    this.setState({selected: data})
-	this.props.navigation.navigate("Posts")
-  }
+		this.setState({selected: data})
+		if(this.state.selected) this.props.navigation.navigate("Event", {EventTitle: this.state.selected.title, EventDesc: this.state.selected.description})
+  	}
+
+  	renderSelected(){
+		if(this.state.selected)
+	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
+	}
+
+	displayData = async () => {  
+		try {
+			let value = await AsyncStorage.getItem('userID');
+			alert(value);
+		} catch (error) {
+			alert(error);
+		}
+	}
 
   render() {
     return (
     	<View style={styles.container}>
-			{/* <TouchableOpacity onPress={this.displayData}>
-				<Text>This sucks</Text>
-			</TouchableOpacity> */}
 			<View style={styles.timelineContainer}>
+				{this.renderSelected()}
 				<Timeline
 					style={styles.timelineList}
 					data={this.data}
@@ -81,14 +96,7 @@ class KiteTimeline extends React.Component {
 
     );
   }
-  displayData = async () => {  
-	try {
-		let value = await AsyncStorage.getItem('userID');
-		alert(value);
-	} catch (error) {
-		alert(error);
-	}
-}
+
 }
 
 

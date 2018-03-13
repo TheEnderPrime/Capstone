@@ -3,23 +3,23 @@ import Colors from '../Colors/Colors';
 import { Text, } from 'react-native';
 import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom, } from 'react-navigation';
 
-import Splash       from '../components/Splash/Splash';
-import Welcome      from '../components/Welcome/Welcome';
-import Login        from '../components/Login/Login';
-import Signup       from '../components/Signup/Signup';
-import KiteTimeline from '../components/Timeline/KiteTimeline';
-import Profile      from '../components/Profile/Profile';
-import PostCreator  from '../components/Events/PostCreator';
-import EventCreator from '../components/Events/EventCreator';
-import Event        from '../components/Events/Event';
-import Posts        from '../components/Posts/Posts';
-import Community    from '../components/Community/Community';
-import Settings    from '../components/Settings/Settings';
+import Splash               from '../components/Splash/Splash';
+import Welcome              from '../components/Welcome/Welcome';
+import Login                from '../components/Login/Login';
+import Signup               from '../components/Signup/Signup';
+import KiteTimeline         from '../components/Timeline/KiteTimeline';
+import Profile              from '../components/Profile/Profile';
+import PostCreator          from '../components/Events/PostCreator';
+import EventCreator         from '../components/Events/EventCreator';
+import Event                from '../components/Events/Event';
+import Posts                from '../components/Posts/Posts';
+import Community            from '../components/Community/Community';
+import Settings             from '../components/Settings/Settings';
 import PersonalInfoSettings from '../components/Settings/PersonalInfoSettings';
-import FollowSettings from '../components/Settings/FollowSettings';
-import PrivacySettings from '../components/Settings/PrivacySettings';
-import CommunitiesSettings from '../components/Settings/CommunitiesSettings';
-import LoginSettings from '../components/Settings/LoginSettings';
+import FollowSettings       from '../components/Settings/FollowSettings';
+import PrivacySettings      from '../components/Settings/PrivacySettings';
+import CommunitiesSettings  from '../components/Settings/CommunitiesSettings';
+import LoginSettings        from '../components/Settings/LoginSettings';
 
 // opening stack navigator for Login/Signup pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
@@ -95,10 +95,29 @@ export const TimelineStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    Event: {
+        screen: Event,
+        navigationOptions: {
+            title: 'Event Timeline',
+            drawerLabel: 'Home', //doesn't work yet
+			//headerLeft: drawerButton(this.props.navigation),
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
     Posts: {
         screen: Posts,
         navigationOptions: {
-            title: 'Event Timeline',
+            title: 'Post',
             drawerLabel: 'Home', //doesn't work yet
 			//headerLeft: drawerButton(this.props.navigation),
 			headerStyle: {

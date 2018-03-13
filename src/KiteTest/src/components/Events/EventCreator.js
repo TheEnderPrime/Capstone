@@ -76,7 +76,7 @@ class EventCreator extends React.Component {
                 if (responseJson.isValid === 'valid') {
 					// setState eventID
 					//navigate eventID, title, desc
-                    this.props.navigation.navigate('Event')
+                    this.props.navigation.navigate('Event', {EventTitle, EventDesc, eventID})
                 }
                 else {
                     Alert.alert(responseJson.error);
