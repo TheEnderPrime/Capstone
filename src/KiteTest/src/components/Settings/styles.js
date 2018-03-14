@@ -36,5 +36,15 @@ module.exports = styles = StyleSheet.create({
 	},
   	textBox: { 
 		padding: 10,
-  	}, 
+	},
+	imageStyle:{
+		marginLeft:15,
+		alignSelf:'center',
+		height:30,
+		width:30
+	},
+	titleInfoStyle:{
+		fontSize:16,
+		color: '#8e8e93'
+	} 
 });

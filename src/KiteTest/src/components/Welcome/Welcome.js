@@ -15,17 +15,7 @@ import styles from './styles';
 
 export default class Welcome extends Component {
 	
-	componentDidMount() {
-		BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressed);
-	}
-
-	componentWillUnmount() {
-		BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressed);
-	}
-
-	onBackButtonPressed() {
-		return true;
-	}
+	
 	render() {
 		const{ navigate } = this.props.navigation;
 		return (

@@ -108,7 +108,7 @@ class PersonalInfoSettings extends React.Component {
 						/>
 					</View>
 
-					<View style={styles.textBox}>
+					{/* <View style={styles.textBox}>
 						<Text style={styles.text}>
 							Who is your employer?
 						</Text>
@@ -122,9 +122,9 @@ class PersonalInfoSettings extends React.Component {
 							onChangeText={(EventTags) => this.setState({ EventTags })}
 							ref={(input) => this.tagsInput = input}
 						/>
-					</View>
+					</View> */}
 
-					<View style={styles.textBox}>
+					{/* <View style={styles.textBox}>
 						<Text style={styles.text}>
 							Tell us a little about you?
 						</Text>
@@ -138,7 +138,7 @@ class PersonalInfoSettings extends React.Component {
 							onChangeText={(EventTags) => this.setState({ EventTags })}
 							ref={(input) => this.tagsInput = input}
 						/>
-					</View>
+					</View> */}
 
 				</View>
 				
