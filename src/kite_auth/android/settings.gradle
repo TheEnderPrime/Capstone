@@ -1,0 +1,3 @@
+rootProject.name = 'kite_auth'
+
+include ':app'
