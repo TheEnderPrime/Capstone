@@ -18,7 +18,16 @@ import styles from './styles';
 class Profile extends React.Component {
 
 	constructor(){
-		super();       
+		super();   
+		this.onEventPress = this.onEventPress.bind(this)
+		this.renderSelected = this.renderSelected.bind(this)
+		this.data = [
+			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
+		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
+		    {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
+		    {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
+		    {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
+		]
 		this.state = {
 			userId: 0,
 			firstName: "",
@@ -39,17 +48,36 @@ class Profile extends React.Component {
 			numOfFollowers: 0,
 			numOfFollowing: 0,
 			numOfCommunities: 0,
+			selected: null,
        	};
-		
-		//let userId = await AsyncStorage.getItem('userID');
-		//this.GatherUserInformation();
-		this.data = [
-			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-		    {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
-		    {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
-		    {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
-		]
+
+	}
+
+	onRefresh(){
+		//set initial data
+	}
+	
+	onEndReached() {
+		//fetch next data
+	}
+	
+	renderFooter() {
+		//show loading indicator
+		if (this.state.waiting) {
+				return <ActivityIndicator />;
+		} else {
+				return <Text>~</Text>;
+		}
+	}
+
+	onEventPress(data){
+		this.setState({selected: data})
+		if(this.state.selected) this.props.navigation.navigate("Event", {EventTitle: this.state.selected.title, EventDesc: this.state.selected.description})
+  	}
+
+  	renderSelected(){
+		if(this.state.selected)
+	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
 	}
 
 	setUserIdAsync(state){
@@ -169,6 +197,7 @@ class Profile extends React.Component {
 				</View>
 				
 				<View style={styles.timelineContainer}>
+					{/* {this.renderSelected()} */}
 					<Timeline
 						style={styles.timelineList}
 						data={this.data}
@@ -180,6 +209,8 @@ class Profile extends React.Component {
 						descriptionStyle={{color:'gray'}}
 						timeContainerStyle={{minWidth:72}}
 						circleSize={-100}
+						showTime={false}
+						onEventPress={this.onEventPress}
 					/>
 				</View>
 

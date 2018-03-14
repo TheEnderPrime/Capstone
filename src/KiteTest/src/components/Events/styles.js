@@ -16,13 +16,11 @@ module.exports = styles = StyleSheet.create({
 		padding: 20,
 	},
 	textInput: { 
-		//flex: 2,
-		//flexDirection: 'column',
-		//justifyContent: 'space-around',
+
 	},
 	button: {
-		flex: 1,
-		padding: 20,
+		// flex: 1,
+		// padding: 20,
 	},
 	text: {
 		fontSize: 15,
@@ -30,5 +28,14 @@ module.exports = styles = StyleSheet.create({
   	textBox: { 
 		padding: 10,
   	}, 
-	
+	  postTimeline:{
+		flex: 6,
+		padding: 10, 
+		//paddingTop: 65,
+		backgroundColor: '#A6CFBD',
+	},
+	timelineList: {
+		flex: 1,
+		marginTop: 20,
+	},
 });
