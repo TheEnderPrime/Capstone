@@ -153,6 +153,25 @@ export const CommunityStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    Event: {
+        screen: Event,
+        navigationOptions: {
+            title: 'Community Events',
+            drawerLabel: 'Home', //doesn't work yet
+			//headerLeft: drawerButton(this.props.navigation),
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
 });
 
 export const ProfileStack = StackNavigator({
@@ -161,6 +180,25 @@ export const ProfileStack = StackNavigator({
         navigationOptions: {
             title: 'Profile',
             headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    Event: {
+        screen: Event,
+        navigationOptions: {
+            title: 'Your Events',
+            drawerLabel: 'Home', //doesn't work yet
+			//headerLeft: drawerButton(this.props.navigation),
+			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {

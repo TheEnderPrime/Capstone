@@ -15,24 +15,11 @@ import Timeline from 'react-native-timeline-listview'
 import styles from './styles';
 
 class Community extends React.Component {
-
-	static propTypes = {
-				//: PropTypes.object.isRequired,
-				//: PropTypes.func.isRequired,
-		};
-
-	state = {
-			//deal: this.props.initialDealData,
-			//imageIndex: 0,
-			communityName: "Oregon State University",
-			profilePic: '../../images/placeholderProfilePicture.jpg',
-			numOfThreads: 0,
-			numOfPosts: 0,
-			numOfMembers: 0,
-	};
 	
 	constructor(){
 		super()
+		this.onEventPress = this.onEventPress.bind(this)
+		this.renderSelected = this.renderSelected.bind(this)
 		this.data = [
 			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
 		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
@@ -40,6 +27,42 @@ class Community extends React.Component {
 		    {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
 		    {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
 		]
+		this.state = {
+			communityName: "Oregon State University",
+			profilePic: '../../images/placeholderProfilePicture.jpg',
+			numOfThreads: 0,
+			numOfPosts: 0,
+			numOfMembers: 0,
+
+			selected: null,
+		};
+	}
+
+	onRefresh(){
+		//set initial data
+	}
+	
+	onEndReached() {
+		//fetch next data
+	}
+	
+	renderFooter() {
+		//show loading indicator
+		if (this.state.waiting) {
+				return <ActivityIndicator />;
+		} else {
+				return <Text>~</Text>;
+		}
+	}
+
+	onEventPress(data){
+		this.setState({selected: data})
+		if(this.state.selected) this.props.navigation.navigate("Event", {EventTitle: this.state.selected.title, EventDesc: this.state.selected.description})
+  	}
+
+  	renderSelected(){
+		if(this.state.selected)
+	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
 	}
 
 	render() {
@@ -75,6 +98,7 @@ class Community extends React.Component {
 				</View>
 				
 				<View style={styles.timelineContainer}>
+					{/* {this.renderSelected()} */}
 					<Timeline
 						style={styles.timelineList}
 						data={this.data}
@@ -86,9 +110,12 @@ class Community extends React.Component {
 						descriptionStyle={{color:'gray'}}
 						timeContainerStyle={{minWidth:72}}
 						circleSize={-100}
+						showTime={false}
+						onEventPress={this.onEventPress}
+						
+						
 					/>
 				</View>
-
 			</View>
 
 		);
