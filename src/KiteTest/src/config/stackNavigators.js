@@ -15,11 +15,6 @@ import Event                from '../components/Events/Event';
 import Posts                from '../components/Posts/Posts';
 import Community            from '../components/Community/Community';
 import Settings             from '../components/Settings/Settings';
-import PersonalInfoSettings from '../components/Settings/PersonalInfoSettings';
-import FollowSettings       from '../components/Settings/FollowSettings';
-import PrivacySettings      from '../components/Settings/PrivacySettings';
-import CommunitiesSettings  from '../components/Settings/CommunitiesSettings';
-import LoginSettings        from '../components/Settings/LoginSettings';
 
 // opening stack navigator for Login/Signup pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
@@ -258,91 +253,6 @@ export const SettingsStack = StackNavigator({
         screen: Settings,
         navigationOptions: {
             title: 'Settings',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                alignSelf: 'center',
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
-    PersonalInfoSettings: {
-        screen: PersonalInfoSettings,
-        navigationOptions: {
-            title: 'Personal Information Settings',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                alignSelf: 'center',
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
-    FollowSettings: {
-        screen: FollowSettings, 
-        navigationOptions: {
-            title: 'Following and Follower Settings',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                alignSelf: 'center',
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
-    PrivacySettings: {
-        screen: PrivacySettings,
-        navigationOptions: {
-            title: 'Privacy Settings',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                alignSelf: 'center',
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
-    CommunitiesSettings: {
-        screen: CommunitiesSettings,
-        navigationOptions: {
-            title: 'Communities Settings',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                alignSelf: 'center',
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
-    LoginSettings: {
-        screen: LoginSettings, //////////////////CHANGE ME
-        navigationOptions: {
-            title: 'Login Settings',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },

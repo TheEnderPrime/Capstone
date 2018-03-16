@@ -33,7 +33,7 @@ class Settings extends React.Component {
 			currentStateOrProvence: "CURRENT STATE OR PROVENCE",
 			currentCountry: "CURRENT COUNTRY",
 			cellPhone: 0,
-			homePhone: 3, 
+			homePhone: 0, 
 		};
 	}
 
@@ -130,65 +130,20 @@ class Settings extends React.Component {
 								value={this.state.homePhone.toString()}
 								onTextChange={(text) => this.setState({ stages: text })}
 							/>
-							<SettingsList.Item
-								icon={
-									<View style={{ height: 30, marginLeft: 10, alignSelf: 'center' }}>
-										{/* <Image style={{alignSelf:'center',height:30, width:30}} source={require('../../images/placeholderProfilePicture.jpg')}/> */}
-									</View>
-								}
-								itemWidth={50}
-								title='Icon Example'
-								onPress={() => Alert.alert('Icon Example Pressed')}
-							/>
-							<SettingsList.Item
-								hasNavArrow={false}
-								switchState={this.state.switchValue}
-								switchOnValueChange={this.onValueChange}
-								hasSwitch={true}
-								title='Switch Example' />
-							<SettingsList.Item
-								title='Different Colors Example'
-								backgroundColor='#D1D1D1'
-								titleStyle={{ color: 'blue' }}
-								//arrowStyle={{ color: 'blue' }}
-								onPress={() => Alert.alert('Different Colors Example Pressed')} />
 			{/* PRIVACY SETTINGS */}			
 						<SettingsList.Header headerText='Privacy Settings' headerStyle={{ color: 'white', marginTop: 20 }} />
-							<SettingsList.Item titleInfo='Some Information' hasNavArrow={false} title='Information Example' />
-							<SettingsList.Item title='Settings 1' />
-							<SettingsList.Item title='Settings 2' />
-							<SettingsList.Item
-								id="stages"
-								title='stages'
-								isEditable={true}
-								value={this.state.stages.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
+							
 			{/* LOGIN SETTINGS */}				
 						<SettingsList.Header headerText='Login Settings' headerStyle={{ color: 'white', marginTop: 20 }} />
-							<SettingsList.Item
-								icon={
-									<View style={{ height: 30, marginLeft: 10, alignSelf: 'center' }}>
-										{/* <Image style={{alignSelf:'center',height:30, width:30}} source={require('../../images/placeholderProfilePicture.jpg')}/> */}
-									</View>
-								}
-								itemWidth={50}
-								title='Icon Example'
-								onPress={() => Alert.alert('Icon Example Pressed')}
+						<SettingsList.Item
+								id="cellPhone"
+								title='Change Password'
+								isEditable={true}
+								value={this.state.cellPhone.toString()}
+								onTextChange={(text) => this.setState({ stages: text })}
 							/>
-							<SettingsList.Item
-								hasNavArrow={false}
-								switchState={this.state.switchValue}
-								switchOnValueChange={this.onValueChange}
-								hasSwitch={true}
-								title='Switch Example' />
-							<SettingsList.Item
-								title='Different Colors Example'
-								backgroundColor='#D1D1D1'
-								titleStyle={{ color: 'blue' }}
-								//arrowStyle={{ color: 'blue' }}
-								onPress={() => Alert.alert('Different Colors Example Pressed')} />
-						
+
+			{/* FOLLOWIN AND FOLLOWERS SETTINGS */}
 						<SettingsList.Header headerText='Following and Followers Settings' headerStyle={{ color: 'white', marginTop: 20 }} />
 							<SettingsList.Item titleInfo='Some Information' hasNavArrow={false} title='Information Example' />
 							<SettingsList.Item title='Settings 1' />
@@ -200,6 +155,7 @@ class Settings extends React.Component {
 								value={this.state.stages.toString()}
 								onTextChange={(text) => this.setState({ stages: text })}
 							/>	
+							
 			{/* COMMUNITIES SETTINGS */}				
 						<SettingsList.Header headerText='Communities Settings' headerStyle={{ color: 'white', marginTop: 20 }} />
 							<SettingsList.Item titleInfo='Some Information' hasNavArrow={false} title='Information Example' />

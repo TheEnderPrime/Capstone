@@ -74,7 +74,7 @@ class KiteTimeline extends React.Component {
     return (
     	<View style={styles.container}>
 			<View style={styles.timelineContainer}>
-				{this.renderSelected()}
+				{/* {this.renderSelected()} */}
 				<Timeline
 					style={styles.timelineList}
 					data={this.data}
