@@ -34,11 +34,11 @@ class Discover extends React.Component {
 		}
 	}
 
-	loadTimeline = () => {
+	loadDiscover = () => {
 		const { userID } = this.state;
-		const { timelineType } = "main";
+		const { timelineType } = "discover";
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Timeline.php?f=loadTimeline', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Discover.php?f=loadDiscover', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -71,7 +71,7 @@ class Discover extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadTimeline();
+		//this.loadTimeline();
 	}
 
 	onRefresh(){

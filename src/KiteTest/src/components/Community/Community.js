@@ -56,7 +56,7 @@ class Community extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadTimeline();
+		//this.loadTimeline();
 	}
 
 	loadTimeline = () => {

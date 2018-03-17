@@ -92,7 +92,7 @@ class Profile extends React.Component {
 		if(this.state.userId != null){
 			this.GatherUserInformation(this.state.userId);
 		}
-		this.loadTimeline();
+		//this.loadTimeline();
 	}
 
 	 GatherUserInformation = () => {

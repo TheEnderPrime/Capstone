@@ -15,6 +15,8 @@ import Event                from '../components/Events/Event';
 import Posts                from '../components/Posts/Posts';
 import Community            from '../components/Community/Community';
 import Settings             from '../components/Settings/Settings';
+import Discover             from '../components/Discover/Discover';
+import Search             from '../components/Search/Search';
 
 // opening stack navigator for Login/Signup pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
@@ -312,6 +314,46 @@ export const EventsStack = StackNavigator({
             },
             headerTitleStyle: {
                 //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
+});
+
+export const DiscoverStack = StackNavigator({
+    Discover: {
+        screen: Discover,
+        navigationOptions: {
+            title: 'Discover',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
+});
+
+export const SearchStack = StackNavigator({
+    Search: {
+        screen: Search,
+        navigationOptions: {
+            title: 'Search',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
                 color: Colors.kite_greenLight,
             },
             headerBackTitleStyle: {

@@ -71,7 +71,7 @@ class KiteTimeline extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadTimeline();
+		//this.loadTimeline();
 	}
 
 	onRefresh(){

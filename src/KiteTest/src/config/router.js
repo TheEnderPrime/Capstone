@@ -5,7 +5,18 @@ import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom, } f
 
 import Splash   from '../components/Splash/Splash';
 
-import { WelcomeStack, TimelineStack, CommunityStack, ProfileStack, SettingsStack, EventsStack, PostStack, NotificationStack, } from './stackNavigators';
+import { 
+    WelcomeStack, 
+    TimelineStack, 
+    CommunityStack, 
+    ProfileStack, 
+    SettingsStack, 
+    EventsStack, 
+    PostStack, 
+    NotificationStack, 
+    DiscoverStack,
+    SearchStack,
+ } from './stackNavigators';
 
 
 //Create navigator for each page that contains the tab navigation
@@ -51,8 +62,7 @@ export const Tabs = TabNavigator({
     tabBarPosition: 'bottom',
     animationEnabled: false,
     swipeEnabled: false,
-}
-);
+});
 
 // - - - - - - - - - - - DRAWER NAVIAGTION - - - - - - - - - -
 //navigator for the drawer navigation
@@ -62,11 +72,16 @@ export const Drawers = DrawerNavigator({
     },
 	Notifications: {
 		screen: NotificationStack,
-	},
+    },
+    Search: {
+        screen: SearchStack,
+    },
+    Discover: {
+        screen: DiscoverStack,
+    },
 	Settings: {
 		screen: SettingsStack,
-	},
-}, {
+    },
 });
 
 // - - - - - - - - - - - - - - MAIN NAVIGATOR - - - - - - - - - - - - -
