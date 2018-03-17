@@ -15,30 +15,30 @@ import Timeline from 'react-native-timeline-listview';
 
 import styles from './styles';
 
-class KiteTimeline extends React.Component {
+class Discover extends React.Component {
 	
 	constructor(){
 		super()
 		this.onEventPress = this.onEventPress.bind(this)
 		this.renderSelected = this.renderSelected.bind(this)
 		this.data = [
-			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-		    {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
-		    {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
-			{time: '16:30', title: 'Event 5', description: 'Event 5 Description'},
-			{time: '14:00', title: 'Event 6', description: 'Event 6 Description'},
+			{time: '09:00', title: 'This', description: 'Event 1 Description'},
+		    {time: '10:45', title: 'is', description: 'Event 2 Description'},
+		    {time: '12:00', title: 'a', description: 'Event 3 Description'},
+		    {time: '14:00', title: 'Stretch', description: 'Event 4 Description'},
+			{time: '16:30', title: 'Goal', description: 'Event 5 Description'},
+			{time: '14:00', title: 'YAY!', description: 'Event 6 Description'},
 		]
 		this.state = {
 			selected: null
 		}
 	}
 
-	loadTimeline = () => {
+	loadDiscover = () => {
 		const { userID } = this.state;
-		const { timelineType } = "main";
+		const { timelineType } = "discover";
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Timeline.php?f=loadTimeline', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Discover.php?f=loadDiscover', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -141,4 +141,4 @@ class KiteTimeline extends React.Component {
 
 
 
-  export default KiteTimeline;
+  export default Discover;
