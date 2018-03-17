@@ -23,7 +23,7 @@ class EventCreator extends React.Component {
 			EventTitle: "a",
 			EventDesc: "a",
 			userID: 0,
-			eventID: 0,
+			EventID: 0,
 		};
 	}
 
@@ -47,7 +47,7 @@ class EventCreator extends React.Component {
 	}
 
 	UserCreateEvent = () => {
-		const { eventID } = this.state;
+		const { EventID } = this.state;
 		const { userID } = this.state;
 		const { EventTitle} = this.state;
 		const { EventDesc } = this.state;
@@ -74,10 +74,9 @@ class EventCreator extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					// setState eventID
-					//navigate eventID, title, desc
+					const eventID = responseJson.EventID;
                     this.props.navigation.navigate('Event', {EventTitle, EventDesc, eventID})
-                }
+                } 
                 else {
                     Alert.alert(responseJson.error);
                 }
