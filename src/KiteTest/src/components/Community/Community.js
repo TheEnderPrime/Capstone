@@ -55,6 +55,46 @@ class Community extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		this.loadTimeline();
+	}
+
+	loadTimeline = () => {
+		const { userID } = this.state;
+		const { timelineType } = "community";
+
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Timeline.php?f=loadTimeline', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
+				UserID: userID,
+				TimelineType: timelineType
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+					
+					Alert.alert(responseJson);
+					//parse array from responseJson
+				
+				}
+                else {
+                    Alert.alert(responseJson.error);
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
+	}
+
 	onEventPress(data){
 		this.setState({selected: data})
 		if(this.state.selected) this.props.navigation.navigate("Event", {EventTitle: this.state.selected.title, EventDesc: this.state.selected.description})

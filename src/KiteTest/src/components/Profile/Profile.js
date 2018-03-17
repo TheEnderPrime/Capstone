@@ -9,6 +9,7 @@ import {
 	TouchableOpacity,
 	Image,
 	AsyncStorage,
+	Alert,
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview'
@@ -91,6 +92,7 @@ class Profile extends React.Component {
 		if(this.state.userId != null){
 			this.GatherUserInformation(this.state.userId);
 		}
+		this.loadTimeline();
 	}
 
 	 GatherUserInformation = () => {
@@ -127,6 +129,42 @@ class Profile extends React.Component {
 			}).catch((error) => {
 				console.error(error);
 			});
+	}
+
+	loadTimeline = () => {
+		const { userID } = this.state;
+		const { timelineType } = "profile";
+
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Timeline.php?f=loadTimeline', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
+				UserID: userID,
+				TimelineType: timelineType
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+					
+					Alert.alert(responseJson);
+					//parse array from responseJson
+				
+				}
+                else {
+                    Alert.alert(responseJson.error);
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
 	}
 
 	// UpdateUserInformation = () =>{
