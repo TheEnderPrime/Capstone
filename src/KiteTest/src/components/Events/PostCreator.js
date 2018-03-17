@@ -20,11 +20,11 @@ class PostCreator extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userId: 0,
-			EventTitle: "",
-			EventDesc: "",
-			EventTags: "",
-			EventStory: "",
+			userID: 0,
+			EventID: 0,
+			UserTitle: "",
+			UserDesc: "",
+			UserStory: "",
 		};
 	}
 
@@ -36,21 +36,21 @@ class PostCreator extends React.Component {
 
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userId: user});
-		if(this.state.userId != null){
-			this.GatherUserInformation(this.state.userId);
-		}
+		await this.setUserIdAsync({userID: user});
+		const {params} = this.props.navigation.state;
+		const EventID =  params ? params.EventID : null;
+		this.setState({EventID: EventID});
 	}
 
-	UserCreatePost = (Title, Desc, Tags) => {
-		const { userId } 		= this.state;
-        const { finalTitle }	= Title;
-		const { finalDesc } 	= Desc;
-		const { finalTags } 	= Tags;
-		const { finalStory } 	= this.state;
+	UserCreatePost = () => {
+		const { userID } 	= this.state;
+		const { EventID }   = this.state;
+        const { UserTitle }	= this.state;
+		const { UserDesc } 	= this.state;
+		const { UserStory } = this.state;
 
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=createEvent', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -59,10 +59,10 @@ class PostCreator extends React.Component {
             body: JSON.stringify({
 				
 				UserID: userID,
-
-                title: finalTitle,
-
-				desc: finalDesc,
+				EventID: EventID,
+                title: UserTitle,
+				desc: UserDesc,
+				story: UserStory,
 				
             })
 
@@ -70,14 +70,12 @@ class PostCreator extends React.Component {
             .then((responseJson) => {
 
                 // If server response message same as Data Matched
-                if (responseJson.isValid === 'Data Matched') {
-					// setState eventID
-					//navigate eventID, title, desc
+                if (responseJson.isValid === 'valid') {
                     this.props.navigation.navigate('Drawers')
                 }
                 else {
 
-                    Alert.alert(responseJson);
+                    Alert.alert(responseJson.test);
                 }
 
             }).catch((error) => {
@@ -87,11 +85,7 @@ class PostCreator extends React.Component {
 
 	render() {
 
-		const {params} = this.props.navigation.state;
-		const Title = params ? params.EventTitle : null
-		const Tags =  params ? params.EventTags : null;
-		const Desc =  params ? params.EventDesc : null;
-
+		const {navigate} = this.props.navigation;
 		return (
 			<View style={styles.container}>
 			
@@ -115,7 +109,7 @@ class PostCreator extends React.Component {
 							multiline={true}
 							maxHeight={350}
 							autoCorrect={true}
-							onChangeText={(EventStory) => this.setState({ EventStory })}
+							onChangeText={(UserStory) => this.setState({ UserStory })}
 						/>
 					</View>
 				</View>
@@ -124,7 +118,7 @@ class PostCreator extends React.Component {
 					<Button 
 						style={buttonColor = '#78B494'} 
 						title="Login" 
-						onPress = {() => this.UserCreatePost(Title, Desc, Tags)}
+						onPress = {() => this.UserCreatePost()}
 					/>
 				</View>
 

@@ -31,6 +31,7 @@ class Event extends React.Component {
 		]
 		this.state = {
 			userId: 0,
+			EventID: 0,
 			EventTitle: "",
 			EventDesc: "",
 			EventStory: "",
@@ -50,8 +51,10 @@ class Event extends React.Component {
 		const {params} = this.props.navigation.state;
 		const Title = params ? params.EventTitle : null;
 		const Desc =  params ? params.EventDesc : null;
+		const EventID =  params ? params.eventID : null;
 		this.setState({EventTitle: Title});
 		this.setState({EventDesc: Desc});
+		this.setState({EventID: EventID});
 	}
 
 	onRefresh(){
@@ -78,7 +81,7 @@ class Event extends React.Component {
 
 	
 	render() {
-
+		const { EventID } = this.state;
 		return (
 			
 		<View style={styles.container}>
@@ -114,7 +117,8 @@ class Event extends React.Component {
 		<Button 
 			style={buttonColor = '#78B494'} 
 			title="New Post" 
-			onPress = {() => this.UserCreateEvent()}
+			
+			onPress = {() => this.props.navigation.navigate('PostCreator',{EventID})}
 				/>
 		</View>
 	</View>

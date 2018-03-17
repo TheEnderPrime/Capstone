@@ -17,7 +17,9 @@ if($stmt = $conn->prepare($sql)){
     if(isset($id)){
         $Current_User = new User($id);
         $returned = $Current_User->checkPassword($Password);
-        echo json_encode($returned);
+        $returnObj->isValid = $returned;
+        $returnObj->id = $id;
+        echo json_encode($returnObj);
     }
     else{
         echo json_encode("this email does not exist");
