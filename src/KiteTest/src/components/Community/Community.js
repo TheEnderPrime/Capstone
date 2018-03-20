@@ -8,6 +8,10 @@ import {
 	Button,
 	TouchableOpacity,
 	Image,
+	AsyncStorage,
+	Alert,
+	RefreshControl,
+	ActivityIndicator
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview'
@@ -18,8 +22,11 @@ class Community extends React.Component {
 	
 	constructor(){
 		super()
-		this.onEventPress = this.onEventPress.bind(this)
+		this.onEndReached 	= this.onEndReached.bind(this)
 		this.renderSelected = this.renderSelected.bind(this)
+		this.onRefresh 		= this.onRefresh.bind(this)
+		this.onEventPress 	= this.onEventPress.bind(this)
+
 		this.data = [
 			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
 		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
@@ -33,7 +40,10 @@ class Community extends React.Component {
 			numOfThreads: 0,
 			numOfPosts: 0,
 			numOfMembers: 0,
-
+			isRefreshing: false,
+			waiting: false,
+			selected: null,
+			data: this.data,
 			selected: null,
 		};
 	}
@@ -63,7 +73,7 @@ class Community extends React.Component {
 		const { userID } = this.state;
 		const { timelineType } = "community";
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Timeline.php?f=loadTimeline', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -94,6 +104,59 @@ class Community extends React.Component {
                 console.error(error);
             });
 	}
+
+	onRefresh(){
+		//set initial data
+		this.setState({isRefreshing: true});
+		//refresh to initial data
+		setTimeout(() => {
+			//refresh to initial data
+			
+			this.setState({
+			  	data: [
+				{time: '09:00', title: 'Event 1111', description: 'Event 1 Description'},
+				
+			],
+				//this.loadTimeline(),
+			  	isRefreshing: false
+			});
+		}, 2000);
+	}
+	
+	onEndReached() {
+		//fetch next data
+		if (!this.state.waiting) {
+			this.setState({waiting: true});
+	
+			//fetch and concat data
+			setTimeout(() => {
+	
+			//refresh to initial data
+			var data = this.state.data.concat(
+				[
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
+				]
+			)
+	
+			  this.setState({
+				waiting: false,
+				data: data,
+			  });
+			}, 2000);
+		}
+	  }
+	
+	renderFooter() {
+		if (this.waiting) {
+			return <ActivityIndicator />;
+		} else {
+			return <Text>~</Text>;
+		}
+	  }
 
 	onEventPress(data){
 		this.setState({selected: data})
@@ -141,7 +204,7 @@ class Community extends React.Component {
 					{/* {this.renderSelected()} */}
 					<Timeline
 						style={styles.timelineList}
-						data={this.data}
+						data={this.state.data}
 						circleSize={20}
 						circleColor='rgb(45,156,219)'
 						lineColor='rgb(45,156,219)'
@@ -152,6 +215,16 @@ class Community extends React.Component {
 						circleSize={-100}
 						showTime={false}
 						onEventPress={this.onEventPress}
+						options={{
+							refreshControl: (
+								<RefreshControl
+									refreshing={this.state.isRefreshing} 
+									onRefresh={this.onRefresh}							
+								/>
+							),
+							renderFooter: this.renderFooter,
+							onEndReached: this.onEndReached,
+						}}
 						
 						
 					/>

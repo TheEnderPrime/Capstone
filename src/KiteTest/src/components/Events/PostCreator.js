@@ -74,8 +74,7 @@ class PostCreator extends React.Component {
                     this.props.navigation.navigate('Drawers')
                 }
                 else {
-
-                    Alert.alert(responseJson.test);
+                    Alert.alert(responseJson.error);
                 }
 
             }).catch((error) => {

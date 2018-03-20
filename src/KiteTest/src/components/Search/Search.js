@@ -10,20 +10,21 @@ import {
   TextInput,
   AsyncStorage,
   Alert,
+  Picker,
 } from 'react-native';
 
 import Colors from '../../Colors/Colors';
 import styles from './styles';
+import Timeline from 'react-native-timeline-listview';
 
 class Search extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			EventTitle: "a",
-			EventDesc: "a",
+			searchString: "Nothing",
 			userID: 0,
-			eventID: 0,
+			searchType: "No Type",
 		};
 	}
 
@@ -36,24 +37,12 @@ class Search extends React.Component {
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
-		// const {params} = this.props.navigation.state;
-		// const Title = params ? params.EventTitle : null;
-		// const Desc =  params ? params.EventDesc : null;
-		// this.setState({EventTitle: Title});
-		// this.setState({EventDesc: Desc});
-		//if(this.state.userId != null){
-		//	this.GatherUserInformation(this.state.userId);
-		//}
 	}
 
-	UserCreateEvent = () => {
-		const { eventID } = this.state;
-		const { userID } = this.state;
-		const { EventTitle} = this.state;
-		const { EventDesc } = this.state;
+	doSearch = () => {
 
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=createEvent', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Search.php?f=doSearch', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -61,11 +50,11 @@ class Search extends React.Component {
             },
             body: JSON.stringify({
 				
-				UserID: userID,
+				UserID: this.userID,
 
-                title: EventTitle,
+				SearchType: this.searchType,
 
-				desc: EventDesc,
+                SearchString: this.searchString,
 				
             })
 
@@ -74,18 +63,37 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					// setState eventID
-					//navigate eventID, title, desc
-                    this.props.navigation.navigate('Event', {EventTitle, EventDesc, eventID})
-                }
-                else {
+					
+				   Alert.alert(responseJson);
+				   
+				   	if(SearchType == "user") {
+					   <TouchableOpacity>{responseJson.results}</TouchableOpacity>
+				   	} else if (SearchType == "event") {
+						<Timeline
+							style={styles.timelineList}
+							data={this.state.data}
+							circleSize={20}
+							circleColor='rgb(45,156,219)'
+							lineColor='rgb(45,156,219)'
+							timeContainerStyle={{minWidth:52, marginTop: -5}}
+							timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
+							descriptionStyle={{color:'gray'}}
+							timeContainerStyle={{minWidth:72}}
+							circleSize={-100}
+							showTime={false}
+							onEventPress={this.onEventPress}
+						/>
+                	} else {
+						Alert.alert("Wrong! Results did not compute!");
+					}
+				} else {
                     Alert.alert(responseJson.error);
                 }
 
             }).catch((error) => {
                 console.error(error);
             });
-    }
+	}
 
   render() {
 
@@ -105,6 +113,12 @@ class Search extends React.Component {
 					<Text style={styles.text}>
 						What is it that you would like to find?
 					</Text>
+					<Picker
+  						selectedValue={this.state.searchType}
+  						onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
+  						<Picker.Item label="User" value="user" />
+  						<Picker.Item label="Event" value="event" />
+					</Picker>
 					<TextInput
 						style={styles.textBox}
 						placeholder="Enter Search"
@@ -115,15 +129,16 @@ class Search extends React.Component {
 						onChangeText={(EventTitle) => this.setState({ EventTitle })}
 					/>
 				</View>
-
-
+				
+				
+				
 			</View>
 			
 			<View style={styles.button}>
 			<Button 
 				style={buttonColor = '#78B494'} 
 				title="Search Kite" 
-				onPress = {() => this.props.navigation.navigate('KiteTimeline')}
+				onPress = {this.doSearch}
 					/>
 			</View>
     	</View>

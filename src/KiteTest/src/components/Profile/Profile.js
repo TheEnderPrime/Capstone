@@ -10,6 +10,8 @@ import {
 	Image,
 	AsyncStorage,
 	Alert,
+	RefreshControl,
+	ActivityIndicator
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview'
@@ -20,8 +22,12 @@ class Profile extends React.Component {
 
 	constructor(){
 		super();   
-		this.onEventPress = this.onEventPress.bind(this)
+
+		this.onEndReached 	= this.onEndReached.bind(this)
 		this.renderSelected = this.renderSelected.bind(this)
+		this.onRefresh 		= this.onRefresh.bind(this)
+		this.onEventPress 	= this.onEventPress.bind(this)
+
 		this.data = [
 			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
 		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
@@ -48,27 +54,67 @@ class Profile extends React.Component {
 			numOfFollowers: 0,
 			numOfFollowing: 0,
 			numOfCommunities: 0,
+			isRefreshing: false,
+			waiting: false,
 			selected: null,
-       	};
+			data: this.data,
+			
+       	}
 
 	}
 
 	onRefresh(){
 		//set initial data
+		this.setState({isRefreshing: true});
+		//refresh to initial data
+		setTimeout(() => {
+			//refresh to initial data
+			
+			this.setState({
+			  	data: [
+				{time: '09:00', title: 'Event 1111', description: 'Event 1 Description'},
+				
+			],
+				//this.loadTimeline(),
+			  	isRefreshing: false
+			});
+		}, 2000);
 	}
 	
 	onEndReached() {
 		//fetch next data
-	}
+		if (!this.state.waiting) {
+			this.setState({waiting: true});
+	
+			//fetch and concat data
+			setTimeout(() => {
+	
+			//refresh to initial data
+			var data = this.state.data.concat(
+				[
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
+				]
+			)
+	
+			  this.setState({
+				waiting: false,
+				data: data,
+			  });
+			}, 2000);
+		}
+	  }
 	
 	renderFooter() {
-		//show loading indicator
-		if (this.state.waiting) {
-				return <ActivityIndicator />;
+		if (this.waiting) {
+			return <ActivityIndicator />;
 		} else {
-				return <Text>~</Text>;
+			return <Text>~</Text>;
 		}
-	}
+	  }
 
 	onEventPress(data){
 		this.setState({selected: data})
@@ -92,7 +138,6 @@ class Profile extends React.Component {
 		if(this.state.userId != null){
 			this.GatherUserInformation(this.state.userId);
 		}
-		//this.loadTimeline();
 	}
 
 	 GatherUserInformation = () => {
@@ -167,27 +212,6 @@ class Profile extends React.Component {
             });
 	}
 
-	// UpdateUserInformation = () =>{
-		// fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Accept': 'application/json',
-		// 		'Content-Type': 'application/json',w
-		// 	},
-		// 	body: JSON.stringify({
-		// 		UserID: this.state.userid,
-			// 		firstName: "David",
-			// lastName: "Baugh",
-			// userid: null,
-			// gender: "Sexy",
-			// achievement: "Forbes 30 under 30",
-			// profilePic: '../../images/placeholderProfilePicture.jpg',
-			// numOfPosts: 0,
-			// numOfFollowers: 0,
-			// numOfFollowing: 0,
-			// numOfCommunities: 0,
-		// 	})
-	// }
 	render() {
 		return (
 			<View style={styles.container}>
@@ -237,7 +261,7 @@ class Profile extends React.Component {
 					{/* {this.renderSelected()} */}
 					<Timeline
 						style={styles.timelineList}
-						data={this.data}
+						data={this.state.data}
 						circleSize={20}
 						circleColor='rgb(45,156,219)'
 						lineColor='rgb(45,156,219)'
@@ -248,6 +272,16 @@ class Profile extends React.Component {
 						circleSize={-100}
 						showTime={false}
 						onEventPress={this.onEventPress}
+						options={{
+							refreshControl: (
+								<RefreshControl
+									refreshing={this.state.isRefreshing} 
+									onRefresh={this.onRefresh}							
+								/>
+							),
+							renderFooter: this.renderFooter,
+							onEndReached: this.onEndReached,
+						}}
 					/>
 				</View>
 

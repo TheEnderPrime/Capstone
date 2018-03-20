@@ -8,7 +8,9 @@ import {
   	Button,
   	TouchableOpacity,
 	AsyncStorage,
-	Alert
+	Alert,
+	RefreshControl,
+	ActivityIndicator
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview';
@@ -19,18 +21,27 @@ class KiteTimeline extends React.Component {
 	
 	constructor(){
 		super()
-		this.onEventPress = this.onEventPress.bind(this)
+		this.onEndReached 	= this.onEndReached.bind(this)
 		this.renderSelected = this.renderSelected.bind(this)
+		this.onRefresh 		= this.onRefresh.bind(this)
+		this.onEventPress 	= this.onEventPress.bind(this)
+
 		this.data = [
 			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-		    {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
+			{time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
+			{time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
 		    {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
 			{time: '16:30', title: 'Event 5', description: 'Event 5 Description'},
-			{time: '14:00', title: 'Event 6', description: 'Event 6 Description'},
+			{time: '12:00', title: 'Event 6', description: 'Event 6 Description'},
+		    {time: '14:00', title: 'Event 7', description: 'Event 7 Description'},
+		    {time: '16:30', title: 'Event 8', description: 'Event 8 Description'}
 		]
+		
 		this.state = {
-			selected: null
+			isRefreshing: false,
+			waiting: false,
+			selected: null,
+			data: this.data,
 		}
 	}
 
@@ -38,7 +49,7 @@ class KiteTimeline extends React.Component {
 		const { userID } = this.state;
 		const { timelineType } = "main";
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Timeline.php?f=loadTimeline', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -46,8 +57,9 @@ class KiteTimeline extends React.Component {
             },
             body: JSON.stringify({
 				
-				UserID: userID,
-				TimelineType: timelineType
+				//UserID: userID,
+
+				//TimelineType: //timelineType
 				
             })
 
@@ -62,7 +74,7 @@ class KiteTimeline extends React.Component {
 				
 				}
                 else {
-                    Alert.alert(responseJson.error);
+                    Alert.alert("responseJson.error");
                 }
 
             }).catch((error) => {
@@ -70,26 +82,58 @@ class KiteTimeline extends React.Component {
             });
 	}
 
-	componentDidMount() {
-		//this.loadTimeline();
-	}
-
 	onRefresh(){
 		//set initial data
+		this.setState({isRefreshing: true});
+		//refresh to initial data
+		setTimeout(() => {
+			//refresh to initial data
+			
+			this.setState({
+			  	data: [
+				{time: '09:00', title: 'Event 1111', description: 'Event 1 Description'},
+				
+			],
+				//this.loadTimeline(),
+			  	isRefreshing: false
+			});
+		}, 2000);
 	}
 	
 	onEndReached() {
 		//fetch next data
-	}
+		if (!this.state.waiting) {
+			this.setState({waiting: true});
+	
+			//fetch and concat data
+			setTimeout(() => {
+	
+			//refresh to initial data
+			var data = this.state.data.concat(
+				[
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
+				]
+			)
+	
+			  this.setState({
+				waiting: false,
+				data: data,
+			  });
+			}, 2000);
+		}
+	  }
 	
 	renderFooter() {
-		//show loading indicator
-		if (this.state.waiting) {
-				return <ActivityIndicator />;
+		if (this.waiting) {
+			return <ActivityIndicator />;
 		} else {
-				return <Text>~</Text>;
+			return <Text>~</Text>;
 		}
-	}
+	  }
 
 	onEventPress(data){
 		this.setState({selected: data})
@@ -101,44 +145,40 @@ class KiteTimeline extends React.Component {
 	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
 	}
 
-	displayData = async () => {  
-		try {
-			let value = await AsyncStorage.getItem('userID');
-			alert(value);
-		} catch (error) {
-			alert(error);
-		}
+  	render() {
+		return (
+			<View style={styles.container}>
+				<View style={styles.timelineContainer}>
+					{/* {this.renderSelected()} */}
+					<Timeline
+						style={styles.timelineList}
+						data={this.state.data}
+						circleSize={20}
+						circleColor='rgb(45,156,219)'
+						lineColor='rgb(45,156,219)'
+						timeContainerStyle={{minWidth:52, marginTop: -5}}
+						timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
+						descriptionStyle={{color:'gray'}}
+						timeContainerStyle={{minWidth:72}}
+						circleSize={-100}
+						showTime={false}
+						onEventPress={this.onEventPress}
+						options={{
+							refreshControl: (
+								<RefreshControl
+									refreshing={this.state.isRefreshing} 
+									onRefresh={this.onRefresh}							
+								/>
+							),
+							renderFooter: this.renderFooter,
+							onEndReached: this.onEndReached,
+						}}
+					/>
+				</View>
+
+			</View>
+		);
 	}
 
-  render() {
-    return (
-    	<View style={styles.container}>
-			<View style={styles.timelineContainer}>
-				{/* {this.renderSelected()} */}
-				<Timeline
-					style={styles.timelineList}
-					data={this.data}
-					circleSize={20}
-					circleColor='rgb(45,156,219)'
-					lineColor='rgb(45,156,219)'
-					timeContainerStyle={{minWidth:52, marginTop: -5}}
-					timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
-					descriptionStyle={{color:'gray'}}
-					timeContainerStyle={{minWidth:72}}
-					circleSize={-100}
-					showTime={false}
-					onEventPress={this.onEventPress}
-					
-					
-				/>
-			</View>
-		</View>
-
-    );
-  }
-
 }
-
-
-
   export default KiteTimeline;
