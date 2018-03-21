@@ -27,13 +27,8 @@ class Community extends React.Component {
 		this.onRefresh 		= this.onRefresh.bind(this)
 		this.onEventPress 	= this.onEventPress.bind(this)
 
-		this.data = [
-			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-		    {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
-		    {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
-		    {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
-		]
+		this.data = []
+
 		this.state = {
 			communityName: "Oregon State University",
 			profilePic: '../../images/placeholderProfilePicture.jpg',
@@ -71,9 +66,9 @@ class Community extends React.Component {
 
 	loadTimeline = () => {
 		const { userID } = this.state;
-		const { timelineType } = "community";
+		const { timelineType } = "main";
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -82,7 +77,8 @@ class Community extends React.Component {
             body: JSON.stringify({
 				
 				UserID: userID,
-				TimelineType: timelineType
+
+				//TimelineType: //timelineType
 				
             })
 
@@ -92,12 +88,15 @@ class Community extends React.Component {
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
 					
-					Alert.alert(responseJson);
+					this.setState({
+						data: responseJson.timeline,
+						isRefreshing: false
+					})
 					//parse array from responseJson
 				
 				}
                 else {
-                    Alert.alert(responseJson.error);
+                    Alert.alert("responseJson.error");
                 }
 
             }).catch((error) => {
@@ -112,14 +111,8 @@ class Community extends React.Component {
 		setTimeout(() => {
 			//refresh to initial data
 			
-			this.setState({
-			  	data: [
-				{time: '09:00', title: 'Event 1111', description: 'Event 1 Description'},
-				
-			],
-				//this.loadTimeline(),
-			  	isRefreshing: false
-			});
+			this.loadTimeline();
+
 		}, 2000);
 	}
 	
@@ -148,7 +141,7 @@ class Community extends React.Component {
 			  });
 			}, 2000);
 		}
-	  }
+	}
 	
 	renderFooter() {
 		if (this.waiting) {
@@ -156,16 +149,30 @@ class Community extends React.Component {
 		} else {
 			return <Text>~</Text>;
 		}
-	  }
+	}
 
 	onEventPress(data){
 		this.setState({selected: data})
-		if(this.state.selected) this.props.navigation.navigate("Event", {EventTitle: this.state.selected.title, EventDesc: this.state.selected.description})
+		if(this.state.selected) {
+			this.props.navigation.navigate("Event", {eventID: this.state.selected.id})
+		}
   	}
 
   	renderSelected(){
 		if(this.state.selected)
 	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
+	}
+
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+	async componentDidMount(){
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userID: user});
+		this.loadTimeline();
 	}
 
 	render() {
@@ -222,8 +229,8 @@ class Community extends React.Component {
 									onRefresh={this.onRefresh}							
 								/>
 							),
-							renderFooter: this.renderFooter,
-							onEndReached: this.onEndReached,
+							//renderFooter: this.renderFooter,
+							//onEndReached: this.onEndReached,
 						}}
 						
 						

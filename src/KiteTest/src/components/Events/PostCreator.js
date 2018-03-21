@@ -116,7 +116,7 @@ class PostCreator extends React.Component {
 				<View style={styles.button}>
 					<Button 
 						style={buttonColor = '#78B494'} 
-						title="Login" 
+						title="Create Post" 
 						onPress = {() => this.UserCreatePost()}
 					/>
 				</View>

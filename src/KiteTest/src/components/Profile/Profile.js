@@ -28,13 +28,8 @@ class Profile extends React.Component {
 		this.onRefresh 		= this.onRefresh.bind(this)
 		this.onEventPress 	= this.onEventPress.bind(this)
 
-		this.data = [
-			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-		    {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-		    {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
-		    {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
-		    {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
-		]
+		this.data = []
+		
 		this.state = {
 			userId: 0,
 			firstName: "",
@@ -63,6 +58,44 @@ class Profile extends React.Component {
 
 	}
 
+	loadTimeline = () => {
+		const { userID } = this.state;
+		const { timelineType } = "main";
+
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getTimeLine', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
+				UserID: userID,
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+					
+					this.setState({
+						data: responseJson.timeline,
+						isRefreshing: false
+					})
+					//parse array from responseJson
+				
+				}
+                else {
+                    Alert.alert("responseJson.error");
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
+	}
+
 	onRefresh(){
 		//set initial data
 		this.setState({isRefreshing: true});
@@ -70,14 +103,8 @@ class Profile extends React.Component {
 		setTimeout(() => {
 			//refresh to initial data
 			
-			this.setState({
-			  	data: [
-				{time: '09:00', title: 'Event 1111', description: 'Event 1 Description'},
-				
-			],
-				//this.loadTimeline(),
-			  	isRefreshing: false
-			});
+			this.loadTimeline();
+
 		}, 2000);
 	}
 	
@@ -106,7 +133,7 @@ class Profile extends React.Component {
 			  });
 			}, 2000);
 		}
-	  }
+	}
 	
 	renderFooter() {
 		if (this.waiting) {
@@ -114,11 +141,13 @@ class Profile extends React.Component {
 		} else {
 			return <Text>~</Text>;
 		}
-	  }
+	}
 
 	onEventPress(data){
 		this.setState({selected: data})
-		if(this.state.selected) this.props.navigation.navigate("Event", {EventTitle: this.state.selected.title, EventDesc: this.state.selected.description})
+		if(this.state.selected) {
+			this.props.navigation.navigate("Event", {eventID: this.state.selected.id})
+		}
   	}
 
   	renderSelected(){
@@ -138,6 +167,7 @@ class Profile extends React.Component {
 		if(this.state.userId != null){
 			this.GatherUserInformation(this.state.userId);
 		}
+		this.loadTimeline();
 	}
 
 	 GatherUserInformation = () => {
@@ -174,42 +204,6 @@ class Profile extends React.Component {
 			}).catch((error) => {
 				console.error(error);
 			});
-	}
-
-	loadTimeline = () => {
-		const { userID } = this.state;
-		const { timelineType } = "profile";
-
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Timeline.php?f=loadTimeline', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-				
-				UserID: userID,
-				TimelineType: timelineType
-				
-            })
-
-        }).then((response) => response.json())
-            .then((responseJson) => {
-
-                // If server response message same as Data Matched
-                if (responseJson.isValid === 'valid') {
-					
-					Alert.alert(responseJson);
-					//parse array from responseJson
-				
-				}
-                else {
-                    Alert.alert(responseJson.error);
-                }
-
-            }).catch((error) => {
-                console.error(error);
-            });
 	}
 
 	render() {
@@ -279,8 +273,8 @@ class Profile extends React.Component {
 									onRefresh={this.onRefresh}							
 								/>
 							),
-							renderFooter: this.renderFooter,
-							onEndReached: this.onEndReached,
+							//renderFooter: this.renderFooter,
+							//onEndReached: this.onEndReached,
 						}}
 					/>
 				</View>

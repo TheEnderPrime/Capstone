@@ -10,6 +10,8 @@ import {
 	TextInput,
 	Alert,
 	AsyncStorage,
+	RefreshControl,
+	ActivityIndicator
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview';
@@ -20,26 +22,132 @@ class Event extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.onEventPress = this.onEventPress.bind(this)
-		this.data = [
-			{time: '09:00', title: 'Newest Post ', description: 'Event 1 Description'},
-		    {time: '10:45', title: 'Post 2', description: 'Event 2 Description'},
-		    {time: '12:00', title: 'Post 3', description: 'Event 3 Description'},
-		    {time: '14:00', title: 'Post 4', description: 'Event 4 Description'},
-			{time: '16:30', title: 'Post 5', description: 'Event 5 Description'},
-			{time: '14:00', title: 'Oldest Post 6', description: 'Event 6 Description'},
-		]
+
+		this.onEndReached 	= this.onEndReached.bind(this)
+		this.renderSelected = this.renderSelected.bind(this)
+		this.onRefresh 		= this.onRefresh.bind(this)
+		this.onEventPress 	= this.onEventPress.bind(this)
+
+		this.data = []
+		// 	{time: '09:00', title: 'Newest Post ', description: 'Event 1 Description'},
+		//     {time: '10:45', title: 'Post 2', description: 'Event 2 Description'},
+		//     {time: '12:00', title: 'Post 3', description: 'Event 3 Description'},
+		//     {time: '14:00', title: 'Post 4', description: 'Event 4 Description'},
+		// 	{time: '16:30', title: 'Post 5', description: 'Event 5 Description'},
+		// 	{time: '14:00', title: 'Oldest Post 6', description: 'Event 6 Description'},
+		// ]
 		this.state = {
 			userId: 0,
-			EventID: 0,
-			EventTitle: "",
-			EventDesc: "",
-			EventStory: "",
+			eventID: 0,
+			eventTitle: "",
+			eventDesc: "",
+			eventStory: "",
+			isRefreshing: false,
+			waiting: false,
 			selected: null,
+			data: this.data,
 		};
 	}
 
-	setUserIdAsync(state){
+	loadEvent = () => {
+
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
+				EventID: this.state.eventID,
+
+				UserId: this.state.userID,
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+
+					this.setState({
+						eventTitle: responseJson.eventData.title,
+						eventDesc: responseJson.eventData.description,
+						data: responseJson.eventArray,
+						isRefreshing: false
+					})
+					//parse array from responseJson
+				
+				}
+                else {
+                    Alert.alert("responseJson.error");
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
+	}
+
+	onRefresh(){
+		//set initial data
+		this.setState({isRefreshing: true});
+		//refresh to initial data
+		setTimeout(() => {
+
+			this.loadEvent();
+			
+		}, 2000);
+	}
+	
+	onEndReached() {
+		//fetch next data
+		if (!this.state.waiting) {
+			this.setState({waiting: true});
+	
+			//fetch and concat data
+			setTimeout(() => {
+	
+			//refresh to concat data
+			var data = this.state.data.concat(
+				[
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
+				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
+				]
+			)
+	
+			  this.setState({
+				waiting: false,
+				data: data,
+			  });
+			}, 2000);
+		}
+	}
+
+	renderSelected(){
+		if(this.state.selected)
+	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
+	}
+	
+	renderFooter() {
+		//show loading indicator
+		if (this.waiting) {
+			return <ActivityIndicator />;
+		} else {
+			return <Text>~</Text>;
+		}
+	}
+
+	onEventPress(data){
+		this.setState({selected: data})
+		Alert.alert("YOU PRESSED THE BUTTON!");
+		//this.props.navigation.navigate("Posts")
+	  }
+	  
+	  setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
@@ -49,55 +157,31 @@ class Event extends React.Component {
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
 		const {params} = this.props.navigation.state;
-		const Title = params ? params.EventTitle : null;
-		const Desc =  params ? params.EventDesc : null;
 		const EventID =  params ? params.eventID : null;
-		this.setState({EventTitle: Title});
-		this.setState({EventDesc: Desc});
-		this.setState({EventID: EventID});
+		this.setState({eventID: EventID});
+		this.loadEvent();
 	}
-
-	onRefresh(){
-		//set initial data
-	}
-	
-	onEndReached() {
-		//fetch next data
-	}
-	
-	renderFooter() {
-			//show loading indicator
-			if (this.state.waiting) {
-					return <ActivityIndicator />;
-			} else {
-					return <Text>~</Text>;
-			}
-	}
-
-	onEventPress(data){
-    this.setState({selected: data})
-	//this.props.navigation.navigate("Posts")
-  }
 
 	
 	render() {
 		const { EventID } = this.state;
 		return (
 			
+			
 		<View style={styles.container}>
 			
 		<Text style={styles.titleText}>
-			Event Title: {this.state.EventTitle}
+			Event Title: {this.state.eventTitle}
 		</Text>
 
 		<Text style={styles.titleText}>
-			Event Description: {this.state.EventDesc}
+			Event Description: {this.state.eventDesc}
 		</Text>
 		
 		<View style={styles.postTimeline}>
 					<Timeline
 						style={styles.timelineList}
-						data={this.data}
+						data={this.state.data}
 						circleSize={20}
 						circleColor='rgb(45,156,219)'
 						lineColor='rgb(45,156,219)'
@@ -108,6 +192,16 @@ class Event extends React.Component {
 						circleSize={-100}
 						showTime={false}
 						onEventPress={this.onEventPress}
+						options={{
+							refreshControl: (
+								<RefreshControl
+									refreshing={this.state.isRefreshing} 
+									onRefresh={this.onRefresh}							
+								/>
+							),
+							//renderFooter: this.renderFooter,
+							//onEndReached: this.onEndReached,
+						}}
 						
 						
 					/>

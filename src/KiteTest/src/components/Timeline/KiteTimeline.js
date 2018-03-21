@@ -26,16 +26,7 @@ class KiteTimeline extends React.Component {
 		this.onRefresh 		= this.onRefresh.bind(this)
 		this.onEventPress 	= this.onEventPress.bind(this)
 
-		this.data = [
-			{time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-			{time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-			{time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
-		    {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
-			{time: '16:30', title: 'Event 5', description: 'Event 5 Description'},
-			{time: '12:00', title: 'Event 6', description: 'Event 6 Description'},
-		    {time: '14:00', title: 'Event 7', description: 'Event 7 Description'},
-		    {time: '16:30', title: 'Event 8', description: 'Event 8 Description'}
-		]
+		this.data = []
 		
 		this.state = {
 			isRefreshing: false,
@@ -46,10 +37,8 @@ class KiteTimeline extends React.Component {
 	}
 
 	loadTimeline = () => {
-		const { userID } = this.state;
-		const { timelineType } = "main";
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -57,9 +46,7 @@ class KiteTimeline extends React.Component {
             },
             body: JSON.stringify({
 				
-				//UserID: userID,
-
-				//TimelineType: //timelineType
+				UserID: this.state.userID,
 				
             })
 
@@ -68,8 +55,11 @@ class KiteTimeline extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					
-					Alert.alert(responseJson);
+
+					this.setState({
+						data: responseJson.timeline,
+						isRefreshing: false
+					})
 					//parse array from responseJson
 				
 				}
@@ -87,16 +77,9 @@ class KiteTimeline extends React.Component {
 		this.setState({isRefreshing: true});
 		//refresh to initial data
 		setTimeout(() => {
-			//refresh to initial data
+
+			this.loadTimeline();
 			
-			this.setState({
-			  	data: [
-				{time: '09:00', title: 'Event 1111', description: 'Event 1 Description'},
-				
-			],
-				//this.loadTimeline(),
-			  	isRefreshing: false
-			});
 		}, 2000);
 	}
 	
@@ -108,7 +91,7 @@ class KiteTimeline extends React.Component {
 			//fetch and concat data
 			setTimeout(() => {
 	
-			//refresh to initial data
+			//refresh to concat data
 			var data = this.state.data.concat(
 				[
 				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
@@ -125,7 +108,7 @@ class KiteTimeline extends React.Component {
 			  });
 			}, 2000);
 		}
-	  }
+	}
 	
 	renderFooter() {
 		if (this.waiting) {
@@ -133,16 +116,30 @@ class KiteTimeline extends React.Component {
 		} else {
 			return <Text>~</Text>;
 		}
-	  }
+	}
 
 	onEventPress(data){
 		this.setState({selected: data})
-		if(this.state.selected) this.props.navigation.navigate("Event", {EventTitle: this.state.selected.title, EventDesc: this.state.selected.description})
+		if(this.state.selected) {
+			this.props.navigation.navigate("Event", {eventID: this.state.selected.id})
+		}
   	}
 
   	renderSelected(){
 		if(this.state.selected)
 	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
+	}
+
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+	async componentDidMount(){
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userID: user});
+		this.loadTimeline();
 	}
 
   	render() {
@@ -170,8 +167,9 @@ class KiteTimeline extends React.Component {
 									onRefresh={this.onRefresh}							
 								/>
 							),
-							renderFooter: this.renderFooter,
-							onEndReached: this.onEndReached,
+							//THESE ARE FOR ADDING ADDITIONAL EVENTS UPON HITTING THE BOTTOM
+							//renderFooter: this.renderFooter,
+							//onEndReached: this.onEndReached,
 						}}
 					/>
 				</View>
