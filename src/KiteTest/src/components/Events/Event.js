@@ -39,6 +39,7 @@ class Event extends React.Component {
 		this.state = {
 			userId: 0,
 			eventID: 0,
+			postID: 0,
 			eventTitle: "",
 			eventDesc: "",
 			eventStory: "",
@@ -129,7 +130,7 @@ class Event extends React.Component {
 
 	renderSelected(){
 		if(this.state.selected)
-	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
+	  	return <Text style={{marginTop:10}}> Selected event: {this.state.selected.title} at {this.state.selected.time} </Text>
 	}
 	
 	renderFooter() {
@@ -143,11 +144,11 @@ class Event extends React.Component {
 
 	onEventPress(data){
 		this.setState({selected: data})
-		Alert.alert("YOU PRESSED THE BUTTON!");
-		//this.props.navigation.navigate("Posts")
+		Alert.alert(this.state.selected.id);
+		this.props.navigation.navigate('Posts', {postID: this.state.selected.id})
 	  }
 	  
-	  setUserIdAsync(state){
+	setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});

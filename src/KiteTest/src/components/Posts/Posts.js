@@ -7,6 +7,10 @@ import {
   View,
   Button,
   TouchableOpacity,
+  Alert,
+  AsyncStorage,
+  RefreshControl,
+  ActivityIndicator
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview';
@@ -17,39 +21,87 @@ class Posts extends React.Component {
 
 	constructor(){
 		super()
+		this.state = {
+			userID: 0,
+			eventID: 0,
+			postID: 0,
+			eventTitle: "",
+			eventDesc: "",
+			eventStory: "",
+			isRefreshing: false,
+			waiting: false,
+			selected: null,
+			data: this.data, 
+		}
 	}
 
-	onRefresh(){
-		//set initial data
-	}
-	
-	onEndReached() {
-		//fetch next data
-	}
-	
-	renderFooter() {
-			//show loading indicator
-			if (this.state.waiting) {
-					return <ActivityIndicator />;
-			} else {
-					return <Text>~</Text>;
-			}
+	loadPost = () => {
+
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=getPost', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
+				PostID: this.state.postID,
+
+				UserID: this.state.userID,
+				//maybe userId
+				//EventID: this.state.eventID
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+
+					this.setState({
+						eventTitle: responseJson.post.title,
+						eventStory: responseJson.post.PostText,
+						data: responseJson.eventArray,
+						isRefreshing: false
+					})
+					//parse array from responseJson
+				
+				}
+                else {
+                    Alert.alert("responseJson.error");
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
 	}
 
-	onEventPress(data){
-    //this.props.navigation.navigate("Posts")
-  }
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+	async componentDidMount(){
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userID: user});
+		const {params} = this.props.navigation.state;
+		const PostID =  params ? params.postID : null;
+		this.setState({postID: PostID});
+		this.loadPost();
+	}
 
  	render() {
 		return (
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<Text>Post Title Here</Text>
+					<Text>{this.state.eventTitle}</Text>
 					<Text>Overall Likes and Comments</Text>
 				</View>
 
 				<View style={styles.postTimeline}>
-					<Text>PUT YOUR SHIZ HERE ANDREW</Text>
+					<Text>{this.state.eventStory}</Text>
 				</View>
 			</View>
 
