@@ -38,7 +38,7 @@ class KiteTimeline extends React.Component {
 
 	loadTimeline = () => {
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getTimeLine', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -64,7 +64,7 @@ class KiteTimeline extends React.Component {
 				
 				}
                 else {
-                    Alert.alert("responseJson.error");
+                    Alert.alert(responseJson.error);
                 }
 
             }).catch((error) => {
@@ -159,6 +159,7 @@ class KiteTimeline extends React.Component {
 						timeContainerStyle={{minWidth:72}}
 						circleSize={-100}
 						showTime={false}
+						enableEmptySections={true}
 						onEventPress={this.onEventPress}
 						options={{
 							refreshControl: (

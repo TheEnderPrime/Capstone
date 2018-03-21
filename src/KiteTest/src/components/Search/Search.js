@@ -118,6 +118,7 @@ class Search extends React.Component {
   						onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
   						<Picker.Item label="User" value="user" />
   						<Picker.Item label="Event" value="event" />
+						<Picker.Item label="Community" value="community" />
 					</Picker>
 					<TextInput
 						style={styles.textBox}

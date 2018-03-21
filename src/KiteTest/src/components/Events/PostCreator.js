@@ -21,30 +21,15 @@ class PostCreator extends React.Component {
 		super(props);
 		this.state = {
 			userID: 0,
-			EventID: 0,
+			eventID: 0,
 			UserTitle: "",
 			UserDesc: "",
 			UserStory: "",
 		};
 	}
 
-	setUserIdAsync(state){
-		return new Promise((resolved) => {
-			this.setState(state, resolved)
-		});
-	}
-
-	async componentDidMount(){
-		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userID: user});
-		const {params} = this.props.navigation.state;
-		const EventID =  params ? params.EventID : null;
-		this.setState({EventID: EventID});
-	}
-
 	UserCreatePost = () => {
 		const { userID } 	= this.state;
-		const { EventID }   = this.state;
         const { UserTitle }	= this.state;
 		const { UserDesc } 	= this.state;
 		const { UserStory } = this.state;
@@ -59,10 +44,10 @@ class PostCreator extends React.Component {
             body: JSON.stringify({
 				
 				UserID: userID,
-				EventID: EventID,
-                title: UserTitle,
-				desc: UserDesc,
-				story: UserStory,
+				EventID: this.state.eventID,
+                Title: UserTitle,
+				Desc: UserDesc,
+				Story: UserStory,
 				
             })
 
@@ -80,7 +65,21 @@ class PostCreator extends React.Component {
             }).catch((error) => {
                 console.error(error);
             });
-    }
+	}
+	
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+	async componentDidMount(){
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userID: user});
+		const {params} = this.props.navigation.state;
+		const EventID =  params ? params.eventID : null;
+		this.setState({eventID: EventID});
+	}
 
 	render() {
 
@@ -88,7 +87,42 @@ class PostCreator extends React.Component {
 		return (
 			<View style={styles.container}>
 			
-				<Text></Text>
+			<Text style={styles.titleText}>
+					What story are you going to tell?
+				</Text>
+				
+				<View style={styles.textInput}>
+					<View style={styles.textBox}>
+						<Text style={styles.text}>
+							What is the title of your Event?
+						</Text>
+						<TextInput
+							style={styles.textBox}
+							placeholder="Event Title"
+							placeholderTextColor={Colors.kite_greenMediumDark}
+							onSubmitEditing={() => this.descriptionInput.focus()}
+							autoCapitalize="none"
+							autoCorrect={false}
+							onChangeText={(UserTitle) => this.setState({ UserTitle })}
+						/>
+					</View>
+
+					<View style={styles.textBox}>
+						<Text style={styles.text}>
+							Tells us briefly what your event is about.
+						</Text>
+						<TextInput
+							style={styles.textBox}
+							placeholder="Event Description"
+							placeholderTextColor={Colors.kite_greenMediumDark}
+							autoCapitalize="none"
+							autoCorrect={false}
+							onChangeText={(UserDesc) => this.setState({ UserDesc })}
+							ref={(input) => this.descriptionInput = input}
+						/>
+					</View>
+
+				</View>
 
 				<Text style={styles.titleText}>
 					Now, tell your Story!

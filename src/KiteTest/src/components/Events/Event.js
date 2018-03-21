@@ -164,9 +164,7 @@ class Event extends React.Component {
 
 	
 	render() {
-		const { EventID } = this.state;
 		return (
-			
 			
 		<View style={styles.container}>
 			
@@ -212,7 +210,7 @@ class Event extends React.Component {
 			style={buttonColor = '#78B494'} 
 			title="New Post" 
 			
-			onPress = {() => this.props.navigation.navigate('PostCreator',{EventID})}
+			onPress = {() => this.props.navigation.navigate('PostCreator', {eventID: this.state.eventID})}
 				/>
 		</View>
 	</View>

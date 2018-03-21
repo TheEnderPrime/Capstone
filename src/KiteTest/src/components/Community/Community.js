@@ -68,7 +68,7 @@ class Community extends React.Component {
 		const { userID } = this.state;
 		const { timelineType } = "main";
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getTimeLine', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getCommunityTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

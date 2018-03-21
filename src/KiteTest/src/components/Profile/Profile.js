@@ -31,7 +31,6 @@ class Profile extends React.Component {
 		this.data = []
 		
 		this.state = {
-			userId: 0,
 			firstName: "",
 			lastName: "",
 			email: "",
@@ -49,6 +48,7 @@ class Profile extends React.Component {
 			numOfFollowers: 0,
 			numOfFollowing: 0,
 			numOfCommunities: 0,
+			userID: 0,
 			isRefreshing: false,
 			waiting: false,
 			selected: null,
@@ -59,10 +59,8 @@ class Profile extends React.Component {
 	}
 
 	loadTimeline = () => {
-		const { userID } = this.state;
-		const { timelineType } = "main";
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getTimeLine', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -70,7 +68,7 @@ class Profile extends React.Component {
             },
             body: JSON.stringify({
 				
-				UserID: userID,
+				UserID: this.state.userID,
 				
             })
 
@@ -79,7 +77,7 @@ class Profile extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					
+
 					this.setState({
 						data: responseJson.timeline,
 						isRefreshing: false
@@ -94,6 +92,43 @@ class Profile extends React.Component {
             }).catch((error) => {
                 console.error(error);
             });
+	}
+
+	GatherUserInformation = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+
+				UserID: this.state.userID,
+
+			})
+		}).then((response) => response.json())
+			.then((responseJson) => {
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
+					this.setState({"firstName": responseJson.firstName});
+					this.setState({"lastName": responseJson.lastName});
+					this.setState({"email": responseJson.email});
+					this.setState({"dateOfBirth": responseJson.dateOfBirth});
+					this.setState({"employerName": responseJson.employerName});
+					this.setState({"aboutMe": responseJson.aboutMe});
+					this.setState({"currentCity": responseJson.currentCity});
+					this.setState({"currentStateOrProvence": responseJson.currentStateOrProvence});
+					this.setState({"currentCountry": responseJson.currentCountry});
+					this.setState({"cellPhone": responseJson.cellPhone});
+					this.setState({"homePhone": responseJson.homePhone});
+					this.setState({"dateAdded": responseJson.dateAdded});
+			}
+				else {
+					Alert.alert(responseJson);
+				}
+			}).catch((error) => {
+				console.error(error);
+			});
 	}
 
 	onRefresh(){
@@ -163,47 +198,11 @@ class Profile extends React.Component {
 
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userId: user});
-		if(this.state.userId != null){
-			this.GatherUserInformation(this.state.userId);
+		await this.setUserIdAsync({userID: user});
+		if(this.state.userID != null){
+			this.GatherUserInformation(this.state.userID);
 		}
 		this.loadTimeline();
-	}
-
-	 GatherUserInformation = () => {
-		const {userId} = this.state;
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				UserID: userId,
-			})
-		}).then((response) => response.json())
-			.then((responseJson) => {
-				// If server response message same as Data Matched
-				if (responseJson.isValid === 'valid') {
-					this.setState({"firstName": responseJson.firstName});
-					this.setState({"lastName": responseJson.lastName});
-					this.setState({"email": responseJson.email});
-					this.setState({"dateOfBirth": responseJson.dateOfBirth});
-					this.setState({"employerName": responseJson.employerName});
-					this.setState({"aboutMe": responseJson.aboutMe});
-					this.setState({"currentCity": responseJson.currentCity});
-					this.setState({"currentStateOrProvence": responseJson.currentStateOrProvence});
-					this.setState({"currentCountry": responseJson.currentCountry});
-					this.setState({"cellPhone": responseJson.cellPhone});
-					this.setState({"homePhone": responseJson.homePhone});
-					this.setState({"dateAdded": responseJson.dateAdded});
-			}
-				else {
-					Alert.alert(responseJson);
-				}
-			}).catch((error) => {
-				console.error(error);
-			});
 	}
 
 	render() {
