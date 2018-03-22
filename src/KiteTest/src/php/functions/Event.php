@@ -1,7 +1,9 @@
 <?php
 require_once('includes/constants.inc.php');
 require_once('includes/connection.inc.php');
-//require_once('classes/Event.php');
+require_once('classes/SimplePost.php');
+require_once('classes/Post.php');
+require_once('classes/Event.php');
 
 if(function_exists($_GET['f'])) {
    $_GET['f']();
@@ -64,22 +66,42 @@ function createEvent(){
     echo json_encode($return);
 }
 
-// function getPostsForEvent(){
-//     global $conn;
 
-//     $json = file_get_contents('php://input');
-//     $obj = json_decode($json,true);
-
-//     $EventID = 44;//$obj['EventId'];
-//     $lastEntryDate;// = $obj['lastEntryDate'];
-//     //echo "in get posts for event";
-//     $Current_Event = new Event($EventID); //set up user object with users id
-//     $returned = $Current_Event->gatherPostsInfo(); //gather info about that user from database
-//     echo $returned;
-// }
-
-//gets a already created event
+//gets event
 function getEvent(){
+    global $conn;
+
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $EventId = $obj['EventID'];
+
+    $New_Event = new Event($EventId);
+    $New_Event->gatherEventsInfo();
+
+    $returned->eventData = $New_Event;
+
+    $returned->isValid = 'valid';
+    $result = mysqli_query($conn, "SELECT Id, UsersId, DateAdded, EventId, CommunityId, PostTitle, Description FROM UserPost WHERE EventId = '$EventId'");
+    $returned->eventArray = array();
+    if(!$result){
+        $results->isvalid = "notValid";
+        echo json_encode($results);
+        exit;
+    }
+    while ($row = mysqli_fetch_row($result)){
+        $tempPost = new SimplePost($row[0]);
+        $tempPost->SetDefultSimplePost( $row[0],
+                                        $row[1],
+                                        "2018-03-11",
+                                        $row[3],
+                                        $row[4],
+                                        $row[5],
+                                        $row[6]);
+        array_push($returned->eventArray, $tempPost);
+    }
+    mysqli_free_result($result);
+    echo json_encode($returned);
 }
 
 //updates a already created event
