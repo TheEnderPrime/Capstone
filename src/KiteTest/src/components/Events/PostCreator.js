@@ -94,7 +94,7 @@ class PostCreator extends React.Component {
 				<View style={styles.textInput}>
 					<View style={styles.textBox}>
 						<Text style={styles.text}>
-							What is the title of your Event?
+							What is the title of your Post?
 						</Text>
 						<TextInput
 							style={styles.textBox}
@@ -109,7 +109,7 @@ class PostCreator extends React.Component {
 
 					<View style={styles.textBox}>
 						<Text style={styles.text}>
-							Tells us briefly what your event is about.
+							Tells us briefly what your post is about.
 						</Text>
 						<TextInput
 							style={styles.textBox}

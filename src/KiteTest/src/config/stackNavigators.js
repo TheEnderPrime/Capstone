@@ -95,7 +95,7 @@ export const TimelineStack = StackNavigator({
     Event: {
         screen: Event,
         navigationOptions: {
-            title: 'Event Timeline',
+            title: 'Event',
             drawerLabel: 'Home', //doesn't work yet
 			//headerLeft: drawerButton(this.props.navigation),
 			headerStyle: {
@@ -129,7 +129,26 @@ export const TimelineStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
-    }
+    },
+    PostCreator: {
+        screen: PostCreator,
+        navigationOptions: {
+            title: 'Post Creator',
+            drawerLabel: 'Home', //doesn't work yet
+			//headerLeft: drawerButton(this.props.navigation),
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
 });
 
 export const CommunityStack = StackNavigator({

@@ -50,9 +50,9 @@ class EventCreator extends React.Component {
         }).then((response) => response.json())
             .then((responseJson) => {
 
-                // If server response message same as Data Matched
+                // If server response message same as valid
                 if (responseJson.isValid === 'valid') {
-					//Alert.alert(this.state.userID);
+					
 					const eventID = responseJson.EventID;
 
 					this.props.navigation.navigate('Event', {eventID})
