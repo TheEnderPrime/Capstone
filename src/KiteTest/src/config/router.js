@@ -2,6 +2,7 @@ import React from 'react';
 import Colors from '../Colors/Colors';
 import { Text, } from 'react-native';
 import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom, } from 'react-navigation';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Splash   from '../components/Splash/Splash';
 
@@ -26,43 +27,42 @@ import {
 
 
 // - - - - - - - TABS NAVIGATION - - - - - - - - - -
-export const Tabs = TabNavigator({
-    Timeline: {
-        screen: TimelineStack,
-        navigationOptions: {
-		    tabBarLabel: 'Timeline',
-        },
+export const Tabs = TabNavigator(
+    {
+    Timeline:  { screen: TimelineStack },
+    Events:    { screen: EventsStack },
+    Community: { screen: CommunityStack }, 
+    Profile:  { screen: ProfileStack },
     },
-    Events: {
-        screen: EventsStack,
-        navigationOptions: {
-          tabBarLabel: 'Events',
+    {
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
+                const { routeName } = navigation.state;
+                let iconName;
+                if (routeName === 'Timeline') {
+                    iconName = `list${focused ? '' : ''}`;
+                } else if (routeName === 'Events') {
+                    iconName = `create${focused ? '' : ''}`;
+                } else if (routeName === 'Community') {
+                    iconName = `comment${focused ? '' : ''}`;
+                } else if (routeName === 'Profile') {
+                    iconName = `person${focused ? '' : '-outline'}`;
+                }
+
+            return <MaterialIcons name={iconName} size={25} color={tintColor} />;
+            },
+        }),
+        tabBarOptions: {
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+        
         },
-    },
-    Community: {
-        screen: CommunityStack,
-        navigationOptions: {
-            tabBarLabel: 'Community',
-        },
-    }, 
-    Profile: {
-        screen: ProfileStack,
-        navigationOptions: {
-          tabBarLabel: 'Profile',
-        },
-    },
-},
-{
-    tabBarOptions: {
-    activeTintColor: 'tomato',
-    inactiveTintColor: 'gray',
-    
-},
-    tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
-    animationEnabled: false,
-    swipeEnabled: false,
-});
+        tabBarComponent: TabBarBottom,
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
+    }
+);
 
 // - - - - - - - - - - - DRAWER NAVIAGTION - - - - - - - - - -
 //navigator for the drawer navigation

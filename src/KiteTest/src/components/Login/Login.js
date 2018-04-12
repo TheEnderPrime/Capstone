@@ -33,6 +33,4 @@ export default class Login extends Component {
 	}
 }
 
-
-
 AppRegistry.registerComponent('Login', () => Login);

@@ -55,6 +55,7 @@ class LoginForm extends React.Component {
             console.error(error);
         });
     }
+    
     render() {
         const { navigate } = this.props.navigation;
         return (
@@ -114,4 +115,5 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
 });
+
 export default LoginForm;
