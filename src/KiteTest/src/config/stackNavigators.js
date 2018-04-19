@@ -15,8 +15,9 @@ import Event                from '../components/Events/Event';
 import Posts                from '../components/Posts/Posts';
 import Community            from '../components/Community/Community';
 import Settings             from '../components/Settings/Settings';
+import ProfileSettings      from '../components/Settings_Profile/profileSettings';
 import Discover             from '../components/Discover/Discover';
-import Search             from '../components/Search/Search';
+import Search               from '../components/Search/Search';
 
 // opening stack navigator for Login/Signup pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
@@ -214,6 +215,23 @@ export const ProfileStack = StackNavigator({
             title: 'Your Events',
             drawerLabel: 'Home', //doesn't work yet
 			//headerLeft: drawerButton(this.props.navigation),
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    Settings: {
+        screen: ProfileSettings,
+        navigationOptions: {
+            title: 'Profile Settings',
 			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
