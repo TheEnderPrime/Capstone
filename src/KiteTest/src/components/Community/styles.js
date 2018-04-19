@@ -7,7 +7,9 @@ module.exports = styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
+		backgroundColor: '#A6CFBD',
+		height:null,
+    	width:null,
   	},
   	header: { 
 		flex: 2,

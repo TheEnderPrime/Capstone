@@ -217,7 +217,37 @@ export default class Community extends Component {
 			this.GatherUserInformation(this.state.userID);
 		}
 		// this.loadTimeline();
-  	}
+	  }
+	  
+	  eachTweet(x){
+		return(
+			<TouchableOpacity 
+			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
+			>
+		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+					<Image 
+						source={{
+							uri: "" === ""
+							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
+							: x.image
+						}} 
+						resizeMode="contain" 
+						style ={{height:54, width:54, borderRadius:27, margin:10}} 
+						/>
+					<View style={{flex:1}}>
+						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
+							<Text style={{fontWeight:'600', fontSize:12}}>{x.title} {x.title}</Text>
+							<Text style={{fontWeight:'500', fontSize:12}}> | @Baugh{/*{x.title}*/}</Text>
+						</View>
+						<View style={{ margin:5, marginRight:10,}}>
+							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
+						</View>
+					</View>
+				</View>
+			</TouchableOpacity>
+		)
+	}
 
   	render() {
     	return (
