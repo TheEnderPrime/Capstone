@@ -11,7 +11,10 @@ import {
   Alert,
   AsyncStorage,
 } from 'react-native';
-import { Button } from 'react-native-elements'
+import { Button } from 'react-native-elements';
+import  Icon  from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -255,6 +258,24 @@ export default class Profile extends Component {
 							<Text style={{flex: 1, fontSize: 26, color: 'white', fontFamily: 'bold'}}>
 							{this.state.firstName}
 							</Text>
+							<Button
+								title='Edit'
+								icon={
+									<Icon
+									name='create'
+									size={15}
+									color='white'
+									/>
+								}
+								buttonStyle={{
+									backgroundColor: "rgba(92, 99,216, 1)",
+									width: 80,
+									height: 40,
+									borderColor: "transparent",
+									borderWidth: 0,
+									borderRadius: 5
+								}}
+							/>
 							{/* <Text style={{flex: 0.5, fontSize: 15, color: 'gray', textAlign: 'left', marginTop: 5}}>
 							0.8 mi
 							</Text> */}
@@ -374,7 +395,7 @@ export default class Profile extends Component {
 							//   start: [1, 0],
 							//   end: [0.2, 0]
 							// }}
-							title="Message Theresa"
+							title="Expand Timeline"
 							titleStyle={{ fontFamily: 'regular', fontSize: 20, color: 'white', textAlign: 'center' }}
 							onPress={() => console.log('Message Theresa')}
 							activeOpacity={0.5}
