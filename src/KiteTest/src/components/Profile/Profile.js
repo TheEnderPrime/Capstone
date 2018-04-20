@@ -65,7 +65,6 @@ export default class Profile extends Component {
 			lastName: "",
 			email: "",
 			dateOfBirth: "",
-			//profilePic: '../../images/placeholderProfilePicture.jpg',
 			employerName: "",
 			aboutMe: "",
 			currentCity: "",
@@ -275,6 +274,7 @@ export default class Profile extends Component {
 									borderWidth: 0,
 									borderRadius: 5
 								}}
+								onPress = {() => this.props.navigation.navigate("Settings")}
 							/>
 							{/* <Text style={{flex: 0.5, fontSize: 15, color: 'gray', textAlign: 'left', marginTop: 5}}>
 							0.8 mi

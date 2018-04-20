@@ -1,7 +1,9 @@
 import React from 'react';
 import Colors from '../Colors/Colors';
-import { Text, } from 'react-native';
-import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom, } from 'react-navigation';
+import { Text, Alert, } from 'react-native';
+import { Button } from 'react-native-elements';
+import {TabNavigator, StackNavigator, DrawerNavigator, TabBarBottom, } from 'react-navigation';
+import Icon  from "react-native-vector-icons/MaterialIcons";
 
 import Splash               from '../components/Splash/Splash';
 import Welcome              from '../components/Welcome/Welcome';
@@ -16,6 +18,7 @@ import Posts                from '../components/Posts/Posts';
 import Community            from '../components/Community/Community';
 import Settings             from '../components/Settings/Settings';
 import ProfileSettings      from '../components/Settings_Profile/profileSettings';
+import CommunitySettings      from '../components/Settings_Community/communitySettings';
 import Discover             from '../components/Discover/Discover';
 import Search               from '../components/Search/Search';
 
@@ -39,38 +42,6 @@ export const WelcomeStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            title: 'Login',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
-    Signup: {
-        screen: Signup,
-        navigationOptions: {
-            title: 'Signup',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
 });
 
 export const TimelineStack = StackNavigator({
@@ -78,8 +49,7 @@ export const TimelineStack = StackNavigator({
         screen: KiteTimeline,
         navigationOptions: {
             title: 'Timeline',
-            drawerLabel: 'Home', //doesn't work yet
-			//headerLeft: drawerButton(this.props.navigation),
+            drawerLabel: 'Home',
 			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -91,14 +61,36 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => Alert.alert("You Pressed A Button!")}
+                // onPress = {() => this.props.navigation.navigate("Settings")}
+                />
+            ),
         },
     },
     Event: {
         screen: Event,
         navigationOptions: {
             title: 'Event',
-            drawerLabel: 'Home', //doesn't work yet
-			//headerLeft: drawerButton(this.props.navigation),
+            drawerLabel: 'Home',
 			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -110,6 +102,29 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => Alert.alert("You Pressed A Button!")}
+                // onPress = {() => this.props.navigation.navigate("Settings")}
+                />
+            ),
         },
     },
     Posts: {
@@ -129,6 +144,29 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => Alert.alert("You Pressed A Button!")}
+                // onPress = {() => this.props.navigation.navigate("Settings")}
+                />
+            ),
         },
     },
     PostCreator: {
@@ -168,6 +206,29 @@ export const CommunityStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => Alert.alert("You Pressed A Button!")}
+                // onPress = {() => this.props.navigation.navigate("Settings")}
+                />
+            ),
         },
     },
     Event: {
@@ -176,6 +237,46 @@ export const CommunityStack = StackNavigator({
             title: 'Community Events',
             drawerLabel: 'Home', //doesn't work yet
 			//headerLeft: drawerButton(this.props.navigation),
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => Alert.alert("You Pressed A Button!")}
+                // onPress = {() => this.props.navigation.navigate("Settings")}
+                />
+            ),
+        },
+    },
+    Settings: {
+        screen: CommunitySettings,
+        navigationOptions: {
+            title: 'Community Settings',
 			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -207,7 +308,30 @@ export const ProfileStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-        },
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => Alert.alert("You Pressed A Button!")}
+                // onPress = {() => this.props.navigation.navigate("Settings")}
+                />
+            ),
+        }, 
     },
     Event: {
         screen: Event,
@@ -226,6 +350,29 @@ export const ProfileStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => Alert.alert("You Pressed A Button!")}
+                // onPress = {() => this.props.navigation.navigate("Settings")}
+                />
+            ),
         },
     },
     Settings: {
@@ -340,6 +487,29 @@ export const EventsStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => Alert.alert("You Pressed A Button!")}
+                // onPress = {() => this.props.navigation.navigate("Settings")}
+                />
+            ),
         },
     },
     PostCreator: {

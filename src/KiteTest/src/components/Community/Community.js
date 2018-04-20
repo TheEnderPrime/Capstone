@@ -12,7 +12,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { Button } from 'react-native-elements'
-
+import  Icon  from 'react-native-vector-icons/MaterialIcons';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -274,6 +274,25 @@ export default class Community extends Component {
 							<Text style={{flex: 1, fontSize: 26, color: 'white', fontFamily: 'bold'}}>
 							{this.state.communityName}
 							</Text>
+							<Button
+								title='Edit'
+								icon={
+									<Icon
+									name='create'
+									size={15}
+									color='white'
+									/>
+								}
+								buttonStyle={{
+									backgroundColor: "rgba(92, 99,216, 1)",
+									width: 80,
+									height: 40,
+									borderColor: "transparent",
+									borderWidth: 0,
+									borderRadius: 5
+								}}
+								onPress = {() => this.props.navigation.navigate("Settings")}
+							/>
 							{/* <Text style={{flex: 0.5, fontSize: 15, color: 'gray', textAlign: 'left', marginTop: 5}}>
 							0.8 mi
 							</Text> */}
