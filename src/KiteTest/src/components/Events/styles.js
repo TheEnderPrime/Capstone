@@ -12,8 +12,8 @@ module.exports = styles = StyleSheet.create({
 	titleText: {
 		//flex: 1,
 		textAlign: 'center',
-		fontSize: 30,
-		padding: 20,
+		fontSize: 20,
+		padding: 10,
 	},
 	textInput: { 
 

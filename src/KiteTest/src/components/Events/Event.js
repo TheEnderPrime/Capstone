@@ -11,12 +11,18 @@ import {
 	Alert,
 	AsyncStorage,
 	RefreshControl,
-	ActivityIndicator
+	ActivityIndicator,
+	Dimensions,
+	ListView,
+	Image,
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview';
 import Colors from '../../Colors/Colors';
 import styles from './styles';
+
+var {height, width} = Dimensions.get('window');
+var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 class Event extends React.Component {
 
@@ -47,12 +53,13 @@ class Event extends React.Component {
 			waiting: false,
 			selected: null,
 			data: this.data,
+			dataSource: ds.cloneWithRows([]),
 		};
 	}
 
 	loadEvent = () => {
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -60,9 +67,7 @@ class Event extends React.Component {
             },
             body: JSON.stringify({
 				
-				EventID: this.state.eventID,
-
-				UserId: this.state.userID,
+				UserID: this.state.userID,
 				
             })
 
@@ -72,17 +77,17 @@ class Event extends React.Component {
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
 
+					this.setState({ isRefreshing: true });
 					this.setState({
-						eventTitle: responseJson.eventData.title,
-						eventDesc: responseJson.eventData.description,
-						data: responseJson.eventArray,
+						data: responseJson.timeline,
+						dataSource: ds.cloneWithRows(responseJson.timeline),
 						isRefreshing: false
-					})
+					});
 					//parse array from responseJson
 				
 				}
                 else {
-                    Alert.alert("responseJson.error");
+                    Alert.alert(responseJson.error);
                 }
 
             }).catch((error) => {
@@ -163,63 +168,72 @@ class Event extends React.Component {
 		this.loadEvent();
 	}
 
-	
-	render() {
-		return (
-			
-		<View style={styles.container}>
-			
-		<Text style={styles.titleText}>
-			Event Title: {this.state.eventTitle}
-		</Text>
+	eachTweet(x){
+		return(
+			<TouchableOpacity 
+			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+				onPress={() => this.props.navigation.navigate("Post", {postID: x.id})}
+			>
+		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+					<Image 
+						source={{
+							uri: "" === ""
+							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
+							: x.image
+						}} 
+						resizeMode="contain" 
+						style ={{height:54, width:54, borderRadius:27, margin:10}} 
+						/>
+					<View style={{flex:1}}>
+						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
+							<Text style={{fontWeight:'600', fontSize:12}}>{x.title} {x.title}</Text>
+							<Text style={{fontWeight:'500', fontSize:12}}> | @Baugh{/*{x.title}*/}</Text>
+						</View>
+						<View style={{ margin:5, marginRight:10,}}>
+							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
+						</View>
+					</View>
+				</View>
+			</TouchableOpacity>
+		)
+	}
 
-		<Text style={styles.titleText}>
-			Event Description: {this.state.eventDesc}
-		</Text>
-		
-		<View style={styles.postTimeline}>
-					<Timeline
-						style={styles.timelineList}
-						data={this.state.data}
-						circleSize={20}
-						circleColor='rgb(45,156,219)'
-						lineColor='rgb(45,156,219)'
-						timeContainerStyle={{minWidth:52, marginTop: -5}}
-						timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
-						descriptionStyle={{color:'gray'}}
-						timeContainerStyle={{minWidth:72}}
-						circleSize={-100}
-						showTime={false}
-						onEventPress={this.onEventPress}
-						options={{
-							refreshControl: (
-								<RefreshControl
-									refreshing={this.state.isRefreshing} 
-									onRefresh={this.onRefresh}							
-								/>
-							),
-							//renderFooter: this.renderFooter,
-							//onEndReached: this.onEndReached,
-						}}
+	
+	render() {			
+		return (
+			<View style={styles.container}>
+				<Text style={styles.titleText}>
+					Title: {this.state.eventTitle}
+				</Text>
+
+				<Text style={styles.titleText}>
+					Description: {this.state.eventDesc}
+				</Text>
 						
-						
+				<View style={styles.postTimeline}>
+					<View style={styles.container}>
+						<ListView 
+							enableEmptySections={true}
+							initialListSize={6}
+							onEndReached={() => this.onEndReached()}
+							//renderFooter={() => this.renderFooter()}
+							dataSource = {this.state.dataSource}
+							renderRow = {(rowData) => this.eachTweet(rowData)}
+						/>
+					</View>
+				</View>
+				<View style={styles.button}>
+					<Button 
+						style={buttonColor = '#78B494'} 
+						title="New Post" 
+					
+						onPress = {() => this.props.navigation.navigate('PostCreator', {eventID: this.state.eventID})}
 					/>
 				</View>
-		
-		<View style={styles.button}>
-		<Button 
-			style={buttonColor = '#78B494'} 
-			title="New Post" 
+			</View>
 			
-			onPress = {() => this.props.navigation.navigate('PostCreator', {eventID: this.state.eventID})}
-				/>
-		</View>
-	</View>
-
 		);
 	}
 }
 
-
-
-	export default Event;
+export default Event;
