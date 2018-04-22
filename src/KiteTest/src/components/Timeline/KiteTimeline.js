@@ -16,14 +16,12 @@ import {
 	Image,
 } from 'react-native';
 
-import Timeline from 'react-native-timeline-listview';
-
 import styles from './styles';
 
 var {height, width} = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-class KiteTimeline extends React.Component {
+class KiteTimeline extends Component {
 	
 	constructor(){
 		super()
@@ -154,15 +152,15 @@ class KiteTimeline extends React.Component {
 						source={{
 							uri: "" === ""
 							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-							: x.image
+							: x.ProfilePicture
 						}} 
 						resizeMode="contain" 
 						style ={{height:54, width:54, borderRadius:27, margin:10}} 
 						/>
 					<View style={{flex:1}}>
 						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{fontWeight:'600', fontSize:12}}>{x.title} {x.title}</Text>
-							<Text style={{fontWeight:'500', fontSize:12}}> | @Baugh{/*{x.title}*/}</Text>
+							<Text style={{fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
+							<Text style={{fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
 						</View>
 						<View style={{ margin:5, marginRight:10,}}>
 							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>

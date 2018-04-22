@@ -46,9 +46,8 @@ class Event extends React.Component {
 			userId: 0,
 			eventID: 0,
 			postID: 0,
-			eventTitle: "",
-			eventDesc: "",
-			eventStory: "",
+			title: "",
+			description: "",
 			isRefreshing: false,
 			waiting: false,
 			selected: null,
@@ -79,7 +78,9 @@ class Event extends React.Component {
 
 					this.setState({ isRefreshing: true });
 					this.setState({
-						data: responseJson.timeline,
+						data: responseJson.eventData,
+						// title: responseJson.title,
+						// description: responseJson.eventData.description,
 						dataSource: ds.cloneWithRows(responseJson.timeline),
 						isRefreshing: false
 					});
@@ -179,15 +180,15 @@ class Event extends React.Component {
 						source={{
 							uri: "" === ""
 							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-							: x.image
+							: x.ProfilePicture
 						}} 
 						resizeMode="contain" 
 						style ={{height:54, width:54, borderRadius:27, margin:10}} 
 						/>
 					<View style={{flex:1}}>
 						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{fontWeight:'600', fontSize:12}}>{x.title} {x.title}</Text>
-							<Text style={{fontWeight:'500', fontSize:12}}> | @Baugh{/*{x.title}*/}</Text>
+							<Text style={{fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
+							<Text style={{fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
 						</View>
 						<View style={{ margin:5, marginRight:10,}}>
 							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
@@ -203,11 +204,11 @@ class Event extends React.Component {
 		return (
 			<View style={styles.container}>
 				<Text style={styles.titleText}>
-					Title: {this.state.eventTitle}
+					Title: {this.state.title}
 				</Text>
 
 				<Text style={styles.titleText}>
-					Description: {this.state.eventDesc}
+					Description: {this.state.description}
 				</Text>
 						
 				<View style={styles.postTimeline}>

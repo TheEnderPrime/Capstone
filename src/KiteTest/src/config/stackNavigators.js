@@ -2,7 +2,7 @@ import React from 'react';
 import Colors from '../Colors/Colors';
 import { Text, Alert, } from 'react-native';
 import { Button } from 'react-native-elements';
-import {TabNavigator, StackNavigator, DrawerNavigator, TabBarBottom, } from 'react-navigation';
+import {TabNavigator, StackNavigator, DrawerNavigator, TabBarBottom, withNavigation, } from 'react-navigation';
 import Icon  from "react-native-vector-icons/MaterialIcons";
 
 import Splash               from '../components/Splash/Splash';
@@ -18,7 +18,8 @@ import Posts                from '../components/Posts/Posts';
 import Community            from '../components/Community/Community';
 import Settings             from '../components/Settings/Settings';
 import ProfileSettings      from '../components/Settings_Profile/profileSettings';
-import CommunitySettings      from '../components/Settings_Community/communitySettings';
+import CommunitySettings    from '../components/Settings_Community/communitySettings';
+import TimelineSettings     from '../components/Settings_Timeline/timelineSettings';
 import Discover             from '../components/Discover/Discover';
 import Search               from '../components/Search/Search';
 
@@ -47,10 +48,9 @@ export const WelcomeStack = StackNavigator({
 export const TimelineStack = StackNavigator({
     Timeline: {
         screen: KiteTimeline,
-        navigationOptions: {
+        navigationOptions: ( {  navigation } ) => ({
             title: 'Timeline',
-            drawerLabel: 'Home',
-			headerStyle: {
+            headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
@@ -80,18 +80,16 @@ export const TimelineStack = StackNavigator({
                     borderRadius: 5
                 }}
                 containerStyle={{ marginRight: 20 }}
-                onPress = {() => Alert.alert("You Pressed A Button!")}
-                // onPress = {() => this.props.navigation.navigate("Settings")}
+                onPress = {() => { navigation.navigate('Settings') } }
                 />
             ),
-        },
+        }), 
     },
     Event: {
         screen: Event,
-        navigationOptions: {
-            title: 'Event',
-            drawerLabel: 'Home',
-			headerStyle: {
+        navigationOptions: ( {  navigation } ) => ({
+            title: 'Timeline Event',
+            headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
@@ -121,19 +119,16 @@ export const TimelineStack = StackNavigator({
                     borderRadius: 5
                 }}
                 containerStyle={{ marginRight: 20 }}
-                onPress = {() => Alert.alert("You Pressed A Button!")}
-                // onPress = {() => this.props.navigation.navigate("Settings")}
+                onPress = {() => { navigation.navigate('Settings') } }
                 />
             ),
-        },
+        }), 
     },
     Posts: {
         screen: Posts,
-        navigationOptions: {
-            title: 'Post',
-            drawerLabel: 'Home', //doesn't work yet
-			//headerLeft: drawerButton(this.props.navigation),
-			headerStyle: {
+        navigationOptions: ( {  navigation } ) => ({
+            title: 'Posts',
+            headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
@@ -163,11 +158,10 @@ export const TimelineStack = StackNavigator({
                     borderRadius: 5
                 }}
                 containerStyle={{ marginRight: 20 }}
-                onPress = {() => Alert.alert("You Pressed A Button!")}
-                // onPress = {() => this.props.navigation.navigate("Settings")}
+                onPress = {() => { navigation.navigate('Settings') } }
                 />
             ),
-        },
+        }), 
     },
     PostCreator: {
         screen: PostCreator,
@@ -188,12 +182,29 @@ export const TimelineStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    Settings: {
+        screen: TimelineSettings,
+        navigationOptions: {
+            title: 'Timeline Settings',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
 });
 
 export const CommunityStack = StackNavigator({
     Community: {
         screen: Community,
-        navigationOptions: {
+        navigationOptions: ( {  navigation } ) => ({
             title: 'Community',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
@@ -225,19 +236,16 @@ export const CommunityStack = StackNavigator({
                     borderRadius: 5
                 }}
                 containerStyle={{ marginRight: 20 }}
-                onPress = {() => Alert.alert("You Pressed A Button!")}
-                // onPress = {() => this.props.navigation.navigate("Settings")}
+                onPress = {() => { navigation.navigate('Settings') } }
                 />
             ),
-        },
+        }), 
     },
     Event: {
         screen: Event,
-        navigationOptions: {
-            title: 'Community Events',
-            drawerLabel: 'Home', //doesn't work yet
-			//headerLeft: drawerButton(this.props.navigation),
-			headerStyle: {
+        navigationOptions: ( {  navigation } ) => ({
+            title: 'Event',
+            headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
             headerTitleStyle: {
@@ -267,11 +275,10 @@ export const CommunityStack = StackNavigator({
                     borderRadius: 5
                 }}
                 containerStyle={{ marginRight: 20 }}
-                onPress = {() => Alert.alert("You Pressed A Button!")}
-                // onPress = {() => this.props.navigation.navigate("Settings")}
+                onPress = {() => { navigation.navigate('Settings') } }
                 />
             ),
-        },
+        }), 
     },
     Settings: {
         screen: CommunitySettings,
@@ -295,7 +302,7 @@ export const CommunityStack = StackNavigator({
 export const ProfileStack = StackNavigator({
     Profile: {
         screen: Profile,
-        navigationOptions: {
+        navigationOptions: ( {  navigation } ) => ({
             title: 'Profile',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
@@ -327,15 +334,14 @@ export const ProfileStack = StackNavigator({
                     borderRadius: 5
                 }}
                 containerStyle={{ marginRight: 20 }}
-                onPress = {() => Alert.alert("You Pressed A Button!")}
-                // onPress = {() => this.props.navigation.navigate("Settings")}
+                onPress = {() => { navigation.navigate('Settings') } }
                 />
             ),
-        }, 
+        }), 
     },
     Event: {
         screen: Event,
-        navigationOptions: {
+        navigationOptions: ( {  navigation } ) => ({
             title: 'Your Events',
             drawerLabel: 'Home', //doesn't work yet
 			//headerLeft: drawerButton(this.props.navigation),
@@ -369,11 +375,10 @@ export const ProfileStack = StackNavigator({
                     borderRadius: 5
                 }}
                 containerStyle={{ marginRight: 20 }}
-                onPress = {() => Alert.alert("You Pressed A Button!")}
-                // onPress = {() => this.props.navigation.navigate("Settings")}
+                onPress = {() =>  { navigation.navigate('Settings') } }
                 />
             ),
-        },
+        }),
     },
     Settings: {
         screen: ProfileSettings,
@@ -506,8 +511,7 @@ export const EventsStack = StackNavigator({
                     borderRadius: 5
                 }}
                 containerStyle={{ marginRight: 20 }}
-                onPress = {() => Alert.alert("You Pressed A Button!")}
-                // onPress = {() => this.props.navigation.navigate("Settings")}
+                onPress = {() => navigation.navigate("Settings")}
                 />
             ),
         },
