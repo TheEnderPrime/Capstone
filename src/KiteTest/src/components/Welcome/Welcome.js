@@ -62,12 +62,6 @@ export default class Login extends Component {
 	}
 
 	async componentDidMount() {
-		// await Font.loadAsync({
-		//   'georgia': require('../../../assets/fonts/Georgia.ttf'),
-		//   'regular': require('../../../assets/fonts/Montserrat-Regular.ttf'),
-		//   'light': require('../../../assets/fonts/Montserrat-Light.ttf'),
-		// });
-
 		this.setState({ fontLoaded: true });
 	}
 
@@ -351,7 +345,7 @@ export default class Login extends Component {
 						titleStyle={{ color: "white" }}
 						buttonStyle={{ backgroundColor: "transparent" }}
 						underlayColor="transparent"
-						onPress={() => navigate('Drawers')}
+						onPress={() => navigate('Drawers')} //THIS NEEDS TO BE TAKEN OUT AS IT ALLOWS USERS TO GET INTO THE APP WITHOUT LOGGIN IN - ONLY USED FOR DEVELOPMENT
 						/>
 					</View>
 				</View>

@@ -14,7 +14,7 @@ import {
 import SettingsList from 'react-native-settings-list';
 import styles from './styles';
 
-export default class profileSettings extends Component {
+export default class passwordSettings extends Component {
 
     constructor() {
         super();
@@ -35,32 +35,19 @@ export default class profileSettings extends Component {
                 <SettingsList.Header headerStyle={{marginTop:15}}/>
                 <SettingsList.Item
                 icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Email'
-                onPress={() => this.props.navigation.navigate('EmailSettings')}
-                />
-                <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
                 title='Password'
                 titleInfo=''
                 titleInfoStyle={styles.titleInfoStyle}
-                onPress={() => this.props.navigation.navigate('PasswordSettings')}
+                onPress={() => Alert.alert('Route to Password Page')}
                 />
                 <SettingsList.Header headerStyle={{marginTop:15}}/>
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Profile Picture'
-                onPress={() =>this.props.navigation.navigate('ProfilePictureSettings')}
-                />
-                <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Personal Information'
-                onPress={() => this.props.navigation.navigate('PersonalInfoSettings')}
-                />
-                <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Followers & Following'
-                onPress={() => this.props.navigation.navigate('FollowingSettings')}
-                />
+								id="firstName"
+								title='First Name'
+								isEditable={true}
+								value={"this.state.firstName.toString()"}
+								onTextChange={(text) => this.setState({ stages: text })}
+							/>
             </SettingsList>
             </View>
         </View>

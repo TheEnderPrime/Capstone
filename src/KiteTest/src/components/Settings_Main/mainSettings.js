@@ -14,7 +14,7 @@ import {
 import SettingsList from 'react-native-settings-list';
 import styles from './styles';
 
-class Settings extends React.Component {
+export default class mainSettings extends Component {
 
 	constructor() {
 		super();
@@ -148,124 +148,33 @@ class Settings extends React.Component {
 			<View style={{ backgroundColor: 'gray', flex: 1 }}>
 				<View style={{ flex: 1, marginTop: 10 }}>
 					<SettingsList>
-
-			{/* PERSONAL INFO */}
-						<SettingsList.Header headerText='Personal Information' headerStyle={{ color: 'white' }} />
-							<SettingsList.Item
-								id="firstName"
-								title='First Name'
-								isEditable={true}
-								value={this.state.firstName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="lastName"
-								title='Last Name'
-								isEditable={true}
-								value={this.state.lastName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="email"
-								title='Email'
-								isEditable={true}
-								value={this.state.email.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="dateOfBirth"
-								title='Date of Birth'
-								isEditable={true}
-								value={this.state.dateOfBirth.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="employerName"
-								title='Employer Name'
-								isEditable={true}
-								value={this.state.employerName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="aboutMe"
-								title='About Me'
-								isEditable={true}
-								value={this.state.aboutMe.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="currentCity"
-								title='Current City'
-								isEditable={true}
-								value={this.state.currentCity.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="currentStateOrProvince"
-								title='Current State or Province'
-								isEditable={true}
-								value={this.state.currentStateOrProvence.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="currentCountry"
-								title='Current Country'
-								isEditable={true}
-								value={this.state.currentCountry.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="cellPhone"
-								title='Cell Phone'
-								isEditable={true}
-								value={this.state.cellPhone.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="homePhone"
-								title='Home Phone'
-								isEditable={true}
-								value={this.state.homePhone.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
 			{/* PRIVACY SETTINGS */}			
 						<SettingsList.Header headerText='Privacy Settings' headerStyle={{ color: 'white', marginTop: 20 }} />
 							
-			{/* LOGIN SETTINGS */}				
-						<SettingsList.Header headerText='Login Settings' headerStyle={{ color: 'white', marginTop: 20 }} />
 						<SettingsList.Item
-								id="cellPhone"
-								title='Change Password'
-								isEditable={true}
-								value={this.state.cellPhone.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-
-			{/* FOLLOWIN AND FOLLOWERS SETTINGS */}
-						<SettingsList.Header headerText='Following and Followers Settings' headerStyle={{ color: 'white', marginTop: 20 }} />
-							<SettingsList.Item titleInfo='Some Information' hasNavArrow={false} title='Information Example' />
-							<SettingsList.Item title='Settings 1' />
-							<SettingsList.Item title='Settings 2' />
-							<SettingsList.Item
-								id="stages"
-								title='stages'
-								isEditable={true}
-								value={this.state.stages.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>	
-							
-			{/* COMMUNITIES SETTINGS */}				
-						<SettingsList.Header headerText='Communities Settings' headerStyle={{ color: 'white', marginTop: 20 }} />
-							<SettingsList.Item titleInfo='Some Information' hasNavArrow={false} title='Information Example' />
-							<SettingsList.Item title='Settings 1' />
-							<SettingsList.Item title='Settings 2' />
-							<SettingsList.Item
-								id="stages"
-								title='stages'
-								isEditable={true}
-								value={this.state.stages.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>	
+						icon={
+							<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>
+						}
+						hasSwitch={true}
+						switchState={this.state.switchValue}
+						switchOnValueChange={this.onValueChange}
+						hasNavArrow={false}
+						title='Who Can Join'
+						/>
+						<SettingsList.Item
+						icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+						title='Who Can See'
+						titleInfo='Bill Wi The Science Fi'
+						titleInfoStyle={styles.titleInfoStyle}
+						onPress={() => Alert.alert('Route to Wifi Page')}
+						/>
+						<SettingsList.Item
+						icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+						title='Admins'
+						titleInfo='Off'
+						titleInfoStyle={styles.titleInfoStyle}
+						onPress={() => Alert.alert('Route to Blutooth Page')}
+						/>
 					</SettingsList>
 
 
@@ -277,7 +186,3 @@ class Settings extends React.Component {
 		this.setState({ switchValue: value });
 	}
 }
-
-
-
-export default Settings;

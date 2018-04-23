@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Colors from '../../Colors/Colors';
 
 module.exports = styles = StyleSheet.create({	

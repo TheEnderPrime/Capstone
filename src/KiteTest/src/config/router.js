@@ -3,8 +3,8 @@ import Colors from '../Colors/Colors';
 import { Text, } from 'react-native';
 import {TabNavigator, StackNavigator, DrawerNavigator, Button, TabBarBottom, } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 import Splash   from '../components/Splash/Splash';
+import Logout   from '../components/Logout/Logout';
 
 import { 
     WelcomeStack, 
@@ -17,6 +17,7 @@ import {
     NotificationStack, 
     DiscoverStack,
     SearchStack,
+    ProfileSettingsStack,
  } from './stackNavigators';
 
 
@@ -32,7 +33,7 @@ export const Tabs = TabNavigator(
     Timeline:  { screen: TimelineStack },
     Events:    { screen: EventsStack },
     Community: { screen: CommunityStack }, 
-    Profile:  { screen: ProfileStack },
+    Profile:   { screen: ProfileStack },
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -82,6 +83,9 @@ export const Drawers = DrawerNavigator({
 	Settings: {
 		screen: SettingsStack,
     },
+    Logout: {
+        screen: Logout,
+    }
 });
 
 // - - - - - - - - - - - - - - MAIN NAVIGATOR - - - - - - - - - - - - -

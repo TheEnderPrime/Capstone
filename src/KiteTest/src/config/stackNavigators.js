@@ -2,26 +2,37 @@ import React from 'react';
 import Colors from '../Colors/Colors';
 import { Text, Alert, } from 'react-native';
 import { Button } from 'react-native-elements';
-import {TabNavigator, StackNavigator, DrawerNavigator, TabBarBottom, withNavigation, } from 'react-navigation';
+import { TabNavigator, StackNavigator, DrawerNavigator, TabBarBottom, withNavigation, } from 'react-navigation';
 import Icon  from "react-native-vector-icons/MaterialIcons";
 
-import Splash               from '../components/Splash/Splash';
-import Welcome              from '../components/Welcome/Welcome';
-import Login                from '../components/Login/Login';
-import Signup               from '../components/Signup/Signup';
-import KiteTimeline         from '../components/Timeline/KiteTimeline';
-import Profile              from '../components/Profile/Profile';
-import PostCreator          from '../components/Events/PostCreator';
-import EventCreator         from '../components/Events/EventCreator';
-import Event                from '../components/Events/Event';
-import Posts                from '../components/Posts/Posts';
-import Community            from '../components/Community/Community';
-import Settings             from '../components/Settings/Settings';
-import ProfileSettings      from '../components/Settings_Profile/profileSettings';
-import CommunitySettings    from '../components/Settings_Community/communitySettings';
-import TimelineSettings     from '../components/Settings_Timeline/timelineSettings';
-import Discover             from '../components/Discover/Discover';
-import Search               from '../components/Search/Search';
+import Splash                 from '../components/Splash/Splash';
+import Welcome                from '../components/Welcome/Welcome';
+import Login                  from '../components/Login/Login';
+import Signup                 from '../components/Signup/Signup';
+import KiteTimeline           from '../components/Timeline/KiteTimeline';
+import Profile                from '../components/Profile/Profile';
+import Community              from '../components/Community/Community';
+import Discover               from '../components/Discover/Discover';
+import Search                 from '../components/Search/Search';
+
+import PostCreator            from '../components/Events/PostCreator';
+import EventCreator           from '../components/Events/EventCreator';
+import Events                 from '../components/Events/Event';
+import Posts                  from '../components/Posts/Posts';
+
+import MainSettings           from '../components/Settings_Main/mainSettings';
+
+import ProfileSettings        from '../components/Settings_Profile/profileSettings';
+import EmailSettings          from '../components/Settings_Profile/emailSettings';
+import PasswordSettings       from '../components/Settings_Profile/passwordSettings';
+import ProfilePictureSettings from '../components/Settings_Profile/profilePictureSettings';
+import PersonalInfoSettings   from '../components/Settings_Profile/personalInfoSettings';
+import FollowingSettings      from '../components/Settings_Profile/followingSettings';
+
+import CommunitySettings      from '../components/Settings_Community/communitySettings';
+
+import TimelineSettings       from '../components/Settings_Timeline/timelineSettings';
+
 
 // opening stack navigator for Login/Signup pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
@@ -61,32 +72,32 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            headerRight: (
-                <Button
-                title=''
-                icon={
-                    <Icon
-                    name='create'
-                    size={15}
-                    color='white'
-                    />
-                }
-                buttonStyle={{
-                    backgroundColor: "rgba(92, 99,216, 1)",
-                    width: 40,
-                    height: 40,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 5
-                }}
-                containerStyle={{ marginRight: 20 }}
-                onPress = {() => { navigation.navigate('Settings') } }
-                />
-            ),
+            // headerRight: (
+            //     <Button
+            //     title=''
+            //     icon={
+            //         <Icon
+            //         name='create'
+            //         size={15}
+            //         color='white'
+            //         />
+            //     }
+            //     buttonStyle={{
+            //         backgroundColor: "rgba(92, 99,216, 1)",
+            //         width: 40,
+            //         height: 40,
+            //         borderColor: "transparent",
+            //         borderWidth: 0,
+            //         borderRadius: 5
+            //     }}
+            //     containerStyle={{ marginRight: 20 }}
+            //     onPress = {() => { navigation.navigate('Settings') } }
+            //     />
+            // ),
         }), 
     },
     Event: {
-        screen: Event,
+        screen: Events,
         navigationOptions: ( {  navigation } ) => ({
             title: 'Timeline Event',
             headerStyle: {
@@ -100,28 +111,28 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            headerRight: (
-                <Button
-                title=''
-                icon={
-                    <Icon
-                    name='create'
-                    size={15}
-                    color='white'
-                    />
-                }
-                buttonStyle={{
-                    backgroundColor: "rgba(92, 99,216, 1)",
-                    width: 40,
-                    height: 40,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 5
-                }}
-                containerStyle={{ marginRight: 20 }}
-                onPress = {() => { navigation.navigate('Settings') } }
-                />
-            ),
+            // headerRight: (
+            //     <Button
+            //     title=''
+            //     icon={
+            //         <Icon
+            //         name='create'
+            //         size={15}
+            //         color='white'
+            //         />
+            //     }
+            //     buttonStyle={{
+            //         backgroundColor: "rgba(92, 99,216, 1)",
+            //         width: 40,
+            //         height: 40,
+            //         borderColor: "transparent",
+            //         borderWidth: 0,
+            //         borderRadius: 5
+            //     }}
+            //     containerStyle={{ marginRight: 20 }}
+            //     onPress = {() => { navigation.navigate('Settings') } }
+            //     />
+            // ),
         }), 
     },
     Posts: {
@@ -139,28 +150,28 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            headerRight: (
-                <Button
-                title=''
-                icon={
-                    <Icon
-                    name='create'
-                    size={15}
-                    color='white'
-                    />
-                }
-                buttonStyle={{
-                    backgroundColor: "rgba(92, 99,216, 1)",
-                    width: 40,
-                    height: 40,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 5
-                }}
-                containerStyle={{ marginRight: 20 }}
-                onPress = {() => { navigation.navigate('Settings') } }
-                />
-            ),
+            // headerRight: (
+            //     <Button
+            //     title=''
+            //     icon={
+            //         <Icon
+            //         name='create'
+            //         size={15}
+            //         color='white'
+            //         />
+            //     }
+            //     buttonStyle={{
+            //         backgroundColor: "rgba(92, 99,216, 1)",
+            //         width: 40,
+            //         height: 40,
+            //         borderColor: "transparent",
+            //         borderWidth: 0,
+            //         borderRadius: 5
+            //     }}
+            //     containerStyle={{ marginRight: 20 }}
+            //     onPress = {() => { navigation.navigate('Settings') } }
+            //     />
+            // ),
         }), 
     },
     PostCreator: {
@@ -169,23 +180,6 @@ export const TimelineStack = StackNavigator({
             title: 'Post Creator',
             drawerLabel: 'Home', //doesn't work yet
 			//headerLeft: drawerButton(this.props.navigation),
-			headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                alignSelf: 'center',
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
-    Settings: {
-        screen: TimelineSettings,
-        navigationOptions: {
-            title: 'Timeline Settings',
 			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -242,7 +236,7 @@ export const CommunityStack = StackNavigator({
         }), 
     },
     Event: {
-        screen: Event,
+        screen: Events,
         navigationOptions: ( {  navigation } ) => ({
             title: 'Event',
             headerStyle: {
@@ -340,7 +334,7 @@ export const ProfileStack = StackNavigator({
         }), 
     },
     Event: {
-        screen: Event,
+        screen: Events,
         navigationOptions: ( {  navigation } ) => ({
             title: 'Your Events',
             drawerLabel: 'Home', //doesn't work yet
@@ -397,6 +391,91 @@ export const ProfileStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    EmailSettings: {
+        screen: EmailSettings,
+        navigationOptions: {
+            title: 'Profile Settings - Email',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PasswordSettings: {
+        screen: PasswordSettings,
+        navigationOptions: {
+            title: 'Profile Settings - Password',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    ProfilePictureSettings: {
+        screen: ProfilePictureSettings,
+        navigationOptions: {
+            title: 'Profile Settings - Profile Picture',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PersonalInfoSettings: {
+        screen: PersonalInfoSettings,
+        navigationOptions: {
+            title: 'Profile Settings - Personal Info',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    FollowingSettings: {
+        screen: FollowingSettings,
+        navigationOptions: {
+            title: 'Profile Settings - Following & Followers',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
 });
 
 export const PostStack = StackNavigator({
@@ -439,11 +518,11 @@ export const NotificationStack = StackNavigator({
     },
 });
 
-export const SettingsStack = StackNavigator({
+export const SettingsStack = StackNavigator({ //doesn't get called if on another stack with a setting's page
     Settings: {
-        screen: Settings,
+        screen: MainSettings,
         navigationOptions: {
-            title: 'Settings',
+            title: 'App Settings',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -478,7 +557,7 @@ export const EventsStack = StackNavigator({
         },
     },
     Event: {
-        screen: Event,
+        screen: Events,
         navigationOptions: {
             title: 'Event',
             headerStyle: {

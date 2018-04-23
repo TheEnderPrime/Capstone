@@ -8,29 +8,28 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
+  AsyncStorage,
 } from 'react-native';
 
 import styles from './styles';
-import{ Root, Tabs, WelcomeStack } from '../../config/router'; //eventually should call WelcomeStack
 
-export default class Splash extends Component {
+export default class Logout extends Component {
 	constructor(){
 		super()
-		this.state={
-			showMe:true
-		}
+		this.state={}
 	}
 	componentWillMount(){
 		setTimeout(() => {
 			this.props.navigation.navigate('WelcomeStack')
-		},750)
+        },750)
+        AsyncStorage.setItem('userID', null);
 	}
 	
   render() {
     return (
     	<View style={styles.container}>
 	  		<View style={styles.logo}>
-				<Text style={styles.logoText}>Kite</Text>
+				<Text style={styles.logoText}>Bye! Hope to see you soon!</Text>
 			</View>
     	</View>
     );
