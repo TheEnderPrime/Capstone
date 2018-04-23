@@ -26,6 +26,12 @@ export default class emailSettings extends Component {
         this.setState({switchValue: value});
     }
 
+    componentWillMount() {
+    const { params } = this.props.navigation.state;
+    const email = params ? params.email : null;
+    this.setState({"email": email});
+    }
+
     render() {
         var bgColor = '#DCE3F4';
         return (

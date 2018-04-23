@@ -24,7 +24,33 @@ export default class personalInfoSettings extends Component {
 
     onValueChange(value){
         this.setState({switchValue: value});
-    }
+	}
+
+	componentWillMount() {
+		const { params } = this.props.navigation.state;
+		const firstName = params ? params.firstName : null;
+		const lastName = params ? params.lastName : null;
+		const dateOfBirth = params ? params.dateOfBirth : null;
+		const employerName = params ? params.employerName : null;
+		const aboutMe = params ? params.aboutMe : null;
+		const currentCity = params ? params.currentCity : null;
+		const currentCountry = params ? params.currentCountry : null;
+		const currentStateOrProvence = params ? params.currentStateOrProvence : null;
+		const cellPhone = params ? params.cellPhone : null;
+		const homePhone = params ? params.homePhone : null;
+		const dateAdded = params ? params.dateAdded : null;
+		this.setState({"firstName": responseJson.firstName});
+		this.setState({"lastName": responseJson.lastName});
+		this.setState({"dateOfBirth": responseJson.dateOfBirth});
+		this.setState({"employerName": responseJson.employerName});
+		this.setState({"aboutMe": responseJson.aboutMe});
+		this.setState({"currentCity": responseJson.currentCity});
+		this.setState({"currentStateOrProvence": responseJson.currentStateOrProvence});
+		this.setState({"currentCountry": responseJson.currentCountry});
+		this.setState({"cellPhone": responseJson.cellPhone});
+		this.setState({"homePhone": responseJson.homePhone});
+		this.setState({"dateAdded": responseJson.dateAdded});
+	}
 
     render() {
         var bgColor = '#DCE3F4';

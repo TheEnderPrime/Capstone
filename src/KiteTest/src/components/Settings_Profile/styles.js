@@ -46,5 +46,17 @@ module.exports = styles = StyleSheet.create({
 	titleInfoStyle:{
 		fontSize:16,
 		color: '#8e8e93'
-	} 
+	},
+	image: {
+		height: 200,
+		resizeMode: 'contain',
+	  },
+	  upload: {
+		textAlign: 'center',
+		color: '#333333',
+		padding: 10,
+		marginBottom: 5,
+		borderWidth: 1,
+		borderColor: 'gray'
+	  },
 });

@@ -26,6 +26,12 @@ export default class passwordSettings extends Component {
         this.setState({switchValue: value});
     }
 
+    componentWillMount() {
+        const { params } = this.props.navigation.state;
+        const password = params ? params.password : null;
+        this.setState({"password": password});
+        }
+
     render() {
         var bgColor = '#DCE3F4';
         return (

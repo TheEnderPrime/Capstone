@@ -26,6 +26,14 @@ export default class followingSettings extends Component {
         this.setState({switchValue: value});
     }
 
+    componentWillMount() {
+        const { params } = this.props.navigation.state;
+        const numOfFollowers = params ? params.numOfFollowers : null;
+        const numOfFollowing = params ? params.numOfFollowing : null;
+        this.setState({"numOfFollowers": numOfFollowers});
+        this.setState({"numOfFollowing": numOfFollowing});
+    }
+
     render() {
         var bgColor = '#DCE3F4';
         return (
