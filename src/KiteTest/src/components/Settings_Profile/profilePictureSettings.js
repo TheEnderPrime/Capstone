@@ -33,33 +33,33 @@ import styles from './styles';
 // window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 // window.Blob = Blob
 
-// const uploadImage = (uri, mime = 'application/octet-stream') => {
-//   return new Promise((resolve, reject) => {
-//     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
-//     const sessionId = new Date().getTime()
-//     let uploadBlob = null
-//     const imageRef = storage.ref('images').child(`${sessionId}`)
+const uploadImage = (uri, mime = 'application/octet-stream') => {
+  return new Promise((resolve, reject) => {
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+    const sessionId = new Date().getTime()
+    let uploadBlob = null
+    const imageRef = storage.ref('images').child(`${sessionId}`)
 
-//     fs.readFile(uploadUri, 'base64')
-//       .then((data) => {
-//         return Blob.build(data, { type: `${mime};BASE64` })
-//       })
-//       .then((blob) => {
-//         uploadBlob = blob
-//         return imageRef.put(blob, { contentType: mime })
-//       })
-//       .then(() => {
-//         uploadBlob.close()
-//         return imageRef.getDownloadURL()
-//       })
-//       .then((url) => {
-//         resolve(url)
-//       })
-//       .catch((error) => {
-//         reject(error)
-//     })
-//   })
-// }
+    fs.readFile(uploadUri, 'base64')
+      .then((data) => {
+        return Blob.build(data, { type: `${mime};BASE64` })
+      })
+      .then((blob) => {
+        uploadBlob = blob
+        return imageRef.put(blob, { contentType: mime })
+      })
+      .then(() => {
+        uploadBlob.close()
+        return imageRef.getDownloadURL()
+      })
+      .then((url) => {
+        resolve(url)
+      })
+      .catch((error) => {
+        reject(error)
+    })
+  })
+}
 
 export default class profilePictureSettings extends Component {
 
@@ -78,20 +78,32 @@ export default class profilePictureSettings extends Component {
         return (
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>
-            <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-                <SettingsList.Header headerStyle={{marginTop:15}}/>
-                <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Profile Picture'
-                onPress={() => Alert.alert('Route To Notifications Page')}
-                />
-            </SettingsList>
 
-            {/* <TouchableOpacity onPress={ () => this._pickImage() }>
+            <TouchableOpacity onPress={ () => this._pickImage() }>
                 <Text style={ styles.upload }>
                     Upload
                 </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
+            
+            <Button
+				title='Apply'
+				// icon={
+				// 	<Icon
+				// 	name='create'
+				// 	size={15}
+				// 	color='white'
+				// 	/>
+				// }
+				buttonStyle={{
+					backgroundColor: "rgba(92, 99,216, 1)",
+					width: 80,
+					height: 40,
+					borderColor: "transparent",
+					borderWidth: 0,
+					borderRadius: 5
+				}}
+				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+			/>
             </View>
         </View>
         );

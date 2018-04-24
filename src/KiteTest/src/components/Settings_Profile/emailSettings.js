@@ -28,7 +28,7 @@ export default class emailSettings extends Component {
 
     componentWillMount() {
     const { params } = this.props.navigation.state;
-    const email = params ? params.email : null;
+    const email = params ? params.email : "null";
     this.setState({"email": email});
     }
 
@@ -37,21 +37,35 @@ export default class emailSettings extends Component {
         return (
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>
-            <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-                <SettingsList.Header headerStyle={{marginTop:15}}/>
+            <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>    
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Email'
-                onPress={() => Alert.alert('Route To Email Page')}
-                />
-                <SettingsList.Item
-								id="firstName"
-								title='First Name'
-								isEditable={true}
-								value={"this.state.firstName.toString()"}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
+					id="email"
+					title='Email'
+					isEditable={true}
+					value={this.state.email.toString()}
+					onTextChange={(text) => this.setState({ stages: text })}
+				/>
             </SettingsList>
+
+            <Button
+				title='Apply'
+				// icon={
+				// 	<Icon
+				// 	name='create'
+				// 	size={15}
+				// 	color='white'
+				// 	/>
+				// }
+				buttonStyle={{
+					backgroundColor: "rgba(92, 99,216, 1)",
+					width: 80,
+					height: 40,
+					borderColor: "transparent",
+					borderWidth: 0,
+					borderRadius: 5
+				}}
+				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+			/>
             </View>
         </View>
         );

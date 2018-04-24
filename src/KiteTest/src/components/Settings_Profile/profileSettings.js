@@ -20,7 +20,10 @@ export default class profileSettings extends Component {
     constructor() {
         super();
         this.onValueChange = this.onValueChange.bind(this);
-        this.state = {switchValue: false};
+        this.state = {
+            switchValue: false,
+            password: "Hot Mama"
+        };
     }
 
     onValueChange(value){
@@ -64,6 +67,12 @@ export default class profileSettings extends Component {
 			});
 	}
 
+    setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
     async componentWillMount() {
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
@@ -78,7 +87,7 @@ export default class profileSettings extends Component {
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-                <SettingsList.Header headerStyle={{marginTop:15}}/>
+                <SettingsList.Header/>
                 <SettingsList.Item
                 icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
                 title='Email'
@@ -89,7 +98,7 @@ export default class profileSettings extends Component {
                 title='Password'
                 titleInfo=''
                 titleInfoStyle={styles.titleInfoStyle}
-                onPress={() => this.props.navigation.navigate('PasswordSettings', {})} //Need password to be sent, do it in PasswordSettings???
+                onPress={() => this.props.navigation.navigate('PasswordSettings', {password: this.state.password})} //Need password to be sent, do it in PasswordSettings???
                 />
                 <SettingsList.Header headerStyle={{marginTop:15}}/>
                 <SettingsList.Item
@@ -100,12 +109,25 @@ export default class profileSettings extends Component {
                 <SettingsList.Item
                 icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
                 title='Personal Information'
-                onPress={() => this.props.navigation.navigate('PersonalInfoSettings', {firstName: this.state.firstName, lastName: this.state.lastName, dateOfBirth: this.state.dateOfBirth, employerName: this.state.employerName, aboutMe: this.state.aboutMe, currentCity: this.state.currentCity, currentStateOrProvence: this.state.currentStateOrProvence, currentCountry: this.state.currentCountry, cellPhone: this.state.cellPhone, homePhone: this.state.homePhone, dateAdded: this.state.dateAdded})}
+                onPress={() => this.props.navigation.navigate('PersonalInfoSettings', 
+                    {
+                        firstName: this.state.firstName, 
+                        lastName: this.state.lastName, 
+                        dateOfBirth: this.state.dateOfBirth, 
+                        employerName: this.state.employerName, 
+                        aboutMe: this.state.aboutMe, 
+                        currentCity: this.state.currentCity, 
+                        currentStateOrProvence: this.state.currentStateOrProvence, 
+                        currentCountry: this.state.currentCountry, 
+                        cellPhone: this.state.cellPhone, 
+                        homePhone: this.state.homePhone, 
+                        dateAdded: this.state.dateAdded
+                    })}
                 />
                 <SettingsList.Item
                 icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
                 title='Followers & Following'
-                onPress={() => this.props.navigation.navigate('FollowingSettings', {numOfFollowers: this.state.numOfFollowers, numOfFollowing: this.state.numOfFollowing})}
+                onPress={() => this.props.navigation.navigate('FollowingSettings', {numOfFollowers: this.state.numOfFollowers, numOfFollowing: this.state.numOfFollowing})} //Need numbers to be sent, do it in FollowingSettings???
                 />
             </SettingsList>
             </View>

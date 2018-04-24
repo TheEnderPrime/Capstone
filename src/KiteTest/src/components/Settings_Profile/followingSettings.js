@@ -28,8 +28,8 @@ export default class followingSettings extends Component {
 
     componentWillMount() {
         const { params } = this.props.navigation.state;
-        const numOfFollowers = params ? params.numOfFollowers : null;
-        const numOfFollowing = params ? params.numOfFollowing : null;
+        const numOfFollowers = params.numOfFollowers ? params.numOfFollowers : "null";
+        const numOfFollowing = params.numOfFollowing ? params.numOfFollowing : "null";
         this.setState({"numOfFollowers": numOfFollowers});
         this.setState({"numOfFollowing": numOfFollowing});
     }
@@ -40,7 +40,9 @@ export default class followingSettings extends Component {
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-                <SettingsList.Header headerStyle={{marginTop:15}}/>
+            <Text>numOfFollowers: {this.state.numOfFollowers}</Text>
+            <Text>numOfFollowing: {this.state.numOfFollowing}</Text>
+                <SettingsList.Header/>
                 
                 <SettingsList.Item
                 icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
@@ -48,6 +50,25 @@ export default class followingSettings extends Component {
                 onPress={() => Alert.alert('Route To Do Not Disturb Page')}
                 />
             </SettingsList>
+            <Button
+				title='Apply'
+				// icon={
+				// 	<Icon
+				// 	name='create'
+				// 	size={15}
+				// 	color='white'
+				// 	/>
+				// }
+				buttonStyle={{
+					backgroundColor: "rgba(92, 99,216, 1)",
+					width: 80,
+					height: 40,
+					borderColor: "transparent",
+					borderWidth: 0,
+					borderRadius: 5
+				}}
+				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+			/>
             </View>
         </View>
         );

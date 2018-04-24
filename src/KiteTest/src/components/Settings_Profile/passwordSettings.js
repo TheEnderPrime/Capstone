@@ -28,7 +28,7 @@ export default class passwordSettings extends Component {
 
     componentWillMount() {
         const { params } = this.props.navigation.state;
-        const password = params ? params.password : null;
+        const password = params.password ? params.password : "null";
         this.setState({"password": password});
         }
 
@@ -38,23 +38,33 @@ export default class passwordSettings extends Component {
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-                <SettingsList.Header headerStyle={{marginTop:15}}/>
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Password'
-                titleInfo=''
-                titleInfoStyle={styles.titleInfoStyle}
-                onPress={() => Alert.alert('Route to Password Page')}
-                />
-                <SettingsList.Header headerStyle={{marginTop:15}}/>
-                <SettingsList.Item
-								id="firstName"
-								title='First Name'
-								isEditable={true}
-								value={"this.state.firstName.toString()"}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
+                    id="password"
+                    title='Password'
+                    isEditable={true}
+                    value={this.state.password.toString()}
+                    onTextChange={(text) => this.setState({ stages: text })}
+				/>
             </SettingsList>
+            <Button
+				title='Apply'
+				// icon={
+				// 	<Icon
+				// 	name='create'
+				// 	size={15}
+				// 	color='white'
+				// 	/>
+				// }
+				buttonStyle={{
+					backgroundColor: "rgba(92, 99,216, 1)",
+					width: 80,
+					height: 40,
+					borderColor: "transparent",
+					borderWidth: 0,
+					borderRadius: 5
+				}}
+				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+			/>
             </View>
         </View>
         );
