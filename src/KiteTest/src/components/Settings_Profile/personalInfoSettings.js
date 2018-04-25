@@ -26,7 +26,80 @@ export default class personalInfoSettings extends Component {
         this.setState({switchValue: value});
 	}
 
-	componentWillMount() {
+	GatherUserInformation = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+		
+				UserID: this.state.userID,
+		
+			})
+		}).then((response) => response.json())
+			.then((responseJson) => {
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
+					this.setState({"firstName": responseJson.firstName});
+					this.setState({"lastName": responseJson.lastName});
+					this.setState({"email": responseJson.email});
+					this.setState({"dateOfBirth": responseJson.dateOfBirth});
+					this.setState({"employerName": responseJson.employerName});
+					this.setState({"aboutMe": responseJson.aboutMe});
+					this.setState({"currentCity": responseJson.currentCity});
+					this.setState({"currentStateOrProvence": responseJson.currentStateOrProvence});
+					this.setState({"currentCountry": responseJson.currentCountry});
+					this.setState({"cellPhone": responseJson.cellPhone});
+					this.setState({"homePhone": responseJson.homePhone});
+					this.setState({"dateAdded": responseJson.dateAdded});
+				}
+				else {
+					Alert.alert(responseJson);
+				}
+			}).catch((error) => {
+				console.error(error);
+			});
+	}
+	
+	UpdateUserInformation = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+		
+				UserID: this.state.userID,
+
+				email: this.state.email,
+		
+			})
+		}).then((response) => response.json())
+			.then((responseJson) => {
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
+					Alert.alert("Email Updated");
+				}
+				else {
+					Alert.alert(responseJson);
+				}
+			}).catch((error) => {
+				console.error(error);
+			});
+	}
+
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+    async componentWillMount() {
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userID: user});
 		const { params } = this.props.navigation.state;
 		const firstName = params.firstName ? params.firstName : "null";
 		const lastName = params.lastName ? params.lastName : "null";

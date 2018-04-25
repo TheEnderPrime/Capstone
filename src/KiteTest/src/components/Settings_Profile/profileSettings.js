@@ -65,7 +65,7 @@ export default class profileSettings extends Component {
 			}).catch((error) => {
 				console.error(error);
 			});
-	}
+    }
 
     setUserIdAsync(state){
 		return new Promise((resolved) => {

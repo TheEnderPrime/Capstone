@@ -9,7 +9,8 @@ import {
 	TouchableOpacity,
 	AppRegistry,
 	Image,
-	Alert
+	Alert,
+	AsyncStorage,
 } from 'react-native';
 import SettingsList from 'react-native-settings-list';
 import styles from './styles';
@@ -20,16 +21,53 @@ export default class emailSettings extends Component {
         super();
         this.onValueChange = this.onValueChange.bind(this);
         this.state = {switchValue: false};
-    }
+	}
+	
+
+	UpdateUserInformation = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+		
+				UserID: this.state.userID,
+
+				email: this.state.email,
+		
+			})
+		}).then((response) => response.json())
+			.then((responseJson) => {
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
+					Alert.alert("Email Updated");
+				}
+				else {
+					Alert.alert(responseJson);
+				}
+			}).catch((error) => {
+				console.error(error);
+			});
+	}
 
     onValueChange(value){
         this.setState({switchValue: value});
-    }
+	}
+	
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
 
-    componentWillMount() {
-    const { params } = this.props.navigation.state;
-    const email = params ? params.email : "null";
-    this.setState({"email": email});
+    async componentDidMount() {
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userID: user});
+		const { params } = this.props.navigation.state;
+		const email = params ? params.email : "null";
+		this.setState({"email": email});
     }
 
     render() {
@@ -43,7 +81,7 @@ export default class emailSettings extends Component {
 					title='Email'
 					isEditable={true}
 					value={this.state.email.toString()}
-					onTextChange={(text) => this.setState({ stages: text })}
+					onTextChange={(text) => this.setState({ email: text })}
 				/>
             </SettingsList>
 

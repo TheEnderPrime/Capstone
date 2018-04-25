@@ -25,12 +25,48 @@ export default class passwordSettings extends Component {
     onValueChange(value){
         this.setState({switchValue: value});
     }
+	
+	UpdateUserInformation = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+		
+				UserID: this.state.userID,
 
-    componentWillMount() {
+				email: this.state.email,
+		
+			})
+		}).then((response) => response.json())
+			.then((responseJson) => {
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
+					Alert.alert("Email Updated");
+				}
+				else {
+					Alert.alert(responseJson);
+				}
+			}).catch((error) => {
+				console.error(error);
+			});
+	}
+    
+    setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+    async componentWillMount() {
+        const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userID: user});
         const { params } = this.props.navigation.state;
         const password = params.password ? params.password : "null";
         this.setState({"password": password});
-        }
+    }
 
     render() {
         var bgColor = '#DCE3F4';
