@@ -12,8 +12,11 @@ module.exports = styles = StyleSheet.create({
 	titleText: {
 		//flex: 1,
 		textAlign: 'center',
-		fontSize: 20,
+		fontSize: 22,
 		padding: 10,
+		color: '#fff',
+		marginBottom: 20,
+		marginTop: 10,
 	},
 	textInput: { 
 
@@ -23,10 +26,13 @@ module.exports = styles = StyleSheet.create({
 		// padding: 20,
 	},
 	text: {
-		fontSize: 15,
+		fontSize: 18,
+		color: '#fff',
+		marginBottom: 20,
 	},
   	textBox: { 
 		padding: 10,
+		marginBottom: 20,
   	}, 
 	  postTimeline:{
 		flex: 6,

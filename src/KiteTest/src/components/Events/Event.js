@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview';
+
 import Colors from '../../Colors/Colors';
 import styles from './styles';
 
@@ -29,19 +30,10 @@ class Event extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.onEndReached 	= this.onEndReached.bind(this)
 		this.renderSelected = this.renderSelected.bind(this)
 		this.onRefresh 		= this.onRefresh.bind(this)
 		this.onEventPress 	= this.onEventPress.bind(this)
 
-		this.data = []
-		// 	{time: '09:00', title: 'Newest Post ', description: 'Event 1 Description'},
-		//     {time: '10:45', title: 'Post 2', description: 'Event 2 Description'},
-		//     {time: '12:00', title: 'Post 3', description: 'Event 3 Description'},
-		//     {time: '14:00', title: 'Post 4', description: 'Event 4 Description'},
-		// 	{time: '16:30', title: 'Post 5', description: 'Event 5 Description'},
-		// 	{time: '14:00', title: 'Oldest Post 6', description: 'Event 6 Description'},
-		// ]
 		this.state = {
 			userId: 0,
 			eventID: 0,
@@ -51,14 +43,13 @@ class Event extends React.Component {
 			isRefreshing: false,
 			waiting: false,
 			selected: null,
-			data: this.data,
 			dataSource: ds.cloneWithRows([]),
 		};
 	}
 
 	loadEvent = () => {
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -79,10 +70,10 @@ class Event extends React.Component {
 					this.setState({ isRefreshing: true });
 					this.setState({
 						data: responseJson.eventData,
-						// title: responseJson.title,
-						// description: responseJson.eventData.description,
-						dataSource: ds.cloneWithRows(responseJson.timeline),
-						isRefreshing: false
+						dataSource: ds.cloneWithRows(responseJson.eventArray),
+						isRefreshing: false,
+						// this.setState({"title": this.state.data.title})
+						// this.setState({"description": this.state.data.description})
 					});
 					//parse array from responseJson
 				
@@ -107,32 +98,6 @@ class Event extends React.Component {
 		}, 2000);
 	}
 	
-	onEndReached() {
-		//fetch next data
-		if (!this.state.waiting) {
-			this.setState({waiting: true});
-	
-			//fetch and concat data
-			setTimeout(() => {
-	
-			//refresh to concat data
-			var data = this.state.data.concat(
-				[
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
-				]
-			)
-	
-			  this.setState({
-				waiting: false,
-				data: data,
-			  });
-			}, 2000);
-		}
-	}
 
 	renderSelected(){
 		if(this.state.selected)
@@ -167,6 +132,8 @@ class Event extends React.Component {
 		const EventID =  params ? params.eventID : null;
 		this.setState({eventID: EventID});
 		this.loadEvent();
+		// this.setState({"title": this.state.data.title})
+		// this.setState({"description": this.state.data.description})
 	}
 
 	eachTweet(x){
@@ -215,8 +182,6 @@ class Event extends React.Component {
 					<View style={styles.container}>
 						<ListView 
 							enableEmptySections={true}
-							initialListSize={6}
-							onEndReached={() => this.onEndReached()}
 							//renderFooter={() => this.renderFooter()}
 							dataSource = {this.state.dataSource}
 							renderRow = {(rowData) => this.eachTweet(rowData)}
