@@ -75,7 +75,7 @@ export default class profileSettings extends Component {
 
     async componentWillMount() {
 		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userID: user});
+        await this.setUserIdAsync({userID: user});
 		if(this.state.userID != null){
 			this.GatherUserInformation(this.state.userID);
 		}
@@ -128,6 +128,17 @@ export default class profileSettings extends Component {
                 icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
                 title='Followers & Following'
                 onPress={() => this.props.navigation.navigate('FollowingSettings', {numOfFollowers: this.state.numOfFollowers, numOfFollowing: this.state.numOfFollowing})} //Need numbers to be sent, do it in FollowingSettings???
+                />
+                <SettingsList.Header headerStyle={{marginTop:15}}/>
+                <SettingsList.Item
+                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+                    title='Delete Profile'
+                    onPress={() => Alert.alert("Profile Deleted")} //Need numbers to be sent, do it in FollowingSettings???
+                />
+                <SettingsList.Item
+                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+                    title='Disable Profile'
+                    onPress={() => Alert.alert("Profile Disabled")} //Need numbers to be sent, do it in FollowingSettings???
                 />
             </SettingsList>
             </View>

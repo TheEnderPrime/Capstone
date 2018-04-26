@@ -223,6 +223,7 @@ export default class Profile extends Component {
 	}
 		
   	async componentDidMount() {
+		this.setState({ fontLoaded: true });
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
 		if(this.state.userID != null){
@@ -256,12 +257,6 @@ export default class Profile extends Component {
 							<Text style={{flex: 1, fontSize: 26, color: 'white', fontFamily: 'bold'}}>
 							{this.state.firstName}
 							</Text>
-							{/* <Text style={{flex: 0.5, fontSize: 15, color: 'gray', textAlign: 'left', marginTop: 5}}>
-							0.8 mi
-							</Text> */}
-							{/* <Text style={{flex: 1, fontSize: 26, color: 'green', fontFamily: 'bold', textAlign: 'right'}}>
-							93%
-							</Text> */}
 						</View>
 
 						<View style={{flex:1, flexDirection: 'row', marginTop: 20,  marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>

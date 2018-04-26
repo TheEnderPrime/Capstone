@@ -37,14 +37,14 @@ export default class passwordSettings extends Component {
 		
 				UserID: this.state.userID,
 
-				email: this.state.email,
+				email: this.state.password,
 		
 			})
 		}).then((response) => response.json())
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert("Email Updated");
+					Alert.alert(responseJson);
 				}
 				else {
 					Alert.alert(responseJson);
@@ -78,8 +78,8 @@ export default class passwordSettings extends Component {
                     id="password"
                     title='Password'
                     isEditable={true}
-                    value={this.state.password.toString()}
-                    onTextChange={(text) => this.setState({ stages: text })}
+                    value={this.state.password}
+                    onTextChange={(text) => this.setState({ "password": text })}
 				/>
             </SettingsList>
             <Button
@@ -99,7 +99,7 @@ export default class passwordSettings extends Component {
 					borderWidth: 0,
 					borderRadius: 5
 				}}
-				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+				onPress={() => this.UpdateUserInformation()}
 			/>
             </View>
         </View>

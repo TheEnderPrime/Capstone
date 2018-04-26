@@ -9,7 +9,8 @@ import {
 	TouchableOpacity,
 	AppRegistry,
 	Image,
-	Alert
+	Alert,
+	AsyncStorage,
 } from 'react-native';
 import SettingsList from 'react-native-settings-list';
 import styles from './styles';
@@ -74,14 +75,23 @@ export default class personalInfoSettings extends Component {
 		
 				UserID: this.state.userID,
 
-				email: this.state.email,
+				firstName: this.state.firstName,
+				lastName:  this.state.lastName,
+				dateOfBirth: this.state.dateOfBirth,
+				employerName: this.state.employerName,
+				aboutMe: this.state.aboutMe,
+				currentCity: this.state.currentCity,
+				currentStateOrProvence: this.state.currentStateOrProvence,
+				currentCountry: this.state.currentCountry,
+				cellPhone: this.state.cellPhone,
+				homePhone: this.state.homePhone,
 		
 			})
 		}).then((response) => response.json())
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert("Email Updated");
+					Alert.alert(responseJson);
 				}
 				else {
 					Alert.alert(responseJson);
@@ -100,6 +110,7 @@ export default class personalInfoSettings extends Component {
     async componentWillMount() {
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
+
 		const { params } = this.props.navigation.state;
 		const firstName = params.firstName ? params.firstName : "null";
 		const lastName = params.lastName ? params.lastName : "null";
@@ -137,73 +148,74 @@ export default class personalInfoSettings extends Component {
 								id="firstName"
 								title='First Name'
 								isEditable={true}
-								value={this.state.firstName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.firstName}
+								onTextChange={(text) => this.setState({ "firstName": text })}
 							/>
 							<SettingsList.Item
 								id="lastName"
 								title='Last Name'
 								isEditable={true}
-								value={this.state.lastName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.lastName}
+								onTextChange={(text) => this.setState({ "lastName": text })}
 							/>
 							<SettingsList.Item
 								id="dateOfBirth"
 								title='Date of Birth'
 								isEditable={true}
-								value={this.state.dateOfBirth.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.dateOfBirth}
+								onTextChange={(text) => this.setState({ "dateOfBirth": text })}
 							/>
 							<SettingsList.Item
 								id="employerName"
 								title='Employer Name'
 								isEditable={true}
-								value={this.state.employerName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.employerName}
+								onTextChange={(text) => this.setState({ "employerName": text })}
 							/>
 							<SettingsList.Item
 								id="aboutMe"
 								title='About Me'
 								isEditable={true}
-								value={this.state.aboutMe.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.aboutMe}
+								onTextChange={(text) => this.setState({ "aboutMe": text })}
 							/>
 							<SettingsList.Item
 								id="currentCity"
 								title='Current City'
 								isEditable={true}
-								value={this.state.currentCity.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.currentCity}
+								onTextChange={(text) => this.setState({ "currentCity": text })}
 							/>
 							<SettingsList.Item
 								id="currentStateOrProvince"
 								title='Current State or Province'
 								isEditable={true}
-								value={this.state.currentStateOrProvence.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.currentStateOrProvence}
+								onTextChange={(text) => this.setState({ "currentStateOrProvence": text })}
 							/>
 							<SettingsList.Item
 								id="currentCountry"
 								title='Current Country'
 								isEditable={true}
-								value={this.state.currentCountry.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.currentCountry}
+								onTextChange={(text) => this.setState({ "currentCountry": text })}
 							/>
 							<SettingsList.Item
 								id="cellPhone"
 								title='Cell Phone'
 								isEditable={true}
-								value={this.state.cellPhone.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.cellPhone}
+								onTextChange={(text) => this.setState({ "cellPhone": text })}
 							/>
 							<SettingsList.Item
 								id="homePhone"
 								title='Home Phone'
 								isEditable={true}
-								value={this.state.homePhone.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
+								value={this.state.homePhone}
+								onTextChange={(text) => this.setState({ "homePhone": text })}
 							/>
             </SettingsList>
+			<Text>{this.state.aboutMe}</Text>
             <Button
 				title='Apply'
 				// icon={
@@ -221,7 +233,7 @@ export default class personalInfoSettings extends Component {
 					borderWidth: 0,
 					borderRadius: 5
 				}}
-				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+				onPress={() => this.UpdateUserInformation()}
 			/>
             </View>
         </View>

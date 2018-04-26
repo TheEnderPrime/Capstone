@@ -52,9 +52,9 @@ class Search extends React.Component {
 				
 				UserID: this.userID,
 
-				SearchType: this.searchType,
+				SearchType: this.state.searchType,
 
-                SearchString: this.searchString,
+                SearchString: this.state.searchString,
 				
             })
 

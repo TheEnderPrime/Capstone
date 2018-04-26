@@ -72,28 +72,6 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            // headerRight: (
-            //     <Button
-            //     title=''
-            //     icon={
-            //         <Icon
-            //         name='create'
-            //         size={15}
-            //         color='white'
-            //         />
-            //     }
-            //     buttonStyle={{
-            //         backgroundColor: "rgba(92, 99,216, 1)",
-            //         width: 40,
-            //         height: 40,
-            //         borderColor: "transparent",
-            //         borderWidth: 0,
-            //         borderRadius: 5
-            //     }}
-            //     containerStyle={{ marginRight: 20 }}
-            //     onPress = {() => { navigation.navigate('Settings') } }
-            //     />
-            // ),
         }), 
     },
     Event: {
@@ -111,28 +89,6 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            // headerRight: (
-            //     <Button
-            //     title=''
-            //     icon={
-            //         <Icon
-            //         name='create'
-            //         size={15}
-            //         color='white'
-            //         />
-            //     }
-            //     buttonStyle={{
-            //         backgroundColor: "rgba(92, 99,216, 1)",
-            //         width: 40,
-            //         height: 40,
-            //         borderColor: "transparent",
-            //         borderWidth: 0,
-            //         borderRadius: 5
-            //     }}
-            //     containerStyle={{ marginRight: 20 }}
-            //     onPress = {() => { navigation.navigate('Settings') } }
-            //     />
-            // ),
         }), 
     },
     Posts: {
@@ -150,36 +106,13 @@ export const TimelineStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            // headerRight: (
-            //     <Button
-            //     title=''
-            //     icon={
-            //         <Icon
-            //         name='create'
-            //         size={15}
-            //         color='white'
-            //         />
-            //     }
-            //     buttonStyle={{
-            //         backgroundColor: "rgba(92, 99,216, 1)",
-            //         width: 40,
-            //         height: 40,
-            //         borderColor: "transparent",
-            //         borderWidth: 0,
-            //         borderRadius: 5
-            //     }}
-            //     containerStyle={{ marginRight: 20 }}
-            //     onPress = {() => { navigation.navigate('Settings') } }
-            //     />
-            // ),
         }), 
     },
     PostCreator: {
         screen: PostCreator,
         navigationOptions: {
             title: 'Post Creator',
-            drawerLabel: 'Home', //doesn't work yet
-			//headerLeft: drawerButton(this.props.navigation),
+            drawerLabel: 'Home',
 			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },

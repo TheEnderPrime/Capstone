@@ -42,7 +42,7 @@ export default class emailSettings extends Component {
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert("Email Updated");
+					Alert.alert(responseJson);
 				}
 				else {
 					Alert.alert(responseJson);
@@ -80,8 +80,8 @@ export default class emailSettings extends Component {
 					id="email"
 					title='Email'
 					isEditable={true}
-					value={this.state.email.toString()}
-					onTextChange={(text) => this.setState({ email: text })}
+					value={this.state.email}
+					onTextChange={(text) => this.setState({ "email": text })}
 				/>
             </SettingsList>
 
@@ -102,7 +102,7 @@ export default class emailSettings extends Component {
 					borderWidth: 0,
 					borderRadius: 5
 				}}
-				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+				onPress={() => this.UpdateUserInformation()}
 			/>
             </View>
         </View>

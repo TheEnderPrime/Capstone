@@ -183,7 +183,7 @@ class KiteTimeline extends Component {
 				<View style={styles.container}>
 					<ListView 
 						enableEmptySections={true}
-						initialListSize={6}
+						//initialListSize={6}
 						onEndReached={() => this.onEndReached()}
 						//renderFooter={() => this.renderFooter()}
 						dataSource = {this.state.dataSource}
