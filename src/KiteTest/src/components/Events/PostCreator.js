@@ -10,6 +10,7 @@ import {
 	TextInput,
 	Alert,
 	AsyncStorage,
+	ScrollView,
 } from 'react-native';
 
 import Colors from '../../Colors/Colors';
@@ -85,7 +86,7 @@ class PostCreator extends React.Component {
 
 		const {navigate} = this.props.navigation;
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 			
 			<Text style={styles.titleText}>
 					What story are you going to tell?
@@ -155,7 +156,7 @@ class PostCreator extends React.Component {
 					/>
 				</View>
 
-			</View>
+			</ScrollView>
 
 		);
 	}

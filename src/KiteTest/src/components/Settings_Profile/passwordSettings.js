@@ -19,7 +19,10 @@ export default class passwordSettings extends Component {
     constructor() {
         super();
         this.onValueChange = this.onValueChange.bind(this);
-        this.state = {switchValue: false};
+		this.state = {
+			switchValue: false,
+			password: ""
+		};
     }
 
     onValueChange(value){
@@ -37,17 +40,17 @@ export default class passwordSettings extends Component {
 		
 				UserID: this.state.userID,
 
-				email: this.state.password,
+				password: this.state.password,
 		
 			})
 		}).then((response) => response.json())
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert(responseJson);
+					Alert.alert("Password Updated");
 				}
 				else {
-					Alert.alert(responseJson);
+					Alert.alert(responseJson.errorMessage);
 				}
 			}).catch((error) => {
 				console.error(error);
@@ -78,7 +81,7 @@ export default class passwordSettings extends Component {
                     id="password"
                     title='Password'
                     isEditable={true}
-                    value={this.state.password}
+                    value={this.state.password.toString()}
                     onTextChange={(text) => this.setState({ "password": text })}
 				/>
             </SettingsList>

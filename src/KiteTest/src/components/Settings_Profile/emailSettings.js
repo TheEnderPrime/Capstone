@@ -20,7 +20,10 @@ export default class emailSettings extends Component {
     constructor() {
         super();
         this.onValueChange = this.onValueChange.bind(this);
-        this.state = {switchValue: false};
+        this.state = {
+			switchValue: false,
+			email: "inital",
+		}
 	}
 	
 
@@ -42,10 +45,10 @@ export default class emailSettings extends Component {
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert(responseJson);
+					Alert.alert("Email Updated");
 				}
 				else {
-					Alert.alert(responseJson);
+					Alert.alert(responseJson.errorMessage);
 				}
 			}).catch((error) => {
 				console.error(error);
@@ -62,12 +65,12 @@ export default class emailSettings extends Component {
 		});
 	}
 
-    async componentDidMount() {
+    async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
 		const { params } = this.props.navigation.state;
-		const email = params ? params.email : "null";
-		this.setState({"email": email});
+		const EMAIL = params ? params.email : "null";
+		this.setState({"email": EMAIL});
     }
 
     render() {
@@ -80,7 +83,7 @@ export default class emailSettings extends Component {
 					id="email"
 					title='Email'
 					isEditable={true}
-					value={this.state.email}
+					value={this.state.email.toString()}
 					onTextChange={(text) => this.setState({ "email": text })}
 				/>
             </SettingsList>
@@ -102,7 +105,7 @@ export default class emailSettings extends Component {
 					borderWidth: 0,
 					borderRadius: 5
 				}}
-				onPress={() => this.UpdateUserInformation()}
+				onPress={() => {this.UpdateUserInformation()}}//				Alert.alert("This is dumb")}			
 			/>
             </View>
         </View>

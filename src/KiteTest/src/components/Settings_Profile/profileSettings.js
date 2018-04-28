@@ -60,7 +60,7 @@ export default class profileSettings extends Component {
 					this.setState({"dateAdded": responseJson.dateAdded});
 				}
 				else {
-					Alert.alert(responseJson);
+					Alert.alert(responseJson.errorMessage);
 				}
 			}).catch((error) => {
 				console.error(error);
@@ -77,7 +77,8 @@ export default class profileSettings extends Component {
 		const user = await AsyncStorage.getItem('userID')
         await this.setUserIdAsync({userID: user});
 		if(this.state.userID != null){
-			this.GatherUserInformation(this.state.userID);
+            this.GatherUserInformation(this.state.userID);
+            //Alert.alert("User Info Gathered!");
 		}
   	}
 
@@ -89,45 +90,51 @@ export default class profileSettings extends Component {
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
                 <SettingsList.Header/>
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Email'
-                onPress={() => this.props.navigation.navigate('EmailSettings', {email: this.state.email})}
+                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+                    title='Email'
+                    onPress={() => this.props.navigation.navigate('EmailSettings', 
+                        {
+                            email: this.state.email
+                        })}
                 />
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Password'
-                titleInfo=''
-                titleInfoStyle={styles.titleInfoStyle}
-                onPress={() => this.props.navigation.navigate('PasswordSettings', {password: this.state.password})} //Need password to be sent, do it in PasswordSettings???
+                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+                    title='Password'
+                    titleInfo=''
+                    titleInfoStyle={styles.titleInfoStyle}
+                    onPress={() => this.props.navigation.navigate('PasswordSettings', 
+                        {
+                            password: this.state.password
+                        })} //Need password to be sent, do it in PasswordSettings???
                 />
                 <SettingsList.Header headerStyle={{marginTop:15}}/>
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Profile Picture'
-                onPress={() =>this.props.navigation.navigate('ProfilePictureSettings', {})} //Need picture to be sent, do it in ProfilePictureSettings???
+                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+                    title='Profile Picture'
+                    onPress={() =>this.props.navigation.navigate('ProfilePictureSettings', {})} //Need picture to be sent, do it in ProfilePictureSettings???
                 />
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Personal Information'
-                onPress={() => this.props.navigation.navigate('PersonalInfoSettings', 
-                    {
-                        firstName: this.state.firstName, 
-                        lastName: this.state.lastName, 
-                        dateOfBirth: this.state.dateOfBirth, 
-                        employerName: this.state.employerName, 
-                        aboutMe: this.state.aboutMe, 
-                        currentCity: this.state.currentCity, 
-                        currentStateOrProvence: this.state.currentStateOrProvence, 
-                        currentCountry: this.state.currentCountry, 
-                        cellPhone: this.state.cellPhone, 
-                        homePhone: this.state.homePhone, 
-                        dateAdded: this.state.dateAdded
-                    })}
+                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+                    title='Personal Information'
+                    onPress={() => this.props.navigation.navigate('PersonalInfoSettings', 
+                        {
+                            firstName: this.state.firstName, 
+                            lastName: this.state.lastName, 
+                            dateOfBirth: this.state.dateOfBirth, 
+                            employerName: this.state.employerName, 
+                            aboutMe: this.state.aboutMe, 
+                            currentCity: this.state.currentCity, 
+                            currentStateOrProvence: this.state.currentStateOrProvence, 
+                            currentCountry: this.state.currentCountry, 
+                            cellPhone: this.state.cellPhone, 
+                            homePhone: this.state.homePhone, 
+                            dateAdded: this.state.dateAdded
+                        })}
                 />
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Followers & Following'
-                onPress={() => this.props.navigation.navigate('FollowingSettings', {numOfFollowers: this.state.numOfFollowers, numOfFollowing: this.state.numOfFollowing})} //Need numbers to be sent, do it in FollowingSettings???
+                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
+                    title='Followers & Following'
+                    onPress={() => this.props.navigation.navigate('FollowingSettings', {numOfFollowers: this.state.numOfFollowers, numOfFollowing: this.state.numOfFollowing})} //Need numbers to be sent, do it in FollowingSettings???
                 />
                 <SettingsList.Header headerStyle={{marginTop:15}}/>
                 <SettingsList.Item

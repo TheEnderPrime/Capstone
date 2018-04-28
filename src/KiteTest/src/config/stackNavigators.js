@@ -341,23 +341,6 @@ export const ProfileStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
-    PasswordSettings: {
-        screen: PasswordSettings,
-        navigationOptions: {
-            title: 'Profile Settings - Password',
-			headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                alignSelf: 'center',
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-        },
-    },
     ProfilePictureSettings: {
         screen: ProfilePictureSettings,
         navigationOptions: {
@@ -395,7 +378,7 @@ export const ProfileStack = StackNavigator({
     FollowingSettings: {
         screen: FollowingSettings,
         navigationOptions: {
-            title: 'Profile Settings - Following & Followers',
+            title: 'Following & Followers',
 			headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
