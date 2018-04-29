@@ -282,7 +282,7 @@ export default class Profile extends Component {
 						<View style={styles.statusBar} />
 							<View style={styles.navBar}>
 								<Text style={styles.nameHeader}>
-									{this.state.firstName}, 26
+									{this.state.firstName} {this.state.lastName}
 								</Text>
 							</View>
 						<ScrollView style={{flex: 1}}>
@@ -294,7 +294,7 @@ export default class Profile extends Component {
 						</View>
 						<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>
 							<Text style={{flex: 1, fontSize: 26, color: 'white', fontFamily: 'bold'}}>
-							{this.state.firstName}
+								{this.state.firstName} {this.state.lastName}
 							</Text>
 						</View>
 
@@ -304,7 +304,7 @@ export default class Profile extends Component {
 
 						<View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
 							<Text style={{flex: 1, fontSize: 15, color: 'white', fontFamily: 'regular'}}>
-							{this.state.aboutMe} "I like long walks on the beach with beautiful people that like long walks on the beach with beautiful people."
+								{this.state.aboutMe}
 							</Text>
 						</View>
 						<View style={{flex: 1, marginTop: 30}}>
@@ -365,40 +365,24 @@ export default class Profile extends Component {
 							<Text style={{flex: 1, fontSize: 15, color: 'rgba(216, 121, 112, 1)', fontFamily: 'regular', marginLeft: 40}}>
 							INFO
 							</Text>
-							<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 30}}>
-							<View style={{flex: 1, flexDirection: 'row'}}>
+							<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 0}}>
 								<View style={{flex: 1}}>
 								<Text style={styles.infoTypeLabel}>Age</Text>
-								<Text style={styles.infoTypeLabel}>Height</Text>
-								<Text style={styles.infoTypeLabel}>Ethnicity</Text>
-								<Text style={styles.infoTypeLabel}>Sign</Text>
-								<Text style={styles.infoTypeLabel}>Religion</Text>
+								<Text style={styles.infoTypeLabel}>Birth Day</Text>
+								<Text style={styles.infoTypeLabel}>Employer</Text>
+								<Text style={styles.infoTypeLabel}>Current City</Text>
+								<Text style={styles.infoTypeLabel}>Cell Phone</Text>
+								<Text style={styles.infoTypeLabel}>Home Phone</Text>
 								</View>
 								<View style={{flex: 1, marginLeft: 10}}>
-								<Text style={styles.infoAnswerLabel}>26</Text>
-								<Text style={styles.infoAnswerLabel}>5'4"</Text>
-								<Text style={styles.infoAnswerLabel}>White</Text>
-								<Text style={styles.infoAnswerLabel}>Pisces</Text>
-								<Text style={styles.infoAnswerLabel}>Catholic</Text>
+								<Text style={styles.infoAnswerLabel}>{this.state.dateOfBirth}</Text>
+								<Text style={styles.infoAnswerLabel}>{this.state.dateOfBirth}</Text>
+								<Text style={styles.infoAnswerLabel}>{this.state.employerName}</Text>
+								<Text style={styles.infoAnswerLabel}>{this.state.currentCity}, {this.state.currentStateOrProvence}, {this.state.currentCountry}</Text>
+								<Text style={styles.infoAnswerLabel}>{this.state.cellPhone}</Text>
+								<Text style={styles.infoAnswerLabel}>{this.state.homePhone}</Text>
 								</View>
-							</View>
-							<View style={{flex: 1, flexDirection: 'row'}}>
-								<View style={{flex: 1}}>
-								<Text style={styles.infoTypeLabel}>Body Type</Text>
-								<Text style={styles.infoTypeLabel}>Diet</Text>
-								<Text style={styles.infoTypeLabel}>Smoke</Text>
-								<Text style={styles.infoTypeLabel}>Drink</Text>
-								<Text style={styles.infoTypeLabel}>Drugs</Text>
-								</View>
-								<View style={{flex: 1, marginLeft: 10, marginRight: -20}}>
-								<Text style={styles.infoAnswerLabel}>Fit</Text>
-								<Text style={styles.infoAnswerLabel}>Vegan</Text>
-								<Text style={styles.infoAnswerLabel}>No</Text>
-								<Text style={styles.infoAnswerLabel}>No</Text>
-								<Text style={styles.infoAnswerLabel}>Never</Text>
-								</View>
-							</View>
-							</View>
+						 	</View>
 						</View>
 						<Button
 							containerStyle={{ marginVertical: 20 }}
@@ -460,13 +444,13 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: 'rgba(126,123,138,1)',
     fontFamily: 'regular',
-    paddingBottom: 10,
+    paddingBottom: 20,
   },
   infoAnswerLabel: {
     fontSize: 15,
     color: 'white',
     fontFamily: 'regular',
-    paddingBottom: 10,
+    paddingBottom: 20,
   }
 });
 

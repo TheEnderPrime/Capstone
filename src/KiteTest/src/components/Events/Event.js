@@ -30,10 +30,6 @@ class Event extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.renderSelected = this.renderSelected.bind(this)
-		this.onRefresh 		= this.onRefresh.bind(this)
-		this.onEventPress 	= this.onEventPress.bind(this)
-
 		this.state = {
 			userId: 0,
 			eventID: 0,
@@ -58,6 +54,8 @@ class Event extends React.Component {
             body: JSON.stringify({
 				
 				UserID: this.state.userID,
+
+				EventID: this.state.eventID,
 				
             })
 
@@ -71,9 +69,9 @@ class Event extends React.Component {
 					this.setState({
 						data: responseJson.eventData,
 						dataSource: ds.cloneWithRows(responseJson.eventArray),
+						title: responseJson.eventData.title,
+						description: responseJson.eventData.description,
 						isRefreshing: false,
-						// this.setState({"title": this.state.data.title})
-						// this.setState({"description": this.state.data.description})
 					});
 					//parse array from responseJson
 				
@@ -86,39 +84,7 @@ class Event extends React.Component {
                 console.error(error);
             });
 	}
-
-	onRefresh(){
-		//set initial data
-		this.setState({isRefreshing: true});
-		//refresh to initial data
-		setTimeout(() => {
-
-			this.loadEvent();
-			
-		}, 2000);
-	}
-	
-
-	renderSelected(){
-		if(this.state.selected)
-	  	return <Text style={{marginTop:10}}> Selected event: {this.state.selected.title} at {this.state.selected.time} </Text>
-	}
-	
-	renderFooter() {
-		//show loading indicator
-		if (this.waiting) {
-			return <ActivityIndicator />;
-		} else {
-			return <Text>~</Text>;
-		}
-	}
-
-	onEventPress(data){
-		this.setState({selected: data})
-		Alert.alert(this.state.selected.id);
-		this.props.navigation.navigate('Posts', {postID: this.state.selected.id})
-	  }
-	  
+		  
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
@@ -132,15 +98,13 @@ class Event extends React.Component {
 		const EventID =  params ? params.eventID : null;
 		this.setState({eventID: EventID});
 		this.loadEvent();
-		// this.setState({"title": this.state.data.title})
-		// this.setState({"description": this.state.data.description})
 	}
 
 	eachTweet(x){
 		return(
 			<TouchableOpacity 
 			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-				onPress={() => this.props.navigation.navigate("Post", {postID: x.id})}
+				onPress={() => this.props.navigation.navigate("Posts", {postID: x.id})}
 			>
 		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 					<Image 
@@ -151,11 +115,11 @@ class Event extends React.Component {
 						}} 
 						resizeMode="contain" 
 						style ={{height:54, width:54, borderRadius:27, margin:10}} 
-						/>
+					/>
 					<View style={{flex:1}}>
 						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-							<Text style={{fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
+							<Text style={{fontWeight:'600', fontSize:12, color: '#fff'}}>{x.FirstName} {x.LastName}</Text>
+							<Text style={{fontWeight:'500', fontSize:12, color: '#fff'}}> | @ {x.title}</Text>
 						</View>
 						<View style={{ margin:5, marginRight:10,}}>
 							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
@@ -170,19 +134,33 @@ class Event extends React.Component {
 	render() {			
 		return (
 			<View style={styles.container}>
-				<Text style={styles.titleText}>
-					Title: {this.state.title}
-				</Text>
+				<View style={styles.eventInfo}>
+					<View style={{flex: 1, flexDirection: 'column'}}>
+						<Image 
+							source={{
+								uri: "" === ""
+								? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
+								: x.ProfilePicture
+							}} 
+							resizeMode="contain" 
+							style ={{height:108, width:108, borderRadius:54, margin:10}} 
+						/>
+					</View>
+					<View style={{flex: 1, flexDirection: 'column', marginTop: 15}}>
+						<Text style={styles.titleText}>
+							{this.state.title}
+						</Text>
 
-				<Text style={styles.titleText}>
-					Description: {this.state.description}
-				</Text>
-						
+						<Text style={styles.titleText}>
+							{this.state.description}
+						</Text>
+					</View>
+				</View>
+				
 				<View style={styles.postTimeline}>
 					<View style={styles.container}>
 						<ListView 
 							enableEmptySections={true}
-							//renderFooter={() => this.renderFooter()}
 							dataSource = {this.state.dataSource}
 							renderRow = {(rowData) => this.eachTweet(rowData)}
 						/>
