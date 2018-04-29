@@ -45,10 +45,10 @@ export default class followingSettings extends Component {
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert("Email Updated");
+					Alert.alert("Settings Updated");
 				}
 				else {
-					Alert.alert(responseJson);
+					Alert.alert(responseJson.errorMessage);
 				}
 			}).catch((error) => {
 				console.error(error);
@@ -78,14 +78,14 @@ export default class followingSettings extends Component {
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-            <Text>numOfFollowers: {this.state.numOfFollowers}</Text>
-            <Text>numOfFollowing: {this.state.numOfFollowing}</Text>
+            <Text>Your Followers: {this.state.numOfFollowers}</Text>
+            <Text>You are Following: {this.state.numOfFollowing}</Text>
                 <SettingsList.Header/>
                 
                 <SettingsList.Item
                 icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
                 title='Followers & Following'
-                onPress={() => Alert.alert('Route To Do Not Disturb Page')}
+                onPress={() => Alert.alert('Display Followers and Following Here.')}
                 />
             </SettingsList>
             <Button

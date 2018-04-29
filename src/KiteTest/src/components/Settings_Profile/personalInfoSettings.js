@@ -9,7 +9,8 @@ import {
 	TouchableOpacity,
 	AppRegistry,
 	Image,
-	Alert
+	Alert,
+	AsyncStorage,
 } from 'react-native';
 import SettingsList from 'react-native-settings-list';
 import styles from './styles';
@@ -19,48 +20,24 @@ export default class personalInfoSettings extends Component {
     constructor() {
         super();
         this.onValueChange = this.onValueChange.bind(this);
-        this.state = {switchValue: false};
+        this.state = {
+			switchValue: false,
+			firstName: "loading",
+			lastName: "loading",
+			email: "loading",
+			dateOfBirth: "loading",
+			employerName: "loading",
+			aboutMe: "loading",
+			currentCity: "loading",
+			currentStateOrProvence: "loading",
+			currentCountry: "loading",
+			cellPhone: "loading",
+			homePhone: "loading",
+		};
     }
 
     onValueChange(value){
         this.setState({switchValue: value});
-	}
-
-	GatherUserInformation = () => {
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-		
-				UserID: this.state.userID,
-		
-			})
-		}).then((response) => response.json())
-			.then((responseJson) => {
-				// If server response message same as Data Matched
-				if (responseJson.isValid === 'valid') {
-					this.setState({"firstName": responseJson.firstName});
-					this.setState({"lastName": responseJson.lastName});
-					this.setState({"email": responseJson.email});
-					this.setState({"dateOfBirth": responseJson.dateOfBirth});
-					this.setState({"employerName": responseJson.employerName});
-					this.setState({"aboutMe": responseJson.aboutMe});
-					this.setState({"currentCity": responseJson.currentCity});
-					this.setState({"currentStateOrProvence": responseJson.currentStateOrProvence});
-					this.setState({"currentCountry": responseJson.currentCountry});
-					this.setState({"cellPhone": responseJson.cellPhone});
-					this.setState({"homePhone": responseJson.homePhone});
-					this.setState({"dateAdded": responseJson.dateAdded});
-				}
-				else {
-					Alert.alert(responseJson);
-				}
-			}).catch((error) => {
-				console.error(error);
-			});
 	}
 	
 	UpdateUserInformation = () => {
@@ -74,17 +51,35 @@ export default class personalInfoSettings extends Component {
 		
 				UserID: this.state.userID,
 
-				email: this.state.email,
+				FirstName: this.state.firstName,
+
+				LastName:  this.state.lastName,
+				
+				DateOfBirth: this.state.dateOfBirth,
+				
+				EmployerName: this.state.employerName,
+				
+				AboutMe: this.state.aboutMe,
+				
+				CurrentCity: this.state.currentCity,
+				
+				CurrentStateOrProvence: this.state.currentStateOrProvence,
+				
+				CurrentCountry: this.state.currentCountry,
+				
+				CellPhone: this.state.cellPhone,
+				
+				HomePhone: this.state.homePhone,
 		
 			})
 		}).then((response) => response.json())
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert("Email Updated");
+					Alert.alert("User Info Updated!");
 				}
 				else {
-					Alert.alert(responseJson);
+					Alert.alert(responseJson.errorMessage);
 				}
 			}).catch((error) => {
 				console.error(error);
@@ -100,29 +95,28 @@ export default class personalInfoSettings extends Component {
     async componentWillMount() {
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
+
 		const { params } = this.props.navigation.state;
-		const firstName = params.firstName ? params.firstName : "null";
-		const lastName = params.lastName ? params.lastName : "null";
-		const dateOfBirth = params.dateOfBirth ? params.dateOfBirth : "null";
-		const employerName = params.employerName ? params.employerName : "null";
-        const aboutMe = params.aboutMe ? params.aboutMe : "null";
-		const currentCity = params.currentCity ? params.currentCity : "null";
-		const currentCountry = params.currentCountry ? params.currentCountry : "null";
-		const currentStateOrProvence = params.currentStateOrProvence ? params.currentStateOrProvence : "null";
-		const cellPhone = params.cellPhone ? params.cellPhone : "null";
-		const homePhone = params.homePhone ? params.homePhone : "null";
-		const dateAdded = params.dateAdded ? params.dateAdded : "null";
-		this.setState({"firstName": firstName});
-		this.setState({"lastName": lastName});
-		this.setState({"dateOfBirth": dateOfBirth});
-		this.setState({"employerName": employerName});
-		this.setState({"aboutMe": aboutMe});
-		this.setState({"currentCity": currentCity});
-		this.setState({"currentStateOrProvence": currentStateOrProvence});
-		this.setState({"currentCountry": currentCountry});
-		this.setState({"cellPhone": cellPhone});
-		this.setState({"homePhone": homePhone});
-		this.setState({"dateAdded": dateAdded});
+		const FirstName = params.firstName ? params.firstName : "";
+		const LastName = params.lastName ? params.lastName : "";
+		const DateOfBirth = params.dateOfBirth ? params.dateOfBirth : "";
+		const EmployerName = params.employerName ? params.employerName : "";
+        const AboutMe = params.aboutMe ? params.aboutMe : "";
+		const CurrentCity = params.currentCity ? params.currentCity : "";
+		const CurrentCountry = params.currentCountry ? params.currentCountry : "";
+		const CurrentStateOrProvence = params.currentStateOrProvence ? params.currentStateOrProvence : "";
+		const CellPhone = params.cellPhone ? params.cellPhone : "";
+		const HomePhone = params.homePhone ? params.homePhone : "";
+		this.setState({"firstName": FirstName});
+		this.setState({"lastName": LastName});
+		this.setState({"dateOfBirth": DateOfBirth});
+		this.setState({"employerName": EmployerName});
+		this.setState({"aboutMe": AboutMe});
+		this.setState({"currentCity": CurrentCity});
+		this.setState({"currentStateOrProvence": CurrentStateOrProvence});
+		this.setState({"currentCountry": CurrentCountry});
+		this.setState({"cellPhone": CellPhone});
+		this.setState({"homePhone": HomePhone});
 	}
 
     render() {
@@ -134,76 +128,77 @@ export default class personalInfoSettings extends Component {
                 <SettingsList.Header/>
 
                 <SettingsList.Item
-								id="firstName"
-								title='First Name'
-								isEditable={true}
-								value={this.state.firstName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="lastName"
-								title='Last Name'
-								isEditable={true}
-								value={this.state.lastName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="dateOfBirth"
-								title='Date of Birth'
-								isEditable={true}
-								value={this.state.dateOfBirth.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="employerName"
-								title='Employer Name'
-								isEditable={true}
-								value={this.state.employerName.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="aboutMe"
-								title='About Me'
-								isEditable={true}
-								value={this.state.aboutMe.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="currentCity"
-								title='Current City'
-								isEditable={true}
-								value={this.state.currentCity.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="currentStateOrProvince"
-								title='Current State or Province'
-								isEditable={true}
-								value={this.state.currentStateOrProvence.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="currentCountry"
-								title='Current Country'
-								isEditable={true}
-								value={this.state.currentCountry.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="cellPhone"
-								title='Cell Phone'
-								isEditable={true}
-								value={this.state.cellPhone.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
-							<SettingsList.Item
-								id="homePhone"
-								title='Home Phone'
-								isEditable={true}
-								value={this.state.homePhone.toString()}
-								onTextChange={(text) => this.setState({ stages: text })}
-							/>
+					id="firstName"
+					title='First Name'
+					isEditable={true}
+					value={this.state.firstName.toString()}
+					onTextChange={(text) => this.setState({ "firstName": text })}
+				/>
+				<SettingsList.Item
+					id="lastName"
+					title='Last Name'
+					isEditable={true}
+					value={this.state.lastName.toString()}
+					onTextChange={(text) => this.setState({ "lastName": text })}
+				/>
+				<SettingsList.Item
+					id="dateOfBirth"
+					title='Date of Birth'
+					isEditable={true}
+					value={this.state.dateOfBirth.toString()}
+					onTextChange={(text) => this.setState({ "dateOfBirth": text })}
+				/>
+				<SettingsList.Item
+					id="employerName"
+					title='Employer Name'
+					isEditable={true}
+					value={this.state.employerName.toString()}
+					onTextChange={(text) => this.setState({ "employerName": text })}
+				/>
+				<SettingsList.Item
+					id="aboutMe"
+					title='About Me'
+					isEditable={true}
+					value={this.state.aboutMe.toString()}
+					onTextChange={(text) => this.setState({ "aboutMe": text })}
+				/>
+				<SettingsList.Item
+					id="currentCity"
+					title='Current City'
+					isEditable={true}
+					value={this.state.currentCity.toString()}
+					onTextChange={(text) => this.setState({ "currentCity": text })}
+				/>
+				<SettingsList.Item
+					id="currentStateOrProvince"
+					title='Current State or Province'
+					isEditable={true}
+					value={this.state.currentStateOrProvence.toString()}
+					onTextChange={(text) => this.setState({ "currentStateOrProvence": text })}
+				/>
+				<SettingsList.Item
+					id="currentCountry"
+					title='Current Country'
+					isEditable={true}
+					value={this.state.currentCountry.toString()}
+					onTextChange={(text) => this.setState({ "currentCountry": text })}
+				/>
+				<SettingsList.Item
+					id="cellPhone"
+					title='Cell Phone'
+					isEditable={true}
+					value={this.state.cellPhone.toString()}
+					onTextChange={(text) => this.setState({ "cellPhone": text })}
+				/>
+				<SettingsList.Item
+					id="homePhone"
+					title='Home Phone'
+					isEditable={true}
+					value={this.state.homePhone.toString()}
+					onTextChange={(text) => this.setState({ "homePhone": text })}
+				/>
             </SettingsList>
+			<Text>{this.state.aboutMe}</Text>
             <Button
 				title='Apply'
 				// icon={
@@ -221,7 +216,7 @@ export default class personalInfoSettings extends Component {
 					borderWidth: 0,
 					borderRadius: 5
 				}}
-				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+				onPress={() => this.UpdateUserInformation()}
 			/>
             </View>
         </View>

@@ -10,6 +10,7 @@ import {
   StatusBar,
   Alert,
   AsyncStorage,
+  ListView,
 } from 'react-native';
 import { Button } from 'react-native-elements'
 import  Icon  from 'react-native-vector-icons/MaterialIcons';
@@ -54,6 +55,9 @@ class CustomButton extends Component {
 	}
 }
 
+var {height, width} = Dimensions.get('window');
+var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 export default class Community extends Component {
   	constructor(props) {
     	super(props);
@@ -67,45 +71,50 @@ export default class Community extends Component {
 			isRefreshing: false,
 			waiting: false,
 			selected: null,
+			dataSource: ds.cloneWithRows([]),
 			data: this.data,
-			selected: null,
+			fontLoaded: false,
+			timelineToggle: false,
       		fontLoaded: false,
     	};
 	}
 	  
 	loadTimeline = () => {
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
-	        method: 'POST',
-	        headers: {
-	            'Accept': 'application/json',
-	            'Content-Type': 'application/json',
-	        },
-	        body: JSON.stringify({
-						
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
 				UserID: this.state.userID,
-						
-		    })
-		}).then((response) => response.json())
-		    .then((responseJson) => {
-		
-				// If server response message same as Data Matched
-				if (responseJson.isValid === 'valid') {
-			
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+
+					this.setState({ isRefreshing: true });
 					this.setState({
-					data: responseJson.timeline,
-					isRefreshing: false
-					})
+						data: responseJson.timeline,
+						dataSource: ds.cloneWithRows(responseJson.timeline),
+						isRefreshing: false
+					});
 					//parse array from responseJson
-							
+				
 				}
-				else {
-					Alert.alert("responseJson.error");
-				}
-		
-		    }).catch((error) => {
-		        console.error(error);
-		    });
+                else {
+                    Alert.alert(responseJson.error);
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
 	}
 		
 	GatherUserInformation = () => {
@@ -216,7 +225,7 @@ export default class Community extends Component {
 		if(this.state.userID != null){
 			this.GatherUserInformation(this.state.userID);
 		}
-		// this.loadTimeline();
+		this.loadTimeline();
 	  }
 	  
 	  eachTweet(x){
@@ -239,6 +248,36 @@ export default class Community extends Component {
 						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
 							<Text style={{fontWeight:'600', fontSize:12}}>{x.title} {x.title}</Text>
 							<Text style={{fontWeight:'500', fontSize:12}}> | @Baugh{/*{x.title}*/}</Text>
+						</View>
+						<View style={{ margin:5, marginRight:10,}}>
+							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
+						</View>
+					</View>
+				</View>
+			</TouchableOpacity>
+		)
+	}
+
+	eachTweet(x){
+		return(
+			<TouchableOpacity 
+			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
+			>
+		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+					<Image 
+						source={{
+							uri: "" === ""
+							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
+							: x.ProfilePicture
+						}} 
+						resizeMode="contain" 
+						style ={{height:54, width:54, borderRadius:27, margin:10}} 
+						/>
+					<View style={{flex:1}}>
+						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
+							<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
+							<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
 						</View>
 						<View style={{ margin:5, marginRight:10,}}>
 							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
@@ -274,31 +313,6 @@ export default class Community extends Component {
 							<Text style={{flex: 1, fontSize: 26, color: 'white', fontFamily: 'bold'}}>
 							{this.state.communityName}
 							</Text>
-							<Button
-								title='Edit'
-								icon={
-									<Icon
-									name='create'
-									size={15}
-									color='white'
-									/>
-								}
-								buttonStyle={{
-									backgroundColor: "rgba(92, 99,216, 1)",
-									width: 80,
-									height: 40,
-									borderColor: "transparent",
-									borderWidth: 0,
-									borderRadius: 5
-								}}
-								onPress = {() => this.props.navigation.navigate("Settings")}
-							/>
-							{/* <Text style={{flex: 0.5, fontSize: 15, color: 'gray', textAlign: 'left', marginTop: 5}}>
-							0.8 mi
-							</Text> */}
-							{/* <Text style={{flex: 1, fontSize: 26, color: 'green', fontFamily: 'bold', textAlign: 'right'}}>
-							93%
-							</Text> */}
 						</View>
 
 						<View style={{flex:1, flexDirection: 'row', marginTop: 20,  marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>
@@ -413,11 +427,28 @@ export default class Community extends Component {
 							//   start: [1, 0],
 							//   end: [0.2, 0]
 							// }}
-							title="Message Us"
+							title="Expand Timeline"
 							titleStyle={{ fontFamily: 'regular', fontSize: 20, color: 'white', textAlign: 'center' }}
-							onPress={() => console.log('Message Theresa')}
+							onPress={() => console.log('Expand Community Timeline')}
 							activeOpacity={0.5}
 						/>
+						{ this.state.timelineToggle 
+							? (
+								<View style={styles.container}>
+									<ListView 
+										enableEmptySections={true}
+										//initialListSize={6}
+										onEndReached={() => this.onEndReached()}
+										//renderFooter={() => this.renderFooter()}
+										dataSource = {this.state.dataSource}
+										renderRow = {(rowData) => this.eachTweet(rowData)}
+									/>
+								</View>
+							) : 
+							( 
+								null
+							)
+						}
 						</ScrollView>
 					</View> :
 					<Text>Loading...</Text>

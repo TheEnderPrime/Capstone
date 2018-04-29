@@ -10,10 +10,16 @@ import {
   TextInput,
   AsyncStorage,
   Alert,
+  Dimensions,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+import { Input } from 'react-native-elements';
 import Colors from '../../Colors/Colors';
 import styles from './styles';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class EventCreator extends React.Component {
 
@@ -26,8 +32,6 @@ class EventCreator extends React.Component {
 			eventID: 0,
 		};
 	}
-
-	
 
 	createEvent = () => {
 
@@ -80,9 +84,7 @@ class EventCreator extends React.Component {
 	}
 
   	render() {
-
 		const {navigate} = this.props.navigation;
-
 		return (
 
 			<View style={styles.container}>
@@ -96,14 +98,33 @@ class EventCreator extends React.Component {
 						<Text style={styles.text}>
 							What is the title of your Event?
 						</Text>
-						<TextInput
-							style={styles.textBox}
-							placeholder="Event Title"
-							placeholderTextColor={Colors.kite_greenMediumDark}
-							onSubmitEditing={() => this.descriptionInput.focus()}
-							autoCapitalize="none"
-							autoCorrect={false}
+						<Input inputContainerStyle={{ borderRadius: 40, 
+							borderWidth: 1, 
+							borderColor: "rgba(110, 120, 170, 1)", 
+							height: 50, 
+							width: SCREEN_WIDTH - 50, 
+							marginVertical: 10 }} 
+							
+							leftIcon={
+								<SimpleIcon 
+									name="user"
+									color="rgba(110, 120, 170, 1)" 
+									size={25} 
+								/>
+							} 
+							iconContainerStyle={{ marginLeft: 20 }} 
+							placeholder="Event Title" 
+							placeholderTextColor="rgba(110, 120, 170, 1)" 
+							inputStyle={{ marginLeft: 10, color: "white" }} 
+							autoCapitalize="none" 
+							autoCorrect={false} 
+							keyboardAppearance="light" 
+							keyboardType="default" 
+							returnKeyType="next" 
+							ref={input => (this.usernameInput = input)} 
+							onSubmitEditing={() => this.descriptionInput.focus()} 
 							onChangeText={(eventTitle) => this.setState({ eventTitle })}
+							blurOnSubmit={false} 
 						/>
 					</View>
 
@@ -111,14 +132,34 @@ class EventCreator extends React.Component {
 						<Text style={styles.text}>
 							Tells us briefly what your event is about.
 						</Text>
-						<TextInput
-							style={styles.textBox}
-							placeholder="Event Description"
-							placeholderTextColor={Colors.kite_greenMediumDark}
-							autoCapitalize="none"
-							autoCorrect={false}
+						<Input inputContainerStyle={{ borderRadius: 40, 
+							borderWidth: 1, 
+							borderColor: "rgba(110, 120, 170, 1)", 
+							height: 50, 
+							width: SCREEN_WIDTH - 50, 
+							marginVertical: 10 }} 
+							
+							leftIcon={
+								<SimpleIcon 
+									name="user"
+									color="rgba(110, 120, 170, 1)" 
+									size={25} 
+								/>
+							} 
+							iconContainerStyle={{ marginLeft: 20 }} 
+							placeholder="Event Description" 
+							placeholderTextColor="rgba(110, 120, 170, 1)" 
+							inputStyle={{ marginLeft: 10, color: "white" }} 
+							autoCapitalize="none" 
+							autoCorrect={false} 
+							keyboardAppearance="light" 
+							keyboardType="default" 
+							returnKeyType="next" 
+							ref={input => (this.usernameInput = input)} 
+							onSubmitEditing={() => this.descriptionInput.focus()} 
 							onChangeText={(eventDesc) => this.setState({ eventDesc })}
 							ref={(input) => this.descriptionInput = input}
+							blurOnSubmit={false} 
 						/>
 					</View>
 
@@ -126,7 +167,7 @@ class EventCreator extends React.Component {
 				
 				<View style={styles.button}>
 				<Button 
-					style={buttonColor = '#78B494'} 
+					style={buttonColor = "#78B494"} 
 					title="Create Event" 
 					onPress = {() => this.createEvent()}
 						/>

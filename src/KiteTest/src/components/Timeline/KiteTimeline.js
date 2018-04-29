@@ -159,8 +159,8 @@ class KiteTimeline extends Component {
 						/>
 					<View style={{flex:1}}>
 						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-							<Text style={{fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
+							<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
+							<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
 						</View>
 						<View style={{ margin:5, marginRight:10,}}>
 							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
@@ -183,7 +183,7 @@ class KiteTimeline extends Component {
 				<View style={styles.container}>
 					<ListView 
 						enableEmptySections={true}
-						initialListSize={6}
+						//initialListSize={6}
 						onEndReached={() => this.onEndReached()}
 						//renderFooter={() => this.renderFooter()}
 						dataSource = {this.state.dataSource}
