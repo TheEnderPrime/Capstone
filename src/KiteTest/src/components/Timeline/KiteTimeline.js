@@ -148,15 +148,11 @@ class KiteTimeline extends Component {
 				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
 			>
 		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-					<Image 
-						source={{
-							uri: "" === ""
-							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-							: x.ProfilePicture
-						}} 
-						resizeMode="contain" 
-						style ={{height:54, width:54, borderRadius:27, margin:10}} 
-						/>
+					<Image
+						source={require('../../images/guy.jpeg')}
+						resizeMode="contain"
+						style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
+					/>
 					<View style={{flex:1}}>
 						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
 							<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
