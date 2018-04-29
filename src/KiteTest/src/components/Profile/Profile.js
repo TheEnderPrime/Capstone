@@ -365,8 +365,7 @@ export default class Profile extends Component {
 							<Text style={{flex: 1, fontSize: 15, color: 'rgba(216, 121, 112, 1)', fontFamily: 'regular', marginLeft: 40}}>
 							INFO
 							</Text>
-							<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 30}}>
-							<View style={{flex: 1, flexDirection: 'row'}}>
+							<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 0}}>
 								<View style={{flex: 1}}>
 								<Text style={styles.infoTypeLabel}>Age</Text>
 								<Text style={styles.infoTypeLabel}>Birth Day</Text>
@@ -383,24 +382,7 @@ export default class Profile extends Component {
 								<Text style={styles.infoAnswerLabel}>{this.state.cellPhone}</Text>
 								<Text style={styles.infoAnswerLabel}>{this.state.homePhone}</Text>
 								</View>
-							</View>
-							<View style={{flex: 1, flexDirection: 'row'}}>
-								<View style={{flex: 1}}>
-								{/* <Text style={styles.infoTypeLabel}>Body Type</Text>
-								<Text style={styles.infoTypeLabel}>Diet</Text>
-								<Text style={styles.infoTypeLabel}>Smoke</Text>
-								<Text style={styles.infoTypeLabel}>Drink</Text>
-								<Text style={styles.infoTypeLabel}>Drugs</Text> */}
-								</View>
-								<View style={{flex: 1, marginLeft: 10, marginRight: -20}}>
-								{/* <Text style={styles.infoAnswerLabel}>Fit</Text>
-								<Text style={styles.infoAnswerLabel}>Vegan</Text>
-								<Text style={styles.infoAnswerLabel}>No</Text>
-								<Text style={styles.infoAnswerLabel}>No</Text>
-								<Text style={styles.infoAnswerLabel}>Never</Text> */}
-								</View>
-							</View>
-							</View>
+						 	</View>
 						</View>
 						<Button
 							containerStyle={{ marginVertical: 20 }}
@@ -462,13 +444,13 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: 'rgba(126,123,138,1)',
     fontFamily: 'regular',
-    paddingBottom: 10,
+    paddingBottom: 20,
   },
   infoAnswerLabel: {
     fontSize: 15,
     color: 'white',
     fontFamily: 'regular',
-    paddingBottom: 10,
+    paddingBottom: 20,
   }
 });
 

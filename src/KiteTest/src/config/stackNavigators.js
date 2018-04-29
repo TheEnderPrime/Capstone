@@ -15,8 +15,8 @@ import Community              from '../components/Community/Community';
 import Discover               from '../components/Discover/Discover';
 import Search                 from '../components/Search/Search';
 
-import PostCreator            from '../components/Events/PostCreator';
-import EventCreator           from '../components/Events/EventCreator';
+import PostCreator            from '../components/PostCreator/PostCreator';
+import EventCreator           from '../components/EventCreator/EventCreator';
 import Events                 from '../components/Events/Event';
 import Posts                  from '../components/Posts/Posts';
 
@@ -94,7 +94,8 @@ export const TimelineStack = StackNavigator({
     Posts: {
         screen: Posts,
         navigationOptions: ( {  navigation } ) => ({
-            title: 'Posts',
+            title: 'Event Post',
+            drawerLabel: 'Home',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },

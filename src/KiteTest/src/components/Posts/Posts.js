@@ -48,8 +48,6 @@ class Posts extends React.Component {
 				PostID: this.state.postID,
 
 				UserID: this.state.userID,
-				//maybe userId
-				//EventID: this.state.eventID
 				
             })
 
@@ -111,4 +109,4 @@ class Posts extends React.Component {
 
 
 
-  export default Posts;
+export default Posts;
