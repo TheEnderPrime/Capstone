@@ -62,79 +62,54 @@ const uploadImage = (uri, mime = 'image/jpeg') => {
   })
 }
 
-
-
 class Demo extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       size: 0,
-      imgURL1: null,
-      imgURL2: null,
-      imgURL3: null
+      hasUploaded: false,
+      imgURL1: "-",
+      imgURL2: "-",
+      imgURL3: "-"
     }
   }
 
-  UserCreatePost() {
-  fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
+  sendData() {
+    //alert(this.state.hasUploaded);
+    //alert(this.state.imgURL1);
+
+    if(this.state.hasUploaded == true 
+      && this.state.imgURL1.substring(0,7) != "content"
+      && this.state.imgURL2.substring(0,7) != "content"
+      && this.state.imgURL3.substring(0,7) != "content") {
+      alert(this.state.imgURL1);
+      var temp = this.state.imgURL1.toString();
+      fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
           method: 'POST',
           headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            UserID: 219575471,
-            EventID: 46,
-            Title: 'Bla3e23',
-            Desc: 'Stuff',
-            Story: 'Please work for me',
-          })
-      }).then((response) => response.json())
-          .then((responseJson) => {
-            Alert.alert("we did it");
-              // If server response message same as Data Matched
-
-          });
-}
-
-  // UserCreatePost = () => {
-  //   // let img1 = {uri : this.state.imgURL1 }
-  //   // let img2 = {uri : this.state.imgURL2 }
-  //   // let img3 = {uri : this.state.imgURL3 }
-  //   var formData = new FormData();
-  //   formData.append('UserID', 908796775);
-  //   formData.append('EventID', 106);
-  //   formData.append('Title', 'Lil Pup');
-  //   formData.append('Desc', 'Bla bla bla');
-  //   formData.append('Story', 'ok well then');
-  //   // formData.append('PhotoOne', img1.uri)
-  //   // formData.append('PhotoTwo', img2.uri)
-  //   // formData.append('PhotoThree', img3.uri)
-    
-  //   fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
-  //     method: 'POST',
-  //     headers: {
-  //         // 'Accept': 'application/json',
-  //         'Content-Type': 'multipart/form-data',
-  //     },
-  //     body: formData
-  //     }).then((response) => response.json())
-  //     .then((responseJson) => {
-  //       alert(responseJson)
-  //   })
-  //   .done();
-  // //   .catch((error) => {
-  // //     console.error(error);
-  // // });
-  // }
-
+                UserID: 219575471,
+                EventID: 132,
+                Title: 'ireallywantthistowork29',
+                Desc: 'Stuff',
+                Story: 'Please work for me',
+                PhotoOne: temp,
+                PhotoTwo: this.state.imgURL2, 
+                PhotoThree: this.state.imgURL3
+          }),
+        });
+    }
+  }
 
   _pickImage() {
     if (this.state.size == 3) {
       alert("Maximum nuber of images selected.");
     }
-    else if (this.state.imgURL1 == null) {
+    else if (this.state.imgURL1 == "-") {
       // this.setState({ imgURL1: '' })
       console.log("I'm trying to pick an image");
       ImagePicker.launchImageLibrary({}, response  => {
@@ -142,7 +117,7 @@ class Demo extends Component {
       })
       this.setState({size: 1})
     }
-    else if (this.state.imgURL2 == null) {
+    else if (this.state.imgURL2 == "-") {
       // this.setState({ imgURL2: '' })
       console.log("I'm trying to pick an image");
       ImagePicker.launchImageLibrary({}, response  => {
@@ -150,7 +125,7 @@ class Demo extends Component {
       })
       this.setState({size: 2})
     }
-    else if (this.state.imgURL3 == null) {
+    else if (this.state.imgURL3 == "-") {
       // this.setState({ imgURL3: '' })
       console.log("I'm trying to pick an image");
       ImagePicker.launchImageLibrary({}, response  => {
@@ -161,10 +136,11 @@ class Demo extends Component {
   }
 
   _uploadImage() {
+    var imagehere = "";
     if (this.state.size == 0) {
       alert ("You have no images to upload.")
     }
-    else if(this.state.size == 3 && this.state.imgURL1 != null) {
+    else if(this.state.size == 3 && this.state.imgURL1 != "-") {
       uploadImage(this.state.imgURL1)
         .then(url => this.setState({ imgURL1: url }))
         .catch(error => console.log(error));
@@ -174,26 +150,49 @@ class Demo extends Component {
       uploadImage(this.state.imgURL3)
         .then(url => this.setState({ imgURL3: url }))
         .catch(error => console.log(error));
+        this.setState({hasUploaded : true})
     }
-    else if (this.state.size == 2 && this.state.imgURL1 != null) {
+    else if (this.state.size == 2 && this.state.imgURL1 != "-") {
       uploadImage(this.state.imgURL1)
         .then(url => this.setState({ imgURL1: url }))
         .catch(error => console.log(error));
       uploadImage(this.state.imgURL2)
         .then(url => this.setState({ imgURL2: url }))
         .catch(error => console.log(error));
+        this.setState({hasUploaded : true})
     }
-    else if (this.state.size == 1 && this.state.imgURL1 != null) {
+    else if (this.state.size == 1 && this.state.imgURL1 != "-") {
       uploadImage(this.state.imgURL1)
         .then(url => this.setState({ imgURL1: url }))
         .catch(error => console.log(error));
-        () => this.UserCreatePost();
+        this.setState({hasUploaded : true})
     }
     else {
       alert("didn't upload for some reason!")
     }
 
-   
+      //if(this.state.uri1 == null) {
+      //   alert(this.state.imgURL1);
+      // //}
+    
+      //   fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
+      //   method: 'POST',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //         UserID: 219575471,
+      //         EventID: 132,
+      //         Title: 'ireallywantthistowork17',
+      //         Desc: 'Stuff',
+      //         Story: 'Please work for me',
+      //         PhotoOne: imagehere,
+      //         PhotoTwo: this.state.imgURL2, 
+      //         PhotoThree: this.state.imgURL3
+      //   }),
+      // });
+      
     // uploadImage(this.state.uploadURL)
     //     .then(url => this.setState({ uploadURL: url }))
     //     .catch(error => console.log(error))
@@ -273,6 +272,7 @@ class Demo extends Component {
               case '':
                 return <ActivityIndicator />
               case 3:
+              this.sendData();
               return (
                 <ScrollView>
                   <Image
@@ -295,6 +295,7 @@ class Demo extends Component {
                 </ScrollView>
               )
               case 2: 
+              this.sendData();
               return (
                 <ScrollView>
                   <Image
@@ -311,6 +312,7 @@ class Demo extends Component {
                 </ScrollView>
               )
               default:
+              this.sendData();
                 return (
                   <ScrollView>
                     <Image
@@ -329,7 +331,7 @@ class Demo extends Component {
             Pick Image
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={ () => this._uploadImage() }>
+        <TouchableOpacity onPress={ () => this._uploadImage()}>
           <Text style={ styles.upload }>
             Post
           </Text>
