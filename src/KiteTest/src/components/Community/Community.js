@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, 
-  Text, 
-  View, 
-  Image, 
-  ScrollView, 
-  Dimensions, 
-  TouchableOpacity, 
-  StatusBar,
-  Alert,
-  AsyncStorage,
-  ListView,
+	StyleSheet, 
+	Text, 
+	View, 
+	Image, 
+	ListView,
+	ScrollView, 
+	Dimensions, 
+	TouchableOpacity, 
+	StatusBar,
+	Alert,
+	AsyncStorage,
+	ActivityIndicator,
 } from 'react-native';
 import { Button } from 'react-native-elements'
 import  Icon  from 'react-native-vector-icons/MaterialIcons';
@@ -118,7 +119,7 @@ export default class Community extends Component {
 	}
 		
 	GatherUserInformation = () => {
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getCommunity', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -126,28 +127,20 @@ export default class Community extends Component {
 			},
 			body: JSON.stringify({
 		
-				UserID: this.state.userID,
-		
+				CommunityID: this.state.communityID,
+				
 			})
 		}).then((response) => response.json())
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					this.setState({"firstName": responseJson.firstName});
-					this.setState({"lastName": responseJson.lastName});
-					this.setState({"email": responseJson.email});
-					this.setState({"dateOfBirth": responseJson.dateOfBirth});
-					this.setState({"employerName": responseJson.employerName});
-					this.setState({"aboutMe": responseJson.aboutMe});
-					this.setState({"currentCity": responseJson.currentCity});
-					this.setState({"currentStateOrProvence": responseJson.currentStateOrProvence});
-					this.setState({"currentCountry": responseJson.currentCountry});
-					this.setState({"cellPhone": responseJson.cellPhone});
-					this.setState({"homePhone": responseJson.homePhone});
+					this.setState({"title": responseJson.title});
+					this.setState({"aboutUs": responseJson.aboutUs});
+					this.setState({"ProfilePicture": responseJson.ProfilePicture});
 					this.setState({"dateAdded": responseJson.dateAdded});
 				}
 				else {
-					Alert.alert(responseJson);
+					Alert.alert(responseJson.error);
 				}
 			}).catch((error) => {
 				console.error(error);
@@ -227,36 +220,6 @@ export default class Community extends Component {
 		}
 		this.loadTimeline();
 	  }
-	  
-	  eachTweet(x){
-		return(
-			<TouchableOpacity 
-			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
-			>
-		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-					<Image 
-						source={{
-							uri: "" === ""
-							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-							: x.image
-						}} 
-						resizeMode="contain" 
-						style ={{height:54, width:54, borderRadius:27, margin:10}} 
-						/>
-					<View style={{flex:1}}>
-						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{fontWeight:'600', fontSize:12}}>{x.title} {x.title}</Text>
-							<Text style={{fontWeight:'500', fontSize:12}}> | @Baugh{/*{x.title}*/}</Text>
-						</View>
-						<View style={{ margin:5, marginRight:10,}}>
-							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
-						</View>
-					</View>
-				</View>
-			</TouchableOpacity>
-		)
-	}
 
 	eachTweet(x){
 		return(
@@ -321,7 +284,7 @@ export default class Community extends Component {
 
 						<View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
 							<Text style={{flex: 1, fontSize: 15, color: 'white', fontFamily: 'regular'}}>
-							this.state.aboutMe "I like long walks on the beach with beautiful people that like long walks on the beach with beautiful people."
+							{this.state.aboutMe}
 							</Text>
 						</View>
 
@@ -379,45 +342,6 @@ export default class Community extends Component {
 							</ScrollView>
 							</View>
 						</View>
-						<View style={{flex: 1, marginTop: 30}}>
-							<Text style={{flex: 1, fontSize: 15, color: 'rgba(216, 121, 112, 1)', fontFamily: 'regular', marginLeft: 40}}>
-							INFO
-							</Text>
-							<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 30}}>
-							<View style={{flex: 1, flexDirection: 'row'}}>
-								<View style={{flex: 1}}>
-								<Text style={styles.infoTypeLabel}>Age</Text>
-								<Text style={styles.infoTypeLabel}>Height</Text>
-								<Text style={styles.infoTypeLabel}>Ethnicity</Text>
-								<Text style={styles.infoTypeLabel}>Sign</Text>
-								<Text style={styles.infoTypeLabel}>Religion</Text>
-								</View>
-								<View style={{flex: 1, marginLeft: 10}}>
-								<Text style={styles.infoAnswerLabel}>26</Text>
-								<Text style={styles.infoAnswerLabel}>5'4"</Text>
-								<Text style={styles.infoAnswerLabel}>White</Text>
-								<Text style={styles.infoAnswerLabel}>Pisces</Text>
-								<Text style={styles.infoAnswerLabel}>Catholic</Text>
-								</View>
-							</View>
-							<View style={{flex: 1, flexDirection: 'row'}}>
-								<View style={{flex: 1}}>
-								<Text style={styles.infoTypeLabel}>Body Type</Text>
-								<Text style={styles.infoTypeLabel}>Diet</Text>
-								<Text style={styles.infoTypeLabel}>Smoke</Text>
-								<Text style={styles.infoTypeLabel}>Drink</Text>
-								<Text style={styles.infoTypeLabel}>Drugs</Text>
-								</View>
-								<View style={{flex: 1, marginLeft: 10, marginRight: -20}}>
-								<Text style={styles.infoAnswerLabel}>Fit</Text>
-								<Text style={styles.infoAnswerLabel}>Vegan</Text>
-								<Text style={styles.infoAnswerLabel}>No</Text>
-								<Text style={styles.infoAnswerLabel}>No</Text>
-								<Text style={styles.infoAnswerLabel}>Never</Text>
-								</View>
-							</View>
-							</View>
-						</View>
 						<Button
 							containerStyle={{ marginVertical: 20 }}
 							style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
@@ -429,7 +353,7 @@ export default class Community extends Component {
 							// }}
 							title="Expand Timeline"
 							titleStyle={{ fontFamily: 'regular', fontSize: 20, color: 'white', textAlign: 'center' }}
-							onPress={() => console.log('Expand Community Timeline')}
+							onPress={() => this.setState({timelineToggle: this.state.timelineToggle ? (false) : (true)})}
 							activeOpacity={0.5}
 						/>
 						{ this.state.timelineToggle 
