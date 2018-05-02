@@ -21,6 +21,10 @@ import styles from './styles';
 var {height, width} = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
+// add to stack/router navigation
+// change eachTweet to show community name and info
+// navigate to specific Community
+
 class KiteTimeline extends Component {
 	
 	constructor(){
@@ -148,11 +152,15 @@ class KiteTimeline extends Component {
 				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
 			>
 		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-					<Image
-						source={require('../../images/guy.jpeg')}
-						resizeMode="contain"
-						style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
-					/>
+					<Image 
+						source={{
+							uri: "" === ""
+							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
+							: x.ProfilePicture
+						}} 
+						resizeMode="contain" 
+						style ={{height:54, width:54, borderRadius:27, margin:10}} 
+						/>
 					<View style={{flex:1}}>
 						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
 							<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
