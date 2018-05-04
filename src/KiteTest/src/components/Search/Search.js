@@ -11,21 +11,147 @@ import {
   AsyncStorage,
   Alert,
   Picker,
+  Dimensions,
 } from 'react-native';
 
 import Colors from '../../Colors/Colors';
 import styles from './styles';
-import Timeline from 'react-native-timeline-listview';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+import { Input } from 'react-native-elements';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class Search extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			searchString: "Nothing",
+			searchString: "",
 			userID: 0,
-			searchType: "No Type",
+			searchType: "",
 		};
+	}
+
+	searchForUser = () => {
+
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Search.php?f=searchForUser', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
+				searchString: this.state.searchString,
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+
+					this.setState({ isRefreshing: true });
+					this.setState({
+						data: responseJson.timeline,
+						dataSource: ds.cloneWithRows(responseJson.timeline),
+						isRefreshing: false
+					});
+				
+				}
+                else {
+                    Alert.alert(responseJson.error);
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
+	}
+
+	searchForEvent = () => {
+
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Search.php?f=searchForEvent', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
+				searchString: this.state.searchString,
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+
+					this.setState({ isRefreshing: true });
+					this.setState({
+						data: responseJson.timeline,
+						dataSource: ds.cloneWithRows(responseJson.timeline),
+						isRefreshing: false
+					});
+				
+				}
+                else {
+                    Alert.alert(responseJson.error);
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
+	}
+
+	searchForCommunity = () => {
+
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Search.php?f=searchForCommunity', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+				
+				searchString: this.state.searchString,
+				
+            })
+
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                // If server response message same as Data Matched
+                if (responseJson.isValid === 'valid') {
+
+					this.setState({ isRefreshing: true });
+					this.setState({
+						data: responseJson.timeline,
+						dataSource: ds.cloneWithRows(responseJson.timeline),
+						isRefreshing: false
+					});
+				
+				}
+                else {
+                    Alert.alert(responseJson.error);
+                }
+
+            }).catch((error) => {
+                console.error(error);
+            });
+	}
+
+	doSearch = () => {
+		// if(this.state.searchType == "user") {
+		// 	this.searchForUser();
+		// } else if(this.state.searchType == "event") {
+		// 	this.searchForEvent();
+		// } else {
+		// 	this.searchForCommunity();
+		// }
 	}
 
 	setUserIdAsync(state){
@@ -39,113 +165,49 @@ class Search extends React.Component {
 		await this.setUserIdAsync({userID: user});
 	}
 
-	doSearch = () => {
+  	render() {
 
-
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Search.php?f=doSearch', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+		const {navigate} = this.props.navigation;
+		return (
+			<View style={styles.container}>
 				
-				UserID: this.userID,
-
-				SearchType: this.state.searchType,
-
-                SearchString: this.state.searchString,
+				<Text style={styles.titleText}>
+					Search Kite
+				</Text>
 				
-            })
-
-        }).then((response) => response.json())
-            .then((responseJson) => {
-
-                // If server response message same as Data Matched
-                if (responseJson.isValid === 'valid') {
-					
-				   Alert.alert(responseJson);
-				   
-				   	if(SearchType == "user") {
-					   <TouchableOpacity>{responseJson.results}</TouchableOpacity>
-				   	} else if (SearchType == "event") {
-						<Timeline
-							style={styles.timelineList}
-							data={this.state.data}
-							circleSize={20}
-							circleColor='rgb(45,156,219)'
-							lineColor='rgb(45,156,219)'
-							timeContainerStyle={{minWidth:52, marginTop: -5}}
-							timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
-							descriptionStyle={{color:'gray'}}
-							timeContainerStyle={{minWidth:72}}
-							circleSize={-100}
-							showTime={false}
-							onEventPress={this.onEventPress}
+				<View style={styles.textInput}>
+					<View style={styles.textBox}>
+						<Text style={styles.text}>
+							What is it that you would like to find?
+						</Text>
+						<Picker
+							selectedValue={this.state.searchType}
+							onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
+							<Picker.Item label="User" value="user" />
+							<Picker.Item label="Event" value="event" />
+							<Picker.Item label="Community" value="community" />
+						</Picker>
+						<TextInput
+							style={styles.textBox}
+							placeholder="Enter Search"
+							placeholderTextColor={'#fff'}
+							autoCapitalize="none"
+							autoCorrect={false}
+							onChangeText={(searchString) => this.setState({ searchString })}
 						/>
-                	} else {
-						Alert.alert("Wrong! Results did not compute!");
-					}
-				} else {
-                    Alert.alert(responseJson.error);
-                }
-
-            }).catch((error) => {
-                console.error(error);
-            });
-	}
-
-  render() {
-
-	const {navigate} = this.props.navigation;
-
-    return (
-
-    	
-		<View style={styles.container}>
-			
-			<Text style={styles.titleText}>
-				Search Kite
-			</Text>
-			
-			<View style={styles.textInput}>
-				<View style={styles.textBox}>
-					<Text style={styles.text}>
-						What is it that you would like to find?
-					</Text>
-					<Picker
-  						selectedValue={this.state.searchType}
-  						onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
-  						<Picker.Item label="User" value="user" />
-  						<Picker.Item label="Event" value="event" />
-						<Picker.Item label="Community" value="community" />
-					</Picker>
-					<TextInput
-						style={styles.textBox}
-						placeholder="Enter Search"
-						placeholderTextColor={'#fff'}
-						onSubmitEditing={() => this.descriptionInput.focus()}
-						autoCapitalize="none"
-						autoCorrect={false}
-						onChangeText={(EventTitle) => this.setState({ EventTitle })}
-					/>
+					</View>
 				</View>
 				
-				
-				
+				<View style={styles.button}>
+				<Button 
+					style={buttonColor = '#78B494'} 
+					title="Search Kite"
+					onPress = {() => this.doSearch()}
+				/>
+				</View>
 			</View>
-			
-			<View style={styles.button}>
-			<Button 
-				style={buttonColor = '#78B494'} 
-				title="Search Kite" 
-				onPress = {this.doSearch}
-					/>
-			</View>
-    	</View>
-
-    );
-  }
+		);
+	}
 }
 
 
