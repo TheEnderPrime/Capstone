@@ -7,7 +7,7 @@ module.exports = styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection)
     	alignContent: 'center', // cross axis (opposite of the flexDirection)
-    	backgroundColor: Colors.kite_greenMediumDark,
+		backgroundColor: 'rgba(47,44,60,1)',
   	},
   	logo: {
 		

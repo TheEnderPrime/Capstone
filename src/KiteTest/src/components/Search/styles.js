@@ -7,13 +7,14 @@ module.exports = styles = StyleSheet.create({
 		flexDirection: 'column',
 		//justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
+		backgroundColor: 'rgba(47,44,60,1)',
 	},
 	titleText: {
 		//flex: 1,
 		textAlign: 'center',
 		fontSize: 30,
 		padding: 20,
+		color: '#fff',
 	},
 	textInput: { 
 
@@ -24,6 +25,7 @@ module.exports = styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 15,
+		color: '#fff',
 	},
   	textBox: { 
 		padding: 10,
@@ -32,7 +34,7 @@ module.exports = styles = StyleSheet.create({
 		flex: 6,
 		padding: 10, 
 		//paddingTop: 65,
-		backgroundColor: '#A6CFBD',
+		backgroundColor: 'rgba(47,44,60,1)',
 	},
 	timelineList: {
 		flex: 1,

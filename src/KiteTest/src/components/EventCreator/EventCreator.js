@@ -26,8 +26,8 @@ class EventCreator extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			eventTitle: "a",
-			eventDesc: "a",
+			eventTitle: "",
+			eventDesc: "",
 			userID: 0,
 			eventID: 0,
 		};

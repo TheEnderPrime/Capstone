@@ -18,6 +18,8 @@ import {
 
 import styles from './styles';
 
+import {RkButton} from 'react-native-ui-kitten';
+
 var {height, width} = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 

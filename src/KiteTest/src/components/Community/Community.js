@@ -65,7 +65,11 @@ export default class Community extends Component {
 
     	this.state = {
 			communityName: "Oregon State University",
-			profilePic: '../../images/placeholderProfilePicture.jpg',
+			communityID: 1,
+			title: "",
+			aboutUs: "",
+			ProfilePicture: '../../images/placeholderProfilePicture.jpg',
+			dateAdded: "",
 			numOfThreads: 0,
 			numOfPosts: 0,
 			numOfMembers: 0,
@@ -80,9 +84,9 @@ export default class Community extends Component {
     	};
 	}
 	  
-	loadTimeline = () => {
+	getCommunityTimeLine = () => {
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getCommunityTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -90,7 +94,7 @@ export default class Community extends Component {
             },
             body: JSON.stringify({
 				
-				UserID: this.state.userID,
+				CommunityID: this.state.communityID,
 				
             })
 
@@ -118,8 +122,8 @@ export default class Community extends Component {
             });
 	}
 		
-	GatherUserInformation = () => {
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getCommunity', {
+	getCommunity = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=getCommunity', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -134,10 +138,10 @@ export default class Community extends Component {
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					this.setState({"title": responseJson.title});
-					this.setState({"aboutUs": responseJson.aboutUs});
-					this.setState({"ProfilePicture": responseJson.ProfilePicture});
-					this.setState({"dateAdded": responseJson.dateAdded});
+					this.setState({"title": responseJson.community.Title});
+					this.setState({"aboutUs": responseJson.community.AboutUs});
+					this.setState({"ProfilePicture": responseJson.community.ProfilePicture});
+					this.setState({"adminID": responseJson.community.adminID});
 				}
 				else {
 					Alert.alert(responseJson.error);
@@ -211,15 +215,18 @@ export default class Community extends Component {
 		});
 	}
 		
-  	async componentDidMount() {
+  	async componentWillMount() {
 		this.setState({ fontLoaded: true });
 		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userID: user});
-		if(this.state.userID != null){
-			this.GatherUserInformation(this.state.userID);
-		}
-		this.loadTimeline();
-	  }
+		// await this.setUserIdAsync({userID: user});
+		// if(this.state.communityID != null){
+		// 	this.GatherCommunityInformation(this.state.communityID);
+		// }
+		const {params} = this.props.navigation.state;
+		const CommunityID =  params ? params.communityID : null;
+		this.setState({communityID: CommunityID});
+		this.getCommunity();
+	}
 
 	eachTweet(x){
 		return(
@@ -262,19 +269,19 @@ export default class Community extends Component {
 						<View style={styles.statusBar} />
 							<View style={styles.navBar}>
 								<Text style={styles.nameHeader}>
-									{this.state.communityName}
+									{this.state.title}
 								</Text>
 							</View>
 						<ScrollView style={{flex: 1}}>
 						<View style={{ justifyContent: 'center', alignItems: 'center' }}>
 							<Image
-							source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Oregon_State_University_wordmark.svg/450px-Oregon_State_University_wordmark.svg.png' }}
-							style={{ width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
+							source={{ uri: this.state.ProfilePicture }}
+							style={{ width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10, resizeMode: 'contain'}}
 							/>
 						</View>
 						<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>
 							<Text style={{flex: 1, fontSize: 26, color: 'white', fontFamily: 'bold'}}>
-							{this.state.communityName}
+							{this.state.title}
 							</Text>
 						</View>
 
@@ -284,7 +291,7 @@ export default class Community extends Component {
 
 						<View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
 							<Text style={{flex: 1, fontSize: 15, color: 'white', fontFamily: 'regular'}}>
-							{this.state.aboutMe}
+							{this.state.aboutUs}
 							</Text>
 						</View>
 
@@ -309,39 +316,7 @@ export default class Community extends Component {
 								</View>
 							</View>
 						</View>
-						<View style={{flex: 1, marginTop: 30}}>
-							<Text style={{flex: 1, fontSize: 15, color: 'rgba(216, 121, 112, 1)', fontFamily: 'regular', marginLeft: 40}}>
-							THREADS
-							</Text>
-							<View style={{flex: 1, width: SCREEN_WIDTH, marginTop: 20}}>
-							<ScrollView
-								style={{flex: 1}}
-								horizontal
-								showsHorizontalScrollIndicator={false}
-							>
-								<View style={{flex: 1, flexDirection: 'column', height: 170, marginLeft: 40, marginRight: 10}}>
-								<View style={{flex: 1, flexDirection: 'row'}}>
-									<CustomButton title={this.state.firstName} selected={true} />
-									<CustomButton title="Sport" />
-									<CustomButton title="Swimming" selected={true} />
-									<CustomButton title="Religion" />
-								</View>
-								<View style={{flex: 1, flexDirection: 'row' }}>
-									<CustomButton title="Music" />
-									<CustomButton title="Soccer" selected={true} />
-									<CustomButton title="Radiohead" selected={true} />
-									<CustomButton title="Micheal Jackson" />
-								</View>
-								<View style={{ flex: 1, flexDirection: 'row' }}>
-									<CustomButton title="Travelling" selected={true} />
-									<CustomButton title="Rock'n'Roll" />
-									<CustomButton title="Dogs" selected={true} />
-									<CustomButton title="France" selected={true} />
-								</View>
-								</View>
-							</ScrollView>
-							</View>
-						</View>
+	
 						<Button
 							containerStyle={{ marginVertical: 20 }}
 							style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}

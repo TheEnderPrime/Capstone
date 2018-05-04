@@ -12,6 +12,7 @@ import Signup                 from '../components/Signup/Signup';
 import KiteTimeline           from '../components/Timeline/KiteTimeline';
 import Profile                from '../components/Profile/Profile';
 import Community              from '../components/Community/Community';
+import CommunitySelection     from '../components/Community_Selection/communitySelection';
 import Discover               from '../components/Discover/Discover';
 import Search                 from '../components/Search/Search';
 
@@ -32,7 +33,6 @@ import FollowingSettings      from '../components/Settings_Profile/followingSett
 import CommunitySettings      from '../components/Settings_Community/communitySettings';
 
 import TimelineSettings       from '../components/Settings_Timeline/timelineSettings';
-
 
 // opening stack navigator for Login/Signup pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
@@ -130,6 +130,23 @@ export const TimelineStack = StackNavigator({
 });
 
 export const CommunityStack = StackNavigator({
+    CommunitySelection: {
+        screen: CommunitySelection,
+        navigationOptions: ( {  navigation } ) => ({
+            title: 'Community',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        }), 
+    },
     Community: {
         screen: Community,
         navigationOptions: ( {  navigation } ) => ({

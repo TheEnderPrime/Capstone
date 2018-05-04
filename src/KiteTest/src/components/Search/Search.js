@@ -123,7 +123,7 @@ class Search extends React.Component {
 					<TextInput
 						style={styles.textBox}
 						placeholder="Enter Search"
-						placeholderTextColor={Colors.kite_greenMediumDark}
+						placeholderTextColor={'#fff'}
 						onSubmitEditing={() => this.descriptionInput.focus()}
 						autoCapitalize="none"
 						autoCorrect={false}

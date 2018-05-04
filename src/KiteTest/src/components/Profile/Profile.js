@@ -93,7 +93,7 @@ export default class Profile extends Component {
 	  
 	loadTimeline = () => {
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

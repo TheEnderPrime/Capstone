@@ -25,15 +25,10 @@ var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 // change eachTweet to show community name and info
 // navigate to specific Community
 
-class KiteTimeline extends Component {
+export default class communitySelection extends Component {
 	
 	constructor(){
 		super()
-		this.onEndReached 	= this.onEndReached.bind(this)
-		this.renderSelected = this.renderSelected.bind(this)
-		this.onRefresh 		= this.onRefresh.bind(this)
-
-		this.data = []
 		
 		this.state = {
 			isRefreshing: false,
@@ -44,9 +39,8 @@ class KiteTimeline extends Component {
 		}
 	}
 
-	loadTimeline = () => {
-
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
+	loadCommunities = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getCommunityTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -82,57 +76,6 @@ class KiteTimeline extends Component {
             });
 	}
 
-	onRefresh(){
-		//set initial data
-		this.setState({isRefreshing: true});
-		//refresh to initial data
-		setTimeout(() => {
-
-			this.loadTimeline();
-			
-		}, 2000);
-	}
-	
-	onEndReached() {
-		//fetch next data
-		if (!this.state.waiting) {
-			this.setState({waiting: true});
-	
-			//fetch and concat data
-			setTimeout(() => {
-	
-			//refresh to concat data
-			var data = this.state.data.concat(
-				[
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
-				]
-			)
-	
-			  this.setState({
-				waiting: false,
-				data: data,
-			  });
-			}, 2000);
-		}
-	}
-	
-	renderFooter() {
-		if (this.waiting) {
-			return <ActivityIndicator />;
-		} else {
-			return <Text>~</Text>;
-		}
-	}
-
-  	renderSelected(){
-		if(this.state.selected)
-	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
-	}
-
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
@@ -142,14 +85,14 @@ class KiteTimeline extends Component {
 	async componentWillMount(){
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
-		this.loadTimeline();
+		this.loadCommunities();
 	}
 
 	eachTweet(x){
 		return(
 			<TouchableOpacity 
 			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
+				onPress={() => this.props.navigation.navigate("Community", {communityID: x.CommunityID})}
 			>
 		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 					<Image 
@@ -163,11 +106,11 @@ class KiteTimeline extends Component {
 						/>
 					<View style={{flex:1}}>
 						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-							<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
+							<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.Title}</Text>
+							{/* <Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text> */}
 						</View>
 						<View style={{ margin:5, marginRight:10,}}>
-							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
+							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.AboutUs}</Text>
 						</View>
 					</View>
 				</View>
@@ -199,4 +142,3 @@ class KiteTimeline extends Component {
 	}
 
 }
-export default KiteTimeline;
