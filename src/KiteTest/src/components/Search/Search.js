@@ -12,6 +12,7 @@ import {
   Alert,
   Picker,
   Dimensions,
+  ListView,
 } from 'react-native';
 
 import Colors from '../../Colors/Colors';
@@ -19,8 +20,6 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { Input } from 'react-native-elements';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class Search extends React.Component {
 
@@ -52,17 +51,10 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-
-					this.setState({ isRefreshing: true });
-					this.setState({
-						data: responseJson.timeline,
-						dataSource: ds.cloneWithRows(responseJson.timeline),
-						isRefreshing: false
-					});
-				
+					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline})
 				}
                 else {
-                    Alert.alert(responseJson.error);
+					Alert.alert(responseJson.error);
                 }
 
             }).catch((error) => {
@@ -89,17 +81,10 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-
-					this.setState({ isRefreshing: true });
-					this.setState({
-						data: responseJson.timeline,
-						dataSource: ds.cloneWithRows(responseJson.timeline),
-						isRefreshing: false
-					});
-				
+					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline})
 				}
                 else {
-                    Alert.alert(responseJson.error);
+					Alert.alert(responseJson.error);
                 }
 
             }).catch((error) => {
@@ -126,18 +111,11 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-
-					this.setState({ isRefreshing: true });
-					this.setState({
-						data: responseJson.timeline,
-						dataSource: ds.cloneWithRows(responseJson.timeline),
-						isRefreshing: false
-					});
-				
+					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline})
 				}
                 else {
                     Alert.alert(responseJson.error);
-                }
+				}
 
             }).catch((error) => {
                 console.error(error);
@@ -145,13 +123,13 @@ class Search extends React.Component {
 	}
 
 	doSearch = () => {
-		// if(this.state.searchType == "user") {
-		// 	this.searchForUser();
-		// } else if(this.state.searchType == "event") {
-		// 	this.searchForEvent();
-		// } else {
-		// 	this.searchForCommunity();
-		// }
+		if(this.state.searchType == "user") {
+			this.searchForUser();
+		} else if(this.state.searchType == "event") {
+			this.searchForEvent();
+		} else {
+			this.searchForCommunity();
+		}
 	}
 
 	setUserIdAsync(state){

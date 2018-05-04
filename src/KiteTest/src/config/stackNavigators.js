@@ -14,7 +14,9 @@ import Profile                from '../components/Profile/Profile';
 import Community              from '../components/Community/Community';
 import CommunitySelection     from '../components/Community_Selection/communitySelection';
 import Discover               from '../components/Discover/Discover';
+
 import Search                 from '../components/Search/Search';
+import SearchResults          from '../components/Search_Results/searchResults';
 
 import PostCreator            from '../components/PostCreator/PostCreator';
 import EventCreator           from '../components/EventCreator/EventCreator';
@@ -573,6 +575,23 @@ export const SearchStack = StackNavigator({
         screen: Search,
         navigationOptions: {
             title: 'Search',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    SearchResults: {
+        screen: SearchResults,
+        navigationOptions: {
+            title: 'Search Results',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
