@@ -1,4 +1,7 @@
 <?php
+/**
+ * funtion for logging in a new user into the app
+ */
 require_once('includes/constants.inc.php');
 require_once('includes/connection.inc.php');
 require_once('classes/User.php');

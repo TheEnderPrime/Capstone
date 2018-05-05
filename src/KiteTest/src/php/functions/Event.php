@@ -5,6 +5,9 @@ require_once('classes/SimplePost.php');
 require_once('classes/Post.php');
 require_once('classes/Event.php');
 
+/**
+ * funciton for allowing a url to call different function within this one file
+ */
 if(function_exists($_GET['f'])) {
    $_GET['f']();
 }
@@ -106,6 +109,37 @@ function getEvent(){
 
 //updates a already created event
 function updateEvent(){
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
 
+    $EventID = $obj['EventID'];
+    $UsersID = $obj['UserID'];
+    $time = $obj['Time'];
+    $title = $obj['Title'];
+    $description = $obj['Description'];
+
+    $Current_Event = new Event($EvetID);
+    $Current_Event->gatherEventInfo();
+    $numberOfUpdates = 0;
+    if(isset($UserID)){
+        $numberOfUpdates = $numberOfUpdates + 1;
+        $retunred = $Current_Event->updateUserID($UserID);
+        echo $retunred;
+    }
+    if(isset($time)){
+        $numberOfUpdates = $numberOfUpdates + 1;
+        $retunred = $Current_Event->updateTime($time);
+        echo $retunred;
+    }
+    if(isset($title)){
+        $numberOfUpdates = $numberOfUpdates + 1;
+        $returned = $Current_Event->updateTitle($Title);
+        echo $retunred;
+    }
+    if(isset($description)){
+        $numberOfUpdates = $numberOfUpdates + 1;
+        $returned = $Current_Event->updateDescription($description);
+        echo $returned;
+    }
 }
 ?>
