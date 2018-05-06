@@ -354,5 +354,79 @@ class User{
     public function getProfilePicture(){
         return $this->profilePicture;
     }
+
+    public function sendFollowRequest($tryToFollow){
+        global $conn;
+        $sql = "INSERT INTO FollowRequest (UserRequestingId, UserRequestedId) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $this->usersID, $tryToFollow);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function addFollower($tryToFollow){
+        global $conn;
+        $sql = "INSERT INTO UserRelationships (UserFollowingId, UserFollowedId) VALUE (?,?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bid_param('ii', $this->usersID, $tryToFollow);
+        $stmt->execute();
+        $stmt->close();
+        $this->removeFollowRequest($tryToFollow);
+    }
+
+    public function removeFollowRequest($tryToRemoveFollow){
+        global $conn;
+        $sql = "DELETE FROM FollowRequest WHERE UserRequestingId = ? AND UserRequestedId = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $this->usersID, $tryToRemoveFollow);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    // public function removeFollower($tryToRemoveFollow){
+    //     global $coon;
+    //     $sql = ""
+    // }
+
+    public function getFollowRequests(){
+        global $conn;
+        $sql = "SELECT UserRequestedId FROM  FollowRequest WHERE UserRequestingId = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $this->usersID);
+        $stmt->execute();
+        $stmt->bind_result($tempids);
+        $stmt->store_result();
+        $returned->listOfFollowRequests = array();
+        while ($stmt->fetch()){
+            $tempID = $tempids;
+            $tempIDAndName = array();
+            $sql2 = "SELECT FirstName FROM Users WHERE UsersId = ?";
+            if($stmt2 = $conn->prepare($sql2)){
+                $stmt2->bind_param('i', $tempID);
+                $stmt2->execute();
+                $stmt2->bind_result($tempname);
+                $stmt2->fetch();
+                $stmt2->close();
+                if(isset($tempname)){
+                    array_push($tempIDAndName, $tempname);
+                }
+                else{
+                    echo "this email does not exist";
+                }
+            }
+            else{
+                echo "ERROR(incode): 1";
+            }
+            array_push($tempIDAndName, $tempID);
+
+            array_push($returned->listOfFollowRequests, $tempIDAndName);
+        }
+        $stmt->close();
+
+        $returned->myID = $this->usersID;
+        return json_encode($returned);
+    }
+
+
 }
 ?>

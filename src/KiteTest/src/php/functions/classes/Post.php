@@ -89,5 +89,102 @@ class Post{
         }
         mysqli_free_result($result);
     }
+
+    Public Function updateUserID($UserID){
+        global $conn;
+        $this->UsersId = $UserID;
+        $sql = "UPDATE UserPost SET UserID = ? WHERE id = '$this->id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $UserID);
+        $stmt->execute();
+        $temp = 'User id updated';
+        $stmt->close();
+        return $temp;
+    }
+    Public Function updateTime($time){
+        global $conn;
+        $this->time = $time;
+        $sql = "UPDATE UserPost SET time = ? WHERE id = '$this->id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $time);
+        $stmt->execute();
+        $temp = 'time updated';
+        $stmt->close();
+        return $temp;
+    }
+    Public Function updatePostText($PostText){
+        global $conn;
+        $this->PostText = $PostText;
+        $sql = "UPDATE UserPost SET PostText = ? WHERE id = '$this->id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $PostText);
+        $stmt->execute();
+        $temp = 'post text updated';
+        $stmt->close();
+        return $temp;
+    }
+    Public Function updateEventID($EventID){
+        global $conn;
+        $this->EventId = $EventID;
+        $sql = "UPDATE UserPost SET EventId = ? WHERE id = '$this->id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $EventID);
+        $stmt->execute();
+        $temp = 'event id changed';
+        $stmt->close();
+        return $temp;
+    }
+    Public Function updateCommunityID($CommunityID){
+        global $conn;
+        $this->CommunityId = $CommunityID;
+        $sql = "UPDATE UserPost SET CommunityId = ? WHERE id = '$this->id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $CommunityID);
+        $stmt->execute();
+        $temp = 'community id changed';
+        $stmt->close();
+        return $temp;
+    }
+    Public Function updateTitle($title){
+        global $conn;
+        $this->title = $title;
+        $sql = "UPDATE UserPost SET title = ? WHERE id = '$this->id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $title);
+        $stmt->execute();
+        $temp = 'title updated';
+        $stmt->close();
+        return $temp;
+    }
+    // Public Function updatePictureOne($PictureOne){
+
+    // }
+    // Public Function updatePictureTwo($PictureTwo){
+
+    // }
+    // Public Function updatePictureThree($PictureThree){
+
+    // }
+    // Public Function updateVideoOne($VideoOne){
+
+    // }
+    // Public Function updateVideoTwo($VideoTwo){
+
+    // }
+    // Public Function updateVideoThree($VideoThree){
+
+    // }
+    Public Function updateDescription($description){
+        global $conn;
+        $this->description = $description;
+        $sql = "UPDATE UserPost SET description = ? WHERE id = '$this->id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $description);
+        $stmt->execute();
+        $temp = 'description updated';
+        $stmt->close();
+        return $temp;
+    }
+
 }
 ?>

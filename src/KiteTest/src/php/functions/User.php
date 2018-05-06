@@ -3,10 +3,18 @@ require_once('includes/constants.inc.php');
 require_once('includes/connection.inc.php');
 require_once('classes/User.php');
 
+/**
+ * funciton for allowing a url to call different function within this one file
+ */
 if(function_exists($_GET['f'])) {
    $_GET['f']();
 }
 
+/**
+ * GetProfile function takes in the userID and then gathers all of the other 
+ * information about a user and creates an user object then encodes it as a 
+ * json string and sends it back to the ui
+ */
 function getProfile() {
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
@@ -32,11 +40,108 @@ function getProfile() {
         $returnObj->profilePicture = $Current_User->getProfilePicture();
     } else{
         $returnObj->isValid = 'inValid';
+        $returnObj->errorMessage = 'can not get profile you do not have a userID set, try logging back in';
     }
 
     echo json_encode($returnObj);
 }
 
+/**
+ * sendFollowRequest function used to send a request between the me obj and the trytofollow obj
+ */
+function sendFollowRequest(){
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $me = 29770083;
+    $tryToFollow = 31782703;
+
+    $Current_User = new User($me);
+    $Current_User->gatherUserInfo();
+    $Current_User->sendFollowRequest($tryToFollow);
+}
+
+/**
+ * removeFollowRequest function used to remove a current follow request between the me obj
+ * and the trytofollow obj
+ */
+function removeFollowRequest(){
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $me = 29770083;
+    $tryToRemoveFollow = 31782703;
+
+    $Current_User = new User($me);
+    $Current_User->gatherUserInfo();
+    $Current_User->removeFollowRequest($tryToRemoveFollow);
+}
+
+/**
+ * getFollowRequests function is used to get all current follow requests for the me obj
+ */
+function getFollowRequests(){
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $me = 29770083;
+
+    $Current_User = new User($me);
+    $Current_User->gatherUserInfo();
+    $returned = $Current_User->getFollowRequests();
+    echo $returned;
+}
+
+/**
+ * addFollower function is used to add a follower connection between to user
+ */
+function addFollower(){
+    $json = file_get_contents('php://input');
+    $obj = json_decode($josn,true);
+
+    $me = 29770083;
+    $tryToFollow = 31782703;
+
+    $Current_User = new User($me);
+    $Current_User->gatherUserInfo();
+    $Current_User->addFollower($tryToFollow);
+}
+
+/**
+ * removeFollower function is used to remove the connection between two users that 
+ * are following each other
+ */
+function removeFollower(){
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $me = 29770083;
+    $tryToRemoveFollow = 31782703;
+
+    $Current_User = new User($me);
+    $Current_User->gatherUserInfo();
+    $Current_User->removeFollower($tryToRemoveFollow);
+}
+
+/**
+ * getFollow returns all of this users followers
+ */
+function getFollow(){
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $me = 29770083;
+
+    $Current_User = new User($me);
+    $Current_User->gatherUserInfo();
+    $Current_User->getFollow();
+}
+
+/**
+ * updateProfile function takes in a josn encoded string, it then decodes the string and then
+ * for all elements in the obj that have the same name as each one of the potental porfile elements
+ * if the information is set in the obj then it updates that one thing.
+ */
 function updateProfile() {
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
@@ -59,89 +164,83 @@ function updateProfile() {
     $HomePhone = $obj['HomePhone'];
     $ProfilePicture = $obj['ProfilePicture'];
     $numberOfUpdates;
+    $returned->isValid = 'valid';
     if(!isset($UserID)){ 
-        echo "Please Check to see if you are logged in";
+       $returned->isValid = 'notValid';
+       $returned->errorMessage = 'Please Check to see if you are logged in';
+        
     }
     else{
-        $Current_User = new User($UserID); //set up user object with users id
-        $Current_User->gatherUserInfo(); //gather info about that user from database
-        $numberOfUpdates = 0;
-        if(isset($FirstName)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateFirstName($FirstName); //set first name of user to be new first name
-            echo $returned;
-        }if(isset($LastName)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateLastName($LastName);
-            echo $returned;
-        }if(isset($Email)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateEmail($Email);
-            echo $returned;
-        }if(isset($Password)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            //TODO not sure yet
-            echo 'password';
-        }if(isset($DateOfBirth)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateDateOfBirth($DateOfBirth);
-            echo $returned;
-        }if(isset($ActiveFlag)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateActiveFlag($ActiveFlag);
-            echo $returned;
-        }if(isset($EmployerName)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateEmployerName($EmployerName);
-            echo $returned;
-        }if(isset($AboutMe)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateAboutMe($AboutMe);
-            echo $returned;
-        }if(isset($HomeCity)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateHomeCity($HomeCity);
-            echo $returned;
-        }if(isset($HomeStateOrProvence)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateHomeStateOrProvence($HomeStateOrProvence);
-            echo $returned;
-        }if(isset($CurrentCity)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateCurrentCity($CurrentCity);
-            echo $returned;
-        }if(isset($CurrentStateOrProvence)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateCurrentStateOrProvence($CurrentStateOrProvence);
-            echo $returned;
-        }if(isset($CurrentCountry)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateCurrentCountry($CurrentCountry);
-            echo $returned;
-        }if(isset($CellPhone)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateCellPhone($CellPhone);
-            echo $returned;
-        }if(isset($HomePhone)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateHomePhone($HomePhone);
-            echo $returned;
-        }if(isset($ProfilePicture)){
-            $numberOfUpdates = $numberOfUpdates + 1;
-            $returned = $Current_User->updateProfilePicture($ProfilePicture);
-            echo $returned;
-        }
-        
-        if(isset($numberOfUpdates)){
-            if(!($numberOfUpdates > 0)){
-                echo "User:" . $UserID . " has no updates";
-            }
-            //TODO DEV
-            else{
-                echo "User " . $UserID . " has " . $numberOfUpdates . " update";
-            }
-            //TODO DEV
-        }
+       $Current_User = new User($UserID); //set up user object with users id
+       $Current_User->gatherUserInfo(); //gather info about that user from database
+       $numberOfUpdates = 0;
+       if(isset($FirstName)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateFirstName($FirstName); //set first name of user to be new first name
+           $returned->firstname = $return;
+       }if(isset($LastName)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateLastName($LastName);
+           $returned->lastName = $return;
+       }if(isset($Email)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateEmail($Email);
+           $returned->email =$return;
+       }//if(isset($Password)){
+           //$numberOfUpdates = $numberOfUpdates + 1;
+           //TODO not sure yet
+           //echo 'password';
+       //}
+       if(isset($DateOfBirth)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateDateOfBirth($DateOfBirth);
+           $returned->DateOfBirth = $return;
+       }if(isset($ActiveFlag)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateActiveFlag($ActiveFlag);
+           $returned->ActiveFlag = $return;
+       }if(isset($EmployerName)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateEmployerName($EmployerName);
+           $returned->EmployerName = $return;
+       }if(isset($AboutMe)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateAboutMe($AboutMe);
+           $returned->AboutMe = $return;
+       }if(isset($HomeCity)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateHomeCity($HomeCity);
+           $returned->HomeCity = $return;
+       }if(isset($HomeStateOrProvence)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateHomeStateOrProvence($HomeStateOrProvence);
+           $returned->HomeStateOrProvence = $return;
+       }if(isset($CurrentCity)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateCurrentCity($CurrentCity);
+           $returned->CurrentCity = $return;
+       }if(isset($CurrentStateOrProvence)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateCurrentStateOrProvence($CurrentStateOrProvence);
+           $returned->CurrentStateOrProvence = $return;
+       }if(isset($CurrentCountry)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateCurrentCountry($CurrentCountry);
+           $returned->CurrentCountry = $return;
+       }if(isset($CellPhone)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateCellPhone($CellPhone);
+           $returned->CellPhone = $return;
+       }if(isset($HomePhone)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateHomePhone($HomePhone);
+           $returned->HomePhone = $return;
+       }if(isset($ProfilePicture)){
+           $numberOfUpdates = $numberOfUpdates + 1;
+           $return = $Current_User->updateProfilePicture($ProfilePicture);
+           $returned->ProfilePicture = $return;
+       }
+       echo json_encode($returned);
     }
 }
 ?>
