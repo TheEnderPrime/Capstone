@@ -142,8 +142,8 @@ export default class Login extends Component {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					firstName: "testFirstName",
-					lastName: "testLastName",
+					firstName: "None",
+					lastName: "None",
 					email: email,
 					password: password,
 					date: "10",
