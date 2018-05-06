@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  	Platform,
-  	StyleSheet,
-  	Text,
-  	View,
-  	Button,
-  	TouchableOpacity,
+	Platform,
+	StyleSheet,
+	Text,
+	View,
+	Button,
+	TouchableOpacity,
 	AsyncStorage,
 	Alert,
 	RefreshControl,
@@ -18,21 +18,24 @@ import {
 
 import styles from './styles';
 
-import {RkButton} from 'react-native-ui-kitten';
+import { RkButton } from 'react-native-ui-kitten';
+import { RkTheme } from 'react-native-ui-kitten';
+import { RkCard } from 'react-native-ui-kitten';
+import { RkText } from 'react-native-ui-kitten';
 
-var {height, width} = Dimensions.get('window');
-var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+var { height, width } = Dimensions.get('window');
+var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
 class KiteTimeline extends Component {
-	
-	constructor(){
+
+	constructor() {
 		super()
-		this.onEndReached 	= this.onEndReached.bind(this)
+		this.onEndReached = this.onEndReached.bind(this)
 		this.renderSelected = this.renderSelected.bind(this)
-		this.onRefresh 		= this.onRefresh.bind(this)
+		this.onRefresh = this.onRefresh.bind(this)
 
 		this.data = []
-		
+
 		this.state = {
 			isRefreshing: false,
 			waiting: false,
@@ -45,22 +48,22 @@ class KiteTimeline extends Component {
 	loadTimeline = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-				
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+
 				UserID: this.state.userID,
-				
-            })
 
-        }).then((response) => response.json())
-            .then((responseJson) => {
+			})
 
-                // If server response message same as Data Matched
-                if (responseJson.isValid === 'valid') {
+		}).then((response) => response.json())
+			.then((responseJson) => {
+
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
 
 					this.setState({ isRefreshing: true });
 					this.setState({
@@ -69,55 +72,55 @@ class KiteTimeline extends Component {
 						isRefreshing: false
 					});
 					//parse array from responseJson
-				
-				}
-                else {
-                    Alert.alert(responseJson.error);
-                }
 
-            }).catch((error) => {
-                console.error(error);
-            });
+				}
+				else {
+					Alert.alert(responseJson.error);
+				}
+
+			}).catch((error) => {
+				console.error(error);
+			});
 	}
 
-	onRefresh(){
+	onRefresh() {
 		//set initial data
-		this.setState({isRefreshing: true});
+		this.setState({ isRefreshing: true });
 		//refresh to initial data
 		setTimeout(() => {
 
 			this.loadTimeline();
-			
+
 		}, 2000);
 	}
-	
+
 	onEndReached() {
 		//fetch next data
 		if (!this.state.waiting) {
-			this.setState({waiting: true});
-	
+			this.setState({ waiting: true });
+
 			//fetch and concat data
 			setTimeout(() => {
-	
-			//refresh to concat data
-			var data = this.state.data.concat(
-				[
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
-				]
-			)
-	
-			  this.setState({
-				waiting: false,
-				data: data,
-			  });
+
+				//refresh to concat data
+				var data = this.state.data.concat(
+					[
+						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' },
+						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' },
+						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' },
+						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' },
+						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' }
+					]
+				)
+
+				this.setState({
+					waiting: false,
+					data: data,
+				});
 			}, 2000);
 		}
 	}
-	
+
 	renderFooter() {
 		if (this.waiting) {
 			return <ActivityIndicator />;
@@ -126,30 +129,32 @@ class KiteTimeline extends Component {
 		}
 	}
 
-  	renderSelected(){
-		if(this.state.selected)
-	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
+	renderSelected() {
+		if (this.state.selected)
+			return <Text style={{ marginTop: 10 }}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
 	}
 
-	setUserIdAsync(state){
+	setUserIdAsync(state) {
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
 	}
 
-	async componentWillMount(){
+	async componentWillMount() {
 		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userID: user});
+		await this.setUserIdAsync({ userID: user });
 		this.loadTimeline();
 	}
 
-	eachTweet(x){
-		return(
-			<TouchableOpacity 
-			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
+	eachTweet(x) {
+		return (
+			<TouchableOpacity
+				style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 6, paddingTop: 6 }}
+				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
 			>
-		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+				{/* style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})} */}
+				{/* <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 					<Image
 						source={require('../../images/guy.jpeg')}
 						resizeMode="contain"
@@ -164,28 +169,47 @@ class KiteTimeline extends Component {
 							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
 						</View>
 					</View>
-				</View>
+				</View> */}
+
+
+
+				<RkCard rkType='story'>
+					<Image rkCardImg source={require('../../images/guy.jpeg')} resizeMode="contain"
+						style={{ height: 200 }} />
+					<View rkCardHeader>
+						<RkText rkType='header'>{x.title}</RkText>
+					</View>
+					<View rkCardContent>
+						<RkText style={{ textAlign: 'center' }}>
+							{x.description}
+						</RkText>
+					</View>
+					{/* <View rkCardFooter>
+    <RkButton rkType='small outline'>Learn More</RkButton>
+    <RkButton rkType='small'>Read later</RkButton>
+  </View> */}
+				</RkCard>
 			</TouchableOpacity>
 		)
 	}
 
-  	render() {
-		if ( this.state.isRefreshing ) {
+	render() {
+		if (this.state.isRefreshing) {
 			return (
 				<View style={styles.container}>
-					<ActivityIndicator size="large"/>
+					<ActivityIndicator size="large" />
 				</View>
 			);
 		} else {
 			return (
 				<View style={styles.container}>
-					<ListView 
+					<ListView
 						enableEmptySections={true}
 						//initialListSize={6}
 						onEndReached={() => this.onEndReached()}
 						//renderFooter={() => this.renderFooter()}
-						dataSource = {this.state.dataSource}
-						renderRow = {(rowData) => this.eachTweet(rowData)}
+						dataSource={this.state.dataSource}
+						renderRow={(rowData) => this.eachTweet(rowData)}
 					/>
 				</View>
 			);
@@ -193,4 +217,16 @@ class KiteTimeline extends Component {
 	}
 
 }
+RkTheme.setType('RkCard', 'story', {
+	img: {
+		height: 100,
+		opacity: 0.7
+	},
+	header: {
+		alignSelf: 'center'
+	},
+	content: {
+		alignSelf: 'center'
+	}
+});
 export default KiteTimeline;

@@ -8,7 +8,7 @@ import Icon  from "react-native-vector-icons/MaterialIcons";
 import Splash                 from '../components/Splash/Splash';
 import Welcome                from '../components/Welcome/Welcome';
 import Login                  from '../components/Login/Login';
-import Signup                 from '../components/Signup/Signup';
+//import Signup                 from '../components/Signup/Signup';
 import KiteTimeline           from '../components/Timeline/KiteTimeline';
 import Profile                from '../components/Profile/Profile';
 import Community              from '../components/Community/Community';
