@@ -91,7 +91,7 @@ class EventCreator extends React.Component {
 				
 			<View style={styles.titleView}>
 				<Text style={styles.Title}>
-					Your Story Here :D
+					Your Story Here :)
 				</Text>
 			</View>
 				

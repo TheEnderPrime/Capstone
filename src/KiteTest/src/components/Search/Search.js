@@ -21,6 +21,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { Input } from 'react-native-elements';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
+
 class Search extends React.Component {
 
 	constructor(props) {
@@ -51,7 +54,7 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline})
+					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline, searchType: this.state.searchType})
 				}
                 else {
 					Alert.alert(responseJson.error);
@@ -81,7 +84,7 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline})
+					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline, searchType: this.state.searchType})
 				}
                 else {
 					Alert.alert(responseJson.error);
@@ -111,7 +114,7 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline})
+					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline, searchType: this.state.searchType})
 				}
                 else {
                     Alert.alert(responseJson.error);
@@ -144,7 +147,6 @@ class Search extends React.Component {
 	}
 
   	render() {
-
 		const {navigate} = this.props.navigation;
 		return (
 			<View style={styles.container}>
@@ -159,19 +161,35 @@ class Search extends React.Component {
 							What is it that you would like to find?
 						</Text>
 						<Picker
+							style={{ height: 50, width: 100, color: '#fff' }}
 							selectedValue={this.state.searchType}
 							onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
 							<Picker.Item label="User" value="user" />
 							<Picker.Item label="Event" value="event" />
 							<Picker.Item label="Community" value="community" />
 						</Picker>
-						<TextInput
-							style={styles.textBox}
-							placeholder="Enter Search"
-							placeholderTextColor={'#fff'}
-							autoCapitalize="none"
-							autoCorrect={false}
-							onChangeText={(searchString) => this.setState({ searchString })}
+
+						<Input inputContainerStyle={{ 
+							borderRadius: 40, 
+							borderWidth: 1, 
+							borderColor: "rgba(110, 120, 170, 1)", 
+							height: 50, 
+							width: SCREEN_WIDTH - 50, 
+							marginVertical: 10 }} 
+							leftIcon={
+								<SimpleIcon name="user" color="rgba(110, 120, 170, 1)" size={25} />
+							} 
+							iconContainerStyle={{ marginLeft: 20 }} 
+							placeholder="Enter Search" 
+							placeholderTextColor="rgba(110, 120, 170, 1)" 
+							inputStyle={{ marginLeft: 10, color: "white" }} 
+							autoCapitalize="none" 
+							autoCorrect={false} 
+							keyboardAppearance="light" 
+							keyboardType="default" 
+							returnKeyType="next" 
+							onChangeText={(searchString) => this.setState({searchString: searchString })}
+							blurOnSubmit={false} 
 						/>
 					</View>
 				</View>

@@ -232,8 +232,14 @@ export default class Profile extends Component {
 		
   	async componentDidMount() {
 		this.setState({ fontLoaded: true });
-		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userID: user});
+		// const { params } = this.props.navigation.state;
+		// const USERID = params.userID ? params.userID : "";
+		// this.setState({userID: USERID});
+		// if(userID = "") {
+			const user = await AsyncStorage.getItem('userID')
+			await this.setUserIdAsync({userID: user});
+			Alert.alert(this.state.userID);
+		// }
 		if(this.state.userID != null){
 			this.GatherUserInformation(this.state.userID);
 		}
