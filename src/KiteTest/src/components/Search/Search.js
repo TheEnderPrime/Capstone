@@ -85,6 +85,7 @@ class Search extends React.Component {
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
 					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline, searchType: this.state.searchType})
+
 				}
                 else {
 					Alert.alert(responseJson.error);
