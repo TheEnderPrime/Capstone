@@ -55,14 +55,12 @@ export default class searchResult extends Component {
 		this.setState({dataSource: ds.cloneWithRows(DataSource)});
 	}
 
-//CHANGE EACHTWEET TO WORK FOR USERS, EVENTS, AND COMMUNITIES
-
 	eachTweet(x){
 		if(this.state.searchType == "user") {
 			return(
 				<TouchableOpacity 
-					  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-					onPress={() => this.props.navigation.navigate("Profile", {userID: x.UserId})}
+					style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+					onPress={() => this.props.navigation.navigate("SearchProfile", {"userID": x.UsersId})}
 				>
 					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 						<Image
@@ -72,7 +70,7 @@ export default class searchResult extends Component {
 						/>
 						<View style={{flex:1}}>
 							<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-								<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
+								<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName} {x.UsersId}</Text>
 							</View>
 							<View style={{ margin:5, marginRight:10,}}>
 								<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.aboutMe}</Text>
@@ -85,7 +83,7 @@ export default class searchResult extends Component {
 			return(
 				<TouchableOpacity 
 					  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-					onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
+					onPress={() => this.props.navigation.navigate("SearchEvent", {eventID: x.id})}
 				>
 					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 						<Image
@@ -109,7 +107,7 @@ export default class searchResult extends Component {
 			return(
 				<TouchableOpacity 
 					  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-					onPress={() => this.props.navigation.navigate("Community", {communityID: x.CommunityID})}
+					onPress={() => this.props.navigation.navigate("SearchCommunity", {communityID: x.CommunityID})}
 				>
 					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 						<Image 
