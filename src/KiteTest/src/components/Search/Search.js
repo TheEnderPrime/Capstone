@@ -54,7 +54,7 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline, searchType: this.state.searchType})
+					this.props.navigation.navigate('SearchResults', {data: responseJson, searchType: this.state.searchType})
 				}
                 else {
 					Alert.alert(responseJson.error);
@@ -84,7 +84,7 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline, searchType: this.state.searchType})
+					this.props.navigation.navigate('SearchResults', {data: responseJson, searchType: this.state.searchType})
 
 				}
                 else {
@@ -115,7 +115,7 @@ class Search extends React.Component {
 
                 // If server response message same as Data Matched
                 if (responseJson.isValid === 'valid') {
-					this.props.navigation.navigate('SearchResults', {data: responseJson.timeline, searchType: this.state.searchType})
+					this.props.navigation.navigate('SearchResults', {data: responseJson, searchType: this.state.searchType})
 				}
                 else {
                     Alert.alert(responseJson.error);
@@ -162,7 +162,7 @@ class Search extends React.Component {
 							What is it that you would like to find?
 						</Text>
 						<Picker
-							style={{ height: 50, width: 100, color: '#fff' }}
+							style={{ height: 50, width: 150, color: '#fff' }}
 							selectedValue={this.state.searchType}
 							onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
 							<Picker.Item label="User" value="user" />

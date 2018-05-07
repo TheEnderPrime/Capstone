@@ -80,7 +80,6 @@ export default class searchProfile extends Component {
 			numOfFollowers: 0,
 			numOfFollowing: 0,
 			numOfCommunities: 0,
-			userID: 0,
 			isRefreshing: false,
 			waiting: false,
 			selected: null,
@@ -91,7 +90,7 @@ export default class searchProfile extends Component {
     	};
 	}
 	  
-	loadTimeline = () => {
+	loadTimeline = (id) => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
             method: 'POST',
@@ -101,7 +100,7 @@ export default class searchProfile extends Component {
             },
             body: JSON.stringify({
 				
-				UserID: this.state.userID,
+				UserID: id,
 				
             })
 
@@ -129,7 +128,7 @@ export default class searchProfile extends Component {
             });
 	}
 		
-	GatherUserInformation = () => {
+	GatherUserInformation = (id) => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
 			method: 'POST',
 			headers: {
@@ -138,7 +137,7 @@ export default class searchProfile extends Component {
 			},
 			body: JSON.stringify({
 		
-				UserID: this.state.userID,
+				UserID: id,
 		
 			})
 		}).then((response) => response.json())
@@ -166,14 +165,13 @@ export default class searchProfile extends Component {
 			});
 	}
 		
-  	async componentDidMount() { //WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+  	async componentWillMount() {
 		this.setState({ fontLoaded: true });
 		const { params } = this.props.navigation.state;
-		const USERID = params.userID ? params.userID : 1;
-		this.setState({userID: USERID});
-		Alert.alert(this.state.userID.toString());
-		this.GatherUserInformation(this.state.userID);
-		this.loadTimeline();
+		const USERID = params.userID ? params.userID : null;
+		this.setState({"userID": USERID});
+		this.GatherUserInformation(USERID);
+		this.loadTimeline(USERID);
 	}
 
 	eachTweet(x){

@@ -43,7 +43,7 @@ export default class searchEvent extends React.Component {
 		};
 	}
 
-	loadEvent = () => {
+	loadEvent = (event, user) => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
             method: 'POST',
@@ -53,9 +53,9 @@ export default class searchEvent extends React.Component {
             },
             body: JSON.stringify({
 				
-				UserID: this.state.userID,
+				UserID: user,
 
-				EventID: this.state.eventID,
+				EventID: event,
 				
             })
 
@@ -93,11 +93,13 @@ export default class searchEvent extends React.Component {
 
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userID: user});
-		const {params} = this.props.navigation.state;
-		const EventID =  params ? params.eventID : null;
-		this.setState({eventID: EventID});
-		this.loadEvent();
+		await this.setUserIdAsync({yourUserID: user});
+		const { params } = this.props.navigation.state;
+		const EVENTID = params.eventID ? params.eventID : null;
+		const USERID = params.userID ? params.userID : null;
+		this.setState({"userID" : USERID});
+		this.setState({"eventID": EVENTID});
+		this.loadEvent(EVENTID, USERID);
 	}
 
 	eachTweet(x){
@@ -130,8 +132,11 @@ export default class searchEvent extends React.Component {
 		)
 	}
 
-	
 	render() {			
+
+		//CHECK FOR PERMISSION TO EDIT EVENT
+		// const editPrivledges = 
+
 		return (
 			<View style={styles.container}>
 				<View style={styles.eventInfo}>
@@ -166,6 +171,7 @@ export default class searchEvent extends React.Component {
 						/>
 					</View>
 				</View>
+				if()
 				<View style={styles.button}>
 					<Button 
 						style={buttonColor = '#78B494'} 

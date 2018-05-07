@@ -64,8 +64,6 @@ export default class searchCommunity extends Component {
     	super(props);
 
     	this.state = {
-			communityName: "Oregon State University",
-			communityID: 1,
 			title: "",
 			aboutUs: "",
 			ProfilePicture: '../../images/placeholderProfilePicture.jpg',
@@ -84,7 +82,7 @@ export default class searchCommunity extends Component {
     	};
 	}
 	  
-	getCommunityTimeLine = () => {
+	getCommunityTimeLine = (commID) => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getCommunityTimeLine', {
             method: 'POST',
@@ -94,7 +92,7 @@ export default class searchCommunity extends Component {
             },
             body: JSON.stringify({
 				
-				CommunityID: this.state.communityID,
+				CommunityID: commID,
 				
             })
 
@@ -122,7 +120,7 @@ export default class searchCommunity extends Component {
             });
 	}
 		
-	getCommunity = () => {
+	getCommunity = (commID) => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=getCommunity', {
 			method: 'POST',
 			headers: {
@@ -131,7 +129,7 @@ export default class searchCommunity extends Component {
 			},
 			body: JSON.stringify({
 		
-				CommunityID: this.state.communityID,
+				CommunityID: commID,
 				
 			})
 		}).then((response) => response.json())
@@ -150,64 +148,6 @@ export default class searchCommunity extends Component {
 				console.error(error);
 			});
 	}
-		
-	onRefresh(){
-		//set initial data
-		this.setState({isRefreshing: true});
-		//refresh to initial data
-		setTimeout(() => {
-			//refresh to initial data
-			
-			this.loadTimeline();
-		}, 2000);
-	}
-			
-	onEndReached() {
-		//fetch next data
-		if (!this.state.waiting) {
-			this.setState({waiting: true});
-		
-			//fetch and concat data
-			setTimeout(() => {
-			
-			//refresh to initial data
-			var data = this.state.data.concat(
-				[
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
-				]
-			)
-			
-			  this.setState({
-				waiting: false,
-				data: data,
-			  });
-			}, 2000);
-		}
-	}
-	
-	renderFooter() {
-		if (this.waiting) {
-			return <ActivityIndicator />;
-		} else {
-			return <Text>~</Text>;
-		}
-	}
-		
-	onEventPress(data){
-		this.setState({selected: data})
-		if(this.state.selected) {
-			this.props.navigation.navigate("Event", {eventID: this.state.selected.id})
-		}
-	}
-		
-	renderSelected(){
-		if(this.state.selected)
-	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
-	}
 	
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
@@ -217,15 +157,10 @@ export default class searchCommunity extends Component {
 		
   	async componentWillMount() {
 		this.setState({ fontLoaded: true });
-		const user = await AsyncStorage.getItem('userID')
-		// await this.setUserIdAsync({userID: user});
-		// if(this.state.communityID != null){
-		// 	this.GatherCommunityInformation(this.state.communityID);
-		// }
 		const {params} = this.props.navigation.state;
 		const CommunityID =  params ? params.communityID : null;
 		this.setState({communityID: CommunityID});
-		this.getCommunity();
+		this.getCommunity(CommunityID);
 	}
 
 	eachTweet(x){

@@ -10,8 +10,26 @@ module.exports = styles = StyleSheet.create({
 		backgroundColor: '#A6CFBD',
 		padding: 20,
 	},
-	settingsBlock: {
-
+	textContainer: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingTop: 5,
+		paddingBottom: 5,
+		paddingRight: 5,
+		paddingLeft: 5,
+	},
+	image: {
+		height: 200,
+		resizeMode: 'contain',
+	},
+	upload: {
+		textAlign: 'center',
+		color: '#333333',
+		padding: 10,
+		marginBottom: 5,
+		borderWidth: 1,
+		borderColor: 'gray'
 	},
 	header: {
 		fontSize: 20,
@@ -47,16 +65,4 @@ module.exports = styles = StyleSheet.create({
 		fontSize:16,
 		color: '#8e8e93'
 	},
-	image: {
-		height: 200,
-		resizeMode: 'contain',
-	  },
-	  upload: {
-		textAlign: 'center',
-		color: '#333333',
-		padding: 10,
-		marginBottom: 5,
-		borderWidth: 1,
-		borderColor: 'gray'
-	  },
 });

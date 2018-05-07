@@ -27,8 +27,6 @@ export default class searchResult extends Component {
 	
 	constructor(){
 		super()
-
-		this.data = []
 		
 		this.state = {
 			isRefreshing: false,
@@ -52,7 +50,7 @@ export default class searchResult extends Component {
 		const DataSource = params.data ? params.data : "";
 		const SearchType  = params.searchType ? params.searchType : "";
 		this.setState({searchType: SearchType});
-		this.setState({dataSource: ds.cloneWithRows(DataSource)});
+		this.setState({dataSource: ds.cloneWithRows(DataSource.timeline)});
 	}
 
 	eachTweet(x){
@@ -70,7 +68,7 @@ export default class searchResult extends Component {
 						/>
 						<View style={{flex:1}}>
 							<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-								<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName} {x.UsersId}</Text>
+								<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
 							</View>
 							<View style={{ margin:5, marginRight:10,}}>
 								<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.aboutMe}</Text>
@@ -83,7 +81,7 @@ export default class searchResult extends Component {
 			return(
 				<TouchableOpacity 
 					  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-					onPress={() => this.props.navigation.navigate("SearchEvent", {eventID: x.id})}
+					onPress={() => this.props.navigation.navigate("SearchEvent", {userID: x.UsersId, eventID: x.id})}
 				>
 					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 						<Image
@@ -107,7 +105,7 @@ export default class searchResult extends Component {
 			return(
 				<TouchableOpacity 
 					  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-					onPress={() => this.props.navigation.navigate("SearchCommunity", {communityID: x.CommunityID})}
+					onPress={() => this.props.navigation.navigate("SearchCommunity", {communityID: x.CommunityId})}
 				>
 					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 						<Image 
