@@ -23,37 +23,86 @@ const IMAGE_SIZE = SCREEN_WIDTH - 80;
 
 //Custom Button
 class CustomButton extends Component {
-  	constructor() {
-    	super();
-		
-	    this.state = {
-			selected: false,
-			//title: this.state.selected ? "follow" : "following",
-		};
-	}
+	constructor() {
+	  super();
 
-	componentDidMount() {
-    	const { selected } = this.props;
+	  this.state = {
+		  selected: false
+	  };
+  }
+  setUserIdAsync(state){
+	  return new Promise((resolved) => {
+		  this.setState(state, resolved)
+	  });
+  }
 
-    	this.setState({
-      		selected
-    	});
-  	}
+  async componentDidMount() {
+	  const user = await AsyncStorage.getItem('userID')
+	  await this.setUserIdAsync({yourUserID: user});
+	  
+	  const { selected } = this.props;
 
-	render() {
-		const { title } = this.props;
-		const { selected } = this.state;
+	  this.setState({
+			selected
+	  });
+  }
 
-		return (
-			<Button
-				title={title}
-				titleStyle={{ fontSize: 15, color: 'white', fontFamily: 'regular' }}
-				buttonStyle={selected ? { backgroundColor: 'rgba(213, 100, 140, 1)', borderRadius: 100, width: 127 } : { borderWidth: 1, borderColor: 'white', borderRadius: 30, width: 127, backgroundColor: 'transparent' }}
-				containerStyle={{ marginRight: 10 }}
-				onPress={() => this.setState({ selected: !selected })}
-			/>
-		);
-	}
+  addFollower = () => {
+	  fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=addFollower', {
+		  method: 'POST',
+		  headers: {
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json',
+		  },
+		  body: JSON.stringify({
+	  
+			  me: this.state.yourUserID,
+
+			  tryToFollow: this.state.userID,
+	  
+		  })
+	  });
+  }
+
+  removeFollower = () => {
+	  fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=removeFollower', {
+		  method: 'POST',
+		  headers: {
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json',
+		  },
+		  body: JSON.stringify({
+	  
+			  me: this.state.yourUserID,
+
+			  tryToRemoveFollow: this.state.userID,
+	  
+		  })
+	  });
+  }
+  
+  sendFollowRequest({selected}) {
+	  if(selected) {
+		  this.addFollower();
+	  } else {
+		  this.removeFollower();
+	  }
+  }
+
+  render() {
+	  const { title } = this.props;
+	  const { selected } = this.state;
+
+	  return (
+		  <Button
+			  title={title}
+			  titleStyle={{ fontSize: 15, color: 'white', fontFamily: 'regular' }}
+			  buttonStyle={selected ? { backgroundColor: 'rgba(213, 100, 140, 1)', borderRadius: 100, width: 127 } : { borderWidth: 1, borderColor: 'white', borderRadius: 30, width: 127, backgroundColor: 'transparent' }}
+			  containerStyle={{ marginRight: 10 }}
+			  onPress={() => {this.setState({selected: !selected }), this.sendFollowRequest(this.state.selected)}}
+		  />
+	  );
+  }
 }
 
 var {height, width} = Dimensions.get('window');

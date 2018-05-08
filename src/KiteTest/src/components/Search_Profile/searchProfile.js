@@ -48,6 +48,37 @@ class CustomButton extends Component {
     	});
 	}
 
+	getIsFollow = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=checkIfFollowed', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+		
+				me: this.state.yourUserID,
+
+				tryToFollow: this.state.userID,
+			})
+		}).then((response) => response.json())
+			.then((responseJson) => {
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
+					
+					if(responseJson.isFollowing == "true") {
+						this.setState({selected : true});
+					} else {
+						this.setState({selected : false});
+					}
+				} else {
+					Alert.alert(responseJson);
+				}
+			}).catch((error) => {
+				console.error(error);
+			});
+	}
+
 	addFollower = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=addFollower', {
 			method: 'POST',
@@ -85,6 +116,7 @@ class CustomButton extends Component {
 	sendFollowRequest({selected}) {
 		if(selected) {
 			this.addFollower();
+			Alert.alert(this.state.yourUserID + " : " + this.state.userID);
 		} else {
 			this.removeFollower();
 		}
@@ -100,7 +132,7 @@ class CustomButton extends Component {
 				titleStyle={{ fontSize: 15, color: 'white', fontFamily: 'regular' }}
 				buttonStyle={selected ? { backgroundColor: 'rgba(213, 100, 140, 1)', borderRadius: 100, width: 127 } : { borderWidth: 1, borderColor: 'white', borderRadius: 30, width: 127, backgroundColor: 'transparent' }}
 				containerStyle={{ marginRight: 10 }}
-				onPress={() => this.setState({ selected: !selected })}
+				onPress={() => {this.setState({selected: !selected }), this.sendFollowRequest(this.state.selected)}}
 			/>
 		);
 	}
@@ -194,6 +226,7 @@ export default class searchProfile extends Component {
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
+					this.setState({"ProfilePicture": responseJson.profilePicture});
 					this.setState({"firstName": responseJson.firstName});
 					this.setState({"lastName": responseJson.lastName});
 					this.setState({"email": responseJson.email});
@@ -267,7 +300,7 @@ export default class searchProfile extends Component {
 						<ScrollView style={{flex: 1}}>
 						<View style={{ justifyContent: 'center', alignItems: 'center' }}>
 							<Image
-							source={{ uri: 'https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg' }}
+							source={{ uri: this.state.ProfilePicture }}
 							style={{ width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
 							/>
 						</View>
