@@ -2,6 +2,7 @@
 //Include Connection 
 require_once('connection.inc.php');	
 
+//user class is used to hold a user object 
 class User{
     public $usersID = 0;
     public $firstName = "";
@@ -80,12 +81,7 @@ class User{
         mysqli_free_result($result);
     }
 
-    //DEV just a function to look at stuff
-    public function getTEST(){
-        return $this->firstName;
-    }
-
-    //
+    //update first name, used to call the db and update the first name with a new string
     public function updateFirstName($newFirstName){
         global $conn;
         $this->firstName = $newFirstName;
@@ -98,7 +94,7 @@ class User{
         return $temp;
     }
 
-    //
+    //update last name, used to call the db and update the last name with a new string
     public function updateLastName($newLastName){
         global $conn;
         $this->lastname = $newLastName;
@@ -110,7 +106,8 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+
+    //update email, used to call the db and update the email with a new string
     public function updateEmail($newEmail){
         global $conn;
         $this->email = $newEmail;
@@ -129,6 +126,8 @@ class User{
     // //     // TODO not sure yet
     // // }
     // //
+
+    //
     public function updateDateOfBirth($newDateOfBirth){
         global $conn;
         $this->dateOfBirth = $newDateOfBirth;
@@ -366,12 +365,12 @@ class User{
 
     public function addFollower($tryToFollow){
         global $conn;
-        $sql = "INSERT INTO UserRelationships (UserFollowingId, UserFollowedId) VALUE (?,?)";
+        $sql = "INSERT INTO UserRelationships (UserFollowingId, UserFollowedId) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bid_param('ii', $this->usersID, $tryToFollow);
+        $stmt->bind_param('ii', $this->usersID, $tryToFollow);
         $stmt->execute();
         $stmt->close();
-        $this->removeFollowRequest($tryToFollow);
+        //$this->removeFollowRequest($tryToFollow);
     }
 
     public function removeFollowRequest($tryToRemoveFollow){
@@ -383,10 +382,30 @@ class User{
         $stmt->close();
     }
 
-    // public function removeFollower($tryToRemoveFollow){
-    //     global $coon;
-    //     $sql = ""
-    // }
+    public function removeFollower($tryToRemoveFollow){
+        global $coon;
+        $sql = "DELETE FROM UserRelationships WHERE UserFollowingId = ? AND UserFollowedId = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $this->usersID, $tryToRemoveFollow);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function checkIsFollow($tryToFollow){
+        global $conn;
+        // $sql = "SELECT * FROM UserRelationships WHERE UserFollowing = ? AND UserFollowedId = ?";
+        // $stmt = $conn->prepare($sql);
+        // $stmt->bind_param('ii', $this->usersID, $tryToFollow);
+        // $stmt->execute();
+        // $stmt->bind_result($return);
+        // $stmt->fetch();
+        // $stmt->close();
+        if(isset($return)){
+            return 'true';
+        }else{
+            return 'false';
+        }
+    }
 
     public function getFollowRequests(){
         global $conn;
@@ -426,7 +445,45 @@ class User{
         $returned->myID = $this->usersID;
         return json_encode($returned);
     }
+    
+    public function getFollow(){
+        global $conn;
+        $sql = "SELECT UserFollowingId FROM  UserRelationships WHERE UserFollowingId = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $this->usersID);
+        $stmt->execute();
+        $stmt->bind_result($tempids);
+        $stmt->store_result();
+        $returned->listOfFollows = array();
+        while ($stmt->fetch()){
+            $tempID = $tempids;
+            $tempIDAndName = array();
+            $sql2 = "SELECT FirstName FROM Users WHERE UsersId = ?";
+            if($stmt2 = $conn->prepare($sql2)){
+                $stmt2->bind_param('i', $tempID);
+                $stmt2->execute();
+                $stmt2->bind_result($tempname);
+                $stmt2->fetch();
+                $stmt2->close();
+                if(isset($tempname)){
+                    array_push($tempIDAndName, $tempname);
+                }
+                else{
+                    echo "this email does not exist";
+                }
+            }
+            else{
+                echo "ERROR(incode): 1";
+            }
+            array_push($tempIDAndName, $tempID);
 
+            array_push($returned->listOfFollows, $tempIDAndName);
+        }
+        $stmt->close();
+
+        $returned->myID = $this->usersID;
+        return json_encode($returned);
+    }
 
 }
 ?>

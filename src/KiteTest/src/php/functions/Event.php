@@ -12,7 +12,10 @@ if(function_exists($_GET['f'])) {
    $_GET['f']();
 }
 
-//create new event
+/**
+ * function for creating a new event takes in a user id, title, and description and 
+ * creates new entrie in the database for that event
+ */
 function createEvent(){
     global $conn;
 
@@ -70,7 +73,10 @@ function createEvent(){
 }
 
 
-//gets event
+/**
+ * get event function that returns the event information, as well as the 
+ * post that are related to this event given the event id
+ */
 function getEvent(){
     global $conn;
 
@@ -107,7 +113,10 @@ function getEvent(){
     echo json_encode($returned);
 }
 
-//updates a already created event
+/**
+ * function for updating a already created event. if takes in information that is sent
+ * in and updates those feilds according
+ */
 function updateEvent(){
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
@@ -121,25 +130,27 @@ function updateEvent(){
     $Current_Event = new Event($EvetID);
     $Current_Event->gatherEventInfo();
     $numberOfUpdates = 0;
+    $returned->isValid = 'valid';
     if(isset($UserID)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Event->updateUserID($UserID);
-        echo $retunred;
+        $returned->UserID = $retunred;
     }
     if(isset($time)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Event->updateTime($time);
-        echo $retunred;
+        $returned->Time = $retunred;
     }
     if(isset($title)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $returned = $Current_Event->updateTitle($Title);
-        echo $retunred;
+        $returned->Title = $retunred;
     }
     if(isset($description)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $returned = $Current_Event->updateDescription($description);
-        echo $returned;
+        $returned->Description = $returned;
     }
+    echo json_encode($returned);
 }
 ?>

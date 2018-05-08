@@ -113,6 +113,8 @@ function updatePost(){
     $VideoThree = $obj['videothree'];
     $description = $obj['description'];
 
+    $returned->isValid = 'valid';
+
     $Current_Post = new Post($PostID);
     $Current_Post->gatherPostInfo();
     $numberOfUpdates = 0;
@@ -120,68 +122,69 @@ function updatePost(){
     if(isset($UsersID)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateUserID($UserID);
-        echo $returned;
+        $returned->UsersID = $returned;
     }
     if(isset($time)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateTime($time);
-        echo $retunred;
+        $returned->Time = $retunred;
     }
     if(isset($PostText)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updatePostText($PostText);
-        echo $retunred;
+        $returned->PostText = $retunred;
     }
     if(isset($EventID)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateEventID($EventID);
-        echo $retunred;
+        $returned->EventID = $retunred;
     }
     if(isset($CommunityID)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateCommunityID($CommunityID);
-        echo $returned;
+        $returned->CommunityID = $returned;
     }
     if(isset($title)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateTitle($title);
-        echo $returned;
+        $returned->Title = $returned;
     }
     if(isset($PictureOne)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updatePictureOne($PictureOne);
-        echo $returned;
+        $returned->PictureOne = $returned;
     }
     if(isset($PictureTwo)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updatePictureTwo($PictureTwo);
-        echo $returned;
+        $returned->PictureTwo = $returned;
     }
     if(isset($PictureThree)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updatePictureThree($PictureThree);
-        echo $returned;
+        $returned->PictureThree = $returned;
     }
     if(isset($VideoOne)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateVideoOne($VideoOne);
-        echo $returned;
+        $returned->VideoOne = $returned;
     }
     if(isset($VideoTwo)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateVideoTwo($VideoTwo);
-        echo $returned;
+        $returned->VideoTwo $returned;
     }
     if(isset($VideoThree)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateVideoThree($VideoThree);
-        echo $returned;
+        $returned->VideoThree $returned;
     }
     if(isset($description)){
         $numberOfUpdates = $numberOfUpdates + 1;
         $retunred = $Current_Post->updateDescription($description);
-        echo $returned;
+        $returned->Description = $returned;
     }
+    echo json_encode($returned);
 }
 
 //Like this post
