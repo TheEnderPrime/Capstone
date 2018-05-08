@@ -9,26 +9,31 @@ import {
 	TouchableOpacity,
 	AppRegistry,
 	Image,
-    Alert,
-    AsyncStorage,
+	Alert,
+	AsyncStorage,
 } from 'react-native';
 import SettingsList from 'react-native-settings-list';
 import styles from './styles';
 
-export default class followingSettings extends Component {
+export default class communityInfoSettings extends Component {
 
     constructor() {
         super();
         this.onValueChange = this.onValueChange.bind(this);
-        this.state = {switchValue: false};
+        this.state = {
+			switchValue: false,
+			title: "loading",
+			aboutUs: "loading",
+		
+		};
     }
 
     onValueChange(value){
         this.setState({switchValue: value});
-    }
+	}
 	
-	UpdateUserInformation = () => {
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
+	UpdateCommunityInformation = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=updateCommunity', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -36,16 +41,18 @@ export default class followingSettings extends Component {
 			},
 			body: JSON.stringify({
 		
-				UserID: this.state.userID,
+				CommunityID: this.state.communityID,
 
-				email: this.state.email,
-		
+				Title: this.state.title,
+
+				AboutUs:  this.state.aboutUs,
+				
 			})
 		}).then((response) => response.json())
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert("Settings Updated");
+					Alert.alert("Community Information Updated!");
 				}
 				else {
 					Alert.alert(responseJson.errorMessage);
@@ -55,35 +62,45 @@ export default class followingSettings extends Component {
 			});
 	}
 
-    setUserIdAsync(state){
+	setCommunityIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
 	}
 
-    async componentDidMount() {
-        const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({userID: user});
-		
-        const { params } = this.props.navigation.state;
-        const numOfFollowers = params.numOfFollowers ? params.numOfFollowers : "null";
-        const numOfFollowing = params.numOfFollowing ? params.numOfFollowing : "null";
-        this.setState({"numOfFollowers": numOfFollowers});
-        this.setState({"numOfFollowing": numOfFollowing});
-    }
+    async componentWillMount() {
+		const community = await AsyncStorage.getItem('communityIDSettings')
+        await this.setCommunityIdAsync({communityID: community});
+
+		const { params } = this.props.navigation.state;
+		const Title = params.title ? params.title : "";
+		const AboutUs = params.aboutUs ? params.aboutUs : "";
+		const AdminID = params.adminID ? params.adminID : "";
+		this.setState({"title": Title});
+		this.setState({"AboutUs": AboutUs});
+		this.setState({"adminID": AdminID});
+	}
 
     render() {
         return (
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
+                <SettingsList.Header/>
                 <SettingsList.Item
-                icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                title='Followers & Following'
-                onPress={() => Alert.alert('Display Followers and Following Here.')}
-                />
-				<Text>Your Followers: {this.state.numOfFollowers}</Text>
-            <Text>You are Following: {this.state.numOfFollowing}</Text>
+					id="title"
+					title='Community Title'
+					isEditable={true}
+					value={this.state.title.toString()}
+					onTextChange={(text) => this.setState({ "title": text })}
+				/>
+				<SettingsList.Item
+					id="aboutUs"
+					title='Community Description'
+					isEditable={true}
+					value={this.state.aboutUs.toString()}
+					onTextChange={(text) => this.setState({ "aboutUs": text })}
+				/>
             </SettingsList>
             <Button
 				title='Apply'
@@ -102,7 +119,7 @@ export default class followingSettings extends Component {
 					borderWidth: 0,
 					borderRadius: 5
 				}}
-				onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
+				onPress={() => this.UpdateCommunityInformation()}
 			/>
             </View>
         </View>

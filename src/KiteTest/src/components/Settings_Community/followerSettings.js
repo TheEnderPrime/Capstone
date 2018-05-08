@@ -15,7 +15,7 @@ import {
 import SettingsList from 'react-native-settings-list';
 import styles from './styles';
 
-export default class followingSettings extends Component {
+export default class followerSettings extends Component {
 
     constructor() {
         super();
@@ -27,8 +27,8 @@ export default class followingSettings extends Component {
         this.setState({switchValue: value});
     }
 	
-	UpdateUserInformation = () => {
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
+	UpdateCommunity = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=updateCommunity', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -36,7 +36,7 @@ export default class followingSettings extends Component {
 			},
 			body: JSON.stringify({
 		
-				UserID: this.state.userID,
+				CommunityID: this.state.communityID,
 
 				email: this.state.email,
 		
@@ -73,10 +73,11 @@ export default class followingSettings extends Component {
     }
 
     render() {
+        var bgColor = '#DCE3F4';
         return (
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>
-            <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
+            <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>    
                 <SettingsList.Item
                 icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
                 title='Followers & Following'

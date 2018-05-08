@@ -68,7 +68,7 @@ const uploadImage = (uri, mime = 'image/jpeg') => {
 	})
 }
 
-export default class profilePictureSettings extends Component {
+export default class communityPictureSettings extends Component {
 
     constructor(props) {
         super(props);
@@ -80,15 +80,15 @@ export default class profilePictureSettings extends Component {
             size: 0,
 			hasUploaded: false,
 			imgURL1: "-",
-			userID: 0,
+			communityID: 0,
         };
     }
 
-	UpdateUserInformation = () => {
+	UpdateCommunity = () => {
 		if (this.state.hasUploaded == true && this.state.imgURL1.substring(0, 7) != "content") {
 			Alert.alert(this.state.imgURL1);
 			var image = this.state.imgURL1.toString();
-			fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
+			fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=updateCommunities', {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
@@ -96,7 +96,7 @@ export default class profilePictureSettings extends Component {
 				},
 				body: JSON.stringify({
 			
-					UserID: this.state.userID,
+					CommunityID: this.state.communityID,
 			
 					ProfilePicture: image,
 			
@@ -138,15 +138,15 @@ export default class profilePictureSettings extends Component {
         this.setState({switchValue: value});
     }
     
-    setUserIdAsync(state){
-        return new Promise((resolved) => {
-            this.setState(state, resolved)
-        });
-    }
-    
-    async componentDidMount() {
-        const user = await AsyncStorage.getItem('userID')
-        await this.setUserIdAsync({userID: user});
+    setCommunityIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+    async componentWillMount() {
+		const community = await AsyncStorage.getItem('communityIDSettings')
+        await this.setCommunityIdAsync({communityID: community});
     }
 
     render() {

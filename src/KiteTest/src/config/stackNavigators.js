@@ -33,7 +33,10 @@ import ProfilePictureSettings from '../components/Settings_Profile/profilePictur
 import PersonalInfoSettings   from '../components/Settings_Profile/personalInfoSettings';
 import FollowingSettings      from '../components/Settings_Profile/followingSettings';
 
-import CommunitySettings      from '../components/Settings_Community/communitySettings';
+import CommunitySettings        from '../components/Settings_Community/communitySettings';
+import CommunityPictureSettings from '../components/Settings_Community/communityPictureSettings';
+import CommunityInfoSettings    from '../components/Settings_Community/communityInfoSettings';
+import FollowerSettings         from '../components/Settings_Community/followerSettings';
 
 import TimelineSettings       from '../components/Settings_Timeline/timelineSettings';
 
@@ -245,6 +248,57 @@ export const CommunityStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    CommunityPictureSettings: {
+        screen: CommunityPictureSettings,
+        navigationOptions: {
+            title: 'Community Profile Picture',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    CommunityInfoSettings: {
+        screen: CommunityInfoSettings,
+        navigationOptions: {
+            title: 'Community Information',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    FollowerSettings: {
+        screen: FollowerSettings,
+        navigationOptions: {
+            title: 'Community Followers',
+			headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
 });
 
 export const ProfileStack = StackNavigator({
@@ -455,7 +509,7 @@ export const NotificationStack = StackNavigator({
     },
 });
 
-export const SettingsStack = StackNavigator({ //doesn't get called if on another stack with a setting's page
+export const SettingsStack = StackNavigator({
     Settings: {
         screen: MainSettings,
         navigationOptions: {

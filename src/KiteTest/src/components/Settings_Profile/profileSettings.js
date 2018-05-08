@@ -83,7 +83,6 @@ export default class profileSettings extends Component {
   	}
 
     render() {
-        var bgColor = '#DCE3F4';
         return (
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
             <View style={{backgroundColor:'#EFEFF4',flex:1}}>

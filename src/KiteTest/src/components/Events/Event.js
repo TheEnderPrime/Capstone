@@ -108,11 +108,7 @@ class Event extends React.Component {
 			>
 		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 					<Image 
-						source={{
-							uri: "" === ""
-							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-							: x.ProfilePicture
-						}} 
+						source={{ uri: x.ProfilePicture }} 
 						resizeMode="contain" 
 						style ={{height:54, width:54, borderRadius:27, margin:10}} 
 					/>

@@ -64,11 +64,9 @@ export default class Community extends Component {
     	super(props);
 
     	this.state = {
-			communityName: "Oregon State University",
 			communityID: 1,
 			title: "",
 			aboutUs: "",
-			ProfilePicture: '../../images/placeholderProfilePicture.jpg',
 			dateAdded: "",
 			numOfThreads: 0,
 			numOfPosts: 0,
@@ -236,11 +234,7 @@ export default class Community extends Component {
 			>
 		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 					<Image 
-						source={{
-							uri: "" === ""
-							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-							: x.ProfilePicture
-						}} 
+						source={{ uri: this.state.ProfilePicture }} 
 						resizeMode="contain" 
 						style ={{height:54, width:54, borderRadius:27, margin:10}} 
 						/>

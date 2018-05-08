@@ -174,7 +174,9 @@ class KiteTimeline extends Component {
 
 
 				<RkCard rkType='story'>
-					<Image rkCardImg source={require('../../images/guy.jpeg')} resizeMode="contain"
+					<Image rkCardImg 
+						source={{ uri: x.ProfilePicture }} 
+						resizeMode="contain"
 						style={{ height: 200 }} />
 					<View rkCardHeader>
 						<RkText rkType='header'>{x.title}</RkText>

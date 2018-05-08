@@ -145,6 +145,7 @@ export default class Profile extends Component {
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
+					this.setState({"ProfilePicture": responseJson.profilePicture});
 					this.setState({"firstName": responseJson.firstName});
 					this.setState({"lastName": responseJson.lastName});
 					this.setState({"email": responseJson.email});
@@ -164,65 +165,7 @@ export default class Profile extends Component {
 			}).catch((error) => {
 				console.error(error);
 			});
-	}
-		
-	onRefresh(){
-		//set initial data
-		this.setState({isRefreshing: true});
-		//refresh to initial data
-		setTimeout(() => {
-			//refresh to initial data
-			
-			this.loadTimeline();
-		}, 2000);
-	}
-			
-	onEndReached() {
-		//fetch next data
-		if (!this.state.waiting) {
-			this.setState({waiting: true});
-		
-			//fetch and concat data
-			setTimeout(() => {
-			
-			//refresh to initial data
-			var data = this.state.data.concat(
-				[
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
-				]
-			)
-			
-			  this.setState({
-				waiting: false,
-				data: data,
-			  });
-			}, 2000);
-		}
-	}
-	
-	renderFooter() {
-		if (this.waiting) {
-			return <ActivityIndicator />;
-		} else {
-			return <Text>~</Text>;
-		}
-	}
-		
-	onEventPress(data){
-		this.setState({selected: data})
-		if(this.state.selected) {
-			this.props.navigation.navigate("Event", {eventID: this.state.selected.id})
-		}
-	}
-		
-	renderSelected(){
-		if(this.state.selected)
-	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
-	}
+	}	
 	
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
@@ -248,11 +191,7 @@ export default class Profile extends Component {
 			>
 		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 					<Image 
-						source={{
-							uri: "" === ""
-							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-							: x.ProfilePicture
-						}} 
+						source={{ uri:  this.state.ProfilePicture }} 
 						resizeMode="contain" 
 						style ={{height:54, width:54, borderRadius:27, margin:10}} 
 						/>
@@ -287,7 +226,7 @@ export default class Profile extends Component {
 						<ScrollView style={{flex: 1}}>
 						<View style={{ justifyContent: 'center', alignItems: 'center' }}>
 							<Image
-							source={{ uri: 'https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg' }}
+							source={{ uri: this.state.ProfilePicture }}
 							style={{ width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
 							/>
 						</View>
@@ -297,9 +236,9 @@ export default class Profile extends Component {
 							</Text>
 						</View>
 
-						<View style={{flex:1, flexDirection: 'row', marginTop: 20,  marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>
+						{/* <View style={{flex:1, flexDirection: 'row', marginTop: 20,  marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>
 							<CustomButton title={"Follow"} selected={false} />
-						</View>
+						</View> */}
 
 						<View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
 							<Text style={{flex: 1, fontSize: 15, color: 'white', fontFamily: 'regular'}}>
@@ -452,292 +391,3 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   }
 });
-
-
-
-// import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// import {
-// 	Platform,
-// 	StyleSheet,
-// 	Text,
-// 	View,
-// 	Button,
-// 	TouchableOpacity,
-// 	Image,
-// 	AsyncStorage,
-// 	Alert,
-// 	RefreshControl,
-// 	ActivityIndicator
-// } from 'react-native';
-
-// import Timeline from 'react-native-timeline-listview'
-
-// import styles from './styles';
-
-// class Profile extends React.Component {
-
-// 	constructor(){
-// 		super();   
-
-// 		this.onEndReached 	= this.onEndReached.bind(this)
-// 		this.renderSelected = this.renderSelected.bind(this)
-// 		this.onRefresh 		= this.onRefresh.bind(this)
-// 		this.onEventPress 	= this.onEventPress.bind(this)
-
-// 		this.data = []
-		
-// 		this.state = {
-			// firstName: "",
-			// lastName: "",
-			// email: "",
-			// dateOfBirth: "",
-			// profilePic: '../../images/placeholderProfilePicture.jpg',
-			// employerName: "",
-			// aboutMe: "",
-			// currentCity: "",
-			// currentStateOrProvence: "",
-			// currentCountry: "",
-			// cellPhone: 0,
-			// homePhone: 0,
-			// dateAdded: 0,
-			// numOfPosts: 0,
-			// numOfFollowers: 0,
-			// numOfFollowing: 0,
-			// numOfCommunities: 0,
-			// userID: 0,
-			// isRefreshing: false,
-			// waiting: false,
-			// selected: null,
-			// data: this.data,
-			
-//        	}
-
-// 	}
-
-// 	loadTimeline = () => {
-
-// 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
-//             method: 'POST',
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-				
-// 				UserID: this.state.userID,
-				
-//             })
-
-//         }).then((response) => response.json())
-//             .then((responseJson) => {
-
-//                 // If server response message same as Data Matched
-//                 if (responseJson.isValid === 'valid') {
-
-// 					this.setState({
-// 						data: responseJson.timeline,
-// 						isRefreshing: false
-// 					})
-// 					//parse array from responseJson
-				
-// 				}
-//                 else {
-//                     Alert.alert("responseJson.error");
-//                 }
-
-//             }).catch((error) => {
-//                 console.error(error);
-//             });
-// 	}
-
-// 	GatherUserInformation = () => {
-// 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Accept': 'application/json',
-// 				'Content-Type': 'application/json',
-// 			},
-// 			body: JSON.stringify({
-
-// 				UserID: this.state.userID,
-
-// 			})
-// 		}).then((response) => response.json())
-// 			.then((responseJson) => {
-// 				// If server response message same as Data Matched
-// 				if (responseJson.isValid === 'valid') {
-// 					this.setState({"firstName": responseJson.firstName});
-// 					this.setState({"lastName": responseJson.lastName});
-// 					this.setState({"email": responseJson.email});
-// 					this.setState({"dateOfBirth": responseJson.dateOfBirth});
-// 					this.setState({"employerName": responseJson.employerName});
-// 					this.setState({"aboutMe": responseJson.aboutMe});
-// 					this.setState({"currentCity": responseJson.currentCity});
-// 					this.setState({"currentStateOrProvence": responseJson.currentStateOrProvence});
-// 					this.setState({"currentCountry": responseJson.currentCountry});
-// 					this.setState({"cellPhone": responseJson.cellPhone});
-// 					this.setState({"homePhone": responseJson.homePhone});
-// 					this.setState({"dateAdded": responseJson.dateAdded});
-// 			}
-// 				else {
-// 					Alert.alert(responseJson);
-// 				}
-// 			}).catch((error) => {
-// 				console.error(error);
-// 			});
-// 	}
-
-// 	onRefresh(){
-// 		//set initial data
-// 		this.setState({isRefreshing: true});
-// 		//refresh to initial data
-// 		setTimeout(() => {
-// 			//refresh to initial data
-			
-// 			this.loadTimeline();
-
-// 		}, 2000);
-// 	}
-	
-// 	onEndReached() {
-// 		//fetch next data
-// 		if (!this.state.waiting) {
-// 			this.setState({waiting: true});
-	
-// 			//fetch and concat data
-// 			setTimeout(() => {
-	
-// 			//refresh to initial data
-// 			var data = this.state.data.concat(
-// 				[
-// 				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-// 				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-// 				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-// 				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'},
-// 				  	{time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline'}
-// 				]
-// 			)
-	
-// 			  this.setState({
-// 				waiting: false,
-// 				data: data,
-// 			  });
-// 			}, 2000);
-// 		}
-// 	}
-	
-// 	renderFooter() {
-// 		if (this.waiting) {
-// 			return <ActivityIndicator />;
-// 		} else {
-// 			return <Text>~</Text>;
-// 		}
-// 	}
-
-// 	onEventPress(data){
-// 		this.setState({selected: data})
-// 		if(this.state.selected) {
-// 			this.props.navigation.navigate("Event", {eventID: this.state.selected.id})
-// 		}
-//   	}
-
-//   	renderSelected(){
-// 		if(this.state.selected)
-// 	  	return <Text style={{marginTop:10}}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
-// 	}
-
-// 	setUserIdAsync(state){
-// 		return new Promise((resolved) => {
-// 			this.setState(state, resolved)
-// 		});
-// 	}
-
-// 	async componentDidMount(){
-// 		const user = await AsyncStorage.getItem('userID')
-// 		await this.setUserIdAsync({userID: user});
-// 		if(this.state.userID != null){
-// 			this.GatherUserInformation(this.state.userID);
-// 		}
-// 		this.loadTimeline();
-// 	}
-
-// 	render() {
-// 		return (
-// 			<View style={styles.container}>
-// 				<View style={styles.profileDesc}>
-// 					<Image
-// 						style={styles.profilePicture}
-//           				source={require('../../images/placeholderProfilePicture.jpg')}
-// 					/>
-// 					<View style={styles.profileText}>
-// 						<Text style={styles.text}>{this.state.firstName} {this.state.lastName}</Text>
-					
-// 						<Text style={styles.text}>{this.state.email}</Text>
-// 						<Text style={styles.text}>{this.state.employerName}</Text>
-// 						<Text style={styles.text}>{this.state.aboutMe}</Text>
-// 						<Text style={styles.text}>{this.state.currentCity} {this.state.currentStateOrProvence} {this.state.currentCountry}</Text>
-// 						<Text style={styles.text}>{this.state.cellPhone}</Text>
-// 						<Text style={styles.text}>{this.state.homePhone}</Text>
-// 						<Text style={styles.text}>{this.state.dateAdded}</Text>
-// 					</View>
-// 				</View>
-
-// 				<View style={styles.statBoxesContainer}>
-					
-// 					<View style={styles.statBox}>
-// 						<Text style={styles.statNumberCount}>{this.state.numOfPosts}</Text>
-// 						<Text style={styles.statCountTitles}>Posts</Text>
-// 					</View>
-
-// 					<View style={styles.statBox}>
-// 						<Text style={styles.statNumberCount}>{this.state.numOfFollowers}</Text>
-// 						<Text style={styles.statCountTitles}>Followers</Text>
-// 					</View>
-
-// 					<View style={styles.statBox}>
-// 						<Text style={styles.statNumberCount}>{this.state.numOfFollowing}</Text>
-// 						<Text style={styles.statCountTitles}>Following</Text>
-// 					</View>
-
-// 					<View style={styles.statBox}>
-// 						<Text style={styles.statNumberCount}>{this.state.numOfCommunities}</Text>
-// 						<Text style={styles.statCountTitles}>Community</Text>
-// 					</View>					
-
-// 				</View>
-				
-// 				<View style={styles.timelineContainer}>
-// 					{/* {this.renderSelected()} */}
-// 					<Timeline
-// 						style={styles.timelineList}
-// 						data={this.state.data}
-// 						circleSize={20}
-// 						circleColor='rgb(45,156,219)'
-// 						lineColor='rgb(45,156,219)'
-// 						timeContainerStyle={{minWidth:52, marginTop: -5}}
-// 						timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
-// 						descriptionStyle={{color:'gray'}}
-// 						timeContainerStyle={{minWidth:72}}
-// 						circleSize={-100}
-// 						showTime={false}
-// 						onEventPress={this.onEventPress}
-// 						options={{
-// 							refreshControl: (
-// 								<RefreshControl
-// 									refreshing={this.state.isRefreshing} 
-// 									onRefresh={this.onRefresh}							
-// 								/>
-// 							),
-// 							//renderFooter: this.renderFooter,
-// 							//onEndReached: this.onEndReached,
-// 						}}
-// 					/>
-// 				</View>
-
-// 			</View>
-
-// 		);
-// 	}
-// }
-// export default Profile;

@@ -31,14 +31,64 @@ class CustomButton extends Component {
 			selected: false
     	};
 	}
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
 
-	componentDidMount() {
+	async componentDidMount() {
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({yourUserID: user});
+		
     	const { selected } = this.props;
 
     	this.setState({
       		selected
     	});
-  	}
+	}
+
+	addFollower = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=addFollower', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+		
+				me: this.state.yourUserID,
+
+				tryToFollow: this.state.userID,
+		
+			})
+		});
+	}
+
+	removeFollower = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=removeFollower', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+		
+				me: this.state.yourUserID,
+
+				tryToRemoveFollow: this.state.userID,
+		
+			})
+		});
+	}
+	
+	sendFollowRequest({selected}) {
+		if(selected) {
+			this.addFollower();
+		} else {
+			this.removeFollower();
+		}
+	}
 
 	render() {
 		const { title } = this.props;
@@ -182,11 +232,7 @@ export default class searchProfile extends Component {
 			>
 		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 					<Image 
-						source={{
-							uri: "" === ""
-							? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-							: x.ProfilePicture
-						}} 
+						source={{ uri: x.ProfilePicture }} 
 						resizeMode="contain" 
 						style ={{height:54, width:54, borderRadius:27, margin:10}} 
 						/>

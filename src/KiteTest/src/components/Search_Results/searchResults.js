@@ -62,7 +62,7 @@ export default class searchResult extends Component {
 				>
 					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 						<Image
-							source={require('../../images/guy.jpeg')}
+							source={{ uri: x.ProfilePicture }}
 							resizeMode="contain"
 							style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
 						/>
