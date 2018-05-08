@@ -99,12 +99,15 @@ function addFollower(){
     $json = file_get_contents('php://input');
     $obj = json_decode($josn,true);
 
-    $me = 29770083;
-    $tryToFollow = 31782703;
+    $me = $obj['me'];
+    $tryToFollow = $obj['tryToFollow'];
+    $return->isValid = 'notValid';
 
     $Current_User = new User($me);
     $Current_User->gatherUserInfo();
     $Current_User->addFollower($tryToFollow);
+    $return->isValid = 'valid';
+    echo json_encode($return);
 }
 
 /**
@@ -115,12 +118,30 @@ function removeFollower(){
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
 
-    $me = 29770083;
-    $tryToRemoveFollow = 31782703;
+    $me = $obj['me'];
+    $tryToRemoveFollow = ['tryToRemoveFollow'];
 
+    $return->isValid = 'notValid';
     $Current_User = new User($me);
     $Current_User->gatherUserInfo();
     $Current_User->removeFollower($tryToRemoveFollow);
+    $return->isValid = 'valid';
+    echo json_encode($return);
+}
+
+function getIsFollowing(){
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $me = 9991034;//$obj['me'];
+    $tryToFollow = 29770083;//['tryToFollow'];
+    $return->isValid = 'notValid';
+    $Current_User = new User($me);
+    $Current_User->gatherUserInfo();
+    $temp = $Current_User->checkIsFollow($tryToFollow);
+    $return->isFollowing = $temp;
+    $return->isValid = 'valid';
+    echo json_encode($return);
 }
 
 /**
@@ -130,11 +151,14 @@ function getFollow(){
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
 
-    $me = 29770083;
+    $me = $obj['me'];
 
+    $return->isValid = 'notValid';
     $Current_User = new User($me);
     $Current_User->gatherUserInfo();
     $Current_User->getFollow();
+    $return->isValid = 'valid';
+    echo json_encode($return);
 }
 
 /**

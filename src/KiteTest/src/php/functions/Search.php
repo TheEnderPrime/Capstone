@@ -9,6 +9,12 @@ if(function_exists($_GET['f'])) {
    $_GET['f']();
 }
 
+/**
+ * function that takes in a search string and uses that to search the users table
+ * the fealds that are currently being searched for are first name and last name
+ * for this search the entire search string has to be contained in one of the two 
+ * columns for the user to be returned
+ */
 function searchForUser(){
     global $conn;
 
@@ -26,13 +32,17 @@ function searchForUser(){
     $stmt->store_result();
     $returned->timeline = array();
     while($stmt->fetch()){
-        $temp = array('UsersId'=>$UsersID, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'ProfilePicture'=>$ProfilePicture);
+        $temp = array('UsersId'=>$UsersId, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'ProfilePicture'=>$ProfilePicture);
         array_push($returned->timeline, $temp);
     }
     $stmt->close();
     echo json_encode($returned);
 }
 
+/**
+ * Function that takes in a search string and then looks at the communities table in the title column then
+ * returns any community that has a title that contains the search string
+ */
 function searchForCommunity(){
     global $conn;
 
@@ -57,6 +67,10 @@ function searchForCommunity(){
     echo json_encode($returned);
 }
 
+/**
+ * function that takes in a search string and looks at the post event table and
+ * if the event name contains the search string then it returns the event
+ */
 function searchForEvent(){
     global $conn;
 

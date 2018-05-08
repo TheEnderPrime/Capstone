@@ -72,14 +72,16 @@ function getCommunityTimeLine(){
     mysqli_free_result($result);
     echo json_encode($returned);
 }
-
+/**
+ * Function that returns a list of events that are connected with that communities id
+ */
 function getCommunityEventsTimeLine(){
     global $conn;
 
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
 
-    $CommunityID = 1;
+    $CommunityID = $obj['CommunityID'];
 
     $returned->isValid = 'valid';
     $result = mysqli_query($conn, "SELECT * FROM PostEvent WHERE CommunitieID = '$CommunityID'");
