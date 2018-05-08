@@ -6,63 +6,25 @@ module.exports = styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
+    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
+    	backgroundColor: 'rgba(47,44,60,1)',
   	},
   	header: { 
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-		backgroundColor: '#A6CFBD',
+		// flex: 1,
+		// flexDirection: 'column',
+		// justifyContent: 'space-around',
+		// alignItems: 'center',
 		padding: 15,
 	}, 
-	postTimeline:{
-		flex: 6,
-		padding: 10, 
-		//paddingTop: 65,
-		backgroundColor: '#A6CFBD',
+	title: {
+		color: '#fff',
+		alignItems: 'center',
 	},
-	timelineList: {
-		flex: 1,
-		marginTop: 20,
+	post: {
+		flex: 5,
 	},
-	likesAndComments: {
-		flex: 1,
-		flexDirection: 'column', 
-		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-		backgroundColor: '#A6CFBD',
-		padding: 15,
+	postText:{
+		color: '#fff',
+		padding: 20,
 	},
-	text: {
-		flex: 1,
-		fontSize: 15,
-		flexDirection: 'column', 
-		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	alignItems: 'center',
-    	backgroundColor: '#A6CFBD',
-	},
-	statBoxesContainer: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
-    	alignItems: 'center', // cross axis (opposite of the flexDirection) => 
-    	backgroundColor: '#A6CFBD',
-	},
-	statBox: {
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'space-around',
-		padding: 15,
-	},
-  	statNumberCount: {
-		//number for the stats in the row in the middle of the screen
-		fontSize: 30,
-	},
-	statCountTitles: {
-		//the titles of the stats in row in the middle of the screen
-		fontSize: 11,
-	},
-
 });

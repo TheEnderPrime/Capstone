@@ -10,14 +10,19 @@ import {
   Alert,
   AsyncStorage,
   RefreshControl,
-  ActivityIndicator
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  ScrollView,
 } from 'react-native';
-
-import Timeline from 'react-native-timeline-listview';
 
 import styles from './styles';
 
-class Posts extends React.Component {
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const IMAGE_SIZE = SCREEN_WIDTH - 80;
+
+export default class Posts extends React.Component {
 
 	constructor(){
 		super()
@@ -25,13 +30,13 @@ class Posts extends React.Component {
 			userID: 0,
 			eventID: 0,
 			postID: 0,
-			eventTitle: "",
 			eventDesc: "",
 			eventStory: "",
 			isRefreshing: false,
 			waiting: false,
 			selected: null,
 			data: this.data, 
+			title: "Test Title"
 		}
 	}
 
@@ -87,26 +92,51 @@ class Posts extends React.Component {
 		const {params} = this.props.navigation.state;
 		const PostID =  params ? params.postID : null;
 		this.setState({postID: PostID});
-		this.loadPost();
+		//this.loadPost();
+	}
+
+	printPost() {
+		var tmp_array = [
+			{ text: "Test1", img: require("../../images/pic1.jpg") },
+			{ text: "Test2", img: require("../../images/pic2.jpg") },
+			{ text: "Test3", img: require("../../images/pic3.jpg") },
+		];
+		return tmp_array.map(function (news, i) {
+			return (
+				<View key={i}>
+					<Text style={styles.postText}>{news.text}</Text>
+					<View>
+						<Image style=
+							{{
+								flex: 1,
+								justifyContent: 'center', 
+								width: IMAGE_SIZE, 
+								height: IMAGE_SIZE, 
+								borderRadius: 10,
+								padding: 15
+							}}
+							source={news.img}
+						/>
+					</View>
+				</View>
+			);
+		});
 	}
 
  	render() {
 		return (
 			<View style={styles.container}>
+				
 				<View style={styles.header}>
-					<Text>{this.state.eventTitle}</Text>
-					<Text>Overall Likes and Comments</Text>
+					<Text style={styles.title}>{this.state.title}</Text>
+					<Text style={styles.title}>Overall Likes and Comments</Text>
 				</View>
 
-				<View style={styles.postTimeline}>
-					<Text>{this.state.eventStory}</Text>
-				</View>
+				<ScrollView style={styles.postView}>
+					{this.printPost()}
+				</ScrollView>
 			</View>
 
 		);
 	}
 }
-
-
-
-export default Posts;
