@@ -27,16 +27,10 @@ export default class Posts extends React.Component {
 	constructor(){
 		super()
 		this.state = {
-			userID: 0,
-			eventID: 0,
-			postID: 0,
-			eventDesc: "",
-			eventStory: "",
 			isRefreshing: false,
 			waiting: false,
 			selected: null,
 			data: this.data, 
-			title: "Test Title"
 		}
 	}
 
@@ -52,7 +46,7 @@ export default class Posts extends React.Component {
 				
 				PostID: this.state.postID,
 
-				UserID: this.state.userID,
+				//UserID: this.state.userID,
 				
             })
 
@@ -63,16 +57,19 @@ export default class Posts extends React.Component {
                 if (responseJson.isValid === 'valid') {
 
 					this.setState({
-						eventTitle: responseJson.post.title,
-						eventStory: responseJson.post.PostText,
-						data: responseJson.eventArray,
+						title: responseJson.post.title,
+						story: responseJson.post.PostText,
+						photo1: responseJson.post.PictureOne,
+						photo2: responseJson.post.PictureTwo,
+						photo3: responseJson.post.PictureThree,
 						isRefreshing: false
 					})
 					//parse array from responseJson
-				
+					// Alert.alert(responseJson.post.PostText.toString())
+					// this.printPost(responseJson.post.PostText, responseJson.post.PostText.length)
 				}
                 else {
-                    Alert.alert("responseJson.error");
+                    Alert.alert(responseJson.error);
                 }
 
             }).catch((error) => {
@@ -86,20 +83,26 @@ export default class Posts extends React.Component {
 		});
 	}
 
-	async componentDidMount(){
+	async componentWillMount() {
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
 		const {params} = this.props.navigation.state;
 		const PostID =  params ? params.postID : null;
 		this.setState({postID: PostID});
-		//this.loadPost();
+		this.loadPost();
 	}
 
 	printPost() {
+		
+		var str = this.state.story;
+		var length = str.length;
+		var cutLength = length / 3;
+		var parsedText = str.match(new RegExp('.{1,' + cutLength + '}', 'g')); 
+
 		var tmp_array = [
-			{ text: "Test1", img: require("../../images/pic1.jpg") },
-			{ text: "Test2", img: require("../../images/pic2.jpg") },
-			{ text: "Test3", img: require("../../images/pic3.jpg") },
+			{ text: parsedText[0], img: this.state.photo1 },
+			{ text: parsedText[1], img: this.state.photo2 },
+			{ text: parsedText[2], img: this.state.photo3 },
 		];
 		return tmp_array.map(function (news, i) {
 			return (
@@ -125,15 +128,17 @@ export default class Posts extends React.Component {
 
  	render() {
 		return (
-			<View style={styles.container}>
-				
+			
+			<View style={styles.container}>	
 				<View style={styles.header}>
 					<Text style={styles.title}>{this.state.title}</Text>
 					<Text style={styles.title}>Overall Likes and Comments</Text>
+					<Text style={styles.title}>{this.state.story}</Text>
 				</View>
 
 				<ScrollView style={styles.postView}>
-					{this.printPost()}
+				<Text>{this.state.story}</Text>
+					{/* {this.printPost()} */}
 				</ScrollView>
 			</View>
 

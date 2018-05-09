@@ -28,28 +28,12 @@ class CustomButton extends Component {
     	super();
 
 	    this.state = {
-			selected: false
-    	};
-	}
-	setUserIdAsync(state){
-		return new Promise((resolved) => {
-			this.setState(state, resolved)
-		});
+			
+		};
 	}
 
-	async componentDidMount() {
-		const user = await AsyncStorage.getItem('userID')
-		await this.setUserIdAsync({yourUserID: user});
-		
-    	const { selected } = this.props;
-
-    	this.setState({
-      		selected
-    	});
-	}
-
-	getIsFollow = () => {
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=checkIfFollowed', {
+	getIsFollowing = () => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getIsFollowing', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -80,6 +64,7 @@ class CustomButton extends Component {
 	}
 
 	addFollower = () => {
+		Alert.alert("addFollower: " + this.state.yourUserID + " : " + this.props.userID);
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=addFollower', {
 			method: 'POST',
 			headers: {
@@ -90,13 +75,14 @@ class CustomButton extends Component {
 		
 				me: this.state.yourUserID,
 
-				tryToFollow: this.state.userID,
+				tryToFollow: this.props.userID,
 		
 			})
 		});
 	}
 
 	removeFollower = () => {
+		Alert.alert("removeFollower: " + this.state.yourUserID + " : " + this.props.userID);
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=removeFollower', {
 			method: 'POST',
 			headers: {
@@ -114,12 +100,24 @@ class CustomButton extends Component {
 	}
 	
 	sendFollowRequest({selected}) {
-		if(selected) {
+		if(!selected) {
 			this.addFollower();
-			Alert.alert(this.state.yourUserID + " : " + this.state.userID);
 		} else {
 			this.removeFollower();
 		}
+	}
+
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+	async componentDidMount() {
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({yourUserID: user});
+
+    	this.getIsFollowing();
 	}
 
 	render() {
@@ -311,7 +309,7 @@ export default class searchProfile extends Component {
 						</View>
 
 						<View style={{flex:1, flexDirection: 'row', marginTop: 20,  marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>
-							<CustomButton title={"Follow"} selected={false} />
+							<CustomButton title={"Follow"} selected={false} userID={this.state.userID}/>
 						</View>
 
 						<View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>

@@ -75,10 +75,10 @@ module.exports = styles = StyleSheet.create({
 		opacity: 0.54
 	},
 	selectedCategoryText: {
-		opacity: 1
+		opacity: 1,
 	},
 	titleText: {
-		color: "white",
+		color: Colors.kite_greenMediumLight,
 		fontSize: 30,
 		fontFamily: "regular"
 	},

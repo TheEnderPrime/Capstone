@@ -16,6 +16,7 @@ Alert,
 } from "react-native";
 
 import { Input, Button } from "react-native-elements";
+import Colors from "../../Colors/Colors";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import SimpleIcon from "react-native-vector-icons/SimpleLineIcons";
@@ -176,7 +177,7 @@ export default class Login extends Component {
 		
 		return (
 		<View style={styles.container}>
-			<ImageBackground source={BG_IMAGE} style={styles.bgImage}>
+			{/* <ImageBackground source={BG_IMAGE} style={styles.bgImage}> */}
 			{this.state.fontLoaded ? (
 				<View>
 					<KeyboardAvoidingView
@@ -352,7 +353,7 @@ export default class Login extends Component {
 			) : (
 				<Text>Loading...</Text>
 			)}
-			</ImageBackground>
+			{/* </ImageBackground> */}
 		</View>
 		);
 	}
@@ -360,7 +361,8 @@ export default class Login extends Component {
 
 	const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		backgroundColor: 'rgba(47,44,60,1)'
 	},
 	rowSelector: {
 		height: 20,
@@ -436,8 +438,8 @@ export default class Login extends Component {
 		opacity: 1
 	},
 	titleText: {
-		color: "white",
-		fontSize: 30,
+		color: Colors.kite_greenMediumLight,
+		fontSize: 40,
 		fontFamily: "regular"
 	},
 	helpContainer: {
@@ -446,49 +448,3 @@ export default class Login extends Component {
 		justifyContent: "center"
 	}
 	});
-
-
-	// OLD MAIN WELCOME SCREEN --------------------------------------------------
-
-	// import React, { Component } from 'react';
-	// import PropTypes from 'prop-types';
-	// import {
-	//   Platform,
-	//   StyleSheet,
-	//   Text,
-	//   View,
-	//   Button,
-	//   TouchableOpacity,
-	//   AppRegistry,
-	//   BackHandler,
-	// } from 'react-native';
-
-	// import styles from './styles';
-
-	// export default class Welcome extends Component {
-
-	// 	render() {
-	// 		const{ navigate } = this.props.navigation;
-	// 		return (
-	// 			<View style={styles.container}>
-	// 				<View style={styles.logo}>
-	// 					<Text style={styles.logoText}>Kite</Text>
-	// 				</View>
-	// 				<View style={styles.welcome}>
-	// 					<Text style={styles.welcomeWords}>Welcome to the Kite App!</Text>
-	// 				</View>
-	// 				<View style={styles.selectionBox}>
-	// 					<Text style={styles.selections} onPress={() => navigate('Login')}>Sign In</Text>
-	// 					<Text style={styles.selections} onPress={() => navigate('Signup')}>Sign Up</Text>
-	// 				</View>
-	// 				<View style={styles.loginBox}>
-	// 					<TouchableOpacity onPress={() => navigate('Drawers')}>
-	// 						<Text style={styles.forgotPassword}> Forgot Password?</Text>
-	// 					</TouchableOpacity>
-	// 				</View>
-	// 			</View>
-	// 		);
-	// 	}
-	// }
-
-	// AppRegistry.registerComponent('Welcome', () => Welcome);
