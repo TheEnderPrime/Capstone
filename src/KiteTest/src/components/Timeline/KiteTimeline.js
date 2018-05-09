@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 import styles from './styles';
-
+import Colors from '../../Colors/Colors'
 import { RkButton } from 'react-native-ui-kitten';
 import { RkTheme } from 'react-native-ui-kitten';
 import { RkCard } from 'react-native-ui-kitten';
@@ -173,12 +173,12 @@ class KiteTimeline extends Component {
 
 
 				<RkCard rkType='story'>		
-					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#6c5B7B'}}>
+					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: Colors.kite_greenMediumDark}}>
 						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
 							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
 						<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
 					</View>
-					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start', backgroundColor: '#E0E0E0'}}>
 						<Image rkCardImg source={{uri: x.PostImage}} style={{height:  (Dimensions.get('window').height/4), flexGrow:1, }} resizeMode="cover"/>
 						<View>
 						<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 20,  marginLeft: 10, textDecorationLine: 'underline'}}>

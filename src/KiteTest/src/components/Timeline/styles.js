@@ -4,7 +4,7 @@ module.exports = styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		//backgroundColor: 'rgba(47,44,60,1)',
-		backgroundColor: '#355C7D',
+		backgroundColor: 'rgba(47,44,60,1)',
 		height:null,
     	width:null,
   	},
@@ -13,7 +13,7 @@ module.exports = styles = StyleSheet.create({
 		padding: 10, 
 		//paddingTop: 65,
 		//backgroundColor: 'rgba(47,44,60,1)',
-		backgroundColor: '#355C7D'
+		backgroundColor: 'rgba(47,44,60,1)'
 	},
 	timelineList: {
 		flex: 1,
