@@ -18,6 +18,7 @@ import {
     DiscoverStack,
     SearchStack,
     ProfileSettingsStack,
+    CalendarStack,
  } from './stackNavigators';
 
 
@@ -80,8 +81,8 @@ export const Drawers = DrawerNavigator({
     Discover: {
         screen: DiscoverStack,
     },
-	Settings: {
-		screen: SettingsStack,
+    Calendar: {
+        screen: CalendarStack,
     },
     Logout: {
         screen: Logout,

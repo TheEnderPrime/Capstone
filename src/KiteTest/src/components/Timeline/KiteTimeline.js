@@ -183,7 +183,7 @@ class KiteTimeline extends Component {
 					</View>
 					<View rkCardContent>
 						<RkText style={{ textAlign: 'center' }}>
-							{x.description}
+							{x.FirstName} {x.description}
 						</RkText>
 					</View>
 					{/* <View rkCardFooter>

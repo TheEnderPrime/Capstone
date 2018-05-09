@@ -88,7 +88,7 @@ export default class communityPictureSettings extends Component {
 		if (this.state.hasUploaded == true && this.state.imgURL1.substring(0, 7) != "content") {
 			Alert.alert(this.state.imgURL1);
 			var image = this.state.imgURL1.toString();
-			fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=updateCommunities', {
+			fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=updateCommunity', {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
@@ -99,6 +99,8 @@ export default class communityPictureSettings extends Component {
 					CommunityID: this.state.communityID,
 			
 					ProfilePicture: image,
+
+					UserID: this.state.userID,
 			
 				})
 			})
@@ -146,7 +148,9 @@ export default class communityPictureSettings extends Component {
 
     async componentWillMount() {
 		const community = await AsyncStorage.getItem('communityIDSettings')
-        await this.setCommunityIdAsync({communityID: community});
+		await this.setCommunityIdAsync({communityID: community});
+		const USERID = await AsyncStorage.getItem('userID');
+		await this.setCommunityIdAsync({userID: USERID});
     }
 
     render() {
@@ -159,7 +163,7 @@ export default class communityPictureSettings extends Component {
                         case 0:
                             return null
                         default:
-                            this.UpdateUserInformation();
+                            this.UpdateCommunity();
                             return (
                                 <ScrollView>
                                     <Image
@@ -180,7 +184,7 @@ export default class communityPictureSettings extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.addImages()}>
                     <Text style={styles.upload}>
-                        Update Profile
+                        Update Community
                       </Text>
                 </TouchableOpacity>
             </ScrollView>

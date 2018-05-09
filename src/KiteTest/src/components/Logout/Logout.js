@@ -19,10 +19,11 @@ export default class Logout extends Component {
 		this.state={}
 	}
 	componentWillMount(){
+    AsyncStorage.setItem('userID', null);
 		setTimeout(() => {
 			this.props.navigation.navigate('WelcomeStack')
         },750)
-        AsyncStorage.setItem('userID', null);
+        
 	}
 	
   render() {

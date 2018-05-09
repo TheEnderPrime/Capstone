@@ -11,7 +11,10 @@ import KiteTimeline           from '../components/Timeline/KiteTimeline';
 import Profile                from '../components/Profile/Profile';
 import Community              from '../components/Community/Community';
 import CommunitySelection     from '../components/Community_Selection/communitySelection';
+import CommunityCreator       from '../components/Community_Creator/communityCreator';
 import Discover               from '../components/Discover/Discover';
+import Notifications          from '../components/Notifications/Notifications';
+import Calendar               from '../components/Calendar/Calendar';
 
 import Search                 from '../components/Search/Search';
 import SearchResults          from '../components/Search_Results/searchResults';
@@ -140,6 +143,23 @@ export const CommunityStack = StackNavigator({
         screen: CommunitySelection,
         navigationOptions: ( {  navigation } ) => ({
             title: 'Community',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        }), 
+    },
+    CommunityCreator: {
+        screen: CommunityCreator,
+        navigationOptions: ( {  navigation } ) => ({
+            title: 'Community Creator',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -491,7 +511,7 @@ export const PostStack = StackNavigator({
 
 export const NotificationStack = StackNavigator({
     Notifications: {
-        screen: KiteTimeline, ////////////////////////CHANGE ME
+        screen: Notifications,
         navigationOptions: {
             title: 'Notifications',
             headerStyle: {
@@ -711,4 +731,24 @@ export const SearchStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+});
+
+export const CalendarStack = StackNavigator({
+    Calendar: {
+        screen: Calendar,
+        navigationOptions: {
+            title: 'Calendar',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
 });

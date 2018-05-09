@@ -46,6 +46,8 @@ export default class communityInfoSettings extends Component {
 				Title: this.state.title,
 
 				AboutUs:  this.state.aboutUs,
+
+				UserID: this.state.userID,
 				
 			})
 		}).then((response) => response.json())
@@ -70,14 +72,16 @@ export default class communityInfoSettings extends Component {
 
     async componentWillMount() {
 		const community = await AsyncStorage.getItem('communityIDSettings')
-        await this.setCommunityIdAsync({communityID: community});
+		await this.setCommunityIdAsync({communityID: community});
+		const USERID = await AsyncStorage.getItem('userID');
+		await this.setCommunityIdAsync({userID: USERID});
 
 		const { params } = this.props.navigation.state;
 		const Title = params.title ? params.title : "";
 		const AboutUs = params.aboutUs ? params.aboutUs : "";
 		const AdminID = params.adminID ? params.adminID : "";
 		this.setState({"title": Title});
-		this.setState({"AboutUs": AboutUs});
+		this.setState({"aboutUs": AboutUs});
 		this.setState({"adminID": AdminID});
 	}
 

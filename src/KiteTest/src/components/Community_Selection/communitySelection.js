@@ -126,11 +126,13 @@ export default class communitySelection extends Component {
 				<View style={styles.container}>
 					<ListView 
 						enableEmptySections={true}
-						//initialListSize={6}
-						onEndReached={() => this.onEndReached()}
-						//renderFooter={() => this.renderFooter()}
 						dataSource = {this.state.dataSource}
 						renderRow = {(rowData) => this.eachTweet(rowData)}
+					/>
+					<Button
+						style={buttonColor = '#78B494'} 
+						title="Create Community" 
+						onPress = {() => this.props.navigation.navigate('CommunityCreator', {userID: this.state.userID})}
 					/>
 				</View>
 			);

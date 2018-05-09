@@ -337,7 +337,7 @@ export default class Login extends Component {
 							loading={isLoading}
 							disabled={isLoading}
 						/>
-						</View>
+						</View>	
 					</KeyboardAvoidingView>
 					<View style={styles.helpContainer}>
 						<Button
