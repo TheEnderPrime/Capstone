@@ -149,7 +149,7 @@ class KiteTimeline extends Component {
 	eachTweet(x) {
 		return (
 			<TouchableOpacity
-				style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 6, paddingTop: 6 }}
+				style={{ paddingLeft: 15, paddingRight: 15, paddingBottom: 5, paddingTop: 5 }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
 			>
 				{/* style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
@@ -172,24 +172,23 @@ class KiteTimeline extends Component {
 				</View> */}
 
 
-
-				<RkCard rkType='story'>
-					<Image rkCardImg 
-						source={{ uri: x.ProfilePicture }} 
-						resizeMode="contain"
-						style={{ height: 200 }} />
-					<View rkCardHeader>
-						<RkText rkType='header'>{x.title}</RkText>
+				<RkCard rkType='story'>		
+					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#6c5B7B'}}>
+						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
+							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
+						<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
 					</View>
-					<View rkCardContent>
-						<RkText style={{ textAlign: 'center' }}>
-							{x.FirstName} {x.description}
+					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+						<Image rkCardImg source={{uri: x.PostImage}} style={{height:  (Dimensions.get('window').height/4), flexGrow:1, }} resizeMode="cover"/>
+						<View>
+						<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 20,  marginLeft: 10, textDecorationLine: 'underline'}}>
+								{x.title}
+						</RkText>
+						</View>
+						<RkText style={{ margin: 10, alignSelf: 'flex-start' }}>
+								Description: {x.description}
 						</RkText>
 					</View>
-					{/* <View rkCardFooter>
-    <RkButton rkType='small outline'>Learn More</RkButton>
-    <RkButton rkType='small'>Read later</RkButton>
-  </View> */}
 				</RkCard>
 			</TouchableOpacity>
 		)
