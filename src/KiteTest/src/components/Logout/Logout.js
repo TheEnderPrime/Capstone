@@ -17,7 +17,9 @@ export default class Logout extends Component {
 	constructor(){
 		super()
 		this.state={}
-	}
+  }
+  
+  // simply shows a page then takes the user to the welcome screen where they must login again
 	componentWillMount(){
     AsyncStorage.setItem('userID', null);
 		setTimeout(() => {

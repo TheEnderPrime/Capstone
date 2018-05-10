@@ -25,6 +25,8 @@ import styles from './styles';
 var {height, width} = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
+// Duplicate Event page except for how data is called from database
+
 export default class searchEvent extends React.Component {
 
 	constructor(props) {
@@ -43,6 +45,7 @@ export default class searchEvent extends React.Component {
 		};
 	}
 
+	// fetches event data from data
 	loadEvent = (event, user) => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
@@ -102,6 +105,7 @@ export default class searchEvent extends React.Component {
 		this.loadEvent(EVENTID, USERID);
 	}
 
+	// creates timeline one event at a time
 	eachTweet(x){
 		return(
 			<TouchableOpacity 

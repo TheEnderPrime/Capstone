@@ -80,7 +80,8 @@ export default class Community extends Component {
       		fontLoaded: false,
     	};
 	}
-	  
+	
+	// returns the timeline of events based on the communityID
 	getCommunityTimeLine = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getCommunityTimeLine', {
@@ -119,6 +120,7 @@ export default class Community extends Component {
             });
 	}
 		
+	// returns all the information about the community
 	getCommunity = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=getCommunity', {
 			method: 'POST',
@@ -148,12 +150,14 @@ export default class Community extends Component {
 			});
 	}
 	
+	// sets the userID
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
 	}
 		
+	// runs before render. Sets the userId and commID. Runs getComm()
   	async componentWillMount() {
 		this.setState({ fontLoaded: true });
 		const user = await AsyncStorage.getItem('userID')

@@ -42,7 +42,7 @@ class Event extends React.Component {
 			dataSource: ds.cloneWithRows([]),
 		};
 	}
-
+	// loads event info from database
 	loadEvent = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
@@ -84,12 +84,14 @@ class Event extends React.Component {
                 console.error(error);
             });
 	}
-		  
+		
+	
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
 	}
+
 
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
@@ -100,6 +102,7 @@ class Event extends React.Component {
 		this.loadEvent();
 	}
 
+	// builds timeline one event at a time
 	eachTweet(x){
 		return(
 			<TouchableOpacity 
@@ -131,15 +134,6 @@ class Event extends React.Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.eventInfo}>
-					{/* <View style={{flex: 1, flexDirection: 'column'}}>
-						<Image 
-							source={{
-								uri: this.state.ProfilePicture
-							}} 
-							resizeMode="contain" 
-							style ={{height:108, width:108, borderRadius:54, margin:10}} 
-						/>
-					</View> */}
 					<View style={{flex: 1, flexDirection: 'column', marginTop: 15}}>
 						<Text style={styles.titleText}>
 							{this.state.title}

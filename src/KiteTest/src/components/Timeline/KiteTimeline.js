@@ -26,13 +26,10 @@ import { RkText } from 'react-native-ui-kitten';
 var { height, width } = Dimensions.get('window');
 var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-class KiteTimeline extends Component {
+export default class KiteTimeline extends Component {
 
 	constructor() {
 		super()
-		this.onEndReached = this.onEndReached.bind(this)
-		this.renderSelected = this.renderSelected.bind(this)
-		this.onRefresh = this.onRefresh.bind(this)
 
 		this.data = []
 
@@ -45,6 +42,7 @@ class KiteTimeline extends Component {
 		}
 	}
 
+	// loads timeline data into json which then is used by eachTweet to create the timeline
 	loadTimeline = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
@@ -83,94 +81,26 @@ class KiteTimeline extends Component {
 			});
 	}
 
-	onRefresh() {
-		//set initial data
-		this.setState({ isRefreshing: true });
-		//refresh to initial data
-		setTimeout(() => {
-
-			this.loadTimeline();
-
-		}, 2000);
-	}
-
-	onEndReached() {
-		//fetch next data
-		if (!this.state.waiting) {
-			this.setState({ waiting: true });
-
-			//fetch and concat data
-			setTimeout(() => {
-
-				//refresh to concat data
-				var data = this.state.data.concat(
-					[
-						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' },
-						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' },
-						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' },
-						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' },
-						{ time: '18:00', title: 'Load more data', description: 'append event at bottom of timeline' }
-					]
-				)
-
-				this.setState({
-					waiting: false,
-					data: data,
-				});
-			}, 2000);
-		}
-	}
-
-	renderFooter() {
-		if (this.waiting) {
-			return <ActivityIndicator />;
-		} else {
-			return <Text>~</Text>;
-		}
-	}
-
-	renderSelected() {
-		if (this.state.selected)
-			return <Text style={{ marginTop: 10 }}>Selected event: {this.state.selected.title} at {this.state.selected.time}</Text>
-	}
-
 	setUserIdAsync(state) {
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
 	}
 
+	// calls loadTimeline
 	async componentWillMount() {
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({ userID: user });
 		this.loadTimeline();
 	}
 
+	// creates timeline one event at a time
 	eachTweet(x) {
 		return (
 			<TouchableOpacity
 				style={{ paddingLeft: 15, paddingRight: 15, paddingBottom: 5, paddingTop: 5 }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
 			>
-				{/* style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})} */}
-				{/* <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-					<Image
-						source={require('../../images/guy.jpeg')}
-						resizeMode="contain"
-						style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
-					/>
-					<View style={{flex:1}}>
-						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-							<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
-						</View>
-						<View style={{ margin:5, marginRight:10,}}>
-							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
-						</View>
-					</View>
-				</View> */}
-
 
 				<RkCard rkType='story'>		
 					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: Colors.kite_greenMediumDark}}>
@@ -206,9 +136,6 @@ class KiteTimeline extends Component {
 				<View style={styles.container}>
 					<ListView
 						enableEmptySections={true}
-						//initialListSize={6}
-						onEndReached={() => this.onEndReached()}
-						//renderFooter={() => this.renderFooter()}
 						dataSource={this.state.dataSource}
 						renderRow={(rowData) => this.eachTweet(rowData)}
 					/>
@@ -230,4 +157,3 @@ RkTheme.setType('RkCard', 'story', {
 		alignSelf: 'center'
 	}
 });
-export default KiteTimeline;

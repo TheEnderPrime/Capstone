@@ -26,6 +26,8 @@ import { RkText } from 'react-native-ui-kitten';
 var { height, width } = Dimensions.get('window');
 var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
+// THIS PAGE IS A STRETCH GOAL
+
 export default class Discover extends Component {
 
 	constructor() {
@@ -41,6 +43,7 @@ export default class Discover extends Component {
 		}
 	}
 
+	// loads main timeline as a placeholder instead of a discover timeline
 	loadTimeline = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
@@ -85,12 +88,14 @@ export default class Discover extends Component {
 		});
 	}
 
+	// loads main timeline and userID
 	async componentWillMount() {
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({ userID: user });
 		this.loadTimeline();
 	}
 
+	// builds each individual timeline event, timeline is mapped via this
 	eachTweet(x) {
 		return (
 			<TouchableOpacity

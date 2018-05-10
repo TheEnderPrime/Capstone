@@ -73,8 +73,6 @@ export default class communityPictureSettings extends Component {
     constructor(props) {
         super(props);
 
-        this.onValueChange = this.onValueChange.bind(this);
-        
         this.state = {
             switchValue: false,
             size: 0,
@@ -84,6 +82,7 @@ export default class communityPictureSettings extends Component {
         };
     }
 
+	// sends image uri to database
 	UpdateCommunity = () => {
 		if (this.state.hasUploaded == true && this.state.imgURL1.substring(0, 7) != "content") {
 			Alert.alert(this.state.imgURL1);
@@ -107,6 +106,7 @@ export default class communityPictureSettings extends Component {
 		}
     }
 
+	// image picker
 	_pickImage() {
 		if (this.state.size == 1) {
 			alert("Maximum number of images selected.");
@@ -120,6 +120,7 @@ export default class communityPictureSettings extends Component {
 		}
 	}
 
+	// uploads image to firebase
 	addImages() {
 		var imagehere = "";
 		if (this.state.size == 0) {
@@ -136,9 +137,6 @@ export default class communityPictureSettings extends Component {
 		}
 	}
 
-    onValueChange(value){
-        this.setState({switchValue: value});
-    }
     
     setCommunityIdAsync(state){
 		return new Promise((resolved) => {
@@ -189,26 +187,6 @@ export default class communityPictureSettings extends Component {
                 </TouchableOpacity>
             </ScrollView>
         </View>
-            
-    //         <Button
-	// 			title='Apply'
-	// 			// icon={
-	// 			// 	<Icon
-	// 			// 	name='create'
-	// 			// 	size={15}
-	// 			// 	color='white'
-	// 			// 	/>
-	// 			// }
-	// 			buttonStyle={{
-	// 				backgroundColor: "rgba(92, 99,216, 1)",
-	// 				width: 80,
-	// 				height: 40,
-	// 				borderColor: "transparent",
-	// 				borderWidth: 0,
-	// 				borderRadius: 5
-	// 			}}
-	// 			onPress={() => Alert.alert('FETCH CALL HERE TO UPDATE DATABASE WITH NEW INFORMATION')}
-	// 		/>
         );
     }
 }

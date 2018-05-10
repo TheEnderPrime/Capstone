@@ -19,10 +19,11 @@ export default class communitySettings extends Component {
 
     constructor(){
         super();
-        this.onValueChange = this.onValueChange.bind(this);
+        
         this.state = {switchValue: false};
     }
 
+    // loads community info which will be sent to the other settings pages instead of calling getCommunity in each page
     getCommunity = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=getCommunity', {
 			method: 'POST',
@@ -52,16 +53,13 @@ export default class communitySettings extends Component {
 			});
 	}
 
-    onValueChange(value){
-        this.setState({switchValue: value});
-    }
-
     setCommunityIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
 	}
 
+    // gets communityID
     async componentWillMount() {
 		const community = await AsyncStorage.getItem('communityIDSettings')
         await this.setCommunityIdAsync({communityID: community});

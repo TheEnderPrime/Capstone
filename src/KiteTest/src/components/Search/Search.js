@@ -24,7 +24,7 @@ import { Input } from 'react-native-elements';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 
-class Search extends React.Component {
+export default class Search extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -35,6 +35,7 @@ class Search extends React.Component {
 		};
 	}
 
+	// fetch call for user search data
 	searchForUser = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Search.php?f=searchForUser', {
@@ -65,6 +66,7 @@ class Search extends React.Component {
             });
 	}
 
+	// fetch call for event search data
 	searchForEvent = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Search.php?f=searchForEvent', {
@@ -96,6 +98,7 @@ class Search extends React.Component {
             });
 	}
 
+	// fetch call for community search data
 	searchForCommunity = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Search.php?f=searchForCommunity', {
@@ -126,6 +129,7 @@ class Search extends React.Component {
             });
 	}
 
+	// if statement that decides which search fetch call to run
 	doSearch = () => {
 		if(this.state.searchType == "user") {
 			this.searchForUser();
@@ -206,7 +210,3 @@ class Search extends React.Component {
 		);
 	}
 }
-
-
-
-  export default Search;

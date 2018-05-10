@@ -35,6 +35,7 @@ export default class Posts extends React.Component {
 		}
 	}
 
+	// pulls text and image uris from the database
 	loadPost = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=getPost', {
@@ -93,6 +94,7 @@ export default class Posts extends React.Component {
 		this.loadPost();
 	}
 
+	// parses text and text-wraps images
 	printPost() {
 		
 		var i;

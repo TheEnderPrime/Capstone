@@ -75,6 +75,7 @@ export default class PostImageCreator extends React.Component {
 		}
 	}
 
+	// send post info and photo uris to database
 	sendData() {
 		//Alert.alert("sendData")
 		if (this.state.hasUploaded == true
@@ -82,7 +83,7 @@ export default class PostImageCreator extends React.Component {
 			&& this.state.imgURL2.substring(0, 7) != "content"
 			&& this.state.imgURL3.substring(0, 7) != "content") {
 			//Alert.alert(this.state.imgURL1);
-			Alert.alert("within SendData");
+				Alert.alert("within SendData");
 			//var temp = this.state.imgURL1.toString();
 			fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
 				method: 'POST',
@@ -91,30 +92,31 @@ export default class PostImageCreator extends React.Component {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					//UsersId: this.state.userID,
-					//EventId: this.state.eventID,
-					//title: this.state.title,
-					//description: this.state.story.substring(0, 25) + "...",
-					//PostText: this.state.story,
-					//PhotoOne: this.state.imgURL1.toString(),
-					//PhotoTwo: this.state.imgURL2.toString(),
-					//PhotoThree: this.state.imgURL3.toString()
+					UserID: this.state.userID,
+					EventId: this.state.eventID,
+					Title: this.state.title,
+					Desc: this.state.story.substring(0, 25) + "...",
+					Story: this.state.story,
+					PhotoOne: this.state.imgURL1.toString(),
+					PhotoTwo: this.state.imgURL2.toString(),
+					PhotoThree: this.state.imgURL3.toString()
 				}),
 			}).then((response) => response.json())
 			.then((responseJson) => {
-				// If server response message same as Data Matched
-				if (responseJson.isValid === 'valid') {
-					Alert.alert(this.state.title + " Created!")
-				}
-				else {
-					//Alert.alert(responseJson.errorMessage);
-				}
+			// 	// If server response message same as Data Matched
+			// 	// if (responseJson.isValid === 'valid') {
+			// 	// 	Alert.alert(this.state.title + " Created!")
+			// 	// }
+			// 	// else {
+			// 	// 	Alert.alert(responseJson.error);
+			//	}
 			}).catch((error) => {
 				console.error(error);
 			});
 		}
 	}
 
+	// image picker
 	_pickImage() {
 		if (this.state.size == 3) {
 			alert("Maximum nuber of images selected.");
@@ -142,6 +144,7 @@ export default class PostImageCreator extends React.Component {
 		};
 	}
 
+	//uploads images to firebase
 	addImages() {
 		var imagehere = "";
 		if (this.state.size == 0) {
@@ -179,12 +182,14 @@ export default class PostImageCreator extends React.Component {
 		}
 	}
 
+
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
 	}
 		
+
   	async componentDidMount() {
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});

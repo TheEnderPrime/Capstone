@@ -22,7 +22,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const IMAGE_SIZE = SCREEN_WIDTH - 80;
 
-//Custom Button
+//Custom Button - allows for selected and deselecting 
 class CustomButton extends Component {
   	constructor() {
     	super();
@@ -91,6 +91,7 @@ export default class Profile extends Component {
     	};
 	}
 	  
+	// pulls user events for timeline from database
 	loadTimeline = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
@@ -129,6 +130,7 @@ export default class Profile extends Component {
             });
 	}
 		
+	// gets info for profile from database
 	GatherUserInformation = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
 			method: 'POST',
@@ -173,6 +175,7 @@ export default class Profile extends Component {
 		});
 	}
 		
+	// loads userID, runs gatherUserInfo and loadTimeline
   	async componentDidMount() {
 		this.setState({ fontLoaded: true });
 		const user = await AsyncStorage.getItem('userID')
@@ -183,6 +186,7 @@ export default class Profile extends Component {
 		this.loadTimeline();
 	}
 
+	// creates each event one at a time then gets mapped in render
 	eachTweet(x){
 		return(
 			<TouchableOpacity 

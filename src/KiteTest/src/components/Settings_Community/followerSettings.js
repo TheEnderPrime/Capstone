@@ -19,14 +19,11 @@ export default class followerSettings extends Component {
 
     constructor() {
         super();
-        this.onValueChange = this.onValueChange.bind(this);
+        
         this.state = {switchValue: false};
     }
 
-    onValueChange(value){
-        this.setState({switchValue: value});
-    }
-	
+	// sends new info to database
 	UpdateCommunity = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=updateCommunity', {
 			method: 'POST',

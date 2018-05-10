@@ -39,7 +39,8 @@ export default class communitySelection extends Component {
 		}
 	}
 
-	loadCommunities = () => {
+	// gets all the events based on a communityID
+	getCommunityTimeLine = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getCommunityTimeLine', {
             method: 'POST',
             headers: {
@@ -82,10 +83,11 @@ export default class communitySelection extends Component {
 		});
 	}
 
+	//loads community Timeline and userID before render
 	async componentWillMount(){
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
-		this.loadCommunities();
+		this.getCommunitTimeLine();
 	}
 
 	eachTweet(x){

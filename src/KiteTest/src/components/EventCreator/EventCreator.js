@@ -33,6 +33,7 @@ class EventCreator extends React.Component {
 		};
 	}
 
+	// sends given data to database to create event
 	createEvent = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=createEvent', {
@@ -71,17 +72,19 @@ class EventCreator extends React.Component {
             });
 	}
 	
+
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
 		});
 	}
 
+
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
-		//this.loadTimeline();
 	}
+
 
   	render() {
 		const {navigate} = this.props.navigation;

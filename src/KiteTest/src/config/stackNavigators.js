@@ -42,10 +42,10 @@ import CommunityPictureSettings from '../components/Settings_Community/community
 import CommunityInfoSettings    from '../components/Settings_Community/communityInfoSettings';
 import FollowerSettings         from '../components/Settings_Community/followerSettings';
 
-import TimelineSettings       from '../components/Settings_Timeline/timelineSettings';
-
-// opening stack navigator for Login/Signup pages - Called from Splash.js
+// opening stack navigator for Login/Signup Welcome pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
+
+// --- Login and Signup Screens ---
 export const WelcomeStack = StackNavigator({
     Welcome: { 
         screen: Welcome,
@@ -66,6 +66,7 @@ export const WelcomeStack = StackNavigator({
     },
 });
 
+// --- Timeline Screens Including Event and Post pages ---
 export const TimelineStack = StackNavigator({
     Timeline: {
         screen: KiteTimeline,
@@ -156,6 +157,7 @@ export const TimelineStack = StackNavigator({
     }
 });
 
+// --- Community Screens ---
 export const CommunityStack = StackNavigator({
     CommunitySelection: {
         screen: CommunitySelection,
@@ -339,6 +341,7 @@ export const CommunityStack = StackNavigator({
     }
 });
 
+// --- Profile Screens ---
 export const ProfileStack = StackNavigator({
     Profile: {
         screen: Profile,
@@ -507,6 +510,7 @@ export const ProfileStack = StackNavigator({
     }
 });
 
+// --- Post Screens including creation pages --- 
 export const PostStack = StackNavigator({
     Posts: {
         screen: Posts,
@@ -527,6 +531,7 @@ export const PostStack = StackNavigator({
     },
 });
 
+// --- Notification Screens ---
 export const NotificationStack = StackNavigator({
     Notifications: {
         screen: Notifications,
@@ -547,6 +552,7 @@ export const NotificationStack = StackNavigator({
     },
 });
 
+// --- Settings Screen ---
 export const SettingsStack = StackNavigator({
     Settings: {
         screen: MainSettings,
@@ -567,6 +573,7 @@ export const SettingsStack = StackNavigator({
     },
 });
 
+// --- Events Screen ---
 export const EventsStack = StackNavigator({
     EventCreator: {
         screen: EventCreator,
@@ -660,6 +667,7 @@ export const EventsStack = StackNavigator({
     }
 });
 
+// --- Discover Screen ---
 export const DiscoverStack = StackNavigator({
     Discover: {
         screen: Discover,
@@ -680,6 +688,7 @@ export const DiscoverStack = StackNavigator({
     }
 });
 
+// --- Searching Screen ---
 export const SearchStack = StackNavigator({
     Search: {
         screen: Search,
@@ -768,6 +777,7 @@ export const SearchStack = StackNavigator({
     },
 });
 
+// --- Calendar Screen ---
 export const CalendarStack = StackNavigator({
     Calendar: {
         screen: Calendar,

@@ -51,8 +51,10 @@ class CustomButton extends Component {
 				if (responseJson.isValid === 'valid') {
 					
 					if(responseJson.isFollowing == "true") {
+						Alert.alert("getIsFollowing: true");
 						this.setState({selected : true});
 					} else {
+						Alert.alert("getIsFollowing: false");
 						this.setState({selected : false});
 					}
 				} else {
@@ -101,8 +103,10 @@ class CustomButton extends Component {
 	
 	sendFollowRequest({selected}) {
 		if(!selected) {
+			//Alert.alert("addFollower")
 			this.addFollower();
 		} else {
+			//Alert.alert("removeFollower")
 			this.removeFollower();
 		}
 	}
@@ -139,6 +143,8 @@ class CustomButton extends Component {
 var {height, width} = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
+// Duplicate profile page except for how data is fetched and a follow button is rendered
+
 export default class searchProfile extends Component {
   	constructor(props) {
     	super(props);
@@ -170,6 +176,7 @@ export default class searchProfile extends Component {
     	};
 	}
 	  
+	// fetches event timeline data based on profile
 	loadTimeline = (id) => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
@@ -208,6 +215,7 @@ export default class searchProfile extends Component {
             });
 	}
 		
+	// fetches user information
 	GatherUserInformation = (id) => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
 			method: 'POST',
@@ -246,6 +254,7 @@ export default class searchProfile extends Component {
 			});
 	}
 		
+	// brings in userID to use in fetch calls
   	async componentWillMount() {
 		this.setState({ fontLoaded: true });
 		const { params } = this.props.navigation.state;
@@ -255,6 +264,7 @@ export default class searchProfile extends Component {
 		this.loadTimeline(USERID);
 	}
 
+	// creates timeline one event at a time
 	eachTweet(x){
 		return(
 			<TouchableOpacity 

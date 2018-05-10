@@ -19,15 +19,11 @@ export default class profileSettings extends Component {
 
     constructor() {
         super();
-        this.onValueChange = this.onValueChange.bind(this);
+       
         this.state = {
             switchValue: false,
             password: "Hot Mama"
         };
-    }
-
-    onValueChange(value){
-        this.setState({switchValue: value});
     }
 
     GatherUserInformation = () => {
@@ -82,6 +78,7 @@ export default class profileSettings extends Component {
 		}
   	}
 
+    // sends user information to the other profile settings pages
     render() {
         return (
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>

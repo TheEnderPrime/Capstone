@@ -48,7 +48,7 @@ export default class PostCreator extends React.Component {
         this.setState({eventID: EVENTID});
 	}
 
-	//##############################################################
+	//This page displays textinput for title and story. Sends the data next to PostImageCreator to upload pictures
 
 	render() {
 		return (
