@@ -23,6 +23,7 @@ import SearchEvent            from '../components/Search_Event/searchEvent';
 import SearchCommunity        from '../components/Search_Community/searchCommunity';
 
 import PostCreator            from '../components/PostCreator/PostCreator';
+import PostImageCreator       from '../components/PostCreator/PostImageCreator';
 import EventCreator           from '../components/EventCreator/EventCreator';
 import Events                 from '../components/Events/Event';
 import Posts                  from '../components/Posts/Posts';
@@ -136,6 +137,23 @@ export const TimelineStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    PostImageCreator: {
+        screen: PostImageCreator,
+        navigationOptions: {
+            title: 'Post Image Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
 });
 
 export const CommunityStack = StackNavigator({
@@ -610,6 +628,23 @@ export const EventsStack = StackNavigator({
         screen: PostCreator,
         navigationOptions: {
             title: 'Post Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageCreator: {
+        screen: PostImageCreator,
+        navigationOptions: {
+            title: 'Post Image Creator',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },

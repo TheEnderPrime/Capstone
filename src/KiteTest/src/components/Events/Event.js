@@ -131,7 +131,7 @@ class Event extends React.Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.eventInfo}>
-					<View style={{flex: 1, flexDirection: 'column'}}>
+					{/* <View style={{flex: 1, flexDirection: 'column'}}>
 						<Image 
 							source={{
 								uri: this.state.ProfilePicture
@@ -139,7 +139,7 @@ class Event extends React.Component {
 							resizeMode="contain" 
 							style ={{height:108, width:108, borderRadius:54, margin:10}} 
 						/>
-					</View>
+					</View> */}
 					<View style={{flex: 1, flexDirection: 'column', marginTop: 15}}>
 						<Text style={styles.titleText}>
 							{this.state.title}

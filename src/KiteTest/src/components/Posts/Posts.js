@@ -31,6 +31,7 @@ export default class Posts extends React.Component {
 			waiting: false,
 			selected: null,
 			data: this.data, 
+			story: "loading"
 		}
 	}
 
@@ -94,36 +95,43 @@ export default class Posts extends React.Component {
 
 	printPost() {
 		
-		var str = this.state.story;
-		var length = str.length;
-		var cutLength = length / 3;
-		var parsedText = str.match(new RegExp('.{1,' + cutLength + '}', 'g')); 
+		var i;
+		var str;
+		for (i = 0; i < 10000; i++) { 
+    		if(this.state.story != "loading") {
+				var str = this.state.story;
+				var length = str.length;
+				var cutLength = length / 3;
+				var parsedText = str.match(new RegExp('.{1,' + cutLength + '}', 'g'));
 
-		var tmp_array = [
-			{ text: parsedText[0], img: this.state.photo1 },
-			{ text: parsedText[1], img: this.state.photo2 },
-			{ text: parsedText[2], img: this.state.photo3 },
-		];
-		return tmp_array.map(function (news, i) {
-			return (
-				<View key={i}>
-					<Text style={styles.postText}>{news.text}</Text>
-					<View>
-						<Image style=
-							{{
-								flex: 1,
-								justifyContent: 'center', 
-								width: IMAGE_SIZE, 
-								height: IMAGE_SIZE, 
-								borderRadius: 10,
-								padding: 15
-							}}
-							source={news.img}
-						/>
-					</View>
-				</View>
-			);
-		});
+				var tmp_array = [
+					{ text: parsedText[0], img: this.state.photo1 },
+					{ text: parsedText[1], img: this.state.photo2 },
+					{ text: parsedText[2], img: this.state.photo3 },
+				];
+				return tmp_array.map(function (news, i) {
+					return (
+						<View key={i}>
+							<Text style={styles.postText}>{news.text}</Text>
+							<View>
+								<Image style=
+									{{
+										flex: 1,
+										justifyContent: 'center',
+										width: IMAGE_SIZE,
+										height: IMAGE_SIZE,
+										borderRadius: 10,
+										padding: 15
+									}}
+									source={{uri: news.img}}
+								/>
+							</View>
+						</View>
+					);
+				});
+				break;
+			}
+		}
 	}
 
  	render() {
@@ -137,8 +145,7 @@ export default class Posts extends React.Component {
 				</View>
 
 				<ScrollView style={styles.postView}>
-				<Text>{this.state.story}</Text>
-					{/* {this.printPost()} */}
+					{this.printPost()}
 				</ScrollView>
 			</View>
 
