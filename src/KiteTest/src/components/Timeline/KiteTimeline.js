@@ -101,8 +101,10 @@ export default class KiteTimeline extends Component {
 				style={{ paddingLeft: 5, paddingRight: 5 }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
 			>
+
 				<RkCard rkType='story' style={{ marginTop:10, paddingTop:0, paddingBottom:8,
     								backgroundColor: '#E0E0E0', borderRadius:10, borderWidth: 1 }}>		
+
 					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#E0E0E0', borderRadius:10, 
 								paddingTop:7, borderTopWidth: 1, backgroundColor: Colors.kite_greenMediumDark}}>
 						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"

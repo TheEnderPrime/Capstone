@@ -19,12 +19,40 @@ export default class profileSettings extends Component {
 
     constructor() {
         super();
-       
+
+        this.onValueChange = this.onValueChange.bind(this);
         this.state = {
             switchValue: false,
-            password: "Hot Mama"
         };
     }
+
+    UpdateUserInformation = (activeFlag) => {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+		
+				UserID: this.state.userID,
+
+				ActiveFlag: activeFlag
+		
+			})
+		}).then((response) => response.json())
+			.then((responseJson) => {
+				// If server response message same as Data Matched
+				if (responseJson.isValid === 'valid') {
+					Alert.alert("Profile Disabled.");
+				}
+				else {
+					Alert.alert(responseJson.errorMessage);
+				}
+			}).catch((error) => {
+				console.error(error);
+			});
+	}
 
     GatherUserInformation = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
@@ -53,7 +81,8 @@ export default class profileSettings extends Component {
 					this.setState({"currentCountry": responseJson.currentCountry});
 					this.setState({"cellPhone": responseJson.cellPhone});
 					this.setState({"homePhone": responseJson.homePhone});
-					this.setState({"dateAdded": responseJson.dateAdded});
+                    this.setState({"dateAdded": responseJson.dateAdded});
+                    this.setState({"activeFlag": responseJson.activeFlag})
 				}
 				else {
 					Alert.alert(responseJson.errorMessage);
@@ -74,9 +103,23 @@ export default class profileSettings extends Component {
         await this.setUserIdAsync({userID: user});
 		if(this.state.userID != null){
             this.GatherUserInformation(this.state.userID);
-            //Alert.alert("User Info Gathered!");
-		}
-  	}
+        }
+        if(this.state.activeFlag == 1) {
+            this.setState({switchValue: true})
+        } else {
+            this.setState({switchValue: false})
+        }
+    }
+    
+      
+    onValueChange(value){
+        this.setState({switchValue: value});
+        if(!this.state.switchValue) {
+            this.UpdateUserInformation(0);
+        } else {
+            this.UpdateUserInformation(1);
+        }
+    }
 
     // sends user information to the other profile settings pages
     render() {
@@ -92,16 +135,6 @@ export default class profileSettings extends Component {
                         {
                             email: this.state.email
                         })}
-                />
-                <SettingsList.Item
-                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                    title='Password'
-                    titleInfo=''
-                    titleInfoStyle={styles.titleInfoStyle}
-                    onPress={() => this.props.navigation.navigate('PasswordSettings', 
-                        {
-                            password: this.state.password
-                        })} //Need password to be sent, do it in PasswordSettings???
                 />
                 <SettingsList.Header headerStyle={{marginTop:15}}/>
                 <SettingsList.Item
