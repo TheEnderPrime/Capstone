@@ -84,7 +84,7 @@ export default class Community extends Component {
 	// returns the timeline of events based on the communityID
 	getCommunityTimeLine = () => {
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getCommunityTimeLine', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getCommunityEventsTimeLine', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -165,7 +165,7 @@ export default class Community extends Component {
 		const CommunityID =  params ? params.communityID : null;
 		this.setState({communityID: CommunityID});
 		this.getCommunity();
-		// this.getCommunityTimeLine();
+		this.getCommunityTimeLine();
 	}
 
 	eachTweet(x){
@@ -257,11 +257,6 @@ export default class Community extends Component {
 							containerStyle={{ marginVertical: 20 }}
 							style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
 							buttonStyle={{ height: 55, width: SCREEN_WIDTH - 40, borderRadius: 30, justifyContent: 'center', alignItems: 'center' }}
-							// linearGradientProps = {{
-							//   colors: ['rgba(214,116,112,1)', 'rgba(233,174,87,1)'],
-							//   start: [1, 0],
-							//   end: [0.2, 0]
-							// }}
 							title="Expand Timeline"
 							titleStyle={{ fontFamily: 'regular', fontSize: 20, color: 'white', textAlign: 'center' }}
 							onPress={() => this.setState({timelineToggle: this.state.timelineToggle ? (false) : (true)})}
@@ -270,11 +265,12 @@ export default class Community extends Component {
 						{ this.state.timelineToggle 
 							? (
 								<View style={styles.container}>
+									<Button
+										title="Create Event"
+										onPress={() => this.props.navigation.navigate('EventCreator', {communityID: this.state.communityID})}
+									/>
 									<ListView 
 										enableEmptySections={true}
-										//initialListSize={6}
-										onEndReached={() => this.onEndReached()}
-										//renderFooter={() => this.renderFooter()}
 										dataSource = {this.state.dataSource}
 										renderRow = {(rowData) => this.eachTweet(rowData)}
 									/>

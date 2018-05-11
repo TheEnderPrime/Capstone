@@ -36,7 +36,7 @@ export default class Posts extends React.Component {
 	}
 
 	// pulls text and image uris from the database
-	loadPost = () => {
+	getPost = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=getPost', {
             method: 'POST',
@@ -91,7 +91,7 @@ export default class Posts extends React.Component {
 		const {params} = this.props.navigation.state;
 		const PostID =  params ? params.postID : null;
 		this.setState({postID: PostID});
-		this.loadPost();
+		this.getPost();
 	}
 
 	// parses text and text-wraps images
@@ -103,14 +103,15 @@ export default class Posts extends React.Component {
     		if(this.state.story != "loading") {
 				var str = this.state.story;
 				var length = str.length;
-				var cutLength = length / 3;
+				var cutLength = Math.ceil(length / 3);
 				var parsedText = str.match(new RegExp('.{1,' + cutLength + '}', 'g'));
-
+				
 				var tmp_array = [
-					{ text: parsedText[0], img: this.state.photo1 },
-					{ text: parsedText[1], img: this.state.photo2 },
-					{ text: parsedText[2], img: this.state.photo3 },
+					{ text: parsedText[0], img: this.state.photo1 == "-" ? null : this.state.photo1 },
+					{ text: parsedText[1], img: this.state.photo2 == "-" ? null : this.state.photo2 },
+					{ text: parsedText[2], img: this.state.photo3 == "-" ? null : this.state.photo3 },
 				];
+				
 				return tmp_array.map(function (news, i) {
 					return (
 						<View key={i}>
@@ -142,8 +143,6 @@ export default class Posts extends React.Component {
 			<View style={styles.container}>	
 				<View style={styles.header}>
 					<Text style={styles.title}>{this.state.title}</Text>
-					<Text style={styles.title}>Overall Likes and Comments</Text>
-					<Text style={styles.title}>{this.state.story}</Text>
 				</View>
 
 				<ScrollView style={styles.postView}>

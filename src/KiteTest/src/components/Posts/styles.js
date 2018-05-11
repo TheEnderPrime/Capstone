@@ -19,6 +19,7 @@ module.exports = styles = StyleSheet.create({
 	title: {
 		color: '#fff',
 		alignItems: 'center',
+		fontSize: 40,
 	},
 	post: {
 		flex: 5,

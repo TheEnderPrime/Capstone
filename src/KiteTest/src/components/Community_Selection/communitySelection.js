@@ -87,7 +87,7 @@ export default class communitySelection extends Component {
 	async componentWillMount(){
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
-		this.getCommunitTimeLine();
+		this.getCommunityTimeLine();
 	}
 
 	eachTweet(x){

@@ -82,37 +82,26 @@ export default class PostImageCreator extends React.Component {
 			&& this.state.imgURL1.substring(0, 7) != "content"
 			&& this.state.imgURL2.substring(0, 7) != "content"
 			&& this.state.imgURL3.substring(0, 7) != "content") {
-			//Alert.alert(this.state.imgURL1);
-				Alert.alert("within SendData");
-			//var temp = this.state.imgURL1.toString();
-			fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
-				method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					UserID: this.state.userID,
-					EventId: this.state.eventID,
-					Title: this.state.title,
-					Desc: this.state.story.substring(0, 25) + "...",
-					Story: this.state.story,
-					PhotoOne: this.state.imgURL1.toString(),
-					PhotoTwo: this.state.imgURL2.toString(),
-					PhotoThree: this.state.imgURL3.toString()
-				}),
-			}).then((response) => response.json())
-			.then((responseJson) => {
-			// 	// If server response message same as Data Matched
-			// 	// if (responseJson.isValid === 'valid') {
-			// 	// 	Alert.alert(this.state.title + " Created!")
-			// 	// }
-			// 	// else {
-			// 	// 	Alert.alert(responseJson.error);
-			//	}
-			}).catch((error) => {
-				console.error(error);
-			});
+				//Alert.alert(this.state.imgURL1);
+					//Alert.alert("within SendData");
+				//var temp = this.state.imgURL1.toString();
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
+					method: 'POST',
+					headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						UserID: this.state.userID,
+						EventID: this.state.eventID,
+						Title: this.state.title,
+						Desc: this.state.story.substring(0, 30) + "...",
+						Story: this.state.story,
+						PhotoOne: this.state.imgURL1.toString(),
+						PhotoTwo: this.state.imgURL2.toString(),
+						PhotoThree: this.state.imgURL3.toString()
+					})
+				});
 		}
 	}
 
@@ -209,80 +198,77 @@ export default class PostImageCreator extends React.Component {
 		var words = this.state.story;
 		return (
 			<View style={styles.container}>
-				<Text>{this.state.title + " : " + this.state.story + " : " + this.state.userID + " : " + this.state.eventID + " : " + words + "..."}</Text>
 				{
 					(() => {
 						switch (this.state.size) {
 							case 0:
-								//this.sendData();
+								if(!this.state.hasUploaded){
+									this.setState({ hasUploaded: true })
+								}
 								return (
 									<Text>No Images</Text>
 								)
 							case 3:
-								// this.sendData();
 								return (
 									<ScrollView>
 										<Image
 											source={{ uri: this.state.imgURL1 }}
 											style={styles.image}
 										/>
-										<Text selectable={true}>{this.state.imgURL1}</Text>
 
 										<Image
 											source={{ uri: this.state.imgURL2 }}
 											style={styles.image}
 										/>
-										<Text selectable={true}>{this.state.imgURL2}</Text>
-
+										
 										<Image
 											source={{ uri: this.state.imgURL3 }}
 											style={styles.image}
 										/>
-										<Text selectable={true}>{this.state.imgURL3}</Text>
+										
 									</ScrollView>
 								)
 							case 2:
-								// this.sendData();
 								return (
 									<ScrollView>
 										<Image
 											source={{ uri: this.state.imgURL1 }}
 											style={styles.image}
 										/>
-										<Text selectable={true}>{this.state.imgURL1}</Text>
-
+										
 										<Image
 											source={{ uri: this.state.imgURL2 }}
 											style={styles.image}
 										/>
-										<Text selectable={true}>{this.state.imgURL2}</Text>
+										
 									</ScrollView>
 								)
 							default:
-								// this.sendData();
 								return (
 									<ScrollView>
 										<Image
 											source={{ uri: this.state.imgURL1 }}
 											style={styles.image}
 										/>
-										<Text selectable={true}>{this.state.imgURL1}</Text>
+										
 									</ScrollView>
 								)
 						}
 					})()
 				}
 				<ScrollView>
-					<TouchableOpacity onPress={() => this._pickImage()}>
-						<Text style={styles.upload}>
-							Pick Image
-			  			</Text>
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => this.addImages()}>
-						<Text style={styles.upload}>
-							Confirm
-			  			</Text>
-					</TouchableOpacity>
+					<View style={{flex: 1, flexDirection: 'row'}}>
+						<TouchableOpacity onPress={() => this._pickImage()}>
+							<Text style={styles.upload}>
+								Pick Image
+							</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => this.addImages()}>
+							<Text style={styles.upload}>
+								Confirm
+							</Text>
+						</TouchableOpacity>
+					</View>
 					<TouchableOpacity onPress={() => this.sendData()}>
 						<Text style={styles.upload}>
 							Post

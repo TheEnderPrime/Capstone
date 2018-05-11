@@ -330,11 +330,6 @@ export default class Profile extends Component {
 							containerStyle={{ marginVertical: 20 }}
 							style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
 							buttonStyle={{ height: 55, width: SCREEN_WIDTH - 40, borderRadius: 30, justifyContent: 'center', alignItems: 'center' }}
-							// linearGradientProps = {{
-							//   colors: ['rgba(214,116,112,1)', 'rgba(233,174,87,1)'],
-							//   start: [1, 0],
-							//   end: [0.2, 0]
-							// }}
 							title="Expand Timeline"
 							titleStyle={{ fontFamily: 'regular', fontSize: 20, color: 'white', textAlign: 'center' }}
 							onPress={() => this.setState({timelineToggle: this.state.timelineToggle ? (false) : (true)})}
@@ -345,9 +340,6 @@ export default class Profile extends Component {
 								<View style={styles.container}>
 									<ListView 
 										enableEmptySections={true}
-										//initialListSize={6}
-										onEndReached={() => this.onEndReached()}
-										//renderFooter={() => this.renderFooter()}
 										dataSource = {this.state.dataSource}
 										renderRow = {(rowData) => this.eachTweet(rowData)}
 									/>
