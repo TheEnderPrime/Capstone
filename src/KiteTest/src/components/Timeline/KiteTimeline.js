@@ -45,7 +45,7 @@ export default class KiteTimeline extends Component {
 	// loads timeline data into json which then is used by eachTweet to create the timeline
 	loadTimeline = () => {
 
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getMainTimeLine', {
+		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getFollowersEventsTimeLine', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',

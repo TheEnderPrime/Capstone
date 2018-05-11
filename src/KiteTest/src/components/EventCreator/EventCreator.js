@@ -30,6 +30,7 @@ class EventCreator extends React.Component {
 			eventDesc: "",
 			userID: 0,
 			eventID: 0,
+			communityID: 'false'
 		};
 	}
 
@@ -49,6 +50,8 @@ class EventCreator extends React.Component {
                 title: this.state.eventTitle,
 
 				desc: this.state.eventDesc,
+
+				communityID: this.state.communityID
 				
             })
 
@@ -83,6 +86,11 @@ class EventCreator extends React.Component {
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});
+
+		//checks if this is creating a community
+		const { params } = this.props.navigation.state;
+		const COMM = params.communityID ? params.communityID : 'false';
+		this.setState({communityID: COMM});
 	}
 
 

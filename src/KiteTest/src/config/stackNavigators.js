@@ -3,7 +3,7 @@ import Colors from '../Colors/Colors';
 import { Text, Alert, } from 'react-native';
 import { Button } from 'react-native-elements';
 import { TabNavigator, StackNavigator, DrawerNavigator, TabBarBottom, withNavigation, } from 'react-navigation';
-import Icon  from "react-native-vector-icons/MaterialIcons";
+import Icon  from "react-native-vector-icons/FontAwesome";
 
 import Splash                 from '../components/Splash/Splash';
 import Welcome                from '../components/Welcome/Welcome';
@@ -213,8 +213,8 @@ export const CommunityStack = StackNavigator({
                 title=''
                 icon={
                     <Icon
-                    name='create'
-                    size={15}
+                    name='gear'
+                    size={20}
                     color='white'
                     />
                 }
@@ -247,28 +247,6 @@ export const CommunityStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            headerRight: (
-                <Button
-                title=''
-                icon={
-                    <Icon
-                    name='create'
-                    size={15}
-                    color='white'
-                    />
-                }
-                buttonStyle={{
-                    backgroundColor: "rgba(92, 99,216, 1)",
-                    width: 40,
-                    height: 40,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 5
-                }}
-                containerStyle={{ marginRight: 20 }}
-                onPress = {() => { navigation.navigate('Settings') } }
-                />
-            ),
         }), 
     },
     Settings: {
@@ -338,6 +316,96 @@ export const CommunityStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
+    },
+    EventCreator: {
+        screen: EventCreator,
+        navigationOptions: {
+            title: 'Event Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    Event: {
+        screen: Events,
+        navigationOptions: {
+            title: 'Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => navigation.navigate("Settings")}
+                />
+            ),
+        },
+    },
+    PostCreator: {
+        screen: PostCreator,
+        navigationOptions: {
+            title: 'Post Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageCreator: {
+        screen: PostImageCreator,
+        navigationOptions: {
+            title: 'Post Image Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     }
 });
 
@@ -363,8 +431,8 @@ export const ProfileStack = StackNavigator({
                 title=''
                 icon={
                     <Icon
-                    name='create'
-                    size={15}
+                    name='gear'
+                    size={20}
                     color='white'
                     />
                 }
@@ -399,28 +467,6 @@ export const ProfileStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            headerRight: (
-                <Button
-                title=''
-                icon={
-                    <Icon
-                    name='create'
-                    size={15}
-                    color='white'
-                    />
-                }
-                buttonStyle={{
-                    backgroundColor: "rgba(92, 99,216, 1)",
-                    width: 40,
-                    height: 40,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 5
-                }}
-                containerStyle={{ marginRight: 20 }}
-                onPress = {() =>  { navigation.navigate('Settings') } }
-                />
-            ),
         }),
     },
     Settings: {
@@ -500,6 +546,96 @@ export const ProfileStack = StackNavigator({
             },
             headerTitleStyle: {
                 alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    EventCreator: {
+        screen: EventCreator,
+        navigationOptions: {
+            title: 'Event Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    Event: {
+        screen: Events,
+        navigationOptions: {
+            title: 'Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => navigation.navigate("Settings")}
+                />
+            ),
+        },
+    },
+    PostCreator: {
+        screen: PostCreator,
+        navigationOptions: {
+            title: 'Post Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageCreator: {
+        screen: PostImageCreator,
+        navigationOptions: {
+            title: 'Post Image Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
                 color: Colors.kite_greenLight,
             },
             headerBackTitleStyle: {

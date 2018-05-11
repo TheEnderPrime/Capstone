@@ -42,7 +42,16 @@ export default class PostCreator extends React.Component {
 		}
 	}
 
-	componentDidMount() {
+	setUserIdAsync(state){
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+		
+
+  	async componentDidMount() {
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({userID: user});
 		const { params } = this.props.navigation.state;
         const EVENTID = params.eventID ? params.eventID : 0;
         this.setState({eventID: EVENTID});
@@ -94,7 +103,14 @@ export default class PostCreator extends React.Component {
 						value={this.state.text}
 					/>
 				</ScrollView>
-				<Button style={styles.button} onPress={() => this.props.navigation.navigate("PostImageCreator", {title: this.state.postTitle, story: this.state.text, eventID: this.state.eventID})}
+				<Button style={styles.button} onPress={() => this.props.navigation.navigate("PostImageCreator", 
+					{
+						title: this.state.postTitle, 
+						story: this.state.text.replace(/[\t\n\r]/gm,''), 
+						eventID: this.state.eventID, 
+						userID: this.state.userID
+					}
+				)}
 					title="Next"
 				/>
 			</View>

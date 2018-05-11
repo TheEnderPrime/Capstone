@@ -31,7 +31,7 @@ export default class Search extends React.Component {
 		this.state = {
 			searchString: "",
 			userID: 0,
-			searchType: "",
+			searchType: "user",
 		};
 	}
 
@@ -166,8 +166,10 @@ export default class Search extends React.Component {
 							What is it that you would like to find?
 						</Text>
 						<Picker
-							style={{ height: 50, width: 150, color: '#fff' }}
+							style={{ height: 50, width: 150, color: '#fff'}}
 							selectedValue={this.state.searchType}
+							borderRadius={20} 
+							borderColor= {"#fff"}
 							onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
 							<Picker.Item label="User" value="user" />
 							<Picker.Item label="Event" value="event" />
