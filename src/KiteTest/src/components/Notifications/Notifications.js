@@ -13,6 +13,8 @@ import {
 
 import styles from './styles';
 
+// STRETCH GOAL
+
 export default class Logout extends Component {
 	constructor() {
 		super()

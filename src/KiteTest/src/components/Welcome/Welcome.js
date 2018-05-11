@@ -42,6 +42,8 @@ TabSelector.propTypes = {
 	selected: PropTypes.bool.isRequired
 };
 
+// Login and Signup Screens in one page
+
 export default class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -74,12 +76,14 @@ export default class Login extends Component {
 		});
 	}
 
+	// email RegEx
 	validateEmail(email) {
 		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 		return re.test(email);
 	}
 
+	//login logic
 	login() {
 		const { email, password, isEmailValid, isPasswordValid } = this.state;
 		this.setState({ isLoading: true });
@@ -123,6 +127,7 @@ export default class Login extends Component {
 		}
 	}
 
+	// signup logic
 	signUp() {
 		const { email, password, passwordConfirmation } = this.state;
 		this.setState({ isLoading: true });
@@ -360,91 +365,91 @@ export default class Login extends Component {
 	}
 
 	const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: 'rgba(47,44,60,1)'
-	},
-	rowSelector: {
-		height: 20,
-		flexDirection: "row",
-		alignItems: "center"
-	},
-	selectorContainer: {
-		flex: 1,
-		alignItems: "center"
-	},
-	selected: {
-		position: "absolute",
-		borderRadius: 50,
-		height: 0,
-		width: 0,
-		top: -5,
-		borderRightWidth: 70,
-		borderBottomWidth: 70,
-		borderColor: "white",
-		backgroundColor: "white"
-	},
-	loginContainer: {
-		alignItems: "center",
-		justifyContent: "center"
-	},
-	loginTextButton: {
-		fontSize: 16,
-		color: "white",
-		fontWeight: "bold"
-	},
-	loginButton: {
-		backgroundColor: "rgba(232, 147, 142, 1)",
-		borderRadius: 10,
-		height: 50,
-		width: 200
-	},
-	titleContainer: {
-		height: 150,
-		backgroundColor: "transparent",
-		justifyContent: "center"
-	},
-	formContainer: {
-		backgroundColor: "white",
-		width: SCREEN_WIDTH - 30,
-		borderRadius: 10,
-		paddingTop: 32,
-		paddingBottom: 32,
-		alignItems: "center"
-	},
-	loginText: {
-		fontSize: 16,
-		fontWeight: "bold",
-		color: "white"
-	},
-	bgImage: {
-		flex: 1,
-		top: 0,
-		left: 0,
-		width: SCREEN_WIDTH,
-		height: SCREEN_HEIGHT,
-		justifyContent: "center",
-		alignItems: "center"
-	},
-	categoryText: {
-		textAlign: "center",
-		color: "white",
-		fontSize: 24,
-		fontFamily: "light",
-		backgroundColor: "transparent",
-		opacity: 0.54
-	},
-	selectedCategoryText: {
-		opacity: 1
-	},
-	titleText: {
-		color: Colors.kite_greenMediumLight,
-		fontSize: 40,
-		fontFamily: "regular"
-	},
-	helpContainer: {
-		height: 64,
-		alignItems: "center",
-		justifyContent: "center"
-	}
+		container: {
+			flex: 1,
+			backgroundColor: 'rgba(47,44,60,1)'
+		},
+		rowSelector: {
+			height: 20,
+			flexDirection: "row",
+			alignItems: "center"
+		},
+		selectorContainer: {
+			flex: 1,
+			alignItems: "center"
+		},
+		selected: {
+			position: "absolute",
+			borderRadius: 50,
+			height: 0,
+			width: 0,
+			top: -5,
+			borderRightWidth: 70,
+			borderBottomWidth: 70,
+			borderColor: "white",
+			backgroundColor: "white"
+		},
+		loginContainer: {
+			alignItems: "center",
+			justifyContent: "center"
+		},
+		loginTextButton: {
+			fontSize: 16,
+			color: "white",
+			fontWeight: "bold"
+		},
+		loginButton: {
+			backgroundColor: "rgba(232, 147, 142, 1)",
+			borderRadius: 10,
+			height: 50,
+			width: 200
+		},
+		titleContainer: {
+			height: 150,
+			backgroundColor: "transparent",
+			justifyContent: "center"
+		},
+		formContainer: {
+			backgroundColor: "white",
+			width: SCREEN_WIDTH - 30,
+			borderRadius: 10,
+			paddingTop: 32,
+			paddingBottom: 32,
+			alignItems: "center"
+		},
+		loginText: {
+			fontSize: 16,
+			fontWeight: "bold",
+			color: "white"
+		},
+		bgImage: {
+			flex: 1,
+			top: 0,
+			left: 0,
+			width: SCREEN_WIDTH,
+			height: SCREEN_HEIGHT,
+			justifyContent: "center",
+			alignItems: "center"
+		},
+		categoryText: {
+			textAlign: "center",
+			color: "white",
+			fontSize: 24,
+			fontFamily: "light",
+			backgroundColor: "transparent",
+			opacity: 0.54
+		},
+		selectedCategoryText: {
+			opacity: 1
+		},
+		titleText: {
+			color: Colors.kite_greenMediumLight,
+			fontSize: 40,
+			fontFamily: "regular"
+		},
+		helpContainer: {
+			height: 64,
+			alignItems: "center",
+			justifyContent: "center"
+		}
 	});

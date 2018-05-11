@@ -20,6 +20,8 @@ export default class Splash extends Component {
 			showMe:true
 		}
 	}
+
+	// shows page for .75 of a second then navigates to Welcome page
 	componentWillMount(){
 		setTimeout(() => {
 			this.props.navigation.navigate('WelcomeStack')

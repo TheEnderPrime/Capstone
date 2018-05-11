@@ -3,7 +3,7 @@ import Colors from '../Colors/Colors';
 import { Text, Alert, } from 'react-native';
 import { Button } from 'react-native-elements';
 import { TabNavigator, StackNavigator, DrawerNavigator, TabBarBottom, withNavigation, } from 'react-navigation';
-import Icon  from "react-native-vector-icons/MaterialIcons";
+import Icon  from "react-native-vector-icons/FontAwesome";
 
 import Splash                 from '../components/Splash/Splash';
 import Welcome                from '../components/Welcome/Welcome';
@@ -23,6 +23,7 @@ import SearchEvent            from '../components/Search_Event/searchEvent';
 import SearchCommunity        from '../components/Search_Community/searchCommunity';
 
 import PostCreator            from '../components/PostCreator/PostCreator';
+import PostImageCreator       from '../components/PostCreator/PostImageCreator';
 import EventCreator           from '../components/EventCreator/EventCreator';
 import Events                 from '../components/Events/Event';
 import Posts                  from '../components/Posts/Posts';
@@ -41,10 +42,10 @@ import CommunityPictureSettings from '../components/Settings_Community/community
 import CommunityInfoSettings    from '../components/Settings_Community/communityInfoSettings';
 import FollowerSettings         from '../components/Settings_Community/followerSettings';
 
-import TimelineSettings       from '../components/Settings_Timeline/timelineSettings';
-
-// opening stack navigator for Login/Signup pages - Called from Splash.js
+// opening stack navigator for Login/Signup Welcome pages - Called from Splash.js
 // needs to navigate('Tabs'); to navigate to the main pages of the app
+
+// --- Login and Signup Screens ---
 export const WelcomeStack = StackNavigator({
     Welcome: { 
         screen: Welcome,
@@ -65,6 +66,7 @@ export const WelcomeStack = StackNavigator({
     },
 });
 
+// --- Timeline Screens Including Event and Post pages ---
 export const TimelineStack = StackNavigator({
     Timeline: {
         screen: KiteTimeline,
@@ -136,8 +138,26 @@ export const TimelineStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
+    PostImageCreator: {
+        screen: PostImageCreator,
+        navigationOptions: {
+            title: 'Post Image Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    }
 });
 
+// --- Community Screens ---
 export const CommunityStack = StackNavigator({
     CommunitySelection: {
         screen: CommunitySelection,
@@ -193,8 +213,8 @@ export const CommunityStack = StackNavigator({
                 title=''
                 icon={
                     <Icon
-                    name='create'
-                    size={15}
+                    name='gear'
+                    size={20}
                     color='white'
                     />
                 }
@@ -227,28 +247,6 @@ export const CommunityStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            headerRight: (
-                <Button
-                title=''
-                icon={
-                    <Icon
-                    name='create'
-                    size={15}
-                    color='white'
-                    />
-                }
-                buttonStyle={{
-                    backgroundColor: "rgba(92, 99,216, 1)",
-                    width: 40,
-                    height: 40,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 5
-                }}
-                containerStyle={{ marginRight: 20 }}
-                onPress = {() => { navigation.navigate('Settings') } }
-                />
-            ),
         }), 
     },
     Settings: {
@@ -318,9 +316,100 @@ export const CommunityStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
+    },
+    EventCreator: {
+        screen: EventCreator,
+        navigationOptions: {
+            title: 'Event Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    Event: {
+        screen: Events,
+        navigationOptions: {
+            title: 'Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => navigation.navigate("Settings")}
+                />
+            ),
+        },
+    },
+    PostCreator: {
+        screen: PostCreator,
+        navigationOptions: {
+            title: 'Post Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageCreator: {
+        screen: PostImageCreator,
+        navigationOptions: {
+            title: 'Post Image Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     }
 });
 
+// --- Profile Screens ---
 export const ProfileStack = StackNavigator({
     Profile: {
         screen: Profile,
@@ -342,8 +431,8 @@ export const ProfileStack = StackNavigator({
                 title=''
                 icon={
                     <Icon
-                    name='create'
-                    size={15}
+                    name='gear'
+                    size={20}
                     color='white'
                     />
                 }
@@ -378,28 +467,6 @@ export const ProfileStack = StackNavigator({
                 color: Colors.kite_greenLight,
             },
             headerTintColor: Colors.kite_greenLight,
-            headerRight: (
-                <Button
-                title=''
-                icon={
-                    <Icon
-                    name='create'
-                    size={15}
-                    color='white'
-                    />
-                }
-                buttonStyle={{
-                    backgroundColor: "rgba(92, 99,216, 1)",
-                    width: 40,
-                    height: 40,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 5
-                }}
-                containerStyle={{ marginRight: 20 }}
-                onPress = {() =>  { navigation.navigate('Settings') } }
-                />
-            ),
         }),
     },
     Settings: {
@@ -486,9 +553,100 @@ export const ProfileStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
+    },
+    EventCreator: {
+        screen: EventCreator,
+        navigationOptions: {
+            title: 'Event Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    Event: {
+        screen: Events,
+        navigationOptions: {
+            title: 'Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+            headerRight: (
+                <Button
+                title=''
+                icon={
+                    <Icon
+                    name='create'
+                    size={15}
+                    color='white'
+                    />
+                }
+                buttonStyle={{
+                    backgroundColor: "rgba(92, 99,216, 1)",
+                    width: 40,
+                    height: 40,
+                    borderColor: "transparent",
+                    borderWidth: 0,
+                    borderRadius: 5
+                }}
+                containerStyle={{ marginRight: 20 }}
+                onPress = {() => navigation.navigate("Settings")}
+                />
+            ),
+        },
+    },
+    PostCreator: {
+        screen: PostCreator,
+        navigationOptions: {
+            title: 'Post Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageCreator: {
+        screen: PostImageCreator,
+        navigationOptions: {
+            title: 'Post Image Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     }
 });
 
+// --- Post Screens including creation pages --- 
 export const PostStack = StackNavigator({
     Posts: {
         screen: Posts,
@@ -509,6 +667,7 @@ export const PostStack = StackNavigator({
     },
 });
 
+// --- Notification Screens ---
 export const NotificationStack = StackNavigator({
     Notifications: {
         screen: Notifications,
@@ -529,6 +688,7 @@ export const NotificationStack = StackNavigator({
     },
 });
 
+// --- Settings Screen ---
 export const SettingsStack = StackNavigator({
     Settings: {
         screen: MainSettings,
@@ -549,6 +709,7 @@ export const SettingsStack = StackNavigator({
     },
 });
 
+// --- Events Screen ---
 export const EventsStack = StackNavigator({
     EventCreator: {
         screen: EventCreator,
@@ -622,9 +783,27 @@ export const EventsStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
+    },
+    PostImageCreator: {
+        screen: PostImageCreator,
+        navigationOptions: {
+            title: 'Post Image Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
     }
 });
 
+// --- Discover Screen ---
 export const DiscoverStack = StackNavigator({
     Discover: {
         screen: Discover,
@@ -645,6 +824,7 @@ export const DiscoverStack = StackNavigator({
     }
 });
 
+// --- Searching Screen ---
 export const SearchStack = StackNavigator({
     Search: {
         screen: Search,
@@ -733,6 +913,7 @@ export const SearchStack = StackNavigator({
     },
 });
 
+// --- Calendar Screen ---
 export const CalendarStack = StackNavigator({
     Calendar: {
         screen: Calendar,

@@ -19,15 +19,11 @@ export default class profileSettings extends Component {
 
     constructor() {
         super();
-        this.onValueChange = this.onValueChange.bind(this);
+       
         this.state = {
             switchValue: false,
             password: "Hot Mama"
         };
-    }
-
-    onValueChange(value){
-        this.setState({switchValue: value});
     }
 
     GatherUserInformation = () => {
@@ -82,6 +78,7 @@ export default class profileSettings extends Component {
 		}
   	}
 
+    // sends user information to the other profile settings pages
     render() {
         return (
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
@@ -137,14 +134,19 @@ export default class profileSettings extends Component {
                 />
                 <SettingsList.Header headerStyle={{marginTop:15}}/>
                 <SettingsList.Item
-                    icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                    title='Delete Profile'
-                    onPress={() => Alert.alert("Profile Deleted")} //Need numbers to be sent, do it in FollowingSettings???
+                    icon={
+                        <Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>
+                    }
+                    hasSwitch={true}
+                    switchState={this.state.switchValue}
+                    switchOnValueChange={this.onValueChange}
+                    hasNavArrow={false}
+                    title='Disable Profile'
                 />
                 <SettingsList.Item
                     icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
-                    title='Disable Profile'
-                    onPress={() => Alert.alert("Profile Disabled")} //Need numbers to be sent, do it in FollowingSettings???
+                    title='Delete Profile'
+                    onPress={() => Alert.alert("Profile Deleted")} //Need numbers to be sent, do it in FollowingSettings???
                 />
             </SettingsList>
             </View>

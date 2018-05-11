@@ -23,6 +23,8 @@ import {RkButton} from 'react-native-ui-kitten';
 var {height, width} = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
+// Returns search results from Search.js
+
 export default class searchResult extends Component {
 	
 	constructor(){
@@ -85,7 +87,7 @@ export default class searchResult extends Component {
 				>
 					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 						<Image
-							source={require('../../images/guy.jpeg')}
+							source={{ uri: x.ProfilePicture }}
 							resizeMode="contain"
 							style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
 						/>
@@ -109,11 +111,7 @@ export default class searchResult extends Component {
 				>
 					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 						<Image 
-							source={{
-								uri: "" === ""
-								? "https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg"
-								: x.ProfilePicture
-							}} 
+							source={{ uri: x.ProfilePicture }}
 							resizeMode="contain" 
 							style ={{height:54, width:54, borderRadius:27, margin:10}} 
 							/>
@@ -151,5 +149,4 @@ export default class searchResult extends Component {
 			);
 		}
 	}
-
 }

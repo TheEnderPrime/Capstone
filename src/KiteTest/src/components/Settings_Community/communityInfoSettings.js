@@ -19,7 +19,7 @@ export default class communityInfoSettings extends Component {
 
     constructor() {
         super();
-        this.onValueChange = this.onValueChange.bind(this);
+        
         this.state = {
 			switchValue: false,
 			title: "loading",
@@ -27,11 +27,8 @@ export default class communityInfoSettings extends Component {
 		
 		};
     }
-
-    onValueChange(value){
-        this.setState({switchValue: value});
-	}
 	
+	//sends new information to database
 	UpdateCommunityInformation = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=updateCommunity', {
 			method: 'POST',

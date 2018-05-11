@@ -10,20 +10,39 @@ module.exports = styles = StyleSheet.create({
 	eventInfo: {
 		flex: 1, 
 		flexDirection: 'row', 
-		marginBottom: 50
+		marginBottom: 20
+	},
+	likeTextButton: {
+		fontSize: 16,
+		color: "white",
+		fontWeight: "bold"
+	},
+	likeButton: {
+		alignSelf: 'center',
+		backgroundColor: "#e8938e",
+		borderRadius: 10,
+		height: 50,
+		width: 200,
+		margin: 10
 	},
 	titleText: {
 		marginLeft: 5,
-		fontSize: 18,
-		padding: 5,
-		
+		fontSize: 30,
+		//padding: 5,
+		fontWeight: 'bold',
 		color: '#fff',
-		textDecorationLine: 'underline',
+		//textDecorationLine: 'underline',
 		// marginTop: 10,
 	}, 
+	descriptionText: {
+		marginLeft: 5,
+		fontSize: 18,
+		padding: 5,
+		color: '#fff'
+	},
 	postTimeline:{
 		flex: 5,
-		padding: 10, 
-		backgroundColor: '#A6CFBD',
+		paddingTop: 1, 
+		backgroundColor: '#E0E0E0',
 	},
 });

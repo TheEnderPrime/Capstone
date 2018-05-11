@@ -22,7 +22,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const IMAGE_SIZE = SCREEN_WIDTH - 80;
 
-//Custom Button
+//Custom Button - allows for selected and deselecting 
 class CustomButton extends Component {
   	constructor() {
     	super();
@@ -91,6 +91,7 @@ export default class Profile extends Component {
     	};
 	}
 	  
+	// pulls user events for timeline from database
 	loadTimeline = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
@@ -129,6 +130,7 @@ export default class Profile extends Component {
             });
 	}
 		
+	// gets info for profile from database
 	GatherUserInformation = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getProfile', {
 			method: 'POST',
@@ -173,6 +175,7 @@ export default class Profile extends Component {
 		});
 	}
 		
+	// loads userID, runs gatherUserInfo and loadTimeline
   	async componentDidMount() {
 		this.setState({ fontLoaded: true });
 		const user = await AsyncStorage.getItem('userID')
@@ -183,6 +186,7 @@ export default class Profile extends Component {
 		this.loadTimeline();
 	}
 
+	// creates each event one at a time then gets mapped in render
 	eachTweet(x){
 		return(
 			<TouchableOpacity 
@@ -326,11 +330,6 @@ export default class Profile extends Component {
 							containerStyle={{ marginVertical: 20 }}
 							style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
 							buttonStyle={{ height: 55, width: SCREEN_WIDTH - 40, borderRadius: 30, justifyContent: 'center', alignItems: 'center' }}
-							// linearGradientProps = {{
-							//   colors: ['rgba(214,116,112,1)', 'rgba(233,174,87,1)'],
-							//   start: [1, 0],
-							//   end: [0.2, 0]
-							// }}
 							title="Expand Timeline"
 							titleStyle={{ fontFamily: 'regular', fontSize: 20, color: 'white', textAlign: 'center' }}
 							onPress={() => this.setState({timelineToggle: this.state.timelineToggle ? (false) : (true)})}
@@ -341,9 +340,6 @@ export default class Profile extends Component {
 								<View style={styles.container}>
 									<ListView 
 										enableEmptySections={true}
-										//initialListSize={6}
-										onEndReached={() => this.onEndReached()}
-										//renderFooter={() => this.renderFooter()}
 										dataSource = {this.state.dataSource}
 										renderRow = {(rowData) => this.eachTweet(rowData)}
 									/>

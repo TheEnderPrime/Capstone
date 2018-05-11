@@ -31,6 +31,7 @@ export default class communityCreator extends React.Component {
 		};
 	}
 
+	// sends the necessary information to create a community to the database
 	createCommunity = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=createCommunity', {
@@ -74,6 +75,7 @@ export default class communityCreator extends React.Component {
 		});
 	}
 
+	// sets the userID before render happens
 	async componentDidMount(){
 		const user = await AsyncStorage.getItem('userID')
 		await this.setUserIdAsync({userID: user});

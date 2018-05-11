@@ -19,14 +19,14 @@ export default class emailSettings extends Component {
 
     constructor() {
         super();
-        this.onValueChange = this.onValueChange.bind(this);
+       
         this.state = {
 			switchValue: false,
 			email: "inital",
 		}
 	}
 	
-
+	// updates user info in database 
 	UpdateUserInformation = () => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
 			method: 'POST',
@@ -55,10 +55,6 @@ export default class emailSettings extends Component {
 			});
 	}
 
-    onValueChange(value){
-        this.setState({switchValue: value});
-	}
-	
 	setUserIdAsync(state){
 		return new Promise((resolved) => {
 			this.setState(state, resolved)
