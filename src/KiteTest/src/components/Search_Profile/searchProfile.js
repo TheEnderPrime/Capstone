@@ -33,81 +33,108 @@ class CustomButton extends Component {
 	}
 
 	getIsFollowing = () => {
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getIsFollowing', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-		
-				me: this.state.yourUserID,
+		for (i = 0; i < 10000; i++) { 
+    		if(this.props.userID != undefined) {
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=getIsFollowing', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+				
+						one: this.state.yourUserID,
 
-				tryToFollow: this.state.userID,
-			})
-		}).then((response) => response.json())
-			.then((responseJson) => {
-				// If server response message same as Data Matched
-				if (responseJson.isValid === 'valid') {
-					
-					if(responseJson.isFollowing == "true") {
-						Alert.alert("getIsFollowing: true");
-						this.setState({selected : true});
-					} else {
-						Alert.alert("getIsFollowing: false");
-						this.setState({selected : false});
-					}
-				} else {
-					Alert.alert(responseJson);
-				}
-			}).catch((error) => {
-				console.error(error);
-			});
+						two: this.props.userID,
+					})
+				}).then((response) => response.json())
+					.then((responseJson) => {
+						// If server response message same as Data Matched
+						if (responseJson.isValid === 'valid') {
+							if(responseJson.isFollowing === 'true') {
+								this.setState({selected : true});
+							} else {
+								this.setState({selected : false});
+							}
+						} else {
+							Alert.alert("error");
+						}
+					});
+					break;
+			}
+		}
 	}
 
 	addFollower = () => {
-		Alert.alert("addFollower: " + this.state.yourUserID + " : " + this.props.userID);
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=addFollower', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-		
-				me: this.state.yourUserID,
+		for (i = 0; i < 10000; i++) { 
+    		if(this.props.userID != undefined && this.props.userID != null ) {
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=addFollower', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+				
+						one: this.state.yourUserID,
 
-				tryToFollow: this.props.userID,
-		
-			})
-		});
+						two: this.props.userID,
+				
+					})
+				}).then((response) => response.json())
+				.then((responseJson) => {
+					// If server response message same as Data Matched
+					if (responseJson.isValid === 'valid') {
+						//Alert.alert("addFollower: " + responseJson.me + " : " + responseJson.you);
+						Alert.alert("now following");
+					} else {
+						Alert.alert("still no longer following");
+					}
+				});
+				break;
+			}
+		}
 	}
 
 	removeFollower = () => {
-		Alert.alert("removeFollower: " + this.state.yourUserID + " : " + this.props.userID);
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=removeFollower', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-		
-				me: this.state.yourUserID,
+		for (i = 0; i < 10000; i++) { 
+    		if(this.props.userID != undefined && this.props.userID != null ) {
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=removeFollower', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+				
+						one: this.state.yourUserID,
 
-				tryToRemoveFollow: this.state.userID,
-		
-			})
-		});
+						two: this.props.userID,
+				
+					})
+				}).then((response) => response.json())
+				.then((responseJson) => {
+					// If server response message same as Data Matched
+					if (responseJson.isValid === 'valid') {
+						Alert.alert("now not following");
+					} else {
+						Alert.alert("still following");
+					}
+				});
+				break;
+			}
+		}
 	}
 	
-	sendFollowRequest({selected}) {
+	sendFollowRequest(selected) {
 		if(!selected) {
 			//Alert.alert("addFollower")
 			this.addFollower();
+			this.setState({selected: !selected })
 		} else {
 			//Alert.alert("removeFollower")
 			this.removeFollower();
+			this.setState({selected: !selected })
 		}
 	}
 
@@ -134,7 +161,7 @@ class CustomButton extends Component {
 				titleStyle={{ fontSize: 15, color: 'white', fontFamily: 'regular' }}
 				buttonStyle={selected ? { backgroundColor: 'rgba(213, 100, 140, 1)', borderRadius: 100, width: 127 } : { borderWidth: 1, borderColor: 'white', borderRadius: 30, width: 127, backgroundColor: 'transparent' }}
 				containerStyle={{ marginRight: 10 }}
-				onPress={() => {this.setState({selected: !selected }), this.sendFollowRequest(this.state.selected)}}
+				onPress={() => {this.sendFollowRequest(this.state.selected)}}
 			/>
 		);
 	}
