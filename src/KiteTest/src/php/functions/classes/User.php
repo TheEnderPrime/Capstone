@@ -2,7 +2,9 @@
 //Include Connection 
 require_once('connection.inc.php');	
 
-//user class is used to hold a user object 
+/**
+ * user class holds the structure of the user object
+ */
 class User{
     public $usersID = 0;
     public $firstName = "";
@@ -127,7 +129,7 @@ class User{
     // // }
     // //
 
-    //
+    // helper function for updateing the date of birth
     public function updateDateOfBirth($newDateOfBirth){
         global $conn;
         $this->dateOfBirth = $newDateOfBirth;
@@ -139,7 +141,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    // helper function for updating the active flag
     public function updateActiveFlag($newActiveFlag){
         global $conn;
         $this->activeFlag = $newActiveFlag;
@@ -151,7 +153,13 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+
+    public function deleteUser(){
+        global $conn;
+        
+    }
+
+    // helper function for updating the emplyer name
     public function updateEmployerName($newEmployerName){
         global $conn;
         $this->employerName = $newEmployerName;
@@ -163,7 +171,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    //helper function for updating the about me
     public function updateAboutMe($newAboutMe){
         global $conn;
         $this->aboutMe = $newAboutMe;
@@ -175,7 +183,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    //helper function for updating the home city
     public function updateHomeCity($newHomeCity){
         global $conn;
         $this->homeCity = $newHomeCity;
@@ -187,7 +195,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    //helper function for updating the home state or provence
     public function updateHomeStateOrProvence($newHomeStateOrProvence){
         global $conn;
         $this->homeStateOrProvence = $newHomeStateOrProvence;
@@ -199,7 +207,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    //helper function for updating the current city
     public function updateCurrentCity($newCurrentCity){
         global $conn;
         $this->currentCity = $newCurrentCity;
@@ -211,7 +219,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    //helper function for updating the state or provennce
     public function updateCurrentStateOrProvence($newCurrentStateOrProvence){
         global $conn;
         $this->currentStateOrProvence = $newCurrentStateOrProvence;
@@ -223,7 +231,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    // helper function for updating the current country
     public function updateCurrentCountry($newCurrentCountry){
         global $conn;
         $this->currentCountry = $newCurrentCountry;
@@ -235,7 +243,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    // helper function for updating the cellphone
     public function updateCellPhone($newCellPhone){
         global $conn;
         $this->cellPhone = $newCellPhone;
@@ -247,7 +255,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    // helper function for updating the home phone
     public function updateHomePhone($newHomePhone){
         global $conn;
         $this->homePhone = $newHomePhone;
@@ -259,7 +267,7 @@ class User{
         $stmt->close();
         return $temp;
     }
-    //
+    // helper function for updating the fprofile picture
     public function updateProfilePicture($newProfilePicture){
         global $conn;
         $this->profilePicture = $newProfilePicture;
@@ -290,7 +298,9 @@ class User{
             return $returned;
         }
     }
-	
+	/**
+     * function used by userRegister to sign up a new user.
+     */
 	public function registerUser($lUserID, $lFirstName, $lLastName, $lEmail, $lPassword, $lDateOfBirth) {
         global $conn;
 		//Create a hash password using the password_default and the password entend from this function
@@ -354,15 +364,19 @@ class User{
         return $this->profilePicture;
     }
 
-    public function sendFollowRequest($tryToFollow){
-        global $conn;
-        $sql = "INSERT INTO FollowRequest (UserRequestingId, UserRequestedId) VALUES (?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ii', $this->usersID, $tryToFollow);
-        $stmt->execute();
-        $stmt->close();
-    }
-
+    // public function sendFollowRequest($tryToFollow){
+    //     global $conn;
+    //     $sql = "INSERT INTO FollowRequest (UserRequestingId, UserRequestedId) VALUES (?, ?)";
+    //     $stmt = $conn->prepare($sql);
+    //     $stmt->bind_param('ii', $this->usersID, $tryToFollow);
+    //     $stmt->execute();
+    //     $stmt->close();
+    // }
+    
+    /**
+     * add follower function adds a connection between this user and the user
+     * that is sent to this function
+     */
     public function addFollower($tryToFollow){
         global $conn;
         $sql = "INSERT INTO UserRelationships (UserFollowingId, UserFollowedId) VALUES (?, ?)";
@@ -373,15 +387,19 @@ class User{
         //$this->removeFollowRequest($tryToFollow);
     }
 
-    public function removeFollowRequest($tryToRemoveFollow){
-        global $conn;
-        $sql = "DELETE FROM FollowRequest WHERE UserRequestingId = ? AND UserRequestedId = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ii', $this->usersID, $tryToRemoveFollow);
-        $stmt->execute();
-        $stmt->close();
-    }
+    // public function removeFollowRequest($tryToRemoveFollow){
+    //     global $conn;
+    //     $sql = "DELETE FROM FollowRequest WHERE UserRequestingId = ? AND UserRequestedId = ?";
+    //     $stmt = $conn->prepare($sql);
+    //     $stmt->bind_param('ii', $this->usersID, $tryToRemoveFollow);
+    //     $stmt->execute();
+    //     $stmt->close();
+    // }
 
+    /**
+     * remove follower function is used to remove the connection between this user
+     * and the user that is sent into this function
+     */
     public function removeFollower($tryToRemoveFollow){
         global $coon;
         $sql = "DELETE FROM UserRelationships WHERE UserFollowingId = ? AND UserFollowedId = ?";
@@ -391,61 +409,72 @@ class User{
         $stmt->close();
     }
 
+    /**
+     * function that returns true or false depending on weither or not the user is currently following this
+     * user or not.
+     */
     public function checkIsFollow($tryToFollow){
         global $conn;
-        // $sql = "SELECT * FROM UserRelationships WHERE UserFollowing = ? AND UserFollowedId = ?";
-        // $stmt = $conn->prepare($sql);
-        // $stmt->bind_param('ii', $this->usersID, $tryToFollow);
-        // $stmt->execute();
-        // $stmt->bind_result($return);
-        // $stmt->fetch();
-        // $stmt->close();
-        if(isset($return)){
-            return 'true';
-        }else{
-            return 'false';
+        $sql = "SELECT UserFollowingId FROM UserRelationships WHERE UserFollowingId = ? AND UserFollowedId = ?";
+        if($stmt = $conn->prepare($sql)){
+            $stmt->bind_param('ii', $this->usersID, $tryToFollow);
+            $stmt->execute();
+            $stmt->bind_result($value);
+            $stmt->fetch();
+            $stmt->close();
+            if(isset($value)){
+                return "true";
+            }else{
+                return "false";
+            }
+        }
+        else{
+            return "false";
         }
     }
 
-    public function getFollowRequests(){
-        global $conn;
-        $sql = "SELECT UserRequestedId FROM  FollowRequest WHERE UserRequestingId = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('i', $this->usersID);
-        $stmt->execute();
-        $stmt->bind_result($tempids);
-        $stmt->store_result();
-        $returned->listOfFollowRequests = array();
-        while ($stmt->fetch()){
-            $tempID = $tempids;
-            $tempIDAndName = array();
-            $sql2 = "SELECT FirstName FROM Users WHERE UsersId = ?";
-            if($stmt2 = $conn->prepare($sql2)){
-                $stmt2->bind_param('i', $tempID);
-                $stmt2->execute();
-                $stmt2->bind_result($tempname);
-                $stmt2->fetch();
-                $stmt2->close();
-                if(isset($tempname)){
-                    array_push($tempIDAndName, $tempname);
-                }
-                else{
-                    echo "this email does not exist";
-                }
-            }
-            else{
-                echo "ERROR(incode): 1";
-            }
-            array_push($tempIDAndName, $tempID);
+    // public function getFollowRequests(){
+    //     global $conn;
+    //     $sql = "SELECT UserRequestedId FROM  FollowRequest WHERE UserRequestingId = ?";
+    //     $stmt = $conn->prepare($sql);
+    //     $stmt->bind_param('i', $this->usersID);
+    //     $stmt->execute();
+    //     $stmt->bind_result($tempids);
+    //     $stmt->store_result();
+    //     $returned->listOfFollowRequests = array();
+    //     while ($stmt->fetch()){
+    //         $tempID = $tempids;
+    //         $tempIDAndName = array();
+    //         $sql2 = "SELECT FirstName FROM Users WHERE UsersId = ?";
+    //         if($stmt2 = $conn->prepare($sql2)){
+    //             $stmt2->bind_param('i', $tempID);
+    //             $stmt2->execute();
+    //             $stmt2->bind_result($tempname);
+    //             $stmt2->fetch();
+    //             $stmt2->close();
+    //             if(isset($tempname)){
+    //                 array_push($tempIDAndName, $tempname);
+    //             }
+    //             else{
+    //                 echo "this email does not exist";
+    //             }
+    //         }
+    //         else{
+    //             echo "ERROR(incode): 1";
+    //         }
+    //         array_push($tempIDAndName, $tempID);
 
-            array_push($returned->listOfFollowRequests, $tempIDAndName);
-        }
-        $stmt->close();
+    //         array_push($returned->listOfFollowRequests, $tempIDAndName);
+    //     }
+    //     $stmt->close();
 
-        $returned->myID = $this->usersID;
-        return json_encode($returned);
-    }
+    //     $returned->myID = $this->usersID;
+    //     return json_encode($returned);
+    // }
     
+    /**
+     * function that returns a list of all user that are currently following this user.
+     */
     public function getFollow(){
         global $conn;
         $sql = "SELECT UserFollowingId FROM  UserRelationships WHERE UserFollowingId = ?";

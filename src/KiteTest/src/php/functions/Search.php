@@ -25,7 +25,7 @@ function searchForUser(){
 
     $returned->isValid = 'valid';
 
-    $sql= "SELECT UsersId, FirstName, LastName, ProfilePicture FROM Users WHERE (FirstName Like '%$searchString%') OR (LastName Like '%$searchString%')";
+    $sql= "SELECT UsersId, FirstName, LastName, ProfilePicture FROM Users WHERE ((FirstName Like '%$searchString%') OR (LastName Like '%$searchString%')) AND ActiveFlag = 1";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $stmt->bind_result($UsersId, $FirstName, $LastName, $ProfilePicture);
@@ -81,19 +81,20 @@ function searchForEvent(){
 
     $returned->isValid = 'valid';
 
-    $sql = "SELECT PostEvent.id, PostEvent.UsersId, PostEvent.EventName, PostEvent.DateAdded, PostEvent.Description, Users.FirstName, Users.LastName, Users.ProfilePicture 
+    $sql = "SELECT PostEvent.id, PostEvent.UsersId, PostEvent.EventName, PostEvent.DateAdded, PostEvent.Description, Users.FirstName, Users.LastName, Users.ProfilePicture, 
+    (SELECT P.PictureOne FROM UserPost AS P JOIN PostEvent AS E ON E.Id = P.EventId WHERE P.EventId = PostEvent.id LIMIT 0, 1) AS postPicture 
     FROM PostEvent
     INNER JOIN Users ON PostEvent.UsersId = Users.UsersId 
-    WHERE (PostEvent.EventName Like '%$searchString%')";
+    WHERE (PostEvent.EventName Like '%$searchString%') AND Users.ActiveFlag = 1";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
-    $stmt->bind_result($id, $UsersID, $EventName, $DateAdded, $Description, $FirstName, $LastName, $ProfilePicture);
+    $stmt->bind_result($id, $UsersID, $EventName, $DateAdded, $Description, $FirstName, $LastName, $ProfilePicture, $postPicture);
     $stmt->store_result();
     $returned->timeline = array();
     while($stmt->fetch()){
         $dt = new DateTime($DateAdded);
         $tempDate = $dt->format('Y-m-d');
-        $temp = array('id'=>$id, 'UsersId'=>$UsersID, 'title'=>$EventName, 'time'=>$tempDate, 'description'=>$Description, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'ProfilePicture'=>$ProfilePicture);
+        $temp = array('id'=>$id, 'UsersId'=>$UsersID, 'title'=>$EventName, 'time'=>$tempDate, 'description'=>$Description, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'ProfilePicture'=>$ProfilePicture, 'PostImage'=>$postPicture);
         array_push($returned->timeline, $temp);
     }
     $stmt->close();

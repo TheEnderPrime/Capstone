@@ -25,6 +25,7 @@ function createEvent(){
     $UserID = $obj['UserID'];
     $Title = $obj['title'];
     $Description = $obj['desc'];
+    $communityID = $obj['communityID'];
 
     $return->isValid = 'notValid';
     if(!isset($UserID)){
@@ -32,15 +33,18 @@ function createEvent(){
     }
     else
     {
-        $sql = "SELECT * FROM PostEvent WHERE UsersId=$UserID AND EventName = '$Title'";
+        $sql = "SELECT * FROM PostEvent WHERE UsersId = $UserID AND EventName = '$Title'";
         $result = mysqli_fetch_array(mysqli_query($conn, $sql));
         if(isset($result)){
             $return->error = 'sorry you have event with the same name';
         }
         else{
-            $sql = 'INSERT INTO PostEvent (UsersId, EventName, Description) VALUES (?,?,?)';
+            if($communityID == 'false'){
+                $communityID = null;
+            }
+            $sql = 'INSERT INTO PostEvent (UsersId, EventName, Description, CommunitieID) VALUES (?,?,?,?)';
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param('iss', $UserID, $Title, $Description);
+            $stmt->bind_param('issi', $UserID, $Title, $Description,$communityID);
             $stmt->execute();
             $temp = 'Event Has Been Created'; 
             $stmt->close();
@@ -91,7 +95,7 @@ function getEvent(){
     $returned->eventData = $New_Event;
 
     $returned->isValid = 'valid';
-    $result = mysqli_query($conn, "SELECT Id, UsersId, DateAdded, EventId, CommunityId, PostTitle, Description FROM UserPost WHERE EventId = '$EventId'");
+    $result = mysqli_query($conn, "SELECT Id, UsersId, DateAdded, EventId, CommunityId, PostTitle, Description, PictureOne, PictureTwo, PictureThree FROM UserPost WHERE EventId = '$EventId'");
     $returned->eventArray = array();
     if(!$result){
         $results->isvalid = "notValid";
@@ -106,7 +110,10 @@ function getEvent(){
                                         $row[3],
                                         $row[4],
                                         $row[5],
-                                        $row[6]);
+                                        $row[6],
+                                        $row[7],
+                                        $row[8],
+                                        $row[9]);
         array_push($returned->eventArray, $tempPost);
     }
     mysqli_free_result($result);
@@ -150,6 +157,36 @@ function updateEvent(){
         $numberOfUpdates = $numberOfUpdates + 1;
         $returned = $Current_Event->updateDescription($description);
         $returned->Description = $returned;
+    }
+    echo json_encode($returned);
+}
+/**
+ * function get number of likes returns the number
+ * of likes given an event id
+ */
+function getNumberOfLikes(){
+    global $conn;
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $EventID = $obj['EventID'];
+    $returned->isValid = 'valid';
+    $sql = "SELECT Count(EventId) FROM PostReaction 
+    INNER JOIN UserPost ON PostReaction.PostId= UserPost.Id
+    INNER JOIN PostEvent ON UserPost.EventId = PostEvent.id
+    WHERE EventId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $EventID);
+    $stmt->execute();
+    $stmt->bind_result($numberOfLikes);
+    $stmt->fetch();
+    $stmt->close();
+    if(isset($numberOfLikes)){
+        $returned->numberOfLikes = $numberOfLikes;
+    }
+    else{
+        $returned->isValid = 'notValid';
+        $returned->errorMessage = 'cound not find count for this post you should assume zero';
     }
     echo json_encode($returned);
 }
