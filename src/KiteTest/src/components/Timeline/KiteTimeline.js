@@ -98,26 +98,36 @@ export default class KiteTimeline extends Component {
 	eachTweet(x) {
 		return (
 			<TouchableOpacity
-				style={{ paddingLeft: 15, paddingRight: 15, paddingBottom: 5, paddingTop: 5 }}
+				style={{ paddingLeft: 5, paddingRight: 5 }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
 			>
-
-				<RkCard rkType='story'>		
-					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: Colors.kite_greenMediumDark}}>
+				<RkCard rkType='story' style={{ marginTop:10,
+    paddingTop:0,
+    paddingBottom:8,
+    paddingright: 5,
+    backgroundColor: '#E0E0E0',
+    borderRadius:10,
+    borderWidth: 1,
+    }}>		
+					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#E0E0E0', borderRadius:10, 
+								paddingTop:7, borderTopWidth: 1, backgroundColor: Colors.kite_greenMediumDark}}>
 						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
 							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
-						<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
-					</View>
-					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start', backgroundColor: '#E0E0E0'}}>
-						<Image rkCardImg source={{uri: x.PostImage}} style={{height:  (Dimensions.get('window').height/4), flexGrow:1, }} resizeMode="cover"/>
-						<View>
-						<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 20,  marginLeft: 10, textDecorationLine: 'underline'}}>
-								{x.title}
-						</RkText>
+						<View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
+							<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
+							<RkText rkType='header' style={{ textAlign: 'left', marginTop: 5, fontWeight: 'bold', fontSize: 12 }}>{x.time}</RkText>
 						</View>
-						<RkText style={{ margin: 10, alignSelf: 'flex-start' }}>
-								Description: {x.description}
-						</RkText>
+					</View>
+					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+						<Image rkCardImg source={{uri: x.PostImage == "-" ? null : x.PostImage}} resizeMode="cover"/>
+						<View style={{backgroundColor: '#E0E0E0'}}>
+							<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
+									{x.title}
+							</RkText>
+							<RkText style={{ marginTop: 10, marginLeft: 10, marginRight: 10, marginBottom: 0, alignSelf: 'flex-start' }}>
+										Description: {x.description}
+							</RkText>
+						</View>
 					</View>
 				</RkCard>
 			</TouchableOpacity>

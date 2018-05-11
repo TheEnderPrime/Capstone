@@ -5,7 +5,6 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	Button,
 	TouchableOpacity,
 	TextInput,
 	Alert,
@@ -18,7 +17,11 @@ import {
 } from 'react-native';
 
 import Timeline from 'react-native-timeline-listview';
-
+import { RkButton } from 'react-native-ui-kitten';
+import { RkTheme } from 'react-native-ui-kitten';
+import { RkCard } from 'react-native-ui-kitten';
+import { RkText } from 'react-native-ui-kitten';
+import { Input, Button } from "react-native-elements";
 import Colors from '../../Colors/Colors';
 import styles from './styles';
 
@@ -106,10 +109,10 @@ class Event extends React.Component {
 	eachTweet(x){
 		return(
 			<TouchableOpacity 
-			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+			  	style={{paddingLeft: 15, paddingRight: 15, paddingBottom: 5, paddingTop: 5 }}
 				onPress={() => this.props.navigation.navigate("Posts", {postID: x.id})}
 			>
-		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+		  		{/* <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
 					<Image 
 						source={{ uri: x.ProfilePicture }} 
 						resizeMode="contain" 
@@ -124,7 +127,59 @@ class Event extends React.Component {
 							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
 						</View>
 					</View>
-				</View>
+				</View> */}
+{/* ########################################################################################################### */}
+				<RkCard rkType='story'>		
+					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+						<Image rkCardImg source={{uri: x.photoOne}} style={{ flexGrow: 1 }} resizeMode="cover"/>
+						<View style={{ backgroundColor: '#E0E0E0'}}>
+							<View style={{flex: 1, flexDirection: 'row'}}>
+								<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
+									{x.title}
+								</RkText>
+								<RkText style={{ margin: 5, marginLeft: 5, flex: 1, textAlign: 'right' }}>
+									{x.time}
+								</RkText>
+							</View>
+							<RkText style={{ marginLeft: 10, textAlign: 'left' }}>
+								Description: {x.description}
+							</RkText>
+							<Button
+							buttonStyle={styles.likeButton}
+							containerStyle={{ marginBottom: 5, flex: 0 }}
+							activeOpacity={0.8}
+							title={ "Like" }
+							// onPress={ this.like }
+							titleStyle={styles.likeTextButton}
+							/>
+							{/* <View rkCardFooter style={{ marginBottom: 0, marginTop: 0}}>
+								<RkButton rkType='small outline' style={{width: (Dimensions.get('window').width / 3), alignItems: 'center', marginRight: 5}}>Learn More</RkButton>
+								<RkButton rkType='small outline'style={{width: (Dimensions.get('window').width / 3), alignItems: 'center', marginLeft: 5}}>Read later</RkButton>
+							</View> */}
+						</View>
+					</View>
+					{/* <View style={{ flex: 1, flexDirection: 'row', backgroundColor: Colors.kite_greenMediumDark}}>
+						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
+							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
+						<View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
+							<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
+							<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 10 }}>{x.time}</RkText>
+						</View>
+					</View> */}
+					{/* <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start', backgroundColor: '#E0E0E0'}}>
+						<Image rkCardImg source={{uri: x.PostImage}} style={{ flexGrow: 1 }} resizeMode="contain"/>
+						<View>
+						<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
+								{x.title}
+						</RkText>
+						</View>
+						<RkText style={{ margin: 10, alignSelf: 'flex-start' }}>
+								Description: {x.description}
+						</RkText>
+					</View> */}
+				</RkCard>
+
+
 			</TouchableOpacity>
 		)
 	}
@@ -134,12 +189,12 @@ class Event extends React.Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.eventInfo}>
-					<View style={{flex: 1, flexDirection: 'column', marginTop: 15}}>
+					<View style={{flex: 1, flexDirection: 'column'}}>
 						<Text style={styles.titleText}>
 							{this.state.title}
 						</Text>
 
-						<Text style={styles.titleText}>
+						<Text style={styles.descriptionText}>
 							{this.state.description}
 						</Text>
 					</View>
