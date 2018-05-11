@@ -26,7 +26,7 @@ export default class profileSettings extends Component {
         };
     }
 
-    UpdateUserInformation = (activeFlag) => {
+    UpdateUserInformation = (activeFlag, apples) => {
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/User.php?f=updateProfile', {
 			method: 'POST',
 			headers: {
@@ -37,14 +37,21 @@ export default class profileSettings extends Component {
 		
 				UserID: this.state.userID,
 
-				ActiveFlag: activeFlag
+                ActiveFlag: activeFlag,
+                
+                delete: apples,
 		
 			})
 		}).then((response) => response.json())
 			.then((responseJson) => {
 				// If server response message same as Data Matched
 				if (responseJson.isValid === 'valid') {
-					Alert.alert("Profile Disabled.");
+                    if(apples == "delete") {
+                        Alert.alert("Profile Deleted. Hope you meant to do that.");
+                    } else {
+                        Alert.alert("Profile Disabled. Toggle again to allow others to view you again.");
+                    }
+                    
 				}
 				else {
 					Alert.alert(responseJson.errorMessage);
@@ -110,14 +117,13 @@ export default class profileSettings extends Component {
             this.setState({switchValue: false})
         }
     }
-    
       
     onValueChange(value){
         this.setState({switchValue: value});
         if(!this.state.switchValue) {
-            this.UpdateUserInformation(0);
+            this.UpdateUserInformation(0, null);
         } else {
-            this.UpdateUserInformation(1);
+            this.UpdateUserInformation(1, null);
         }
     }
 
@@ -179,7 +185,7 @@ export default class profileSettings extends Component {
                 <SettingsList.Item
                     icon={<Image style={styles.imageStyle} source={require('../../images/placeholderProfilePicture.jpg')}/>}
                     title='Delete Profile'
-                    onPress={() => Alert.alert("Profile Deleted")} //Need numbers to be sent, do it in FollowingSettings???
+                    onPress={() => this.UpdateUserInformation(1, "delete")} //Need numbers to be sent, do it in FollowingSettings???
                 />
             </SettingsList>
             </View>

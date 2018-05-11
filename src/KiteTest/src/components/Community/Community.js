@@ -28,22 +28,102 @@ const IMAGE_SIZE = SCREEN_WIDTH - 80;
 
 //Custom Button
 class CustomButton extends Component {
-  	constructor() {
-    	super();
-		
-	    this.state = {
-			selected: false,
-			//title: this.state.selected ? "follow" : "following",
+	constructor() {
+		super();
+
+		this.state = {
+			selected: false
 		};
 	}
 
-	componentDidMount() {
-    	const { selected } = this.props;
+	setUserIdAsync(state) {
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
 
-    	this.setState({
-      		selected
-    	});
-  	}
+
+	async componentDidMount() {
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({ userID: user });
+
+		this.getIsPartOfCommunity();
+	}
+
+	getIsPartOfCommunity = () => {
+		for (i = 0; i < 10000; i++) {
+			if (this.state.userID != 0) {
+				Alert.alert("number one: " + this.props.communityID + " also " + this.state.userID);
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=getIsPartOfCommunity', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+
+						CommunityID: this.props.communityID,
+
+						UserID: this.state.userID,
+
+					})
+				}).then((response) => response.json())
+					.then((responseJson) => {
+						// If server response message same as Data Matched
+						if (responseJson.isValid === 'valid') {
+							Alert.alert("responseJson.isPart: " + responseJson.isPart)
+							if (responseJson.isPart === 'true') {
+								this.setState({ selected: true });
+							} else {
+								this.setState({ selected: false });
+							}
+						} else {
+							Alert.alert("error");
+						}
+					});
+				break;
+			}
+		}
+	}
+
+	joinCommunity = () => {
+		for (i = 0; i < 10000; i++) {
+			if (this.state.userID != 0) {
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=joinCommunity', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+
+						CommunityID: this.props.communityID,
+
+						UserID: this.state.userID,
+
+					})
+				}).then((response) => response.json())
+					.then((responseJson) => {
+						// If server response message same as Data Matched
+						if (responseJson.isValid === 'valid') {
+							if (responseJson.isNowPartOfCommunity === 'true') {
+								Alert.alert("Added to Community");
+							} else {
+								Alert.alert("Removed from Community");
+							}
+						} else {
+							Alert.alert("error");
+						}
+					});
+				break;
+			}
+		}
+	}
+
+	sendJoinRequest(selected) {
+		this.joinCommunity();
+		this.setState({ selected: !selected });
+	}
 
 	render() {
 		const { title } = this.props;
@@ -55,7 +135,7 @@ class CustomButton extends Component {
 				titleStyle={{ fontSize: 15, color: 'white', fontFamily: 'regular' }}
 				buttonStyle={selected ? { backgroundColor: 'rgba(213, 100, 140, 1)', borderRadius: 100, width: 127 } : { borderWidth: 1, borderColor: 'white', borderRadius: 30, width: 127, backgroundColor: 'transparent' }}
 				containerStyle={{ marginRight: 10 }}
-				onPress={() => this.setState({ selected: !selected })}
+				onPress={() => { this.sendJoinRequest(this.state.selected) }}
 			/>
 		);
 	}
@@ -255,7 +335,7 @@ export default class Community extends Component {
 						</View>
 
 						<View style={{flex:1, flexDirection: 'row', marginTop: 20,  marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>
-							<CustomButton title={"Follow"} selected={false} />
+							<CustomButton title={"Follow"} selected={false} communityID={this.state.communityID}/>
 						</View>
 
 						<View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>

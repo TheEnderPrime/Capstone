@@ -26,10 +26,125 @@ import Icon  from "react-native-vector-icons/FontAwesome";
 import Colors from '../../Colors/Colors';
 import styles from './styles';
 
+//Custom Button
+class CustomButton extends Component {
+	constructor() {
+		super();
+
+		this.state = {
+			selected: false,
+			userID: 0
+		};
+	}
+
+	getDoesLike = () => {
+		for (i = 0; i < 10000; i++) {
+			if (this.state.userID != undefined && this.props.postID != undefined) {
+				//Alert.alert("number one: " + this.props.postID + " also " + this.state.userID);
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=getDoesLike', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+
+						PostID: this.props.postID,
+
+						UserID: this.state.userID,
+
+					})
+				}).then((response) => response.json())
+					.then((responseJson) => {
+						// If server response message same as Data Matched
+						if (responseJson.isValid === 'valid') {
+							if (responseJson.doesLike === 'true') {
+								this.setState({ selected: true });
+							} else {
+								this.setState({ selected: false });
+							}
+						} else {
+							Alert.alert("error");
+						}
+					});
+				break;
+			}
+		}
+	}
+
+	LikePost = () => {
+		for (i = 0; i < 10000; i++) {
+			if (this.state.userID != 0) {
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=LikePost', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+
+						PostID: this.props.postID,
+
+						UserID: this.state.userID,
+
+					})
+				}).then((response) => response.json())
+					.then((responseJson) => {
+						// If server response message same as Data Matched
+						if (responseJson.isValid === 'valid') {
+							if (responseJson.isNowCurrentlyLiking === 'true') {
+								//Alert.alert("Post Liked");
+							} else {
+								//Alert.alert("Removed from Community");
+							}
+						} else {
+							Alert.alert("error");
+						}
+					});
+				break;
+			}
+		}
+	}
+
+	sendLike(selected) {
+		this.LikePost();
+		this.setState({ selected: !selected });
+	}
+
+	setUserIdAsync(state) {
+		return new Promise((resolved) => {
+			this.setState(state, resolved)
+		});
+	}
+
+
+	async componentDidMount() {
+		const user = await AsyncStorage.getItem('userID')
+		await this.setUserIdAsync({ userID: user });
+
+		this.getDoesLike();
+	}
+
+	render() {
+		const { title } = this.props;
+		const { selected } = this.state;
+
+		return (
+			<Button
+				title={title}
+				titleStyle={{ fontSize: 15, color: 'white', fontFamily: 'regular' }}
+				buttonStyle={selected ? { backgroundColor: 'rgba(213, 100, 140, 1)', borderRadius: 100, width: 127 } : { borderWidth: 1, borderColor: 'white', borderRadius: 30, width: 127, backgroundColor: 'transparent' }}
+				containerStyle={{ marginRight: 10 }}
+				onPress={() => { this.sendLike(this.state.selected) }}
+			/>
+		);
+	}
+}
+
 var {height, width} = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-class Event extends React.Component {
+export default class Event extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -47,87 +162,6 @@ class Event extends React.Component {
 			dataSource: ds.cloneWithRows([]),
 			dummy: 0,
 		};
-	}
-
-	// check to see if this post has been liked or not
-	getDoesLike = (user, postRef) => {
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-				
-				UserID: user,
-
-				PostID: postRef,
-				
-
-            })
-
-        }).then((response) => response.json())
-            .then((responseJson) => {
-
-                // If server response message same as Data Matched
-                if (responseJson.isValid === 'valid') {
-
-					this.setState({ isRefreshing: true });
-					this.setState({
-						doesLike: responseJson.doesLike,
-					});
-					//parse array from responseJson
-				
-				}
-                else {
-                    Alert.alert(responseJson.error);
-                }
-
-            }).catch((error) => {
-                console.error(error);
-            });
-	}
-
-	// like or unlike a post
-	LikePost = (postRef) => {
-
-		
-		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Event.php?f=getEvent', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-				
-				UserID: this.state.userID,
-
-				PostID: postRef,
-				
-
-            })
-
-        }).then((response) => response.json())
-            .then((responseJson) => {
-
-                // If server response message same as Data Matched
-                if (responseJson.isValid === 'valid') {
-
-					this.setState({ isRefreshing: true });
-					this.setState({
-						// do nothing
-					});
-					Alert.alert("We're here!!!!!!!!!!!!");
-					//parse array from responseJson
-				
-				}
-                else {
-                    Alert.alert(responseJson.error);
-                }
-
-            }).catch((error) => {
-                console.error(error);
-            });
 	}
 
 
@@ -193,8 +227,6 @@ class Event extends React.Component {
 
 	// builds timeline one event at a time
 	eachTweet(x){
-		
-		if (this.state.userID == x.UsersId) {
 			return(
 				<TouchableOpacity 
 					  style={{paddingLeft: 15, paddingRight: 15, paddingBottom: 5, paddingTop: 5 }}
@@ -215,7 +247,8 @@ class Event extends React.Component {
 								<RkText style={{ marginLeft: 10, textAlign: 'left' }}>
 									Description: {x.description}
 								</RkText>
-								<TouchableOpacity>
+								<CustomButton title={"Like"} selected={false} postID={x.id}/>
+								{/* <TouchableOpacity>
 									<Button buttonStyle={this.getDoesLike(this.state.userID, x.id) == "true" ? styles.buttonColor2 : styles.buttonColor1} 
 											containerStyle={{ marginBottom: 5, flex: 0 }} activeOpacity={0.8} title={ "Like" } 
 											onPress={ () => {
@@ -224,62 +257,13 @@ class Event extends React.Component {
 												this.setState(dummy = 0)}}
 											titleStyle={styles.likeTextButton}
 									/>
-								</TouchableOpacity>
+								</TouchableOpacity> */}
 							</View>
 						</View>
 					</RkCard>
 				</TouchableOpacity>
 			)
-		}
-		return(
-			<TouchableOpacity 
-			  	style={{paddingLeft: 15, paddingRight: 15, paddingBottom: 5, paddingTop: 5 }}
-				onPress={() => this.props.navigation.navigate("Posts", {postID: x.id})}
-			>
-		  		{/* <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-					<Image 
-						source={{ uri: x.ProfilePicture }} 
-						resizeMode="contain" 
-						style ={{height:54, width:54, borderRadius:27, margin:10}} 
-					/>
-					<View style={{flex:1}}>
-						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{fontWeight:'600', fontSize:12, color: '#fff'}}>{x.FirstName} {x.LastName}</Text>
-							<Text style={{fontWeight:'500', fontSize:12, color: '#fff'}}> | @ {x.title}</Text>
-						</View>
-						<View style={{ margin:5, marginRight:10,}}>
-							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
-						</View>
-					</View>
-				</View> */}
-{/* ########################################################################################################### */}
-				<RkCard rkType='story'>		
-					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
-						<Image rkCardImg source={{uri: x.photoOne}} style={{ flexGrow: 1 }} resizeMode="cover"/>
-						<View style={{ backgroundColor: '#E0E0E0'}}>
-							<View style={{flex: 1, flexDirection: 'row'}}>
-								<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
-									{x.title}
-								</RkText>
-								<RkText style={{ margin: 5, marginLeft: 5, flex: 1, textAlign: 'right' }}>
-									{x.time}
-								</RkText>
-							</View>
-							<RkText style={{ marginLeft: 10, textAlign: 'left' }}>
-								Description: {x.description}
-							</RkText>
-							<TouchableOpacity>
-								<Button buttonStyle={this.getDoesLike(this.state.userID, x.id) == "true" ? styles.buttonColor2 : styles.buttonColor1} 
-										containerStyle={{ marginBottom: 5, flex: 0 }} activeOpacity={0.8} title={ "Like" } 
-										onPress={ () => {
-											this.LikePost(x.id) 
-											this.getDoesLike(this.state.userID, x.id) 
-											this.setState(dummy = 0)}}
-										titleStyle={styles.likeTextButton}
-								/>
-							</TouchableOpacity>
-						</View>
-					</View>
+		
 					{/* <View style={{ flex: 1, flexDirection: 'row', backgroundColor: Colors.kite_greenMediumDark}}>
 						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
 							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
@@ -299,11 +283,6 @@ class Event extends React.Component {
 								Description: {x.description}
 						</RkText>
 					</View> */}
-				</RkCard>
-
-
-			</TouchableOpacity>
-		)
 	}
 
 	
@@ -312,7 +291,7 @@ class Event extends React.Component {
 			<View style={styles.container}>
 				<View style={styles.eventInfo}>
 					<View style={{flex: 1, flexDirection: 'row'}}>
-						<View style={{flex: 1, flexDirection: 'column'}}>
+						<View style={{flex: 5, flexDirection: 'column'}}>
 							<Text style={styles.titleText}>
 								{this.state.title}
 							</Text>
@@ -366,5 +345,3 @@ class Event extends React.Component {
 		);
 	}
 }
-
-export default Event;
