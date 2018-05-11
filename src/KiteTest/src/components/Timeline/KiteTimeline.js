@@ -101,21 +101,15 @@ export default class KiteTimeline extends Component {
 				style={{ paddingLeft: 5, paddingRight: 5 }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
 			>
-				<RkCard rkType='story' style={{ marginTop:10,
-    paddingTop:0,
-    paddingBottom:8,
-    paddingright: 5,
-    backgroundColor: '#E0E0E0',
-    borderRadius:10,
-    borderWidth: 1,
-    }}>		
+				<RkCard rkType='story' style={{ marginTop:10, paddingTop:0, paddingBottom:8,
+    								backgroundColor: '#E0E0E0', borderRadius:10, borderWidth: 1 }}>		
 					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#E0E0E0', borderRadius:10, 
 								paddingTop:7, borderTopWidth: 1, backgroundColor: Colors.kite_greenMediumDark}}>
 						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
 							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
 						<View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
 							<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
-							<RkText rkType='header' style={{ textAlign: 'left', marginTop: 5, fontWeight: 'bold', fontSize: 12 }}>{x.time}</RkText>
+							<RkText rkType='header' style={{ textAlign: 'left', marginTop: 5, marginRight: 5,  fontWeight: 'bold', fontSize: 12 }}>{x.time}</RkText>
 						</View>
 					</View>
 					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>

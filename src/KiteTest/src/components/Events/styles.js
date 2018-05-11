@@ -19,7 +19,22 @@ module.exports = styles = StyleSheet.create({
 	},
 	likeButton: {
 		alignSelf: 'center',
+		borderRadius: 10,
+		height: 50,
+		width: 200,
+		margin: 10
+	},
+	buttonColor1: {
 		backgroundColor: "#e8938e",
+		alignSelf: 'center',
+		borderRadius: 10,
+		height: 50,
+		width: 200,
+		margin: 10
+	},
+	buttonColor2: {
+		backgroundColor: "#dc5c56",
+		alignSelf: 'center',
 		borderRadius: 10,
 		height: 50,
 		width: 200,

@@ -5,7 +5,6 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	Button,
 	TouchableOpacity,
 	AsyncStorage,
 	Alert,
@@ -22,6 +21,8 @@ import { RkButton } from 'react-native-ui-kitten';
 import { RkTheme } from 'react-native-ui-kitten';
 import { RkCard } from 'react-native-ui-kitten';
 import { RkText } from 'react-native-ui-kitten';
+import { Input, Button } from "react-native-elements";
+import Colors from '../../Colors/Colors';
 
 var { height, width } = Dimensions.get('window');
 var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -98,22 +99,50 @@ export default class Discover extends Component {
 	// builds each individual timeline event, timeline is mapped via this
 	eachTweet(x) {
 		return (
+			// <TouchableOpacity
+			// 	style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 6, paddingTop: 6 }}
+			// 	onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
+			// >
+			// 	<RkCard rkType='story'>
+			// 		<Image rkCardImg 
+			// 			source={{ uri: x.ProfilePicture }} 
+			// 			resizeMode="contain"
+			// 			style={{ height: 200 }} />
+			// 		<View rkCardHeader>
+			// 			<RkText rkType='header'>{x.title}</RkText>
+			// 		</View>
+			// 		<View rkCardContent>
+			// 			<RkText style={{ textAlign: 'center' }}>
+			// 				{x.description}
+			// 			</RkText>
+			// 		</View>
+			// 	</RkCard>
+			// </TouchableOpacity>
 			<TouchableOpacity
-				style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 6, paddingTop: 6 }}
+				style={{ paddingLeft: 5, paddingRight: 5 }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
 			>
-				<RkCard rkType='story'>
-					<Image rkCardImg 
-						source={{ uri: x.ProfilePicture }} 
-						resizeMode="contain"
-						style={{ height: 200 }} />
-					<View rkCardHeader>
-						<RkText rkType='header'>{x.title}</RkText>
+				<RkCard rkType='story' style={{ marginTop:10, paddingTop:0, paddingBottom:8,
+    								backgroundColor: '#E0E0E0', borderRadius:10, borderWidth: 1 }}>		
+					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#E0E0E0', borderRadius:10, 
+								paddingTop:7, borderTopWidth: 1, backgroundColor: Colors.kite_greenMediumDark}}>
+						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
+							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
+						<View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
+							<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
+							<RkText rkType='header' style={{ textAlign: 'left', marginTop: 5, marginRight: 5,  fontWeight: 'bold', fontSize: 12 }}>{x.time}</RkText>
+						</View>
 					</View>
-					<View rkCardContent>
-						<RkText style={{ textAlign: 'center' }}>
-							{x.description}
-						</RkText>
+					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+						<Image rkCardImg source={{uri: x.PostImage == "-" ? null : x.PostImage}} resizeMode="cover"/>
+						<View style={{backgroundColor: '#E0E0E0'}}>
+							<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
+									{x.title}
+							</RkText>
+							<RkText style={{ marginTop: 10, marginLeft: 10, marginRight: 10, marginBottom: 0, alignSelf: 'flex-start' }}>
+										Description: {x.description}
+							</RkText>
+						</View>
 					</View>
 				</RkCard>
 			</TouchableOpacity>
