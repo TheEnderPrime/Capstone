@@ -25,7 +25,7 @@ function createPost(){
     $PhotoOne = $obj['PhotoOne'];
     $PhotoTwo = $obj['PhotoTwo'];
     $PhotoThree = $obj['PhotoThree'];
-    //$CommunityID = $obj['CommunityID'];
+    $isComment = $obj['isComment'];//forcomment
 
     if(!isset($Title)){
         $Title = ' ';
@@ -61,6 +61,16 @@ function createPost(){
         else if(!isset($EventID)){
             $return->errorMessage = 'Sorry you are not in a event, so you cannot create a post, sorry';
         }
+        else if(isset($isComment)){
+            $sql = 'INSERT INTO UserPost (UsersID, EventId, PostText, isComment) VALUES (?,?,?,?)';//forcomment
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('iisi', $UserID, $EventID, $Story, $isComment);
+            $stmt->execute();
+            $temp = 'new comment created successfully';
+            $stmt->close();
+            $return->isValid = 'valid';
+            //make sure that only the oppraprete feilds are added
+        }
         else{
             //add a new post
             $sql = 'INSERT INTO UserPost (UsersID, PostTitle, Description, PostText, EventId, PictureOne, PictureTwo, PictureThree) VALUES (?,?,?,?,?,?,?,?)';
@@ -93,8 +103,13 @@ function getPost(){
     echo json_encode($returned);
 }
 
-// //updates a already created event
+//updates a already created event
 function updatePost(){
+    global $conn;
+
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
     $PostID = $obj['PostID'];
     $UsersID = $obj['UserID'];
     $time = $obj['time'];
@@ -102,84 +117,103 @@ function updatePost(){
     $EventID = $obj['EventID'];
     $CommunityID = $obj['CommunitiyId'];
     $title = $obj['title'];
-    $PictureOne = $obj['pictureone'];
-    $PictureTwo = $obj['picturetwo'];
-    $PictureThree = $obj['picturethree'];
+    $PictureOne = $obj['PhotoOne'];
+    $PictureTwo = $obj['PhotoTwo'];
+    $PictureThree = $obj['PhotoThree'];
     $VideoOne = $obj['videoone'];
     $VideoTwo = $obj['videotwo'];
     $VideoThree = $obj['videothree'];
     $description = $obj['description'];
 
-    $returned->isValid = 'valid';
-
-    $Current_Post = new Post($PostID);
-    $Current_Post->gatherPostInfo();
-    $numberOfUpdates = 0;
-
-    if(isset($UsersID)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateUserID($UserID);
-        $returned->UsersID = $returned;
+    if(!isset($PostID)){
+        $returned->isValid = 'notValid';
+        $returned->errorMessage = 'sorry you did send a post id';
     }
-    if(isset($time)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateTime($time);
-        $returned->Time = $retunred;
-    }
-    if(isset($PostText)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updatePostText($PostText);
-        $returned->PostText = $retunred;
-    }
-    if(isset($EventID)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateEventID($EventID);
-        $returned->EventID = $retunred;
-    }
-    if(isset($CommunityID)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateCommunityID($CommunityID);
-        $returned->CommunityID = $returned;
-    }
-    if(isset($title)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateTitle($title);
-        $returned->Title = $returned;
-    }
-    if(isset($PictureOne)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updatePictureOne($PictureOne);
-        $returned->PictureOne = $returned;
-    }
-    if(isset($PictureTwo)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updatePictureTwo($PictureTwo);
-        $returned->PictureTwo = $returned;
-    }
-    if(isset($PictureThree)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updatePictureThree($PictureThree);
-        $returned->PictureThree = $returned;
-    }
-    if(isset($VideoOne)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateVideoOne($VideoOne);
-        $returned->VideoOne = $returned;
-    }
-    if(isset($VideoTwo)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateVideoTwo($VideoTwo);
-        $returned->VideoTwo = $returned;
-    }
-    if(isset($VideoThree)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateVideoThree($VideoThree);
-        $returned->VideoThree = $returned;
-    }
-    if(isset($description)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Post->updateDescription($description);
-        $returned->Description = $returned;
+    else{
+        $sql = "SELECT UsersId FROM UserPost WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $PostID);
+        $stmt->execute();
+        $stmt->bind_result($return);
+        $stmt->fetch();
+        $stmt->close();
+        if(isset($return)){
+            if($return != $UsersID){
+                $returned->isValid = 'notValid';
+                $returned->errorMessage = 'you are not the owner of this post';
+            }
+            else{   
+                $Current_Post = new Post($PostID);
+                $Current_Post->gatherPostInfo();
+                $numberOfUpdates = 0;
+                $returned->isValid = 'valid';
+                if(isset($UsersID)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateUserID($UserID);
+                    $returned->UsersID = $retunred;
+                }
+                if(isset($time)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateTime($time);
+                    $returned->Time = $retunred;
+                }
+                if(isset($PostText)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updatePostText($PostText);
+                    $returned->PostText = $retunred;
+                }
+                if(isset($EventID)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateEventID($EventID);
+                    $returned->EventID = $retunred;
+                }
+                if(isset($CommunityID)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateCommunityID($CommunityID);
+                    $returned->CommunityID = $retunred;
+                }
+                if(isset($title)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateTitle($title);
+                    $returned->Title = $retunred;
+                }
+                if(isset($PictureOne)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updatePictureOne($PictureOne);
+                    $returned->PictureOne = $retunred;
+                }
+                if(isset($PictureTwo)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updatePictureTwo($PictureTwo);
+                    $returned->PictureTwo = $retunred;
+                }
+                if(isset($PictureThree)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updatePictureThree($PictureThree);
+                    $returned->PictureThree = $retunred;
+                }
+                if(isset($VideoOne)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateVideoOne($VideoOne);
+                    $returned->VideoOne = $retunred;
+                }
+                if(isset($VideoTwo)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateVideoTwo($VideoTwo);
+                    $returned->VideoTwo = $retunred;
+                }
+                if(isset($VideoThree)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateVideoThree($VideoThree);
+                    $returned->VideoThree = $retunred;
+                }
+                if(isset($description)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Post->updateDescription($description);
+                    $returned->Description = $retunred;
+                }
+            }
+        }
     }
     echo json_encode($returned);
 }
@@ -212,7 +246,7 @@ function LikePost(){
         $stmt1->close();
         if(isset($hasLiked)){
             $returned->isValid = 'valid';
-            $returned->hasLiked = 'true';
+            $returned->isNowCurrentlyLiking = 'false';
             //unlike the post!
             echo json_encode($returned);
             $removeLikeSql = "DELETE FROM PostReaction WHERE UsersId = ? AND PostID = ? AND liked = ?";
@@ -224,7 +258,7 @@ function LikePost(){
         }
         else{
             $returned->isValid = 'valid';
-            $returned->hasLiked = 'false';
+            $returned->isNowCurrentlyLiking = 'true';
             $sql = "INSERT INTO PostReaction (UsersId, PostId, Liked, Disliked) VALUES (?, ?, ?, ?)";
             $stmt3 = $conn->prepare($sql);
             $stmt3->bind_param('iiii', $UserID, $PostID, $liked, $disliked);
@@ -274,20 +308,23 @@ function getDoesLike(){
 
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
-
-    $UserID = $obj['UserID'];//209627410;
-    $postInQuestion = $obj['PostID'];
+    
+    //$UserID = 209627410;
+    //$UserID = 549848285;
+    $UserID = $obj['UserID'];
+    $PostID = $obj['PostID'];//93;
     $liked = 1;
-
+    $disliked = 0;
+    //have you liked this before?
     $returned->isValid = 'valid';
-    $sql ="SELECT UsersId FROM PostReaction WHERE UsersId = ? AND PostId = ? AND Liked = ?";
-    if($stmt = $conn->prepare($sql)){
-        $stmt->bind_param('iii', $me, $postInQuestion, $liked);
+    $hasLikedSQL = "SELECT UsersId FROM PostReaction WHERE UsersId = ? AND PostId = ? AND Liked = ?";
+    if($stmt = $conn->prepare($hasLikedSQL)){
+        $stmt->bind_param('iii',$UserID, $PostID, $liked);
         $stmt->execute();
-        $stmt->bind_result($UsersId);
+        $stmt->bind_result($hasLiked);
         $stmt->fetch();
         $stmt->close();
-        if(isset($UsersId)){
+        if(isset($hasLiked)){
             $returned->isValid = 'valid';
             $returned->doesLike = 'true';
         }
@@ -337,5 +374,31 @@ function getDoesLike(){
 //     echo json_encode($returned);
 // }
     //checks to see if you currently dislike this post?
+function getComments(){
+    global $conn;
 
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $postID = $obj['PostID'];
+
+    $returned->isValid = 'valid';
+    $sql = "SELECT UserPost.PostText, Users.FirstName, Users.LastName, Users.ProfilePicture
+    FROM UserPost
+    INNER JOIN Users ON UserPost.UsersId = Users.UsersId
+    WHERE UserPost.isComment = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $postID);
+    $stmt->execute();
+    $stmt->bind_result($PostText, $FirstName, $LastName, $ProfilePicture);
+    $stmt->store_result();
+    $returned->timeline = array();
+    while($stmt->fetch()){
+        $temp = array('PostText'=>$PostText, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'ProfilePicture'=>$ProfilePicture);
+        array_push($returned->timeline, $temp);
+    }
+    $stmt->close();
+    echo json_encode($returned);
+}
 ?>

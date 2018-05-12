@@ -38,6 +38,9 @@ function getProfile() {
         $returnObj->cellPhone = $Current_User->getCellPhone();
         $returnObj->homePhone = $Current_User->getHomePhone();
         $returnObj->profilePicture = $Current_User->getProfilePicture();
+        $returnObj->numFollowing = $Current_User->getNumFollowing();
+        $returnObj->numFollowers = $Current_User->getNumFollower();
+        $returnObj->numCommunities = $Current_User->getNumCommunities();
     } else{
         $returnObj->isValid = 'inValid';
         $returnObj->errorMessage = 'can not get profile you do not have a userID set, try logging back in';
@@ -97,10 +100,10 @@ function getProfile() {
  */
 function addFollower(){
     $json = file_get_contents('php://input');
-    $obj = json_decode($josn,true);
+    $obj = json_decode($json,true);
 
-    $me = $obj['me'];
-    $tryToFollow = $obj['tryToFollow'];
+    $me = $obj['one'];
+    $tryToFollow = $obj['two'];
 
     $Current_User = new User($me);
     $Current_User->gatherUserInfo();
@@ -117,13 +120,12 @@ function removeFollower(){
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
 
-    $me = $obj['me'];
-    $tryToRemoveFollow = ['tryToRemoveFollow'];
+    $me = $obj['one'];
+    $tryToFollow = $obj['two'];
 
-    $return->isValid = 'notValid';
     $Current_User = new User($me);
     $Current_User->gatherUserInfo();
-    $Current_User->removeFollower($tryToRemoveFollow);
+    $Current_User->removeFollower($tryToFollow);
     $return->isValid = 'valid';
     echo json_encode($return);
 }
@@ -137,8 +139,8 @@ function getIsFollowing(){
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
 
-    $me = $obj['me'];
-    $tryToFollow = ['tryToFollow'];
+    $me = $obj['one'];
+    $tryToFollow = $obj['two'];
 
     $return->isValid = 'notValid';
     $Current_User = new User($me);
@@ -204,9 +206,12 @@ function updateProfile() {
         $Current_User->gatherUserInfo(); //gather info about that user from database
         $numberOfUpdates = 0;
         if(isset($delete)){
-            $return = $Current_User->updateActiveFlag($ActiveFlag);
-            $returned->ActiveFlag = $return;
-            $return = $Current_User->deleteUser();
+            if($delete == 'delete'){
+                $return = $Current_User->updateActiveFlag(0);
+                $returned->ActiveFlag = $return;
+                $returndelete = $Current_User->deleteUser();
+                $returned->deleted = $returndelete;
+            }
         }
         else{
             if(isset($FirstName)){

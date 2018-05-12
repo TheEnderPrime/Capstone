@@ -21,9 +21,9 @@ class Event{
     public function updateUserID($UserID){
         global $conn;
         $this->UsersId = $UserID;
-        $sql = "UPDATE PostEvent SET UserID = ? WHERE id = '$this->id'";
+        $sql = "UPDATE PostEvent SET UsersID = ? WHERE id = '$this->id'";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $UserID);
+        $stmt->bind_param('i', $UserID);
         $stmt->execute();
         $temp = 'User id updated';
         $stmt->close();
@@ -36,7 +36,7 @@ class Event{
     public function updateTime($time){
         global $conn;
         $this->time = $time;
-        $sql = "UPDATE PostEvent SET time = ? WHERE id = '$this->id'";
+        $sql = "UPDATE PostEvent SET DateAdded = ? WHERE id = '$this->id'";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $time);
         $stmt->execute();
@@ -51,7 +51,7 @@ class Event{
     public function updateTitle($Title){
         global $conn;
         $this->title = $Title;
-        $sql = "UPDATE PostEvent SET title = ? WHERE id = '$this->id'";
+        $sql = "UPDATE PostEvent SET EventName = ? WHERE id = '$this->id'";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $Title);
         $stmt->execute();
@@ -66,9 +66,9 @@ class Event{
     public function updateDescription($description){
         global $conn;
         $this->description = $description;
-        $sql = "UPDATE PostEvent SET description = ? WHERE id = '$this->id'";
+        $sql = "UPDATE PostEvent SET Description = ? WHERE id = '$this->id'";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $Title);
+        $stmt->bind_param('s', $description);
         $stmt->execute();
         $temp = 'description updated';
         $stmt->close();

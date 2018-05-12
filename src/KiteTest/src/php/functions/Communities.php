@@ -165,7 +165,7 @@ function joinCommunity(){
     $obj = json_decode($json,true);
 
     $UserId = $obj['UserID'];
-    $CommunityId = $obj['CommunityId'];
+    $CommunityId = $obj['CommunityID'];
     //are you part of the community
     $returned->isValid = 'valid';
     $isPartOfCommunity = "SELECT UsersId FROM CommunityUsers WHERE UsersId = ? AND CommunityId = ?";
@@ -194,6 +194,41 @@ function joinCommunity(){
             $stmt3->bind_param('ii', $UserId, $CommunityId);
             $stmt3->execute();
             $stmt3->close();
+        }
+    }
+    else{
+        $returned->isValid = 'notValid';
+        $returned->errorMessage = 'sorry can not determin if you are part of the commuunity';
+    }
+    echo json_encode($returned);
+}
+
+/**
+ * get is part of community returns true of false depending on wether or not you are part
+ * of the community;
+ */
+function getIsPartOfCommunity(){
+    global $conn;
+
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+
+    $UserId = $obj['UserID'];
+    $CommunityId = $obj['CommunityID'];
+
+    $returned->isValid = 'valid';
+    $isPartOfCommunity = "SELECT UsersId FROM CommunityUsers WHERE UsersId = ? AND CommunityId = ?";
+    if($stmt = $conn->prepare($isPartOfCommunity)){
+        $stmt->bind_param('ii',$UserId, $CommunityId);
+        $stmt->execute();
+        $stmt->bind_result($hasJoined);
+        $stmt->fetch();
+        $stmt->close();
+        if(isset($hasJoined))
+        {
+            $returned->isPart = 'true';
+        }else{
+            $returned->isPart = 'false';
         }
     }
     else{

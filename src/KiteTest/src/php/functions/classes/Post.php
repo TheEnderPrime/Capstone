@@ -21,6 +21,7 @@ class Post{
     public $VideoTwo = null;
     public $VideoThree = null;
     public $description = "";
+    public $isComment = null;//forcomment
     public function __construct($postId){
         $this->id = $postId;
     }
@@ -97,6 +98,7 @@ class Post{
             $this->VideoTwo = $row[11];
             $this->VideoThree = $row[12];
             $this->description = $row[13];
+            $this->isComment = $row[14]; //forcomment
         }
         mysqli_free_result($result);
     }
@@ -107,7 +109,7 @@ class Post{
     Public Function updateUserID($UserID){
         global $conn;
         $this->UsersId = $UserID;
-        $sql = "UPDATE UserPost SET UserID = ? WHERE id = '$this->id'";
+        $sql = "UPDATE UserPost SET UsersID = ? WHERE id = '$this->id'";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $UserID);
         $stmt->execute();
@@ -122,7 +124,7 @@ class Post{
     Public Function updateTime($time){
         global $conn;
         $this->time = $time;
-        $sql = "UPDATE UserPost SET time = ? WHERE id = '$this->id'";
+        $sql = "UPDATE UserPost SET DateAdded = ? WHERE id = '$this->id'";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $time);
         $stmt->execute();
@@ -182,7 +184,7 @@ class Post{
     Public Function updateTitle($title){
         global $conn;
         $this->title = $title;
-        $sql = "UPDATE UserPost SET title = ? WHERE id = '$this->id'";
+        $sql = "UPDATE UserPost SET PostTitle = ? WHERE id = '$this->id'";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $title);
         $stmt->execute();
@@ -260,7 +262,7 @@ class Post{
     Public Function updateDescription($description){
         global $conn;
         $this->description = $description;
-        $sql = "UPDATE UserPost SET description = ? WHERE id = '$this->id'";
+        $sql = "UPDATE UserPost SET Description = ? WHERE id = '$this->id'";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $description);
         $stmt->execute();
