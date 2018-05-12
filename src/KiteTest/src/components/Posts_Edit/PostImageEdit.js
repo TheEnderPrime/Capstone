@@ -103,6 +103,20 @@ export default class PostImageEdit extends Component {
 						PhotoTwo: this.state.imgURL2.toString(),
 						PhotoThree: this.state.imgURL3.toString()
 					})
+				}).then((response) => response.json())
+				.then((responseJson) => {
+					// If server response message same as Data Matched
+					if (responseJson.isValid === 'valid') {
+					
+						Alert.alert("Post Updated!");
+						this.props.navigation.navigate('Event', {eventID: this.state.eventID})
+
+					}
+					else {
+						Alert.alert(responseJson);
+					}
+				}).catch((error) => {
+					console.error(error);
 				});
 		}
 	}

@@ -15,6 +15,12 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import  Icon  from 'react-native-vector-icons/MaterialIcons';
+
+import Colors from '../../Colors/Colors'
+import { RkButton } from 'react-native-ui-kitten';
+import { RkTheme } from 'react-native-ui-kitten';
+import { RkCard } from 'react-native-ui-kitten';
+import { RkText } from 'react-native-ui-kitten';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -297,27 +303,57 @@ export default class searchProfile extends Component {
 	// creates timeline one event at a time
 	eachTweet(x){
 		return(
-			<TouchableOpacity 
-			  	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-				onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
+			<TouchableOpacity
+				style={{ paddingLeft: 5, paddingRight: 5 }}
+				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
 			>
-		  		<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-					<Image 
-						source={{ uri: x.ProfilePicture }} 
-						resizeMode="contain" 
-						style ={{height:54, width:54, borderRadius:27, margin:10}} 
-						/>
-					<View style={{flex:1}}>
-						<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-							<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-							<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
-						</View>
-						<View style={{ margin:5, marginRight:10,}}>
-							<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
+
+				<RkCard rkType='story' style={{ marginTop:10, paddingTop:0, paddingBottom:8,
+    								backgroundColor: '#E0E0E0', borderRadius:10, borderWidth: 1 }}>		
+
+					<View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#E0E0E0', borderRadius:10, 
+								paddingTop:7, borderTopWidth: 1, backgroundColor: Colors.kite_greenMediumDark}}>
+						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
+							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
+						<View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
+							<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
+							<RkText rkType='header' style={{ textAlign: 'left', marginTop: 5, marginRight: 5,  fontWeight: 'bold', fontSize: 12 }}>{x.time}</RkText>
 						</View>
 					</View>
-				</View>
+					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+						<Image rkCardImg source={{uri: x.PostImage == "-" ? null : x.PostImage}} resizeMode="cover"/>
+						<View style={{backgroundColor: '#E0E0E0'}}>
+							<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
+									{x.title}
+							</RkText>
+							<RkText style={{ marginTop: 10, marginLeft: 10, marginRight: 10, marginBottom: 0, alignSelf: 'flex-start' }}>
+										{x.description}
+							</RkText>
+						</View>
+					</View>
+				</RkCard>
 			</TouchableOpacity>
+			// <TouchableOpacity 
+			//   	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+			// 	onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
+			// >
+		  	// 	<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+			// 		<Image 
+			// 			source={{ uri: x.ProfilePicture }} 
+			// 			resizeMode="contain" 
+			// 			style ={{height:54, width:54, borderRadius:27, margin:10}} 
+			// 			/>
+			// 		<View style={{flex:1}}>
+			// 			<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
+			// 				<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
+			// 				<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
+			// 			</View>
+			// 			<View style={{ margin:5, marginRight:10,}}>
+			// 				<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
+			// 			</View>
+			// 		</View>
+			// 	</View>
+			// </TouchableOpacity>
 		)
 	}
 
@@ -390,7 +426,7 @@ export default class searchProfile extends Component {
 							>
 								<View style={{flex: 1, flexDirection: 'column', height: 170, marginLeft: 40, marginRight: 10}}>
 								<View style={{flex: 1, flexDirection: 'row'}}>
-									<CustomButton title={this.state.firstName} selected={true} />
+									<CustomButton title="Stretch Goal" selected={true} />
 									<CustomButton title="Sport" />
 									<CustomButton title="Swimming" selected={true} />
 									<CustomButton title="Religion" />
@@ -417,20 +453,14 @@ export default class searchProfile extends Component {
 							</Text>
 							<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 0}}>
 								<View style={{flex: 1}}>
-								<Text style={styles.infoTypeLabel}>Age</Text>
-								<Text style={styles.infoTypeLabel}>Birth Day</Text>
 								<Text style={styles.infoTypeLabel}>Employer</Text>
 								<Text style={styles.infoTypeLabel}>Current City</Text>
-								<Text style={styles.infoTypeLabel}>Cell Phone</Text>
-								<Text style={styles.infoTypeLabel}>Home Phone</Text>
+
 								</View>
 								<View style={{flex: 1, marginLeft: 10}}>
-								<Text style={styles.infoAnswerLabel}>{this.state.dateOfBirth}</Text>
-								<Text style={styles.infoAnswerLabel}>{this.state.dateOfBirth}</Text>
 								<Text style={styles.infoAnswerLabel}>{this.state.employerName}</Text>
 								<Text style={styles.infoAnswerLabel}>{this.state.currentCity}, {this.state.currentStateOrProvence}, {this.state.currentCountry}</Text>
-								<Text style={styles.infoAnswerLabel}>{this.state.cellPhone}</Text>
-								<Text style={styles.infoAnswerLabel}>{this.state.homePhone}</Text>
+
 								</View>
 						 	</View>
 						</View>
@@ -438,11 +468,6 @@ export default class searchProfile extends Component {
 							containerStyle={{ marginVertical: 20 }}
 							style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
 							buttonStyle={{ height: 55, width: SCREEN_WIDTH - 40, borderRadius: 30, justifyContent: 'center', alignItems: 'center' }}
-							// linearGradientProps = {{
-							//   colors: ['rgba(214,116,112,1)', 'rgba(233,174,87,1)'],
-							//   start: [1, 0],
-							//   end: [0.2, 0]
-							// }}
 							title="Expand Timeline"
 							titleStyle={{ fontFamily: 'regular', fontSize: 20, color: 'white', textAlign: 'center' }}
 							onPress={() => this.setState({timelineToggle: this.state.timelineToggle ? (false) : (true)})}
@@ -453,9 +478,6 @@ export default class searchProfile extends Component {
 								<View style={styles.container}>
 									<ListView 
 										enableEmptySections={true}
-										//initialListSize={6}
-										onEndReached={() => this.onEndReached()}
-										//renderFooter={() => this.renderFooter()}
 										dataSource = {this.state.dataSource}
 										renderRow = {(rowData) => this.eachTweet(rowData)}
 									/>

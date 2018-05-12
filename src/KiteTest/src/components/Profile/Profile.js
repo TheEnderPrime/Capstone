@@ -255,10 +255,6 @@ export default class Profile extends Component {
 							</Text>
 						</View>
 
-						{/* <View style={{flex:1, flexDirection: 'row', marginTop: 20,  marginHorizontal: 40, justifyContent: 'center', alignItems: 'center'}}>
-							<CustomButton title={"Follow"} selected={false} />
-						</View> */}
-
 						<View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
 							<Text style={{flex: 1, fontSize: 15, color: 'white', fontFamily: 'regular'}}>
 								{this.state.aboutMe}
@@ -297,7 +293,7 @@ export default class Profile extends Component {
 							>
 								<View style={{flex: 1, flexDirection: 'column', height: 170, marginLeft: 40, marginRight: 10}}>
 								<View style={{flex: 1, flexDirection: 'row'}}>
-									<CustomButton title={this.state.firstName} selected={true} />
+									<CustomButton title="Stretch Goal" selected={true} />
 									<CustomButton title="Sport" />
 									<CustomButton title="Swimming" selected={true} />
 									<CustomButton title="Religion" />
@@ -324,20 +320,14 @@ export default class Profile extends Component {
 							</Text>
 							<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 0}}>
 								<View style={{flex: 1}}>
-								<Text style={styles.infoTypeLabel}>Age</Text>
-								<Text style={styles.infoTypeLabel}>Birth Day</Text>
 								<Text style={styles.infoTypeLabel}>Employer</Text>
 								<Text style={styles.infoTypeLabel}>Current City</Text>
-								<Text style={styles.infoTypeLabel}>Cell Phone</Text>
-								<Text style={styles.infoTypeLabel}>Home Phone</Text>
+
 								</View>
 								<View style={{flex: 1, marginLeft: 10}}>
-								<Text style={styles.infoAnswerLabel}>{this.state.dateOfBirth}</Text>
-								<Text style={styles.infoAnswerLabel}>{this.state.dateOfBirth}</Text>
 								<Text style={styles.infoAnswerLabel}>{this.state.employerName}</Text>
 								<Text style={styles.infoAnswerLabel}>{this.state.currentCity}, {this.state.currentStateOrProvence}, {this.state.currentCountry}</Text>
-								<Text style={styles.infoAnswerLabel}>{this.state.cellPhone}</Text>
-								<Text style={styles.infoAnswerLabel}>{this.state.homePhone}</Text>
+
 								</View>
 						 	</View>
 						</View>
