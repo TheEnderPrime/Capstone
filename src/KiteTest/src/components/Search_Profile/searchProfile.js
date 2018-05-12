@@ -272,6 +272,9 @@ export default class searchProfile extends Component {
 					this.setState({"cellPhone": responseJson.cellPhone});
 					this.setState({"homePhone": responseJson.homePhone});
 					this.setState({"dateAdded": responseJson.dateAdded});
+					this.setState({"numOfFollowing": responseJson.numFollowing});
+					this.setState({"numOfFollowers": responseJson.numFollowers});
+					this.setState({"numOfCommunities": responseJson.numCommunities});
 				}
 				else {
 					Alert.alert(responseJson);

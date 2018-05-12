@@ -298,7 +298,7 @@ export default class Community extends Component {
 									{x.title}
 							</RkText>
 							<RkText style={{ marginTop: 10, marginLeft: 10, marginRight: 10, marginBottom: 0, alignSelf: 'flex-start' }}>
-										Description: {x.description}
+									{x.description}
 							</RkText>
 						</View>
 					</View>

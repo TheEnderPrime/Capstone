@@ -255,7 +255,7 @@ export default class Event extends React.Component {
 									</RkText>
 								</View>
 								<RkText style={{ marginLeft: 10, textAlign: 'left' }}>
-									Description: {x.description}
+									{x.description}
 								</RkText>
 								 
 								<CustomButton 
