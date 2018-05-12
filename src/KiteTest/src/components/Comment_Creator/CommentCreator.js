@@ -44,7 +44,7 @@ export default class CommentCreator extends Component {
 
 	// send comment to database
 	sendData() {
-		Alert.alert("sendData: " + this.state.userID + " : " + this.state.text + " : " + this.state.postID + " : " + this.state.eventID + " hi mom");
+		//Alert.alert("sendData: " + this.state.userID + " : " + this.state.text + " : " + this.state.postID + " : " + this.state.eventID + " hi mom");
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
 			method: 'POST',
 			headers: {

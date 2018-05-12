@@ -48,7 +48,7 @@ class CustomButton extends Component {
 	getIsPartOfCommunity = () => {
 		for (i = 0; i < 10000; i++) {
 			if (this.state.userID != 0) {
-				Alert.alert("number one: " + this.props.communityID + " also " + this.state.userID);
+				
 				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=getIsPartOfCommunity', {
 					method: 'POST',
 					headers: {
@@ -66,7 +66,7 @@ class CustomButton extends Component {
 					.then((responseJson) => {
 						// If server response message same as Data Matched
 						if (responseJson.isValid === 'valid') {
-							Alert.alert("responseJson.isPart: " + responseJson.isPart)
+							
 							if (responseJson.isPart === 'true') {
 								this.setState({ selected: true });
 							} else {
@@ -254,6 +254,35 @@ export default class searchCommunity extends Component {
 	// creates the timeline one event at a time
 	eachTweet(x) {
 		return (
+			
+			// <TouchableOpacity 
+			// 		  style={{margin: 5, backgroundColor: 'rgb(47,44,60)'}}
+			// 		  onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
+			// 	>
+			// 		<RkCard rkType='story' style={{borderRadius:10, borderWidth: 1,  backgroundColor: '#E0E0E0'}}>		
+			// 			<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+			// 				<View>
+			// 					<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25, textDecorationLine: 'underline'}}>
+			// 						{x.Title}
+			// 					</RkText>
+			// 				</View>
+							
+			// 				<Image rkCardImg source={{uri: x.ProfilePicture}}  resizeMode="cover"/>
+			// 				<View style={{}}>
+			// 					<View style={{ flex: 4, flexDirection: 'column', marginLeft: 15, marginTop: 5}}>
+									
+			// 						<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 15 }}>
+			// 							{"Created: " + x.time}
+			// 						</RkText>
+			// 						<RkText style={{ textAlign: 'left' }}>
+			// 							{x.AboutUs == null || x.AboutUs == "" ? "" : "About us: " + x.AboutUs}
+			// 						</RkText>
+			// 					</View>
+			// 				</View>
+			// 			</View>
+			// 		</RkCard>
+			// 	</TouchableOpacity>
+			
 			<TouchableOpacity
 				style={{ width: width, height: 90, borderBottomWidth: 1, borderColor: '#e3e3e3' }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
@@ -314,60 +343,7 @@ export default class searchCommunity extends Component {
 									{this.state.aboutUs}
 								</Text>
 							</View>
-
-							<View style={{ flex: 1, marginTop: 30 }}>
-								<Text style={{ flex: 1, fontSize: 15, color: 'rgba(216, 121, 112, 1)', fontFamily: 'regular', marginLeft: 40 }}>
-									FOLLOWERS
-							</Text>
-								<View style={{ flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 30 }}>
-									<View style={{ flex: 1, flexDirection: 'row' }}>
-										<View style={{}}>
-											<Text style={styles.infoTypeLabel}>Threads</Text>
-											<Text style={styles.infoTypeLabel}>Posts</Text>
-											<Text style={styles.infoTypeLabel}>Members</Text>
-
-										</View>
-										<View style={{ marginLeft: 10 }}>
-											<Text style={styles.infoAnswerLabel}>{this.state.numOfThreads}</Text>
-											<Text style={styles.infoAnswerLabel}>{this.state.numOfPosts}</Text>
-											<Text style={styles.infoAnswerLabel}>{this.state.numOfMembers}</Text>
-
-										</View>
-									</View>
-								</View>
-							</View>
-
-							<Button
-								containerStyle={{ marginVertical: 20 }}
-								style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-								buttonStyle={{ height: 55, width: SCREEN_WIDTH - 40, borderRadius: 30, justifyContent: 'center', alignItems: 'center' }}
-								// linearGradientProps = {{
-								//   colors: ['rgba(214,116,112,1)', 'rgba(233,174,87,1)'],
-								//   start: [1, 0],
-								//   end: [0.2, 0]
-								// }}
-								title="Expand Timeline"
-								titleStyle={{ fontFamily: 'regular', fontSize: 20, color: 'white', textAlign: 'center' }}
-								onPress={() => this.setState({ timelineToggle: this.state.timelineToggle ? (false) : (true) })}
-								activeOpacity={0.5}
-							/>
-							{this.state.timelineToggle
-								? (
-									<View style={styles.container}>
-										<ListView
-											enableEmptySections={true}
-											//initialListSize={6}
-											onEndReached={() => this.onEndReached()}
-											//renderFooter={() => this.renderFooter()}
-											dataSource={this.state.dataSource}
-											renderRow={(rowData) => this.eachTweet(rowData)}
-										/>
-									</View>
-								) :
-								(
-									null
-								)
-							}
+							
 						</ScrollView>
 					</View> :
 					<Text>Loading...</Text>

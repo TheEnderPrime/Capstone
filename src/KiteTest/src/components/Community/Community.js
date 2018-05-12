@@ -255,27 +255,6 @@ export default class Community extends Component {
 
 	eachTweet(x){
 		return(
-			// <TouchableOpacity 
-			//   	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-			// 	onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
-			// >
-		  	// 	<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-			// 		<Image 
-			// 			source={{ uri: this.state.ProfilePicture }} 
-			// 			resizeMode="contain" 
-			// 			style ={{height:54, width:54, borderRadius:27, margin:10}} 
-			// 			/>
-			// 		<View style={{flex:1}}>
-			// 			<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-			// 				<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-			// 				<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
-			// 			</View>
-			// 			<View style={{ margin:5, marginRight:10,}}>
-			// 				<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
-			// 			</View>
-			// 		</View>
-			// 	</View>
-			// </TouchableOpacity>
 			<TouchableOpacity
 				style={{ paddingLeft: 5, paddingRight: 5 }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
@@ -342,28 +321,6 @@ export default class Community extends Component {
 							<Text style={{flex: 1, fontSize: 15, color: 'white', fontFamily: 'regular'}}>
 							{this.state.aboutUs}
 							</Text>
-						</View>
-
-						<View style={{flex: 1, marginTop: 30}}>
-							<Text style={{flex: 1, fontSize: 15, color: 'rgba(216, 121, 112, 1)', fontFamily: 'regular', marginLeft: 40}}>
-							FOLLOWERS
-							</Text>
-							<View style={{flex: 1, flexDirection: 'row', marginTop: 20, marginHorizontal: 30}}>
-								<View style={{flex: 1, flexDirection: 'row'}}>
-									<View style={{}}>
-									<Text style={styles.infoTypeLabel}>Threads</Text>
-									<Text style={styles.infoTypeLabel}>Posts</Text>
-									<Text style={styles.infoTypeLabel}>Members</Text>
-									
-									</View>
-									<View style={{marginLeft: 10}}>
-									<Text style={styles.infoAnswerLabel}>{this.state.numOfThreads}</Text>
-									<Text style={styles.infoAnswerLabel}>{this.state.numOfPosts}</Text>
-									<Text style={styles.infoAnswerLabel}>{this.state.numOfMembers}</Text>
-									
-									</View>
-								</View>
-							</View>
 						</View>
 	
 						<Button
