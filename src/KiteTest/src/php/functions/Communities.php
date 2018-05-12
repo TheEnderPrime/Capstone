@@ -85,6 +85,13 @@ function createCommunity(){
                 if(isset($CommunityId)){
                     $returned->isValid = 'valid';
                     $returned->CommunityID = $CommunityId;
+
+                    $sql3 = 'INSERT INTO CommunityUsers (UsersId, CommunityId) VALUES (?,?)';
+                    $stmt5 = $conn->prepare($sql3);
+                    $stmt5->bind_param('ii', $adminId, $CommunityId);
+                    $stmt5->execute();
+                    $temp = 'added to community';
+                    $stmt5->close();
                 }
                 else{
                     $returned->error = 'was unable to get id';
