@@ -56,8 +56,13 @@ function getCommunityTimeLine(){
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
 
+    $UserID = $obj['UserID'];
+
     $returned->isValid = 'valid';
-    $result = mysqli_query($conn, "SELECT * FROM Communities");
+    $result = mysqli_query($conn, "SELECT * 
+                                    FROM Communities 
+                                    INNER JOIN CommunityUsers ON CommunityUsers.CommunityId = Communities.CommunityId
+                                    WHERE CommunityUsers.UsersId = '$UserID'");
     $returned->timeline = array();
     
     if(!$result){
