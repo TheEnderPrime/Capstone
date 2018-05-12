@@ -27,6 +27,11 @@ module.exports = styles = StyleSheet.create({
 	postText:{
 		color: '#fff',
 		padding: 20,
-		
 	},
+	postView: {
+		borderBottomColor: '#E0E0E0',
+		borderBottomWidth: 1,
+		borderTopColor: '#E0E0E0',
+		borderTopWidth: 1,
+	}
 });
