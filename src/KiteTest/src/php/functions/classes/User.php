@@ -378,29 +378,29 @@ class User{
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $this->usersID);
         $stmt->execute();
-        $stmt->bind_param($count);
+        $stmt->bind_result($count);
         $stmt->fetch();
         $stmt->close();
         return $count;
     }
     public function getNumFollower(){
         global $conn;
-        $sql = "SELECT Count(distinct UserFollowingId ) From UserRelationships Where UserFollowingId = ?";
+        $sql = "SELECT Count(DISTINCT UserFollowingId ) FROM UserRelationships WHERE UserFollowingId = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $this->usersID);
         $stmt->execute();
-        $stmt->bind_param($count);
+        $stmt->bind_result($count);
         $stmt->fetch();
         $stmt->close();
         return $count;
     }
     public function getNumCommunities(){
         global $conn;
-        $sql = "SELECT COUNT(Distinct communityId) FROM `CommunityUsers` WHERE `UsersId` = ?";
+        $sql = "SELECT COUNT(DISTINCT communityId) FROM CommunityUsers WHERE UsersId = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $this->usersID);
         $stmt->execute();
-        $stmt->bind_param($count);
+        $stmt->bind_result($count);
         $stmt->fetch();
         $stmt->close();
         return $count;
