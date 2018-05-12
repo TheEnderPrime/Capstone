@@ -17,8 +17,11 @@ import {
 } from 'react-native';
 
 import styles from './styles';
-
-import {RkButton} from 'react-native-ui-kitten';
+import Colors from '../../Colors/Colors'
+import { RkButton } from 'react-native-ui-kitten';
+import { RkTheme } from 'react-native-ui-kitten';
+import { RkCard } from 'react-native-ui-kitten';
+import { RkText } from 'react-native-ui-kitten';
 
 var {height, width} = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -59,73 +62,145 @@ export default class searchResult extends Component {
 		if(this.state.searchType == "user") {
 			return(
 				<TouchableOpacity 
-					style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-					onPress={() => this.props.navigation.navigate("SearchProfile", {"userID": x.UsersId})}
-				>
-					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-						<Image
-							source={{ uri: x.ProfilePicture }}
-							resizeMode="contain"
-							style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
-						/>
-						<View style={{flex:1}}>
-							<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-								<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-							</View>
-							<View style={{ margin:5, marginRight:10,}}>
-								<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.aboutMe}</Text>
+				onPress={() => this.props.navigation.navigate("SearchProfile", {"userID": x.UsersId})}>
+					<RkCard rkType='story' style={{ marginTop:10, paddingTop: 8, paddingBottom:8, backgroundColor: '#E0E0E0',
+						 borderRadius:10, borderWidth: 1 }}>		
+
+						<View style={{ flex: 1, flexDirection: 'row'}}>
+							
+							<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
+								style={{ height: 80, width: 100, flex: 1, justifyContent: 'flex-start'}}/>
+							
+							<View style={{ flex: 4, flexDirection: 'column', marginLeft: 15, marginTop: 5}}>
+								<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 3, fontWeight: 'bold', fontSize: 25, textDecorationLine: 'underline' }}>{x.FirstName} {x.LastName}</RkText>
+								<RkText rkType='header' style={{ flex: 2, textAlign: 'left', marginTop: 5, marginRight: 5,  fontWeight: 'bold', fontSize: 15 }}>{"Joined: " + x.time}</RkText>
+								<RkText rkType='header' style={{ flex: 1, textAlign: 'left', marginTop: 5, marginRight: 5, fontSize: 12 }}> {x.AboutMe == null || x.AboutMe == "" ? "..." : "About Me: " + x.AboutMe}</RkText>
 							</View>
 						</View>
-					</View>
-				</TouchableOpacity>
+					</RkCard>
+				</TouchableOpacity> 
+				// 	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+				// 	onPress={() => this.props.navigation.navigate("SearchProfile", {"userID": x.UsersId})}
+				// >
+				// 	  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+				// 		<Image
+				// 			source={{ uri: x.ProfilePicture }}
+				// 			resizeMode="contain"
+				// 			style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
+				// 		/>
+				// 		<View style={{flex:1}}>
+				// 			<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
+				// 				<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
+				// 			</View>
+				// 			<View style={{ margin:5, marginRight:10,}}>
+				// 				<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.aboutMe}</Text>
+				// 			</View>
+				// 		</View>
+				// 	</View>
+				// </TouchableOpacity>
 			)
 		} else if(this.state.searchType == "event") {
 			return(
-				<TouchableOpacity 
-					  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-					onPress={() => this.props.navigation.navigate("SearchEvent", {userID: x.UsersId, eventID: x.id})}
-				>
-					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-						<Image
-							source={{ uri: x.ProfilePicture }}
-							resizeMode="contain"
-							style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
-						/>
-						<View style={{flex:1}}>
-							<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-								<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-								<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
-							</View>
-							<View style={{ margin:5, marginRight:10,}}>
-								<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
+				<TouchableOpacity onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}>
+					<RkCard rkType='story' style={{ marginTop:10, paddingTop:0, paddingBottom:8,
+										backgroundColor: '#E0E0E0', borderRadius:10, borderWidth: 1 }}>		
+
+						<View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#E0E0E0', borderRadius:10, 
+									paddingTop:7, borderTopWidth: 1, backgroundColor: Colors.kite_greenMediumDark}}>
+							<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
+								style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
+							<View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
+								<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
+								<RkText rkType='header' style={{ textAlign: 'left', marginTop: 5, marginRight: 5,  fontWeight: 'bold', fontSize: 12 }}>{x.time}</RkText>
 							</View>
 						</View>
-					</View>
-				</TouchableOpacity>
+						<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+							<Image rkCardImg source={{uri: x.PostImage == "-" ? null : x.PostImage}} resizeMode="cover"/>
+							<View style={{backgroundColor: '#E0E0E0'}}>
+								<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
+										{x.title}
+								</RkText>
+								<RkText style={{ marginTop: 10, marginLeft: 10, marginRight: 10, marginBottom: 0, alignSelf: 'flex-start' }}>
+											Description: {x.description}
+								</RkText>
+							</View>
+						</View>
+					</RkCard>
+			</TouchableOpacity>
+				// <TouchableOpacity 
+				// 	  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+				// 	onPress={() => this.props.navigation.navigate("SearchEvent", {userID: x.UsersId, eventID: x.id})}
+				// >
+				// 	  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+				// 		<Image
+				// 			source={{ uri: x.ProfilePicture }}
+				// 			resizeMode="contain"
+				// 			style={{ width: 54, height: 54, borderRadius: 27, margin: 10}}
+				// 		/>
+				// 		<View style={{flex:1}}>
+				// 			<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
+				// 				<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
+				// 				<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
+				// 			</View>
+				// 			<View style={{ margin:5, marginRight:10,}}>
+				// 				<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
+				// 			</View>
+				// 		</View>
+				// 	</View>
+				// </TouchableOpacity>
 			)
 		} else {
 			return(
+
 				<TouchableOpacity 
-					  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-					onPress={() => this.props.navigation.navigate("SearchCommunity", {communityID: x.CommunityId})}
+					  style={{margin: 5, backgroundColor: 'rgb(47,44,60)'}}
+					onPress={() => this.props.navigation.navigate("Posts", {postID: x.id})}
 				>
-					  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-						<Image 
-							source={{ uri: x.ProfilePicture }}
-							resizeMode="contain" 
-							style ={{height:54, width:54, borderRadius:27, margin:10}} 
-							/>
-						<View style={{flex:1}}>
-							<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-								<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.Title}</Text>
-								{/* <Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text> */}
+					<RkCard rkType='story' style={{borderRadius:10, borderWidth: 1,  backgroundColor: '#E0E0E0'}}>		
+						<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
+							<View>
+								<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25, textDecorationLine: 'underline'}}>
+									{x.Title}
+								</RkText>
 							</View>
-							<View style={{ margin:5, marginRight:10,}}>
-								<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.AboutUs}</Text>
+							
+							<Image rkCardImg source={{uri: x.ProfilePicture}}  resizeMode="cover"/>
+							<View style={{}}>
+								<View style={{ flex: 4, flexDirection: 'column', marginLeft: 15, marginTop: 5}}>
+									
+									<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 15 }}>
+										{"Created: " + x.time}
+									</RkText>
+									<RkText style={{ textAlign: 'left' }}>
+										{x.AboutUs == null || x.AboutUs == "" ? "" : "About us: " + x.AboutUs}
+									</RkText>
+								</View>
 							</View>
 						</View>
-					</View>
+					</RkCard>
 				</TouchableOpacity>
+
+				// <TouchableOpacity 
+				// 	  style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
+				// 	onPress={() => this.props.navigation.navigate("SearchCommunity", {communityID: x.CommunityId})}
+				// >
+				// 	  <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+				// 		<Image 
+				// 			source={{ uri: x.ProfilePicture }}
+				// 			resizeMode="contain" 
+				// 			style ={{height:54, width:54, borderRadius:27, margin:10}} 
+				// 			/>
+				// 		<View style={{flex:1}}>
+				// 			<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
+				// 				<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.Title}</Text>
+				// 				{/* <Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text> */}
+				// 			</View>
+				// 			<View style={{ margin:5, marginRight:10,}}>
+				// 				<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.AboutUs}</Text>
+				// 			</View>
+				// 		</View>
+				// 	</View>
+				// </TouchableOpacity>
 			)
 		}
 	}

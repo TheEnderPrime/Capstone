@@ -38,7 +38,7 @@ module.exports = styles = StyleSheet.create({
 		borderRadius: 10,
 		height: 50,
 		width: 200,
-		margin: 10
+		margin: 10	
 	},
 	titleText: {
 		marginLeft: 5,

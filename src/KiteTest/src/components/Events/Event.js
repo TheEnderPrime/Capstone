@@ -133,8 +133,18 @@ class CustomButton extends Component {
 			<Button
 				title={title}
 				titleStyle={{ fontSize: 15, color: 'white', fontFamily: 'regular' }}
-				buttonStyle={selected ? { backgroundColor: 'rgba(213, 100, 140, 1)', borderRadius: 100, width: 127 } : { borderWidth: 1, borderColor: 'white', borderRadius: 30, width: 127, backgroundColor: 'transparent' }}
-				containerStyle={{ marginRight: 10 }}
+				buttonStyle={selected ? { backgroundColor: "#dc5c56",
+				alignSelf: 'center',
+				borderRadius: 10,
+				height: 50,
+				width: 200,
+				margin: 10 } : { backgroundColor: "#e8938e",
+				alignSelf: 'center',
+				borderRadius: 10,
+				height: 50,
+				width: 200,
+				margin: 10}}
+				containerStyle={{ }}
 				onPress={() => { this.sendLike(this.state.selected) }}
 			/>
 		);
@@ -247,17 +257,9 @@ export default class Event extends React.Component {
 								<RkText style={{ marginLeft: 10, textAlign: 'left' }}>
 									Description: {x.description}
 								</RkText>
-								<CustomButton title={"Like"} selected={false} postID={x.id}/>
-								{/* <TouchableOpacity>
-									<Button buttonStyle={this.getDoesLike(this.state.userID, x.id) == "true" ? styles.buttonColor2 : styles.buttonColor1} 
-											containerStyle={{ marginBottom: 5, flex: 0 }} activeOpacity={0.8} title={ "Like" } 
-											onPress={ () => {
-												this.LikePost(x.id) 
-												this.getDoesLike(this.state.userID, x.id) 
-												this.setState(dummy = 0)}}
-											titleStyle={styles.likeTextButton}
-									/>
-								</TouchableOpacity> */}
+								 
+								<CustomButton 
+								 title={"Like"} selected={false} postID={x.id}/>
 							</View>
 						</View>
 					</RkCard>

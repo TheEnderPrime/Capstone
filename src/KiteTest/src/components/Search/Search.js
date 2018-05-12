@@ -32,6 +32,7 @@ export default class Search extends React.Component {
 			searchString: "",
 			userID: 0,
 			searchType: "user",
+			dummy: 0,
 		};
 	}
 
@@ -165,17 +166,18 @@ export default class Search extends React.Component {
 						<Text style={styles.text}>
 							What is it that you would like to find?
 						</Text>
-						<Picker
-							style={{ height: 50, width: 150, color: '#fff'}}
-							selectedValue={this.state.searchType}
-							borderRadius={20} 
-							borderColor= {"#fff"}
-							onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
-							<Picker.Item label="User" value="user" />
-							<Picker.Item label="Event" value="event" />
-							<Picker.Item label="Community" value="community" />
-						</Picker>
-
+						<View style={{ borderColor: '#fff', borderRadius:10, borderWidth: 1}}> 
+							<Picker
+								style={{ height: 50, color: '#fff'}}
+								selectedValue={this.state.searchType}
+								borderRadius={20} 
+								borderColor= {"#fff"}
+								onValueChange={(itemValue, itemIndex) => this.setState({searchType: itemValue})}>
+								<Picker.Item label="User" value="user" />
+								<Picker.Item label="Event" value="event" />
+								<Picker.Item label="Community" value="community" />
+							</Picker>
+						</View>
 						<Input inputContainerStyle={{ 
 							borderRadius: 40, 
 							borderWidth: 1, 
@@ -202,7 +204,7 @@ export default class Search extends React.Component {
 				</View>
 				
 				<View style={styles.button}>
-				<Button 
+				<Button
 					style={buttonColor = '#78B494'} 
 					title="Search Kite"
 					onPress = {() => this.doSearch()}
