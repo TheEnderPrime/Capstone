@@ -115,19 +115,24 @@ export default class Posts extends React.Component {
 				return tmp_array.map(function (news, i) {
 					return (
 						<View key={i}>
-							<Text style={styles.postText}>{news.text}</Text>
-							<View>
-								<Image style=
-									{{
-										flex: 1,
-										justifyContent: 'center',
-										width: IMAGE_SIZE,
-										height: IMAGE_SIZE,
-										borderRadius: 10,
-										padding: 15
-									}}
-									source={{uri: news.img}}
-								/>
+							<View style={{flex:1, flexDirection: "column", }}>
+								<View>
+									<Text style={styles.postText}>{news.text}</Text>
+								</View>
+								<View style={{position: 'relative'}}>
+									<Image style=
+										{{
+											flex: 1,
+											justifyContent: 'center',
+											width: IMAGE_SIZE,
+											height: IMAGE_SIZE,
+											borderRadius: 10,
+											padding: 15,
+											resizeMode: 'contain'
+										}}
+										source={{uri: news.img == null ? null : news.img}}
+									/>
+								</View>
 							</View>
 						</View>
 					);

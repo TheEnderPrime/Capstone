@@ -27,5 +27,6 @@ module.exports = styles = StyleSheet.create({
 	postText:{
 		color: '#fff',
 		padding: 20,
+		
 	},
 });
