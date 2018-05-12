@@ -32,9 +32,5 @@ module.exports = styles = StyleSheet.create({
 	},
 	comment: {
 		flex: 1,
-	},
-	postView: {
-		flex: 5,
-		borderBottomColor: '#E0E0E0',
 	}
 });

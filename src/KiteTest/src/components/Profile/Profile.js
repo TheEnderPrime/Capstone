@@ -97,7 +97,7 @@ export default class Profile extends Component {
 	}
 	  
 	// pulls user events for timeline from database
-	loadTimeline = () => {
+	getUserTimeline = () => {
 
 		fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/TimeLine.php?f=getUserTimeLine', {
             method: 'POST',
@@ -188,33 +188,12 @@ export default class Profile extends Component {
 		if(this.state.userID != null){
 			this.GatherUserInformation(this.state.userID);
 		}
-		this.loadTimeline();
+		this.getUserTimeline();
 	}
 
 	// creates each event one at a time then gets mapped in render
 	eachTweet(x){
 		return(
-			// <TouchableOpacity 
-			//   	style={{width:width, height:90, borderBottomWidth:1, borderColor:'#e3e3e3'}}
-			// 	onPress={() => this.props.navigation.navigate("Event", {eventID: x.id})}
-			// >
-		  	// 	<View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-			// 		<Image 
-			// 			source={{ uri:  this.state.ProfilePicture }} 
-			// 			resizeMode="contain" 
-			// 			style ={{height:54, width:54, borderRadius:27, margin:10}} 
-			// 			/>
-			// 		<View style={{flex:1}}>
-			// 			<View style={{ flexDirection:'row', marginLeft:5, marginTop:5, alignItems:'center'}}>
-			// 				<Text style={{color:'#fff', fontWeight:'600', fontSize:12}}>{x.FirstName} {x.LastName}</Text>
-			// 				<Text style={{color:'#fff', fontWeight:'500', fontSize:12}}> | @ {x.title}</Text>
-			// 			</View>
-			// 			<View style={{ margin:5, marginRight:10,}}>
-			// 				<Text style={{fontSize:13, color:'#fff', fontWeight:'400'}}>{x.description}</Text>
-			// 			</View>
-			// 		</View>
-			// 	</View>
-			// </TouchableOpacity>
 			<TouchableOpacity
 				style={{ paddingLeft: 5, paddingRight: 5 }}
 				onPress={() => this.props.navigation.navigate("Event", { eventID: x.id })}
@@ -231,13 +210,13 @@ export default class Profile extends Component {
 						</View>
 					</View>
 					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
-						<Image rkCardImg source={{uri: x.PostImage == "-" ? null : x.PostImage}} resizeMode="cover"/>
+						<Image rkCardImg source={{uri: x.postPicture == null ? null : x.postPicture}} resizeMode="cover"/>
 						<View style={{backgroundColor: '#E0E0E0'}}>
 							<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
 									{x.title}
 							</RkText>
 							<RkText style={{ marginTop: 10, marginLeft: 10, marginRight: 10, marginBottom: 0, alignSelf: 'flex-start' }}>
-										Description: {x.description}
+								{x.description}
 							</RkText>
 						</View>
 					</View>

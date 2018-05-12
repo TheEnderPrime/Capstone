@@ -53,7 +53,7 @@ class CustomButton extends Component {
 	getIsPartOfCommunity = () => {
 		for (i = 0; i < 10000; i++) {
 			if (this.state.userID != 0) {
-				Alert.alert("number one: " + this.props.communityID + " also " + this.state.userID);
+				//Alert.alert("number one: " + this.props.communityID + " also " + this.state.userID);
 				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Communities.php?f=getIsPartOfCommunity', {
 					method: 'POST',
 					headers: {
@@ -71,7 +71,7 @@ class CustomButton extends Component {
 					.then((responseJson) => {
 						// If server response message same as Data Matched
 						if (responseJson.isValid === 'valid') {
-							Alert.alert("responseJson.isPart: " + responseJson.isPart)
+							//Alert.alert("responseJson.isPart: " + responseJson.isPart)
 							if (responseJson.isPart === 'true') {
 								this.setState({ selected: true });
 							} else {
@@ -292,7 +292,7 @@ export default class Community extends Component {
 						</View>
 					</View>
 					<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
-						<Image rkCardImg source={{uri: x.PostImage == "-" ? null : x.PostImage}} resizeMode="cover"/>
+						<Image rkCardImg source={{uri: x.postPicture == null ? null : x.postPicture}} resizeMode="cover"/>
 						<View style={{backgroundColor: '#E0E0E0'}}>
 							<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
 									{x.title}

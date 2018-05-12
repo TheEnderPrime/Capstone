@@ -64,7 +64,7 @@ const uploadImage = (uri, mime = 'image/jpeg') => {
 	})
 }
 
-export default class PostImageCreator extends React.Component {
+export default class PostImageEdit extends Component {
 	constructor(props) {
 		super(props);
 
@@ -80,16 +80,13 @@ export default class PostImageCreator extends React.Component {
 	}
 
 	// send post info and photo uris to database
-	sendData() {
-		//Alert.alert("sendData")
+	updatePost() {
 		if (this.state.hasUploaded == true
 			&& this.state.imgURL1.substring(0, 7) != "content"
 			&& this.state.imgURL2.substring(0, 7) != "content"
 			&& this.state.imgURL3.substring(0, 7) != "content") {
-				//Alert.alert(this.state.imgURL1);
-					//Alert.alert("within SendData");
-				//var temp = this.state.imgURL1.toString();
-				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=createPost', {
+				Alert.alert("updatePost: " + " : " + this.state.PhotoOne + " :" + this.state.PhotoTwo + " :" + this.state.PhotoThree)
+				fetch('http://web.engr.oregonstate.edu/~kokeshs/KITE/functions/Post.php?f=updatePost', {
 					method: 'POST',
 					headers: {
 						Accept: 'application/json',
@@ -98,9 +95,10 @@ export default class PostImageCreator extends React.Component {
 					body: JSON.stringify({
 						UserID: this.state.userID,
 						EventID: this.state.eventID,
-						Title: this.state.title,
-						Desc: this.state.story.substring(0, 30) + "...",
-						Story: this.state.story,
+						PostID: this.state.postID,
+						title: this.state.title,
+						description: this.state.story.substring(0, 30) + "...",
+						PostText: this.state.story,
 						PhotoOne: this.state.imgURL1.toString(),
 						PhotoTwo: this.state.imgURL2.toString(),
 						PhotoThree: this.state.imgURL3.toString()
@@ -188,12 +186,16 @@ export default class PostImageCreator extends React.Component {
 		await this.setUserIdAsync({userID: user});
 
 		const { params } = this.props.navigation.state;
-        const EventID = params.eventID ? params.eventID : 0;
-		const Title = params.title ? params.title : "null";
-		const Story = params.story ? params.story : "null";
-		this.setState({"eventID": EventID});
-		this.setState({"title": Title});
-		this.setState({"story": Story});
+		const EVENTID = params.eventID ? params.eventID : 0;
+		const USERID = params.userID ? params.userID : 0;
+		const STORY = params.story ? params.story : 0;
+		const TITLE = params.title ? params.title : 0;
+		const POSTID = params.postID ? params.postID : 0;
+		this.setState({eventID: EVENTID});
+		this.setState({userID: USERID});
+		this.setState({story: STORY});
+		this.setState({title: TITLE});
+		this.setState({postID: POSTID});
 	}
 
 	//##############################################################
@@ -273,7 +275,7 @@ export default class PostImageCreator extends React.Component {
 							</Text>
 						</TouchableOpacity>
 					</View>
-					<TouchableOpacity onPress={() => this.sendData()}>
+					<TouchableOpacity onPress={() => this.updatePost()}>
 						<Text style={styles.upload}>
 							Post
 			  			</Text>

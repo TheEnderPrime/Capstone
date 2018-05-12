@@ -148,16 +148,18 @@ export default class Login extends Component {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					firstName: "None",
-					lastName: "None",
+					firstName: "Go to Settings",
+					lastName: "to Change your User Information and Add your Name",
 					email: email,
 					password: password,
 					date: "10",
 				})
 			}).then((response) => response.json())
 			.then((responseJson) => {
+		
 				// Showing response message coming from server after inserting records.
-				Alert.alert(responseJson);
+				Alert.alert("Welcome to Kite! Go to Profile Settings to Add your User Information");
+				this.login();
 			}).catch((error) => {
 				console.error(error);
 			});
