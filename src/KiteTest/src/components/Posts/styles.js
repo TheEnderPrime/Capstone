@@ -36,5 +36,8 @@ module.exports = styles = StyleSheet.create({
 	postView: {
 		flex: 5,
 		borderBottomColor: '#E0E0E0',
+		borderBottomWidth: 1,
+		borderTopColor: '#E0E0E0',
+		borderTopWidth: 1,
 	}
 });

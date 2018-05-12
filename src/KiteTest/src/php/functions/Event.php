@@ -95,7 +95,7 @@ function getEvent(){
     $returned->eventData = $New_Event;
 
     $returned->isValid = 'valid';
-    $result = mysqli_query($conn, "SELECT Id, UsersId, DateAdded, EventId, CommunityId, PostTitle, Description, PictureOne, PictureTwo, PictureThree FROM UserPost WHERE EventId = '$EventId'");
+    $result = mysqli_query($conn, "SELECT Id, UsersId, DateAdded, EventId, CommunityId, PostTitle, Description, PictureOne, PictureTwo, PictureThree FROM UserPost WHERE EventId = '$EventId' AND isComment = 0");
     $returned->eventArray = array();
     if(!$result){
         $results->isvalid = "notValid";
@@ -104,9 +104,11 @@ function getEvent(){
     }
     while ($row = mysqli_fetch_row($result)){
         $tempPost = new SimplePost($row[0]);
+        $dt = new DateTime($DateAdded);
+        $tempDate = $dt->format('l F jS Y');
         $tempPost->SetDefultSimplePost( $row[0],
                                         $row[1],
-                                        "2018-03-11",
+                                        $tempDate,
                                         $row[3],
                                         $row[4],
                                         $row[5],
@@ -125,38 +127,62 @@ function getEvent(){
  * in and updates those feilds according
  */
 function updateEvent(){
+    global $conn;
+
     $json = file_get_contents('php://input');
     $obj = json_decode($json,true);
-
+    
     $EventID = $obj['EventID'];
     $UsersID = $obj['UserID'];
     $time = $obj['Time'];
     $title = $obj['Title'];
     $description = $obj['Description'];
 
-    $Current_Event = new Event($EvetID);
-    $Current_Event->gatherEventInfo();
-    $numberOfUpdates = 0;
     $returned->isValid = 'valid';
-    if(isset($UserID)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Event->updateUserID($UserID);
-        $returned->UserID = $retunred;
+    if(!isset($EventID)){
+        $returned->isValid = 'notValid';
+        $returned->errorMessage = 'sorry you did send a event id';
     }
-    if(isset($time)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $retunred = $Current_Event->updateTime($time);
-        $returned->Time = $retunred;
-    }
-    if(isset($title)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $returned = $Current_Event->updateTitle($Title);
-        $returned->Title = $retunred;
-    }
-    if(isset($description)){
-        $numberOfUpdates = $numberOfUpdates + 1;
-        $returned = $Current_Event->updateDescription($description);
-        $returned->Description = $returned;
+    else{
+        $sql = "SELECT UsersId FROM PostEvent WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $EventID);
+        $stmt->execute();
+        $stmt->bind_result($return);
+        $stmt->fetch();
+        $stmt->close();
+        if(isset($return)){
+            if($return != $UsersID){
+                $returned->isValid = 'notValid';
+                $returned->errorMessage = 'you are not the owner of this event';
+            }
+            else{
+                $Current_Event = new Event($EventID);
+                $Current_Event->gatherEventsInfo();
+                $numberOfUpdates = 0;
+                $returned->isValid = 'valid';
+                if(isset($UsersID)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Event->updateUserID($UsersID);
+                    $returned->UserID = $retunred;
+                }
+                if(isset($time)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Event->updateTime($time);
+                    $returned->Time = $retunred;
+                }
+                if(isset($title)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Event->updateTitle($title);
+                    $returned->Title = $retunred;
+                }
+                if(isset($description)){
+                    $numberOfUpdates = $numberOfUpdates + 1;
+                    $retunred = $Current_Event->updateDescription($description);
+                    $returned->Description = $retunred;
+                }
+            }
+        }
     }
     echo json_encode($returned);
 }

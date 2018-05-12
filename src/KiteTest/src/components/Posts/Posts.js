@@ -23,7 +23,7 @@ import { RkCard } from 'react-native-ui-kitten';
 import { RkText } from 'react-native-ui-kitten';
 import { Input, Button } from "react-native-elements";
 import Colors from '../../Colors/Colors';
-import Icon  from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -166,19 +166,25 @@ export default class Posts extends React.Component {
 				return tmp_array.map(function (news, i) {
 					return (
 						<View key={i}>
-							<Text style={styles.postText}>{news.text}</Text>
-							<View>
-								<Image style=
-									{{
-										flex: 1,
-										justifyContent: 'center',
-										width: IMAGE_SIZE,
-										height: IMAGE_SIZE,
-										borderRadius: 10,
-										padding: 15
-									}}
-									source={{ uri: news.img }}
-								/>
+							<View style={{ flex: 1, flexDirection: "column", }}>
+
+								<View>
+									<Text style={styles.postText}>{news.text}</Text>
+								</View>
+								<View style={{ position: 'relative' }}>
+									<Image style=
+										{{
+											flex: 1,
+											justifyContent: 'center',
+											width: IMAGE_SIZE,
+											height: IMAGE_SIZE,
+											borderRadius: 10,
+											padding: 15,
+											resizeMode: 'contain'
+										}}
+										source={{ uri: news.img == null ? null : news.img }}
+									/>
+								</View>
 							</View>
 						</View>
 					);
@@ -221,7 +227,7 @@ export default class Posts extends React.Component {
 		return (
 
 			<View style={styles.container}>
-				<View style={{flex: 1, flexDirection: 'row'}}>
+				<View style={{ flex: 1, flexDirection: 'row' }}>
 					<View style={styles.header}>
 						<Text style={styles.title}>
 							{this.state.title}
@@ -257,7 +263,7 @@ export default class Posts extends React.Component {
 					</TouchableOpacity>
 				</View>
 				<View style={styles.postView}>
-					<ScrollView style={{ flex: 5}}>
+					<ScrollView style={{ flex: 5 }}>
 						{this.printPost()}
 						<Button
 							containerStyle={{ marginVertical: 20 }}

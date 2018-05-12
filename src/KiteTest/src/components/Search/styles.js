@@ -5,6 +5,7 @@ module.exports = styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column',
+		alignItems: 'center',
 		padding: 20,
 		//justifyContent: 'space-around', //main axis (the flexDirection) =>center, space-around, space-between
     	//alignItems: 'center', // cross axis (opposite of the flexDirection) => 
@@ -13,9 +14,10 @@ module.exports = styles = StyleSheet.create({
 	titleText: {
 		flex: 1,
 		textAlign: 'center',
-		fontSize: 30,
+		fontSize: 40,
 		padding: 20,
 		color: '#fff',
+		fontWeight: 'bold',
 	},
 	textInput: { 
 		flex: 3,
@@ -25,7 +27,9 @@ module.exports = styles = StyleSheet.create({
 		// padding: 20,
 	},
 	text: {
-		fontSize: 15,
+		fontSize: 20,
+		textAlign: 'left',
+		marginBottom: 10,
 		color: '#fff',
 	},
   	textBox: { 
