@@ -25,14 +25,16 @@ function searchForUser(){
 
     $returned->isValid = 'valid';
 
-    $sql= "SELECT UsersId, FirstName, LastName, ProfilePicture FROM Users WHERE ((FirstName Like '%$searchString%') OR (LastName Like '%$searchString%')) AND ActiveFlag = 1";
+    $sql= "SELECT UsersId, FirstName, LastName, DateAdded, AboutMe, ProfilePicture FROM Users WHERE ((FirstName Like '%$searchString%') OR (LastName Like '%$searchString%')) AND ActiveFlag = 1";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
-    $stmt->bind_result($UsersId, $FirstName, $LastName, $ProfilePicture);
+    $stmt->bind_result($UsersId, $FirstName, $LastName, $DateAdded, $AboutMe, $ProfilePicture);
     $stmt->store_result();
     $returned->timeline = array();
     while($stmt->fetch()){
-        $temp = array('UsersId'=>$UsersId, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'ProfilePicture'=>$ProfilePicture);
+        $dt = new DateTime($DateAdded);
+        $tempDate = $dt->format('l F jS Y');
+        $temp = array('UsersId'=>$UsersId, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'time'=>$tempDate, 'AboutMe'=>$AboutMe, 'ProfilePicture'=>$ProfilePicture);
         array_push($returned->timeline, $temp);
     }
     $stmt->close();
@@ -53,14 +55,16 @@ function searchForCommunity(){
 
     $returned->isValid = 'valid';
 
-    $sql = "SELECT Title, CommunityId, ProfilePicture FROM Communities WHERE (Title Like '%$searchString%')";
+    $sql = "SELECT Title, CommunityId, ProfilePicture, DateAdded FROM Communities WHERE (Title Like '%$searchString%')";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
-    $stmt->bind_result($Title, $CommunityId, $ProfilePicture);
+    $stmt->bind_result($Title, $CommunityId, $ProfilePicture, $DateAdded);
     $stmt->store_result();
     $returned->timeline = array();
     while($stmt->fetch()){
-        $temp = array('Title'=>$Title, 'CommunityId'=>$CommunityId, 'ProfilePicture'=>$ProfilePicture);
+        $dt = new DateTime($DateAdded);
+        $tempDate = $dt->format('l F jS Y');
+        $temp = array('Title'=>$Title, 'CommunityId'=>$CommunityId, 'ProfilePicture'=>$ProfilePicture, 'time'=>$tempDate);
         array_push($returned->timeline, $temp);
     }
     $stmt->close();

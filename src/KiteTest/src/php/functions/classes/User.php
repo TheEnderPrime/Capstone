@@ -153,10 +153,19 @@ class User{
         $stmt->close();
         return $temp;
     }
-
+    // function used to delete a user from the app
     public function deleteUser(){
         global $conn;
-        
+        $newEmail = str_replace("@", "", $this->email);
+        $newEmail = str_replace(".", "", $newEmail);
+        $newEmail = $newEmail . (string)$this->usersID;
+        $sql = "UPDATE Users SET email = ? WHERE UsersId = '$this->usersID'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $newEmail);
+        $stmt->execute();
+        $temp = 'user has been deleted';
+        $stmt->close();
+        return $temp;
     }
 
     // helper function for updating the emplyer name
@@ -363,7 +372,39 @@ class User{
     public function getProfilePicture(){
         return $this->profilePicture;
     }
-
+    public function getNumFollowing(){
+        global $conn;
+        $sql = "SELECT COUNT( DISTINCT UserFollowedId ) FROM UserRelationships WHERE UserFollowingId = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $this->usersID);
+        $stmt->execute();
+        $stmt->bind_param($count);
+        $stmt->fetch();
+        $stmt->close();
+        return $count;
+    }
+    public function getNumFollower(){
+        global $conn;
+        $sql = "SELECT Count(distinct UserFollowingId ) From UserRelationships Where UserFollowingId = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $this->usersID);
+        $stmt->execute();
+        $stmt->bind_param($count);
+        $stmt->fetch();
+        $stmt->close();
+        return $count;
+    }
+    public function getNumCommunities(){
+        global $conn;
+        $sql = "SELECT COUNT(Distinct communityId) FROM `CommunityUsers` WHERE `UsersId` = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $this->usersID);
+        $stmt->execute();
+        $stmt->bind_param($count);
+        $stmt->fetch();
+        $stmt->close();
+        return $count;
+    }
     // public function sendFollowRequest($tryToFollow){
     //     global $conn;
     //     $sql = "INSERT INTO FollowRequest (UserRequestingId, UserRequestedId) VALUES (?, ?)";
@@ -401,7 +442,7 @@ class User{
      * and the user that is sent into this function
      */
     public function removeFollower($tryToRemoveFollow){
-        global $coon;
+        global $conn;
         $sql = "DELETE FROM UserRelationships WHERE UserFollowingId = ? AND UserFollowedId = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ii', $this->usersID, $tryToRemoveFollow);
