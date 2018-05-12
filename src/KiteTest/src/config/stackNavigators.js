@@ -24,9 +24,13 @@ import SearchCommunity        from '../components/Search_Community/searchCommuni
 
 import PostCreator            from '../components/PostCreator/PostCreator';
 import PostImageCreator       from '../components/PostCreator/PostImageCreator';
+import PostEdit               from '../components/Posts_Edit/PostEdit';
+import PostImageEdit          from '../components/Posts_Edit/PostImageEdit';
 import EventCreator           from '../components/EventCreator/EventCreator';
 import Events                 from '../components/Events/Event';
+import EventEdit              from '../components/Events_Edit/EventEdit';
 import Posts                  from '../components/Posts/Posts';
+import CommentCreator         from '../components/Comment_Creator/CommentCreator';
 
 import MainSettings           from '../components/Settings_Main/mainSettings';
 
@@ -154,7 +158,75 @@ export const TimelineStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
-    }
+    },
+    CommentCreator: {
+        screen: CommentCreator,
+        navigationOptions: {
+            title: 'Comment Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    EventEdit: {
+        screen: EventEdit,
+        navigationOptions: {
+            title: 'Edit Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostEdit: {
+        screen: PostEdit,
+        navigationOptions: {
+            title: 'Edit Post',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageEdit: {
+        screen: PostImageEdit,
+        navigationOptions: {
+            title: 'Edit Post Images',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
 });
 
 // --- Community Screens ---
@@ -406,7 +478,75 @@ export const CommunityStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
-    }
+    },
+    CommentCreator: {
+        screen: CommentCreator,
+        navigationOptions: {
+            title: 'Comment Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    EventEdit: {
+        screen: EventEdit,
+        navigationOptions: {
+            title: 'Edit Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostEdit: {
+        screen: PostEdit,
+        navigationOptions: {
+            title: 'Edit Post',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageEdit: {
+        screen: PostImageEdit,
+        navigationOptions: {
+            title: 'Edit Post Images',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
 });
 
 // --- Profile Screens ---
@@ -571,45 +711,6 @@ export const ProfileStack = StackNavigator({
             headerTintColor: Colors.kite_greenLight,
         },
     },
-    Event: {
-        screen: Events,
-        navigationOptions: {
-            title: 'Event',
-            headerStyle: {
-                backgroundColor: Colors.kite_greenMediumDark,
-            },
-            headerTitleStyle: {
-                //alignSelf: 'center',
-                color: Colors.kite_greenLight,
-            },
-            headerBackTitleStyle: {
-                color: Colors.kite_greenLight,
-            },
-            headerTintColor: Colors.kite_greenLight,
-            headerRight: (
-                <Button
-                title=''
-                icon={
-                    <Icon
-                    name='create'
-                    size={15}
-                    color='white'
-                    />
-                }
-                buttonStyle={{
-                    backgroundColor: "rgba(92, 99,216, 1)",
-                    width: 40,
-                    height: 40,
-                    borderColor: "transparent",
-                    borderWidth: 0,
-                    borderRadius: 5
-                }}
-                containerStyle={{ marginRight: 20 }}
-                onPress = {() => navigation.navigate("Settings")}
-                />
-            ),
-        },
-    },
     PostCreator: {
         screen: PostCreator,
         navigationOptions: {
@@ -643,7 +744,58 @@ export const ProfileStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
-    }
+    },
+    EventEdit: {
+        screen: EventEdit,
+        navigationOptions: {
+            title: 'Edit Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostEdit: {
+        screen: PostEdit,
+        navigationOptions: {
+            title: 'Edit Post',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageEdit: {
+        screen: PostImageEdit,
+        navigationOptions: {
+            title: 'Edit Post Images',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
 });
 
 // --- Post Screens including creation pages --- 
@@ -652,6 +804,57 @@ export const PostStack = StackNavigator({
         screen: Posts,
         navigationOptions: {
             title: 'Posts',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    CommentCreator: {
+        screen: CommentCreator,
+        navigationOptions: {
+            title: 'Comment Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostEdit: {
+        screen: PostEdit,
+        navigationOptions: {
+            title: 'Edit Post',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageEdit: {
+        screen: PostImageEdit,
+        navigationOptions: {
+            title: 'Edit Post Images',
             headerStyle: {
                 backgroundColor: Colors.kite_greenMediumDark,
             },
@@ -800,7 +1003,92 @@ export const EventsStack = StackNavigator({
             },
             headerTintColor: Colors.kite_greenLight,
         },
-    }
+    },
+    CommentCreator: {
+        screen: CommentCreator,
+        navigationOptions: {
+            title: 'Comment Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    CommentCreator: {
+        screen: CommentCreator,
+        navigationOptions: {
+            title: 'Comment Creator',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                //alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    EventEdit: {
+        screen: EventEdit,
+        navigationOptions: {
+            title: 'Edit Event',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostEdit: {
+        screen: PostEdit,
+        navigationOptions: {
+            title: 'Edit Post',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
+    PostImageEdit: {
+        screen: PostImageEdit,
+        navigationOptions: {
+            title: 'Edit Post Images',
+            headerStyle: {
+                backgroundColor: Colors.kite_greenMediumDark,
+            },
+            headerTitleStyle: {
+                alignSelf: 'center',
+                color: Colors.kite_greenLight,
+            },
+            headerBackTitleStyle: {
+                color: Colors.kite_greenLight,
+            },
+            headerTintColor: Colors.kite_greenLight,
+        },
+    },
 });
 
 // --- Discover Screen ---

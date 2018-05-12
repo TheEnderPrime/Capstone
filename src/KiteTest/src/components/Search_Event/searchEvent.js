@@ -171,7 +171,6 @@ export default class searchEvent extends React.Component {
 						/>
 					</View>
 				</View>
-				if()
 				<View style={styles.button}>
 					<Button 
 						style={buttonColor = '#78B494'} 

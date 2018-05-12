@@ -16,7 +16,6 @@ import {
 	Image,
 } from 'react-native';
 
-import Timeline from 'react-native-timeline-listview';
 import { RkButton } from 'react-native-ui-kitten';
 import { RkTheme } from 'react-native-ui-kitten';
 import { RkCard } from 'react-native-ui-kitten';
@@ -240,7 +239,7 @@ export default class Event extends React.Component {
 			return(
 				<TouchableOpacity 
 					  style={{paddingLeft: 15, paddingRight: 15, paddingBottom: 5, paddingTop: 5 }}
-					onPress={() => this.props.navigation.navigate("Posts", {postID: x.id})}
+					onPress={() => this.props.navigation.navigate("Posts", {postID: x.id, eventID: x.EventId})}
 				>
 					<RkCard rkType='story'>		
 						<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start'}}>
@@ -257,34 +256,14 @@ export default class Event extends React.Component {
 								<RkText style={{ marginLeft: 10, textAlign: 'left' }}>
 									{x.description}
 								</RkText>
-								 
-								<CustomButton 
-								 title={"Like"} selected={false} postID={x.id}/>
+
+								<CustomButton title={"Like"} selected={false} postID={x.id}/>
+
 							</View>
 						</View>
 					</RkCard>
 				</TouchableOpacity>
 			)
-		
-					{/* <View style={{ flex: 1, flexDirection: 'row', backgroundColor: Colors.kite_greenMediumDark}}>
-						<Image  source={{uri: x.ProfilePicture}} resizeMode="contain"
-							style={{ width:80, height: 70, alignSelf: 'flex-start'}}/>
-						<View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
-							<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 25 }}>{x.FirstName} {x.LastName}</RkText>
-							<RkText rkType='header' style={{ alignSelf: 'flex-start', flex: 1, marginLeft: 10, fontWeight: 'bold', fontSize: 10 }}>{x.time}</RkText>
-						</View>
-					</View> */}
-					{/* <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start', backgroundColor: '#E0E0E0'}}>
-						<Image rkCardImg source={{uri: x.PostImage}} style={{ flexGrow: 1 }} resizeMode="contain"/>
-						<View>
-						<RkText style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 25,  marginLeft: 10, textDecorationLine: 'underline'}}>
-								{x.title}
-						</RkText>
-						</View>
-						<RkText style={{ margin: 10, alignSelf: 'flex-start' }}>
-								Description: {x.description}
-						</RkText>
-					</View> */}
 	}
 
 	
@@ -319,7 +298,13 @@ export default class Event extends React.Component {
 							
 							}}
 							containerStyle={{ marginRight: 20 }}
-							onPress = {() => { alert("Navigate to edit") } }
+							onPress = {() =>  this.props.navigation.navigate('EventEdit', 
+								{ 
+									eventID: this.state.eventID, 
+									userID: this.state.userID, 
+									title: this.state.title, 
+									description: this.state.description,
+								} )}
 						/>
 						</TouchableOpacity>
 					</View>
