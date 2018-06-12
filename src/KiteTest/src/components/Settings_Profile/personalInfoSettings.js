@@ -198,7 +198,7 @@ export default class personalInfoSettings extends Component {
 					onTextChange={(text) => this.setState({ "homePhone": text })}
 				/>
             </SettingsList>
-			<Text>{this.state.aboutMe}</Text>
+
             <Button
 				title='Apply'
 				// icon={
